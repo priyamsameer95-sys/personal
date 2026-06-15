@@ -2,7 +2,6 @@ import React from 'react';
 import db from '@/lib/db';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import PrintButton from '@/components/PrintButton';
 
 interface ContentItem {
   id: string;
@@ -33,150 +32,96 @@ export default async function CvPage() {
       <div className="max-w-[56rem] mx-auto px-6 py-20 pb-24">
         <Header />
 
-        <main className="animate-[fadeInUp_0.4s_cubic-bezier(0.2,0,0,1)_both]">
-          <div className="flex justify-between items-end mb-12 border-b border-[#E5E5E5] pb-6 gap-5 flex-wrap">
+        <main className="animate-fade-in-up bg-white p-6 md:p-12 shadow-material-soft border border-system-outline rounded-xl">
+          <div className="flex justify-between items-end border-b-2 border-black pb-4 mb-8">
             <div>
-              <h2 className="text-3xl font-bold text-[#1A1A1A] m-0 mb-1 font-sans">
+              <h2 className="text-3xl md:text-4xl font-bold text-black mb-1 font-sans">
                 Priyam Sameer
               </h2>
-              <p className="text-sm font-mono text-[#8C8C8C] tracking-[0.03em] m-0">
+              <p className="font-mono text-xs md:text-sm tracking-widest uppercase text-gray-600 m-0">
                 Product Manager · Builder · Gurugram, India
               </p>
             </div>
-            <div className="no-print flex gap-3">
-              <PrintButton />
-              
-              {isDownloadable && (
-                <a
-                  href={`/api/download/${cvItem.id}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-white text-[#1A1A1A] hover:bg-[#F5F5F5] border border-[#CCCCCC] rounded-lg text-sm font-semibold cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.05)] transition duration-200 no-underline"
-                >
-                  <span className="material-symbols-rounded text-lg select-none font-bold">download</span> Download PDF
-                </a>
-              )}
+            <div className="text-right text-xs md:text-sm text-gray-600 space-y-1">
+              <p className="m-0">priyam.sameer.95@gmail.com</p>
+              <p className="m-0">linkedin.com/in/priyamsameer</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-12">
-            <div className="flex flex-col gap-10">
-              {/* Experience Section */}
-              <section>
-                <h3 className="font-mono text-[11px] font-bold tracking-[0.14em] uppercase text-[#8C8C8C] m-0 mb-4">
-                  Experience
-                </h3>
-                <div className="space-y-6">
-                  <div>
-                    <div className="flex justify-between items-baseline mb-1 gap-3 flex-wrap">
-                      <h4 className="font-bold text-[#1A1A1A] text-lg m-0 font-sans">
-                        CashKaro &amp; Antigravity
-                      </h4>
-                      <span className="text-sm font-mono text-[#8C8C8C] whitespace-nowrap">2024 - Present</span>
-                    </div>
-                    <p className="text-[#1A1A1A] font-medium text-sm m-0 mb-2 font-sans">
-                      Senior Product Manager (P&amp;L Owner)
-                    </p>
-                    <ul className="list-disc m-0 pl-4.5 text-[#525252] text-sm leading-6 flex flex-col gap-1.5">
-                      <li>Own the Education Loans P&amp;L at CashKaro, managing both product strategy and business outcomes.</li>
-                      <li>Simultaneously building Antigravity from scratch: a high-performance education loan platform.</li>
-                      <li>Architected the core business rules engine, integrated multiple lender APIs, and built secure AWS S3 KYC pipelines.</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between items-baseline mb-1 gap-3 flex-wrap">
-                      <h4 className="font-bold text-[#1A1A1A] text-lg m-0 font-sans">
-                        Absolute.ag
-                      </h4>
-                      <span className="text-sm font-mono text-[#8C8C8C] whitespace-nowrap">2022 - 2024</span>
-                    </div>
-                    <p className="text-[#1A1A1A] font-medium text-sm m-0 mb-2 font-sans">
-                      Principal Product Manager (Promoted from PM)
-                    </p>
-                    <ul className="list-disc m-0 pl-4.5 text-[#525252] text-sm leading-6 flex flex-col gap-1.5">
-                      <li>Led the satellite-data driven risk engine for India&apos;s Unified Lending Interface (ULI), transforming rural credit models.</li>
-                      <li>Built iTrade cross-border platform connecting buyers/sellers across 25+ countries, driving $100M+ GMV.</li>
-                      <li>Developed computer-vision models for real-time crop diagnostics.</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between items-baseline mb-1 gap-3 flex-wrap">
-                      <h4 className="font-bold text-[#1A1A1A] text-lg m-0 font-sans">
-                        UrbanKhet
-                      </h4>
-                      <span className="text-sm font-mono text-[#8C8C8C] whitespace-nowrap">2020 - 2022</span>
-                    </div>
-                    <p className="text-[#1A1A1A] font-medium text-sm m-0 mb-2 font-sans">
-                      Founder
-                    </p>
-                    <ul className="list-disc m-0 pl-4.5 text-[#525252] text-sm leading-6 flex flex-col gap-1.5">
-                      <li>Incubated at IIM Ahmedabad Ventures. Raised ₹1.5 Cr in funding.</li>
-                      <li>Scaled farm-to-fork operations to 3,400 D2C users and secured B2B accounts like Marriott and BigBasket.</li>
-                      <li>Managed 28 employees and executed a mathematically clean operational wind-down with zero defaults.</li>
-                    </ul>
-                  </div>
+          <div className="space-y-8">
+            {/* Experience Section */}
+            <section>
+              <h3 className="font-bold text-base md:text-lg border-b border-gray-300 pb-1 mb-4 uppercase tracking-wider text-black">
+                Experience
+              </h3>
+              
+              <div className="mb-6">
+                <div className="flex justify-between font-bold mb-1 text-sm md:text-base text-black flex-wrap gap-2">
+                  <span>CashKaro</span>
+                  <span className="font-mono text-xs md:text-sm font-normal text-gray-600">2024 - Present</span>
                 </div>
-              </section>
+                <div className="italic text-xs md:text-sm text-gray-700 mb-2">Senior Product Manager (Education Loans)</div>
+                <ul className="list-disc pl-5 text-xs md:text-sm space-y-1 text-gray-800">
+                  <li>End-to-end P&amp;L ownership of the Education Loans vertical.</li>
+                  <li>Building &apos;Antigravity&apos;, a 0-1 education loan platform with proprietary rules engine.</li>
+                </ul>
+              </div>
 
-              {/* Education Section */}
-              <section>
-                <h3 className="font-mono text-[11px] font-bold tracking-[0.14em] uppercase text-[#8C8C8C] m-0 mb-4">
-                  Education
-                </h3>
-                <div>
-                  <h4 className="font-bold text-[#1A1A1A] text-base m-0 mb-1 font-sans">
-                    CEPT University
-                  </h4>
-                  <p className="text-[#525252] text-sm m-0">
-                    B.Tech in Construction Technology. (Chosen independently over IIT).
-                  </p>
+              <div className="mb-6">
+                <div className="flex justify-between font-bold mb-1 text-sm md:text-base text-black flex-wrap gap-2">
+                  <span>Absolute.ag</span>
+                  <span className="font-mono text-xs md:text-sm font-normal text-gray-600">2021 - 2024</span>
                 </div>
-              </section>
-            </div>
+                <div className="italic text-xs md:text-sm text-gray-700 mb-2">Principal Product Manager</div>
+                <ul className="list-disc pl-5 text-xs md:text-sm space-y-1 text-gray-800">
+                  <li>Architected satellite-data rural credit engine for RBI&apos;s Unified Lending Interface.</li>
+                  <li>Managed iTrade cross-border platform scaling to $100M+ GMV across 25 countries.</li>
+                </ul>
+              </div>
 
-            <div className="flex flex-col gap-8">
-              {/* Contact Info */}
-              <section>
-                <h3 className="font-mono text-[11px] font-bold tracking-[0.14em] uppercase text-[#8C8C8C] m-0 mb-3">
-                  Contact
-                </h3>
-                <div className="text-[#525252] text-sm flex flex-col gap-2">
-                  <a href="mailto:Priyam.Sameer.95@gmail.com" className="no-underline hover:text-[#1A1A1A] transition">
-                    Priyam.Sameer.95@gmail.com
-                  </a>
-                  <a href="https://linkedin.com/in/priyamsameer" className="no-underline hover:text-[#1A1A1A] transition">
-                    linkedin.com/in/priyamsameer
-                  </a>
-                  <a href="https://priyamsameer.com" className="no-underline hover:text-[#1A1A1A] transition">
-                    priyamsameer.com
-                  </a>
+              <div className="mb-6">
+                <div className="flex justify-between font-bold mb-1 text-sm md:text-base text-black flex-wrap gap-2">
+                  <span>UrbanKhet</span>
+                  <span className="font-mono text-xs md:text-sm font-normal text-gray-600">2019 - 2021</span>
                 </div>
-              </section>
+                <div className="italic text-xs md:text-sm text-gray-700 mb-2">Founder (Incubated at IIM-A Ventures)</div>
+                <ul className="list-disc pl-5 text-xs md:text-sm space-y-1 text-gray-800">
+                  <li>Built D2C Agritech platform scaling to 3,400 users and 28 employees.</li>
+                  <li>Raised ₹1.5Cr seed grant. Wound down operations with 100% payout to all creditors.</li>
+                </ul>
+              </div>
+            </section>
 
-              {/* Core Competencies */}
-              <section>
-                <h3 className="font-mono text-[11px] font-bold tracking-[0.14em] uppercase text-[#8C8C8C] m-0 mb-3">
-                  Core Competencies
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    'P&L Ownership',
-                    'API Integrations',
-                    'Rules Engines',
-                    'AgriTech',
-                    'FinTech / Lending',
-                    'Operations',
-                  ].map((comp) => (
-                    <span
-                      key={comp}
-                      className="px-2.5 py-1.5 bg-white border border-[rgba(229,229,229,0.5)] shadow-[0_1px_2px_rgba(0,0,0,0.05)] rounded-lg text-xs font-semibold text-[#525252]"
-                    >
-                      {comp}
-                    </span>
-                  ))}
-                </div>
-              </section>
-            </div>
+            {/* Education Section */}
+            <section>
+              <h3 className="font-bold text-base md:text-lg border-b border-gray-300 pb-1 mb-4 uppercase tracking-wider text-black">
+                Education
+              </h3>
+              <div className="flex justify-between font-bold text-sm md:text-base text-black">
+                <span>CEPT University</span>
+                <span className="font-mono text-xs md:text-sm font-normal text-gray-600">2014 - 2018</span>
+              </div>
+              <div className="text-xs md:text-sm text-gray-800 mt-1">
+                B.Tech, Construction Technology (Selected independently over IIT)
+              </div>
+            </section>
+          </div>
+
+          <div className="mt-12 flex justify-center gap-4 no-print flex-wrap">
+            <button
+              onClick={() => window.print()}
+              className="bg-black text-white px-6 py-2.5 rounded-lg font-mono text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors cursor-pointer shadow-material-soft"
+            >
+              Print / Save as PDF
+            </button>
+            {isDownloadable && (
+              <a
+                href={`/api/download/${cvItem.id}`}
+                className="bg-white text-black border border-[#CCCCCC] px-6 py-2.5 rounded-lg font-mono text-[11px] font-bold uppercase tracking-widest hover:bg-gray-100 transition-colors shadow-material-soft no-underline flex items-center gap-1.5"
+              >
+                <span className="material-symbols-rounded text-sm">download</span> Download PDF
+              </a>
+            )}
           </div>
         </main>
 

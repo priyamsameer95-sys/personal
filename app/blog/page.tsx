@@ -28,40 +28,42 @@ export default async function BlogPage() {
       <div className="max-w-[56rem] mx-auto px-6 py-20 pb-24">
         <Header />
 
-        <main className="animate-[fadeInUp_0.4s_cubic-bezier(0.2,0,0,1)_both]">
+        <main className="animate-fade-in-up">
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-[#1A1A1A] m-0 mb-4 tracking-tight font-sans">
-              Writing
-            </h2>
-            <p className="text-[#525252] text-lg m-0 max-w-[42rem]">
+            <h2 className="text-3xl font-bold text-system-primary mb-4">Writing</h2>
+            <p className="text-system-secondary text-lg max-w-2xl font-serif">
               Thoughts on product management, construction logic in software, and operational integrity.
             </p>
           </div>
 
           {items.length === 0 ? (
-            <div className="py-20 text-center font-mono text-xs text-[#8C8C8C] border border-dashed border-[#E5E5E5] rounded-2xl bg-white">
+            <div className="py-20 text-center font-mono text-xs text-system-tertiary border border-dashed border-system-outline/40 rounded-2xl bg-white">
               NO ESSAYS PUBLISHED YET
             </div>
           ) : (
-            <div className="flex flex-col gap-16 max-w-[48rem]">
+            <div className="space-y-16 max-w-3xl">
               {items.map((post) => (
-                <article key={post.id} className="pb-12 border-b border-[rgba(229,229,229,0.4)] last:border-0 last:pb-0">
-                  <div className="flex items-center gap-4 mb-4">
-                    <time className="font-mono text-[11px] font-bold text-[#8C8C8C] uppercase tracking-[0.14em]">
+                <article key={post.id} className="group relative pb-8 border-b border-system-outline/40">
+                  <div className="flex items-baseline gap-4 mb-3">
+                    <time className="font-mono text-[11px] font-semibold text-system-tertiary uppercase tracking-widest">
                       {new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                     </time>
+                    <span className="w-8 h-px bg-system-outline/60"></span>
+                    <span className="font-mono text-[11px] font-semibold text-system-tertiary uppercase tracking-widest">
+                      Product
+                    </span>
                   </div>
-                  <Link href={`/blog/${post.id}`} className="no-underline group">
-                    <h3 className="font-serif text-2xl font-medium text-[#1A1A1A] group-hover:text-blue-700 transition duration-200 m-0 mb-4 italic">
+                  <Link href={`/blog/${post.id}`} className="no-underline">
+                    <h3 className="text-2xl font-bold text-system-primary mb-4 font-serif cursor-pointer hover:text-system-accent transition duration-200">
                       {post.title}
                     </h3>
                   </Link>
-                  <p className="text-[#525252] leading-[1.65] text-sm m-0 mb-6 line-clamp-4">
+                  <p className="text-system-secondary leading-relaxed mb-4 text-sm md:text-base">
                     {post.description}
                   </p>
                   <Link
                     href={`/blog/${post.id}`}
-                    className="inline-flex items-center gap-1 text-sm font-medium text-[#1A1A1A] hover:text-blue-700 transition duration-200 no-underline"
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-system-primary hover:text-system-accent transition duration-200 no-underline"
                   >
                     Read full essay <span className="material-symbols-rounded text-lg">arrow_forward</span>
                   </Link>

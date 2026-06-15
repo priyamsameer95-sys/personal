@@ -28,49 +28,56 @@ export default async function ProductWorkPage() {
       <div className="max-w-[56rem] mx-auto px-6 py-20 pb-24">
         <Header />
 
-        <main className="animate-[fadeInUp_0.4s_cubic-bezier(0.2,0,0,1)_both]">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-[#1A1A1A] m-0 mb-3 tracking-tight font-sans">
-              Selected Work
-            </h2>
-            <p className="text-[#525252] text-lg m-0">
+        <main className="animate-fade-in-up">
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-system-primary mb-3">Selected Work</h2>
+            <p className="text-system-secondary text-lg font-serif">
               Engineering structural logic into digital products.
             </p>
           </div>
 
           {items.length === 0 ? (
-            <div className="py-20 text-center font-mono text-xs text-[#8C8C8C] border border-dashed border-[#E5E5E5] rounded-2xl bg-white">
+            <div className="py-20 text-center font-mono text-xs text-system-tertiary border border-dashed border-system-outline/40 rounded-2xl bg-white">
               NO PRODUCT WORK PUBLISHED YET
             </div>
           ) : (
-            <div className="flex flex-col gap-16 mt-12">
+            <div className="space-y-24">
               {items.map((item) => (
-                <article key={item.id} className="border-b border-[#E5E5E5] pb-16 last:border-0 last:pb-0">
-                  {item.file_path && (
-                    <div className="aspect-[16/9] w-full border border-[rgba(229,229,229,0.5)] rounded-2xl mb-8 overflow-hidden relative shadow-[0_1px_2px_rgba(0,0,0,0.05)] bg-[#F5F5F5]">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={`/api/media/${item.id}`}
-                        alt={item.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  )}
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-                    <div className="md:col-span-4">
-                      <h3 className="text-xl font-bold text-[#1A1A1A] m-0 mb-2 font-sans">
+                <article key={item.id} className="group">
+                  <div className="mb-6 flex flex-col md:flex-row md:items-baseline justify-between gap-2 border-b border-system-primary pb-4">
+                    <Link href={`/product/${item.id}`} className="no-underline">
+                      <h3 className="text-2xl font-bold text-system-primary hover:text-system-accent transition-colors duration-200">
                         {item.title}
                       </h3>
+                    </Link>
+                    <span className="font-mono text-[11px] font-bold text-system-tertiary tracking-widest uppercase">
+                      PM · {new Date(item.created_at).getFullYear()}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+                    <div className="md:col-span-8 space-y-4">
+                      <p className="text-system-secondary leading-relaxed text-lg font-serif">
+                        {item.description}
+                      </p>
                       <Link
                         href={`/product/${item.id}`}
-                        className="inline-flex items-center gap-1 text-xs font-mono text-[#8C8C8C] hover:text-[#1A1A1A] no-underline"
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-system-primary hover:text-system-accent transition-colors duration-200 no-underline"
                       >
-                        Read case study <span className="material-symbols-rounded text-sm">arrow_forward</span>
+                        Read case study <span className="material-symbols-rounded text-base">arrow_forward</span>
                       </Link>
                     </div>
-                    <div className="md:col-span-8 text-[#525252] leading-[1.65] text-sm whitespace-pre-wrap">
-                      {item.description}
-                    </div>
+                    {item.file_path && (
+                      <div className="md:col-span-4">
+                        <Link href={`/product/${item.id}`} className="block overflow-hidden rounded-xl border border-system-outline shadow-material-soft hover:shadow-material-hover transition duration-200">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={`/api/media/${item.id}`}
+                            alt={item.title}
+                            className="w-full h-auto object-cover aspect-[4/3]"
+                          />
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </article>
               ))}
