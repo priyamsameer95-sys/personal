@@ -7,6 +7,10 @@ interface DatabaseItem {
   file_path: string | null;
 }
 
+interface ImageRow {
+  file_path: string;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { id } = await req.json();
@@ -23,7 +27,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Item not found' }, { status: 404 });
     }
 
-    // 1. Delete associated physical file from Blob
+    // 1. Delete primary file from Blob (art, cv)
     if (item.file_path) {
       try {
         await del(item.file_path);
@@ -32,7 +36,20 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 2. Delete record from database
+    // 2. Delete all associated images from Blob (blog, product)
+    const { rows: imageRows } = await db`SELECT file_path FROM content_images WHERE content_id = ${id}`;
+    for (const img of imageRows as ImageRow[]) {
+      try {
+        await del(img.file_path);
+      } catch {
+        // Proceed even if individual blob deletion fails
+      }
+    }
+
+    // 3. Delete image records (CASCADE should handle this, but be explicit)
+    await db`DELETE FROM content_images WHERE content_id = ${id}`;
+
+    // 4. Delete content record from database
     await db`DELETE FROM content WHERE id = ${id}`;
 
     return NextResponse.json({ success: true });

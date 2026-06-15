@@ -141,8 +141,8 @@ export default async function CvPage() {
                   Contact
                 </h3>
                 <div className="text-[#525252] text-sm flex flex-col gap-2">
-                  <a href="mailto:contact@priyamsameer.com" className="no-underline hover:text-[#1A1A1A] transition">
-                    contact@priyamsameer.com
+                  <a href="mailto:Priyam.Sameer.95@gmail.com" className="no-underline hover:text-[#1A1A1A] transition">
+                    Priyam.Sameer.95@gmail.com
                   </a>
                   <a href="https://linkedin.com/in/priyamsameer" className="no-underline hover:text-[#1A1A1A] transition">
                     linkedin.com/in/priyamsameer

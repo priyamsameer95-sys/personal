@@ -41,25 +41,8 @@ export default async function HomePage() {
         <Header />
 
         <main className="animate-[fadeInUp_0.4s_cubic-bezier(0.2,0,0,1)_both]">
-          <header className="mb-16">
-            <h2 className="text-[3rem] font-bold tracking-[-0.022em] leading-[1.08] m-0 mb-4 text-[#1A1A1A] font-sans">
-              Builder. Product manager.<br />Painter.
-            </h2>
-            <div className="mt-8 max-w-[65ch] flex flex-col gap-6 text-[#525252] text-lg leading-[1.65]">
-              <p className="m-0">
-                My bread and butter is building highly scalable products at the intersection of credit, agriculture, and trade. Currently, I am a Senior PM at <strong className="font-medium text-[#1A1A1A]">CashKaro</strong>, owning the Education Loans P&amp;L, while simultaneously building <strong className="font-medium text-[#1A1A1A]">Antigravity</strong>, an education loan platform from scratch.
-              </p>
-              <p className="m-0">
-                I studied Construction Technology at CEPT University. I chose it independently over IIT. That rigorous architectural background fundamentally shapes how I approach software engineering as an exercise in structural integrity, load-bearing logic, and elegant systems.
-              </p>
-              <p className="m-0">
-                Beyond the screen, I am a dedicated painter. The canvas is where I practice fluid expression. It is a necessary counterbalance to the rigid constraints of code and business logic.
-              </p>
-            </div>
-          </header>
-
           {/* Elsewhere Section */}
-          <section className="mt-24">
+          <section className="mt-6">
             <div className="flex items-center gap-4 mb-8">
               <h3 className="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-[#8C8C8C] m-0">
                 Elsewhere
@@ -95,7 +78,7 @@ export default async function HomePage() {
                 <span className="font-medium text-sm text-[#1A1A1A]">HeyMaya.pro</span>
               </a>
               <a
-                href="mailto:contact@priyamsameer.com"
+                href="mailto:Priyam.Sameer.95@gmail.com"
                 className="flex items-center gap-3 p-4 rounded-xl border border-[rgba(229,229,229,0.4)] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.05)] no-underline transition hover:-translate-y-0.5 hover:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.06),0_12px_32px_-4px_rgba(0,0,0,0.04)]"
               >
                 <span className="material-symbols-rounded text-lg text-[#8C8C8C] select-none">mail</span>
