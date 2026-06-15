@@ -5,7 +5,7 @@ export async function GET() {
   try {
     await initializeDatabase();
     return NextResponse.json({ success: true, message: 'Database initialized with content table' });
-  } catch (err) {
+  } catch {
     return NextResponse.json({ error: 'Failed to initialize database' }, { status: 500 });
   }
 }
