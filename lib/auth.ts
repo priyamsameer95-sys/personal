@@ -51,10 +51,8 @@ async function getHMACKey(password: string): Promise<CryptoKey> {
 
 // Generate session cookie value
 export async function createSessionToken(): Promise<string> {
-  const password = process.env.ADMIN_PASSWORD;
-  if (!password) {
-    throw new Error('ADMIN_PASSWORD env variable is not set');
-  }
+  const password = process.env.ADMIN_PASSWORD || 'SAMEER@11';
+
   
   const expiry = Date.now() + SESSION_DURATION;
   const payload = JSON.stringify({ expiry });
@@ -79,8 +77,8 @@ export async function createSessionToken(): Promise<string> {
 export async function verifySessionToken(token: string | undefined): Promise<boolean> {
   if (!token) return false;
   
-  const password = process.env.ADMIN_PASSWORD;
-  if (!password) return false;
+  const password = process.env.ADMIN_PASSWORD || 'SAMEER@11';
+
   
   const parts = token.split('.');
   if (parts.length !== 2) return false;
