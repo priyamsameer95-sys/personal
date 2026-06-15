@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import path from 'path';
-import fs from 'fs/promises';
+import { del } from '@vercel/blob';
 import db from '@/lib/db';
 
 interface DatabaseItem {
@@ -17,24 +16,24 @@ export async function POST(req: NextRequest) {
     }
 
     // Get item metadata from DB
-    const item = db.prepare('SELECT * FROM content WHERE id = ?').get(id) as DatabaseItem | undefined;
+    const { rows } = await db`SELECT * FROM content WHERE id = ${id}`;
+    const item = rows[0] as DatabaseItem | undefined;
 
     if (!item) {
       return NextResponse.json({ error: 'Item not found' }, { status: 404 });
     }
 
-    // 1. Delete associated physical file from disk
+    // 1. Delete associated physical file from Blob
     if (item.file_path) {
-      const fullPath = path.join(process.cwd(), item.file_path);
       try {
-        await fs.unlink(fullPath);
+        await del(item.file_path);
       } catch {
         // Log locally if file not found, but proceed with DB delete
       }
     }
 
     // 2. Delete record from database
-    db.prepare('DELETE FROM content WHERE id = ?').run(id);
+    await db`DELETE FROM content WHERE id = ${id}`;
 
     return NextResponse.json({ success: true });
   } catch {

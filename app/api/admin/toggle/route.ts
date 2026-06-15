@@ -16,17 +16,10 @@ export async function POST(req: NextRequest) {
 
     const numericVal = value ? 1 : 0;
 
-    // Use parameterized statement for safe execution
-    const stmt = db.prepare(`
-      UPDATE content
-      SET ${field} = ?
-      WHERE id = ?
-    `);
-    
-    const result = stmt.run(numericVal, id);
-
-    if (result.changes === 0) {
-      return NextResponse.json({ error: 'Item not found' }, { status: 404 });
+    if (field === 'is_public') {
+      await db`UPDATE content SET is_public = ${numericVal} WHERE id = ${id}`;
+    } else {
+      await db`UPDATE content SET is_downloadable = ${numericVal} WHERE id = ${id}`;
     }
 
     return NextResponse.json({ success: true });

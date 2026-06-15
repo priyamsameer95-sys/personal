@@ -18,19 +18,22 @@ interface ContentItem {
 
 export const revalidate = 0; // Force dynamic fetching on load
 
-export default function HomePage() {
+export default async function HomePage() {
   // Query public content items for preview feeds
-  const recentWork = db.prepare(
-    "SELECT * FROM content WHERE category = 'product' AND is_public = 1 ORDER BY created_at DESC LIMIT 2"
-  ).all() as ContentItem[];
+  const { rows: recentWorkRows } = await db`
+    SELECT * FROM content WHERE category = 'product' AND is_public = 1 ORDER BY created_at DESC LIMIT 2
+  `;
+  const recentWork = recentWorkRows as ContentItem[];
 
-  const recentArt = db.prepare(
-    "SELECT * FROM content WHERE category = 'art' AND is_public = 1 ORDER BY created_at DESC LIMIT 2"
-  ).all() as ContentItem[];
+  const { rows: recentArtRows } = await db`
+    SELECT * FROM content WHERE category = 'art' AND is_public = 1 ORDER BY created_at DESC LIMIT 2
+  `;
+  const recentArt = recentArtRows as ContentItem[];
 
-  const recentWriting = db.prepare(
-    "SELECT * FROM content WHERE category = 'blog' AND is_public = 1 ORDER BY created_at DESC LIMIT 2"
-  ).all() as ContentItem[];
+  const { rows: recentWritingRows } = await db`
+    SELECT * FROM content WHERE category = 'blog' AND is_public = 1 ORDER BY created_at DESC LIMIT 2
+  `;
+  const recentWriting = recentWritingRows as ContentItem[];
 
   return (
     <div className="min-h-screen bg-[#FAFAFA]">

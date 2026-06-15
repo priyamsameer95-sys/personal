@@ -17,10 +17,11 @@ interface ContentItem {
 
 export const revalidate = 0;
 
-export default function BlogPage() {
-  const items = db.prepare(
-    "SELECT * FROM content WHERE category = 'blog' AND is_public = 1 ORDER BY created_at DESC"
-  ).all() as ContentItem[];
+export default async function BlogPage() {
+  const { rows } = await db`
+    SELECT * FROM content WHERE category = 'blog' AND is_public = 1 ORDER BY created_at DESC
+  `;
+  const items = rows as ContentItem[];
 
   return (
     <div className="min-h-screen bg-[#FAFAFA]">

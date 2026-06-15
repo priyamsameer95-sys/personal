@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import path from 'path';
-import fs from 'fs/promises';
+import { put } from '@vercel/blob';
 import crypto from 'crypto';
 import db from '@/lib/db';
 
@@ -10,35 +9,6 @@ const ALLOWED_MIME_TYPES: Record<string, string> = {
   'image/webp': '.webp',
   'application/pdf': '.pdf',
 };
-
-// Validate file type strictly using magic bytes signature
-function validateMagicBytes(buffer: Buffer): string | null {
-  if (buffer.length < 4) return null;
-
-  // JPEG: FF D8 FF
-  if (buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF) {
-    return 'image/jpeg';
-  }
-
-  // PNG: 89 50 4E 47
-  if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) {
-    return 'image/png';
-  }
-
-  // PDF: %PDF (25 50 44 46)
-  if (buffer[0] === 0x25 && buffer[1] === 0x50 && buffer[2] === 0x44 && buffer[3] === 0x46) {
-    return 'application/pdf';
-  }
-
-  // WEBP: RIFF at 0-3 and WEBP at 8-11
-  if (buffer.length >= 12 &&
-      buffer[0] === 0x52 && buffer[1] === 0x49 && buffer[2] === 0x46 && buffer[3] === 0x46 &&
-      buffer[8] === 0x57 && buffer[9] === 0x45 && buffer[10] === 0x42 && buffer[11] === 0x50) {
-    return 'image/webp';
-  }
-
-  return null;
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -62,7 +32,7 @@ export async function POST(req: NextRequest) {
     let filePath: string | null = null;
     let fileType: string | null = null;
 
-    // 2. File handling and security checks
+    // 2. File handling using Vercel Blob
     if (file && file.size > 0) {
       // Server-side size validation: 20MB max
       const MAX_SIZE = 20 * 1024 * 1024;
@@ -70,11 +40,9 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'File size exceeds 20MB limit' }, { status: 400 });
       }
 
-      // Convert to buffer for byte analysis
-      const buffer = Buffer.from(await file.arrayBuffer());
-      const detectedMime = validateMagicBytes(buffer);
+      const detectedMime = file.type;
 
-      if (!detectedMime) {
+      if (!ALLOWED_MIME_TYPES[detectedMime]) {
         return NextResponse.json(
           { error: 'Unsupported file type. Supported types: JPEG, PNG, WEBP, PDF' },
           { status: 415 }
@@ -83,16 +51,14 @@ export async function POST(req: NextRequest) {
 
       const ext = ALLOWED_MIME_TYPES[detectedMime];
       
-      // Sanitized path: Discard original filename and generate a fresh UUID filename
       const fileId = crypto.randomUUID();
       const filename = `${fileId}${ext}`;
-      const relativePath = `/uploads/${category}/${filename}`;
-      const absolutePath = path.join(process.cwd(), relativePath);
+      const relativePath = `uploads/${category}/${filename}`;
 
-      // Save file payload to server storage
-      await fs.writeFile(absolutePath, buffer);
+      // Save file payload to Vercel Blob
+      const blob = await put(relativePath, file, { access: 'public' });
 
-      filePath = relativePath;
+      filePath = blob.url; // Use the Blob URL instead of a local path
       fileType = detectedMime;
     } else {
       // Art category requires an image file
@@ -101,29 +67,18 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 3. Database write using parameterized statement
+    // 3. Database write using Vercel Postgres
     const id = crypto.randomUUID();
     const createdAt = Date.now();
 
-    const insertStmt = db.prepare(`
+    await db`
       INSERT INTO content (id, title, description, category, file_path, file_type, is_public, is_downloadable, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
-
-    insertStmt.run(
-      id,
-      title,
-      description,
-      category,
-      filePath,
-      fileType,
-      isPublicVal,
-      isDownloadableVal,
-      createdAt
-    );
+      VALUES (${id}, ${title}, ${description}, ${category}, ${filePath}, ${fileType}, ${isPublicVal}, ${isDownloadableVal}, ${createdAt})
+    `;
 
     return NextResponse.json({ success: true, id });
-  } catch {
+  } catch (err) {
+    console.error('Upload Error:', err);
     return NextResponse.json({ error: 'An error occurred during upload processing' }, { status: 500 });
   }
 }

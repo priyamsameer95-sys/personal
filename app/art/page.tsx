@@ -17,10 +17,11 @@ interface ContentItem {
 
 export const revalidate = 0;
 
-export default function ArtGalleryPage() {
-  const items = db.prepare(
-    "SELECT * FROM content WHERE category = 'art' AND is_public = 1 ORDER BY created_at DESC"
-  ).all() as ContentItem[];
+export default async function ArtGalleryPage() {
+  const { rows } = await db`
+    SELECT * FROM content WHERE category = 'art' AND is_public = 1 ORDER BY created_at DESC
+  `;
+  const items = rows as ContentItem[];
 
   return (
     <div className="min-h-screen bg-[#FAFAFA]">

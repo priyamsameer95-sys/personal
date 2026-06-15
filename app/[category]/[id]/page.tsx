@@ -26,7 +26,7 @@ interface DetailPageProps {
 
 export const revalidate = 0; // Prevent stale caching
 
-export default function DetailPage({ params }: DetailPageProps) {
+export default async function DetailPage({ params }: DetailPageProps) {
   const { category, id } = params;
 
   // Ensure category is whitelisted
@@ -35,9 +35,8 @@ export default function DetailPage({ params }: DetailPageProps) {
   }
 
   // Query database for public matching content
-  const item = db
-    .prepare('SELECT * FROM content WHERE id = ? AND category = ? AND is_public = 1')
-    .get(id, category) as ContentItem | undefined;
+  const { rows } = await db`SELECT * FROM content WHERE id = ${id} AND category = ${category} AND is_public = 1`;
+  const item = rows[0] as ContentItem | undefined;
 
   if (!item) {
     notFound();

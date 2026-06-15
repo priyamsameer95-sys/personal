@@ -18,11 +18,12 @@ interface ContentItem {
 
 export const revalidate = 0; // Prevent stale caching
 
-export default function CvPage() {
+export default async function CvPage() {
   // Query the latest public CV upload
-  const cvItem = db.prepare(
-    "SELECT * FROM content WHERE category = 'cv' AND is_public = 1 ORDER BY created_at DESC LIMIT 1"
-  ).get() as ContentItem | undefined;
+  const { rows } = await db`
+    SELECT * FROM content WHERE category = 'cv' AND is_public = 1 ORDER BY created_at DESC LIMIT 1
+  `;
+  const cvItem = rows[0] as ContentItem | undefined;
 
   // Check if downloading is allowed
   const isDownloadable = cvItem && cvItem.file_path && cvItem.is_downloadable === 1;
