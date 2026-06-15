@@ -8,9 +8,9 @@ export default function PrintButton() {
       onClick={() => {
         if (typeof window !== 'undefined') window.print();
       }}
-      className="no-print inline-flex items-center gap-2 px-4 py-2 bg-[#1A1A1A] text-white hover:bg-black border-0 rounded-lg text-sm font-semibold cursor-pointer shadow-[0_2px_6px_rgba(0,0,0,0.12)] transition duration-200"
+      className="bg-black text-white px-6 py-2.5 rounded-lg font-mono text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors cursor-pointer shadow-material-soft"
     >
-      <span className="material-symbols-rounded text-lg select-none">print</span> Print CV
+      Print / Save as PDF
     </button>
   );
 }

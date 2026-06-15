@@ -2,6 +2,7 @@ import React from 'react';
 import db from '@/lib/db';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PrintButton from '@/components/PrintButton';
 
 interface ContentItem {
   id: string;
@@ -108,12 +109,7 @@ export default async function CvPage() {
           </div>
 
           <div className="mt-12 flex justify-center gap-4 no-print flex-wrap">
-            <button
-              onClick={() => window.print()}
-              className="bg-black text-white px-6 py-2.5 rounded-lg font-mono text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors cursor-pointer shadow-material-soft"
-            >
-              Print / Save as PDF
-            </button>
+            <PrintButton />
             {isDownloadable && (
               <a
                 href={`/api/download/${cvItem.id}`}
