@@ -1,0 +1,38 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model CV {
+  id            String   @id @default(uuid())
+  fileUrl       String
+  extractedText String
+  createdAt     DateTime @default(now())
+}
+
+model Painting {
+  id          String   @id @default(uuid())
+  imageUrl    String
+  description String
+  createdAt     DateTime @default(now())
+}
+
+model Blog {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  images    String[]
+  createdAt DateTime @default(now())
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  images      String[]
+  createdAt   DateTime @default(now())
+}
