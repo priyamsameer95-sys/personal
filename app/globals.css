@@ -2,26 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer base {
+  body {
+    background-color: #FAFAFA;
+    color: #1A1A1A;
+    font-family: "B612", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  code, pre {
+    font-family: "B612 Mono", ui-monospace, monospace;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  ::selection {
+    background-color: #1A1A1A;
+    color: #FAFAFA;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Print Styles for CV Page */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 12pt !important;
+  }
+  #nav-header, .no-print, footer {
+    display: none !important;
+  }
+  main {
+    animation: none !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
   }
 }

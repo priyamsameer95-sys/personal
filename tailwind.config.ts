@@ -8,9 +8,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["B612", "system-ui", "sans-serif"],
+        mono: ["B612 Mono", "ui-monospace", "monospace"],
+        serif: ["Newsreader", "Georgia", "serif"],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        bg: "#FAFAFA",
+        text: "#1A1A1A",
+        muted: "#8C8C8C",
+        body: "#525252",
+        border: "rgba(229,229,229,0.4)",
       },
     },
   },
