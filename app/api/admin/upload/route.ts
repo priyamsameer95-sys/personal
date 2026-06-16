@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
       const filename = `${fileId}${ext}`;
       const relativePath = `uploads/${category}/${filename}`;
 
-      const blob = await put(relativePath, file, { access: 'public' });
+      const blob = await put(relativePath, file, { access: 'private' });
 
       if (category === 'cv' || category === 'art') {
         // Single file categories: store in content.file_path
