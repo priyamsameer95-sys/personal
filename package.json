@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@uiw/react-md-editor": "^4.1.1",
     "@vercel/blob": "^2.4.0",
     "@vercel/postgres": "^0.10.0",
     "next": "14.2.35",
+    "next-remove-imports": "^1.0.13",
     "pdf-parse": "^2.4.5",
     "react": "^18",
     "react-dom": "^18"
@@ -21,6 +23,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "dotenv": "^17.4.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.35",
     "postcss": "^8",

@@ -7,19 +7,22 @@ import Footer from '@/components/Footer';
 interface ContentItem {
   id: string;
   title: string;
-  description: string;
-  category: 'blog';
-  file_path: string | null;
-  file_type: string | null;
-  is_public: number;
-  created_at: number;
+  slug: string;
+  summary: string | null;
+  type: 'blog';
+  status: 'draft' | 'published';
+  created_at: string;
 }
 
 export const revalidate = 0;
 
 export default async function BlogPage() {
   const { rows } = await db`
-    SELECT * FROM content WHERE category = 'blog' AND is_public = 1 ORDER BY created_at DESC
+    SELECT
+      id, title, slug, summary, type, status, created_at
+    FROM content_items
+    WHERE type = 'blog' AND status = 'published'
+    ORDER BY created_at DESC
   `;
   const items = rows as ContentItem[];
 
@@ -53,16 +56,18 @@ export default async function BlogPage() {
                       Product
                     </span>
                   </div>
-                  <Link href={`/blog/${post.id}`} className="no-underline">
+                  <Link href={`/blog/${post.slug || post.id}`} className="no-underline">
                     <h3 className="text-2xl font-bold text-system-primary mb-4 font-serif cursor-pointer hover:text-system-accent transition duration-200">
                       {post.title}
                     </h3>
                   </Link>
-                  <p className="text-system-secondary leading-relaxed mb-4 text-sm md:text-base">
-                    {post.description}
-                  </p>
+                  {post.summary && (
+                    <p className="text-system-secondary leading-relaxed mb-4 text-sm md:text-base">
+                      {post.summary}
+                    </p>
+                  )}
                   <Link
-                    href={`/blog/${post.id}`}
+                    href={`/blog/${post.slug || post.id}`}
                     className="inline-flex items-center gap-1 text-sm font-semibold text-system-primary hover:text-system-accent transition duration-200 no-underline"
                   >
                     Read full essay <span className="material-symbols-rounded text-lg">arrow_forward</span>

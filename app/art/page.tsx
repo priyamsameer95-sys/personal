@@ -7,19 +7,37 @@ import Footer from '@/components/Footer';
 interface ContentItem {
   id: string;
   title: string;
-  description: string;
-  category: 'art';
-  file_path: string | null;
-  file_type: string | null;
-  is_public: number;
-  created_at: number;
+  slug: string;
+  body_markdown: string | null;
+  type: 'art';
+  status: 'draft' | 'published';
+  created_at: string;
+  media: Array<{
+    blob_url: string;
+    kind: string;
+  }>;
 }
 
 export const revalidate = 0;
 
 export default async function ArtGalleryPage() {
   const { rows } = await db`
-    SELECT * FROM content WHERE category = 'art' AND is_public = 1 ORDER BY created_at DESC
+    SELECT
+      ci.id, ci.title, ci.slug, ci.body_markdown, ci.type, ci.status, ci.created_at,
+      COALESCE(
+        json_agg(
+          json_build_object(
+            'blob_url', ma.blob_url,
+            'kind', ma.kind
+          ) ORDER BY ma.sort_order
+        ) FILTER (WHERE ma.id IS NOT NULL),
+        '[]'::json
+      ) AS media
+    FROM content_items ci
+    LEFT JOIN media_assets ma ON ma.content_id = ci.id
+    WHERE ci.type = 'art' AND ci.status = 'published'
+    GROUP BY ci.id
+    ORDER BY ci.sort_order ASC, ci.created_at DESC
   `;
   const items = rows as ContentItem[];
 
@@ -44,17 +62,19 @@ export default async function ArtGalleryPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {items.map((art, index) => {
                 const aspectClass = index % 2 === 0 ? 'aspect-square' : 'aspect-[4/5]';
+                const firstImage = art.media?.find(m => m.kind === 'image');
+                
                 return (
                   <Link
                     key={art.id}
-                    href={`/art/${art.id}`}
+                    href={`/art/${art.slug || art.id}`}
                     className="group no-underline block bg-system-surface border border-system-outline p-4 flex flex-col justify-end shadow-material-soft rounded-xl transition duration-200 hover:-translate-y-0.5 hover:shadow-material-hover"
                   >
                     <div className={`${aspectClass} overflow-hidden mb-4 rounded-lg bg-[#F0EAE1] relative flex items-center justify-center`}>
-                      {art.file_path ? (
+                      {firstImage ? (
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img
-                          src={`/api/media/${art.id}`}
+                          src={firstImage.blob_url}
                           alt={art.title}
                           className="w-full h-full object-cover transition duration-300 group-hover:scale-[1.02]"
                         />
@@ -65,8 +85,8 @@ export default async function ArtGalleryPage() {
                     <h4 className="font-mono text-[10px] text-system-tertiary uppercase tracking-widest m-0">
                       {art.title}
                     </h4>
-                    {art.description && (
-                      <p className="text-xs text-system-secondary m-0 mt-2 line-clamp-2">{art.description}</p>
+                    {art.body_markdown && (
+                      <p className="text-xs text-system-secondary m-0 mt-2 line-clamp-2">{art.body_markdown}</p>
                     )}
                   </Link>
                 );

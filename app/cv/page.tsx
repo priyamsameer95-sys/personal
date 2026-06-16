@@ -7,26 +7,35 @@ import PrintButton from '@/components/PrintButton';
 interface ContentItem {
   id: string;
   title: string;
-  description: string;
-  category: 'cv';
-  file_path: string | null;
-  file_type: string | null;
-  is_public: number;
-  is_downloadable: number;
-  created_at: number;
+  downloadable: boolean;
+  media: Array<{
+    blob_url: string;
+  }>;
 }
 
 export const revalidate = 0; // Prevent stale caching
 
 export default async function CvPage() {
-  // Query the latest public CV upload
+  // Query the latest published CV upload
   const { rows } = await db`
-    SELECT * FROM content WHERE category = 'cv' AND is_public = 1 ORDER BY created_at DESC LIMIT 1
+    SELECT 
+      ci.id, ci.title, ci.downloadable,
+      COALESCE(
+        json_agg(
+          json_build_object('blob_url', ma.blob_url)
+        ) FILTER (WHERE ma.id IS NOT NULL),
+        '[]'::json
+      ) AS media
+    FROM content_items ci
+    LEFT JOIN media_assets ma ON ma.content_id = ci.id
+    WHERE ci.type = 'cv' AND ci.status = 'published'
+    GROUP BY ci.id
+    ORDER BY ci.created_at DESC LIMIT 1
   `;
   const cvItem = rows[0] as ContentItem | undefined;
 
-  // Check if downloading is allowed
-  const isDownloadable = cvItem && cvItem.file_path && cvItem.is_downloadable === 1;
+  // Check if downloading is allowed and PDF exists
+  const isDownloadable = cvItem && cvItem.downloadable && cvItem.media?.[0]?.blob_url;
 
   return (
     <div className="min-h-screen bg-[#FAFAFA]">
@@ -110,9 +119,11 @@ export default async function CvPage() {
 
           <div className="mt-12 flex justify-center gap-4 no-print flex-wrap">
             <PrintButton />
-            {isDownloadable && (
+            {isDownloadable && cvItem && cvItem.media[0] && (
               <a
-                href={`/api/download/${cvItem.id}`}
+                href={cvItem.media[0].blob_url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-white text-black border border-[#CCCCCC] px-6 py-2.5 rounded-lg font-mono text-[11px] font-bold uppercase tracking-widest hover:bg-gray-100 transition-colors shadow-material-soft no-underline flex items-center gap-1.5"
               >
                 <span className="material-symbols-rounded text-sm">download</span> Download PDF
