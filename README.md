@@ -12,7 +12,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open [localhost:3000](http://localhost:3000). No database or storage credentials are needed to preview the authored homepage, My Work collection, case studies, inline media or Experience page. Database-backed art and writing collections remain empty in local preview. Existing database content URLs remain supported when that content is published.
+Open [localhost:3000](http://localhost:3000). No database or storage credentials are needed to preview the authored homepage, My Work collection, case studies, inline media, Experience or Art gallery. The supplied Art portfolio is available locally; additional database uploads and Writing remain empty without a configured publishing database. Existing database content URLs remain supported when that content is published.
 
 If database credentials are already configured and you want to preview without accessing that database, set `LOCAL_PREVIEW=true` in `.env.local`. This flag only applies when `NODE_ENV` is unset or `development`; it cannot bypass database access in a production build or deployment. Public preview reads never write data, and admin routes always use the real database.
 
@@ -59,7 +59,9 @@ npm run build
 npm start
 ```
 
-The authored homepage, My Work, registered case studies and Experience page work in production without database credentials. Database-backed art, writing, and legacy detail pages require a configured database. `LOCAL_PREVIEW=true` does not bypass that production requirement. The public error screen allows retrying a failed load without exposing connection details to visitors.
+The authored homepage, My Work, registered case studies, Experience and Art gallery work in production without database credentials. Additional art uploads, Writing and legacy database detail pages require a configured database. `LOCAL_PREVIEW=true` does not bypass the production requirement for those database detail pages. The public error screen allows retrying a failed load without exposing connection details to visitors.
+
+The Art registry in `content/art/works.json` contains six named paintings, original artist notes, source-page mappings and the separate portfolio-cover photograph. Images in `public/art/priyam/` preserve the supplied artwork; lighter gallery previews open the full images in an accessible dialog. Close-ups and notes use native expandable sections. Published admin art entries remain available below the supplied portfolio and retain their existing detail routes. Source coverage and extraction details are in [ART-SOURCES.md](ART-SOURCES.md); the source PDF and lossless originals remain in the private local archive.
 
 ## Repository structure
 

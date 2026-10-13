@@ -11,7 +11,7 @@ const provenanceLabels = {
   proposal: 'Proposal material',
 };
 
-export default function Media({ media, priority = false }: { media: CaseStudyMedia; priority?: boolean }) {
+export default function Media({ media, priority = false, previewSrc }: { media: CaseStudyMedia; priority?: boolean; previewSrc?: string }) {
   const [expanded, setExpanded] = useState(false);
   const [actualSize, setActualSize] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -43,7 +43,7 @@ export default function Media({ media, priority = false }: { media: CaseStudyMed
         <>
           <button ref={trigger} type="button" aria-haspopup="dialog" aria-label={`Enlarge image: ${media.alt}`} className={styles.imageButton} onClick={() => { setActualSize(false); setExpanded(true); }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={media.src} alt={media.alt} width={media.width} height={media.height} loading={priority ? 'eager' : 'lazy'} className={`${styles.image}${isLongImage ? ` ${styles.longImage}` : ''}`} />
+            <img src={previewSrc || media.src} alt={media.alt} width={media.width} height={media.height} loading={priority ? 'eager' : 'lazy'} className={`${styles.image}${isLongImage ? ` ${styles.longImage}` : ''}`} />
             <span className={styles.imageHint} aria-hidden="true">Enlarge image <span>↗</span></span>
           </button>
           <dialog ref={dialog} className={styles.imageDialog} aria-labelledby={labelId} onClose={() => { setExpanded(false); trigger.current?.focus({ preventScroll: true }); }} onClick={(event) => {

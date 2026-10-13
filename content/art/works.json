@@ -1,0 +1,213 @@
+{
+  "source": {
+    "title": "Priyam Art.pdf",
+    "sha256": "572525a2c47f1ffe6754ae9114850f0b1cbb2ab02eb9c1cbdb88fe0ce29ea5ae",
+    "pageCount": 14,
+    "artworkDates": "Not supplied"
+  },
+  "collections": [
+    {
+      "id": "original-portfolio",
+      "title": "Selected paintings"
+    }
+  ],
+  "works": [
+    {
+      "id": "public-compass",
+      "title": "Public Compass",
+      "description": "Live",
+      "statement": "Social differences are evident when seen from top. Our society is divided in different patches of faith, background or religion. Only thing common between all of us-the golden patches irrespective of gender, color, faith. Gold is the true constant of human history",
+      "collectionId": "original-portfolio",
+      "sourcePage": 2,
+      "sourcePages": [
+        2,
+        3
+      ],
+      "medium": "Oil on canvas",
+      "dimensions": "60 × 60 cm",
+      "image": {
+        "src": "/art/priyam/public-compass.webp",
+        "alt": "Public Compass — red and green abstract painting with gold patches",
+        "width": 2400,
+        "height": 2109,
+        "previewSrc": "/art/priyam/public-compass-preview.webp"
+      },
+      "detailImages": [
+        {
+          "src": "/art/priyam/public-compass-detail.webp",
+          "alt": "Public Compass — detail view from the original portfolio",
+          "width": 1540,
+          "height": 2400,
+          "caption": "Detail view · Original portfolio, page 3",
+          "sourcePage": 3
+        }
+      ]
+    },
+    {
+      "id": "tumult",
+      "title": "Tumult",
+      "description": "Feel",
+      "statement": "Depends on the perspective of the viewer,\n\nLife keeps moving till it lasts, the movement towards chaos and from chaos. See where are you heading towards it/them/him/her or away from it/them/him/her.",
+      "collectionId": "original-portfolio",
+      "sourcePage": 4,
+      "sourcePages": [
+        4,
+        5
+      ],
+      "medium": "Oil and acrylic on canvas",
+      "dimensions": "60 × 76 cm",
+      "image": {
+        "src": "/art/priyam/tumult.webp",
+        "alt": "Tumult — yellow, teal and black abstract painting",
+        "width": 1884,
+        "height": 2400,
+        "previewSrc": "/art/priyam/tumult-preview.webp"
+      },
+      "detailImages": [
+        {
+          "src": "/art/priyam/tumult-detail.webp",
+          "alt": "Tumult — detail view from the original portfolio",
+          "width": 1540,
+          "height": 2400,
+          "caption": "Detail view · Original portfolio, page 5",
+          "sourcePage": 5
+        }
+      ]
+    },
+    {
+      "id": "celestial",
+      "title": "Celestial",
+      "description": "Wisdom",
+      "statement": "Questioning the endless efforts of Humans to make a dent in the universe. A universe with billions and trillions of stars & planets, where we just exist on one tiny planet. Is your life worth as much as you think it is?",
+      "collectionId": "original-portfolio",
+      "sourcePage": 6,
+      "sourcePages": [
+        6,
+        7
+      ],
+      "medium": "Acrylic on canvas",
+      "dimensions": "76 × 76 cm",
+      "image": {
+        "src": "/art/priyam/celestial.webp",
+        "alt": "Celestial — blue abstract painting with dark lines and yellow accents",
+        "width": 2400,
+        "height": 2385,
+        "previewSrc": "/art/priyam/celestial-preview.webp"
+      },
+      "detailImages": [
+        {
+          "src": "/art/priyam/celestial-detail.webp",
+          "alt": "Celestial — detail view from the original portfolio",
+          "width": 1540,
+          "height": 2400,
+          "caption": "Detail view · Original portfolio, page 7",
+          "sourcePage": 7
+        }
+      ]
+    },
+    {
+      "id": "continual",
+      "title": "Continual",
+      "description": "Experience",
+      "statement": "A small marble in a bigger picture of life. We were destined to meet-\nif not today, then may be tomorrow,\nIf not here, then maybe somewhere near,\nIf not like, this then maybe like that,\nIf we didn't have a happy ending here, then we will have one there.",
+      "collectionId": "original-portfolio",
+      "sourcePage": 8,
+      "sourcePages": [
+        8,
+        9
+      ],
+      "medium": "Oil and acrylic on canvas",
+      "dimensions": "60 × 60 cm",
+      "image": {
+        "src": "/art/priyam/continual.webp",
+        "alt": "Continual — overlapping bands of green, blue, red and yellow",
+        "width": 2400,
+        "height": 2381,
+        "previewSrc": "/art/priyam/continual-preview.webp"
+      },
+      "detailImages": [
+        {
+          "src": "/art/priyam/continual-detail.webp",
+          "alt": "Continual — detail view from the original portfolio",
+          "width": 1540,
+          "height": 2400,
+          "caption": "Detail view · Original portfolio, page 9",
+          "sourcePage": 9
+        }
+      ]
+    },
+    {
+      "id": "live-life",
+      "title": "Live-life",
+      "description": "Aware",
+      "statement": "Depends on the perspective of the viewer,\n\nHappiness/Joy/Fulfillment is always around us, it's always about acknowledgment.",
+      "collectionId": "original-portfolio",
+      "sourcePage": 10,
+      "sourcePages": [
+        10,
+        11
+      ],
+      "medium": "Oil and acrylic on canvas",
+      "dimensions": "60 × 76 cm",
+      "image": {
+        "src": "/art/priyam/live-life.webp",
+        "alt": "Live-life — the complete three-panel green, blue and yellow composition",
+        "width": 1875,
+        "height": 2400,
+        "previewSrc": "/art/priyam/live-life-preview.webp"
+      },
+      "detailImages": [
+        {
+          "src": "/art/priyam/live-life-detail.webp",
+          "alt": "Live-life — detail view from the original portfolio",
+          "width": 1540,
+          "height": 2400,
+          "caption": "Detail view · Original portfolio, page 11",
+          "sourcePage": 11
+        }
+      ]
+    },
+    {
+      "id": "reminiscence",
+      "title": "Reminiscence",
+      "description": "Fear · Marked “Not for Sale” in the original portfolio.",
+      "statement": "Inspired by people I met and care about",
+      "collectionId": "original-portfolio",
+      "sourcePage": 12,
+      "sourcePages": [
+        12,
+        13
+      ],
+      "medium": "Charcoal on canvas",
+      "dimensions": "45 × 30 cm",
+      "image": {
+        "src": "/art/priyam/reminiscence.webp",
+        "alt": "Reminiscence — charcoal faces and eyes on canvas",
+        "width": 1916,
+        "height": 2400,
+        "previewSrc": "/art/priyam/reminiscence-preview.webp"
+      },
+      "detailImages": [
+        {
+          "src": "/art/priyam/reminiscence-detail.webp",
+          "alt": "Reminiscence — detail view from the original portfolio",
+          "width": 1540,
+          "height": 2400,
+          "caption": "Detail view · Original portfolio, page 13",
+          "sourcePage": 13
+        }
+      ]
+    }
+  ],
+  "portfolioCover": {
+    "sourcePage": 1,
+    "labelInSource": "ANNA",
+    "image": {
+      "src": "/art/priyam/anna-cover.webp",
+      "alt": "Floral painting on an easel — from the portfolio cover, labelled ANNA",
+      "width": 2382,
+      "height": 2400,
+      "previewSrc": "/art/priyam/anna-cover-preview.webp"
+    }
+  }
+}
