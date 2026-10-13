@@ -87,6 +87,19 @@
 .recognitionMark { display: inline-flex; flex: 0 0 1.75rem; align-items: center; justify-content: center; height: 1.75rem; border: 1px solid #111; background: #ffe348; font-size: .875rem; }
 .recognition h3 { font-size: .875rem; font-weight: 550; line-height: 1.5; }
 .recognition p { margin-top: .2rem; color: #515151; font-size: .75rem; line-height: 1.6; }
+.certifications { margin: 0; padding: 0; list-style: none; }
+.certifications > li { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 1.5rem; padding: 1.15rem 0; border-bottom: 1px solid #1113; }
+.certifications > li:first-child { padding-top: 0; }
+.certifications > li:last-child { padding-bottom: 0; border-bottom: 0; }
+.certificationBrand { align-self: start; margin-top: .2rem; }
+.certificationTitle { max-width: 40rem; font-size: 1.125rem; font-weight: 550; line-height: 1.45; letter-spacing: -.02em; }
+.certificationMeta { margin-top: .4rem; color: #515151; font-size: .8125rem; }
+.certificationMeta > span { margin: 0 .25rem; }
+.certificationActions { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 1.4rem; margin-top: .2rem; }
+.certificationActions .caseLink { margin: 0; }
+.certificationCredential summary { min-height: 44px; width: fit-content; padding: .65rem 0; font-size: .75rem; line-height: 1.55; cursor: pointer; }
+.certificationCredential summary:hover { text-decoration: underline; text-underline-offset: .25em; }
+.certificationCredential p { max-width: 100%; margin: 0 0 .5rem; color: #515151; font-size: .75rem; overflow-wrap: anywhere; }
 .skillsIntro { max-width: 48rem; margin-bottom: 1.4rem; color: #414141; font-size: .875rem; }
 .skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; }
 .skills dd { margin: .3rem 0 0; color: #414141; font-size: .875rem; }
@@ -125,6 +138,9 @@
   .section + .section, .foundationGrid, .foundationGrid + .section { margin-top: 2.75rem; padding-top: 1.6rem; }
   .internship, .contextGrid, .foundationGrid, .skills { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
   .foundationGrid .section + .section { margin-top: .5rem; padding-top: 1.5rem; border-top: 1px solid #1113; }
+  .certifications > li { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
+  .certificationBrand { margin: 0; }
+  .certificationTitle { font-size: 1rem; }
   .sectionHeading { margin-bottom: 1.35rem; }
 }
 @media print {
@@ -145,7 +161,9 @@
   .disclosure:not([open]) > :not(summary) { display: block !important; }
   .disclosure::details-content { display: block; content-visibility: visible; }
   .disclosure summary { min-height: 0; padding: 7pt 0; }
-  .responsibilities > li, .contextCard, .recognition li, .scope > div { break-inside: avoid; }
+  .responsibilities > li, .contextCard, .recognition li, .scope > div, .certifications > li { break-inside: avoid; }
+  .certificationCredential:not([open]) > :not(summary) { display: block !important; }
+  .certificationCredential::details-content { display: block; content-visibility: visible; }
   .caseLink { min-height: 0; }
   .section p { orphans: 2; widows: 2; }
 }

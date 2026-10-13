@@ -15,7 +15,18 @@ Verified 13 October 2026. These are original image bytes from official brand web
 | GUSEC | /brands/gusec.png | 1759 × 539 | [Website](https://gusec.edu.in/) · [Original asset](https://gusec.edu.in/wp-content/uploads/2019/02/GUSEC-Board-Meeting-20th-SEP-2025.png) | `905b94e391e26a0eefaa4c1ea24f92dd59fc0236bd8df3e0f76c90697b7dbff2` |
 | College.Money | /brands/college-money-icon.svg | 28 × 28 | [Website](https://college.money/abroad) · [Original asset](https://college.money/assets/icons/logo-college-money.svg) | `1a4e1f6d3409cca22ac6f2dae95c0c574cad27a345be231616b58b4b7ff9450b` |
 | Water Farmers | /brands/water-farmers.png | 1000 × 448 | [Website](https://waterfarmers.com/) · [Original asset](https://waterfarmers.com/wp-content/uploads/2018/03/PNG.png) | `537f72b6a48ec89c2c12e9812d5182d3098d68d44d7f9538d55cb298fd584dc0` |
+| Udemy | /brands/udemy.svg | 102 × 38 | [Website](https://about.udemy.com/) · [Original asset](https://about.udemy.com/wp-content/themes/wp-about-v4/assets/images/udemy-logo.svg) | `85c1e4c6ffd533bfa5b375e9a0d0ad87e86943257a3568f4490c83eb51c6e1f1` |
+| Pendo | /brands/pendo.svg | 216 × 50 | [Official brand guide](https://www.pendo.io/brand-guide/logo/) · [Original primary dark asset](https://cdn.builder.io/api/v1/image/assets%2F6a96e08774184353b3aa88032e406411%2Fbd51e370ecda496498d96c17e3a31034) | `8c68df26a63207757537da3e6cc879d22fae1ca1e0b40c2e2d2c87d0e3a888e5` |
 
 Upaj uses the unchanged original asset from the supplied dated public-product archive, whose capture manifest records the URL above. UrbanKhet’s original is published by GUSEC and links to the venture website. IIMA Ventures is the current identity of the organisation previously known as IIMA-CIIE; the historical incubation relationship remains explicit.
 
 Water Farmers is shown with the joint Water Farmers / Madhavi Farms internship account. A standalone Madhavi Farms logo and a Gujarat Action Group logo could not be verified, so those names retain text rather than a reconstructed mark.
+
+## Certification references
+
+The titles, issue months and credential IDs come from the certification screenshot supplied for Priyam’s portfolio on 13 October 2026. The following exact credential URLs were checked on that date and returned HTTP 200:
+
+- [Cryptocurrency Fundamentals: Coins, Wallets, Exchanges, ICOs — Udemy](https://www.udemy.com/certificate/UC-af162e16-4a41-41c8-8484-f5448321b551/): the official page metadata confirms the course title. The supplied screenshot records March 2026 and credential ID `UC-af162e16-4a41-41c8-8484-f5448321b551`.
+- [AI for Product Management — Pendo](https://www.credly.com/badges/13dde14c-704f-4348-80bb-d2185173e0c0/public_url): the credential page metadata confirms the title, Pendo as issuer and Priyam Sameer as recipient. The supplied screenshot records August 2026 and credential ID `13dde14c-704f-4348-80bb-d2185173e0c0`.
+
+Issuer artwork appears only beside the corresponding certification, separate from employment. No badge image, additional skill claim or update to the original downloadable CV is implied.

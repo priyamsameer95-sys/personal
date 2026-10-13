@@ -57,6 +57,16 @@ export const brandAssets: Record<string, BrandAsset> = {
     name: 'Water Farmers', src: '/brands/water-farmers.png', width: 1000, height: 448,
     sourcePage: 'https://waterfarmers.com/', sourceUrl: 'https://waterfarmers.com/wp-content/uploads/2018/03/PNG.png',
   },
+  udemy: {
+    name: 'Udemy', src: '/brands/udemy.svg', width: 102, height: 38,
+    sourcePage: 'https://about.udemy.com/',
+    sourceUrl: 'https://about.udemy.com/wp-content/themes/wp-about-v4/assets/images/udemy-logo.svg',
+  },
+  pendo: {
+    name: 'Pendo', src: '/brands/pendo.svg', width: 216, height: 50,
+    sourcePage: 'https://www.pendo.io/brand-guide/logo/',
+    sourceUrl: 'https://cdn.builder.io/api/v1/image/assets%2F6a96e08774184353b3aa88032e406411%2Fbd51e370ecda496498d96c17e3a31034',
+  },
 };
 
 export const companyBrandIds: Record<string, readonly string[]> = {

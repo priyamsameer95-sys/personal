@@ -12,7 +12,7 @@ import styles from './cv.module.css';
 
 export const metadata: Metadata = {
   title: 'Experience',
-  description: 'Priyam Sameer’s career and progression: product leadership at CashKaro, CredFlow and Absolute, founding UrbanKhet, and distinct internship, community and independent work. Read the timeline or download the original CV.',
+  description: 'Priyam Sameer’s career and progression: product leadership at CashKaro, CredFlow and Absolute, founding UrbanKhet, education and certifications. Read the timeline or download the original CV.',
   openGraph: { title: 'Experience — Priyam Sameer', description: 'My career in product leadership, with role progression, responsibilities, case studies and the original CV.' },
   twitter: { title: 'Experience — Priyam Sameer', description: 'My career in product leadership, with role progression, responsibilities, case studies and the original CV.' },
 };
@@ -47,7 +47,7 @@ export default function ExperiencePage() {
             <a href="mailto:Priyam.Sameer.95@gmail.com" className={styles.textAction}>Contact Priyam <span aria-hidden="true">↗</span></a>
           </div>
           <nav className={styles.pageNav} aria-label="On this page">
-            <a href="#career">Career</a><a href="#internship">Internship</a><a href="#other-contexts">Other experience</a><a href="#education">Education</a><a href="#recognition">Recognition</a>
+            <a href="#career">Career</a><a href="#internship">Internship</a><a href="#other-contexts">Other experience</a><a href="#education">Education</a><a href="#recognition">Recognition</a><a href="#certifications">Certifications</a>
           </nav>
         </header>
 
@@ -128,6 +128,25 @@ export default function ExperiencePage() {
             <ul className={styles.recognition}>{content.recognitionDetails.map(item => <li key={item.title}><span className={styles.recognitionMark} aria-hidden="true">↗</span><div><h3>{item.title}</h3><p>{item.context}</p></div></li>)}</ul>
           </Section>
         </div>
+
+        <Section id="certifications" title="Certifications" eyebrow="Continued learning">
+          <ul className={styles.certifications}>
+            {content.certifications.map(certification => <li key={certification.credentialId}>
+              <BrandMarks brandIds={[certification.brandId]} small className={styles.certificationBrand} />
+              <div>
+                <h3 className={styles.certificationTitle}>{certification.title}</h3>
+                <p className={styles.certificationMeta}>{certification.issuer} <span aria-hidden="true">·</span> Issued <time dateTime={certification.issuedDate}>{certification.issued}</time></p>
+                <div className={styles.certificationActions}>
+                  <a href={certification.credentialUrl} target="_blank" rel="noopener noreferrer" className={styles.caseLink}>View credential <span aria-hidden="true">↗</span><span className="sr-only"> for {certification.title} (opens in a new tab)</span></a>
+                  <details className={styles.certificationCredential}>
+                    <summary>Credential ID</summary>
+                    <p>{certification.credentialId}</p>
+                  </details>
+                </div>
+              </div>
+            </li>)}
+          </ul>
+        </Section>
 
         <Section id="skills" title="What I bring" eyebrow="Product, business and people">
           <details className={styles.disclosure}>

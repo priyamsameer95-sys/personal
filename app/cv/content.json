@@ -375,5 +375,25 @@
       "title": "TIDE 2.0 and Gujarat SSIP",
       "context": "Innovation-grant support for UrbanKhet"
     }
+  ],
+  "certifications": [
+    {
+      "title": "AI for Product Management",
+      "issuer": "Pendo.io",
+      "brandId": "pendo",
+      "issued": "Aug 2026",
+      "issuedDate": "2026-08",
+      "credentialId": "13dde14c-704f-4348-80bb-d2185173e0c0",
+      "credentialUrl": "https://www.credly.com/badges/13dde14c-704f-4348-80bb-d2185173e0c0/public_url"
+    },
+    {
+      "title": "Cryptocurrency Fundamentals: Coins, Wallets, Exchanges, ICOs",
+      "issuer": "Udemy",
+      "brandId": "udemy",
+      "issued": "Mar 2026",
+      "issuedDate": "2026-03",
+      "credentialId": "UC-af162e16-4a41-41c8-8484-f5448321b551",
+      "credentialUrl": "https://www.udemy.com/certificate/UC-af162e16-4a41-41c8-8484-f5448321b551/"
+    }
   ]
 }

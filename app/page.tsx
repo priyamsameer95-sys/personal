@@ -18,12 +18,6 @@ export const metadata: Metadata = {
 };
 
 const selectedSlugs = ['cashkaro-personal-loan-marketplace', 'absolute-silkroute-marketplace', 'absolute-upaj-farmer-experience'];
-const productLoop = [
-  { title: 'Understand', detail: 'Customer needs + business economics' },
-  { title: 'Choose', detail: 'Priorities + trade-offs' },
-  { title: 'Deliver', detail: 'Product + partners + operations' },
-  { title: 'Learn', detail: 'Funnel data + feedback' },
-];
 const career = [
   { name: 'UrbanKhet', period: '2019–2021', role: 'Founder & Director', id: 'urbankhet' },
   { name: 'Absolute / Upaj', period: '2021–2024', role: 'PM → Principal PM', id: 'absolute' },
@@ -51,14 +45,7 @@ export default function HomePage() {
           </div>
           <p className={styles.current}>General Manager, Product &amp; Business Growth<br />CashKaro / BankKaro</p>
         </div>
-        <figure className={styles.productLoop}>
-          <figcaption>How I move a product forward</figcaption>
-          <ol>{productLoop.map((step, index) => <li key={step.title}>
-            <span className={styles.stepNumber} aria-hidden="true">0{index + 1}</span>
-            <div><h2>{step.title}</h2><p>{step.detail}</p></div>
-            {index < productLoop.length - 1 && <span className={styles.loopArrow} aria-hidden="true">↓</span>}
-          </li>)}</ol>
-        </figure>
+        <div className={styles.heroArtwork}><PeelReveal /></div>
       </section>
 
       <section className={styles.section} aria-labelledby="work-title">
@@ -88,7 +75,6 @@ export default function HomePage() {
 
       <section className={`${styles.section} ${styles.personal}`} aria-labelledby="interests-title">
         <div><p className={styles.label}>Outside work</p><BrandMarks companyId="cept" small /><h2 id="interests-title">A little colour. A wider perspective.</h2><p>CEPT graduate. FC Sparta captain. A continuing painting practice.</p><div className={styles.personalLinks}><Link href="/art">Art <span aria-hidden="true">↗</span></Link><Link href="/blog">Writing <span aria-hidden="true">↗</span></Link></div></div>
-        <PeelReveal />
       </section>
     </main>
     <Footer />
