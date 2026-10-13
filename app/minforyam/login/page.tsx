@@ -83,7 +83,7 @@ export default function AdminLoginPage() {
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={loading}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-[#8C8C8C] hover:text-[#1A1A1A] focus:outline-none"
+                className="absolute right-1 top-1/2 -translate-y-1/2 inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-[#625e56] hover:text-[#1A1A1A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
               >
                 <span className="material-symbols-rounded block text-lg select-none">
                   {showPassword ? 'visibility_off' : 'visibility'}

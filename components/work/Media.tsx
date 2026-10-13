@@ -43,7 +43,7 @@ export default function Media({ media, priority = false, previewSrc }: { media: 
         <>
           <button ref={trigger} type="button" aria-haspopup="dialog" aria-label={`Enlarge image: ${media.alt}`} className={styles.imageButton} onClick={() => { setActualSize(false); setExpanded(true); }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={previewSrc || media.src} alt={media.alt} width={media.width} height={media.height} loading={priority ? 'eager' : 'lazy'} className={`${styles.image}${isLongImage ? ` ${styles.longImage}` : ''}`} />
+            <img src={previewSrc || media.src} alt={media.alt} width={media.width} height={media.height} loading={priority ? 'eager' : 'lazy'} decoding="async" className={`${styles.image}${isLongImage ? ` ${styles.longImage}` : ''}`} />
             <span className={styles.imageHint} aria-hidden="true">Enlarge image <span>↗</span></span>
           </button>
           <dialog ref={dialog} className={styles.imageDialog} aria-labelledby={labelId} onClose={() => { setExpanded(false); trigger.current?.focus({ preventScroll: true }); }} onClick={(event) => {
@@ -63,7 +63,7 @@ export default function Media({ media, priority = false, previewSrc }: { media: 
         </>
       ) : (
         <>
-          <video className={styles.video} controls controlsList="nodownload" playsInline preload="metadata" poster={media.poster} aria-label={media.title}>
+          <video className={styles.video} controls controlsList="nodownload" playsInline preload="none" poster={media.poster} aria-label={media.title}>
             <source src={media.src} type={media.mime || 'video/mp4'} />
             {media.captions?.map((track, index) => <track key={track.src} kind="captions" src={track.src} srcLang={track.language} label={track.label} default={index === 0} />)}
             Your browser cannot play this video.

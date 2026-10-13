@@ -1,69 +1,60 @@
-.visualStory { min-width: 0; color: #111; }
-.framing { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 2rem; margin: 0 0 1.25rem; }
-.framing dt { font-size: .72rem; font-weight: 600; margin-bottom: .4rem; }
-.framing dd { font-size: .9rem; line-height: 1.65; color: #333; max-width: 46ch; }
+.visualStory { min-width: 0; color: var(--ink, #191714); }
+.framing { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; margin: 0 0 2rem; }
+.framing dt { font-size: .95rem; font-weight: 550; margin-bottom: .5rem; }
+.framing dd { font-size: 1rem; line-height: 1.7; color: var(--muted, #625e56); max-width: 52ch; }
 .workflow { margin: 0; min-width: 0; }
-.workflow figcaption, .chart figcaption { font-size: .85rem; font-weight: 600; line-height: 1.5; margin-bottom: .8rem; }
-.workflow ol { display: flex; margin: 0; padding: 0; list-style: none; border-top: 1px solid #1112; }
-.workflow li { position: relative; flex: 1; min-width: 0; padding: .9rem 1rem .6rem 0; border-top: 3px solid #2657ef; }
-.workflow li:nth-child(5n + 2) { border-color: #ff7628; }
-.workflow li:nth-child(5n + 3) { border-color: #f59dc6; }
-.workflow li:nth-child(5n + 4) { border-color: #c5e875; }
-.workflow li:nth-child(5n + 5) { border-color: #ffe348; }
-.workflow li + li { padding-left: 1rem; }
-.workflow li:not(:last-child)::after { content: '→'; position: absolute; top: -.84rem; right: -.3rem; background: #fff; color: #111; font-size: 1rem; padding: 0 .15rem; z-index: 1; }
-.stepNumber { display: block; font-size: .65rem; color: #555; margin-bottom: .45rem; }
-.workflow strong { display: block; font-size: .9rem; font-weight: 500; line-height: 1.45; overflow-wrap: anywhere; }
-.workflow li p { font-size: .78rem; line-height: 1.65; color: #555; margin-top: .4rem; }
-.workflowNote, .chartNote { font-size: .73rem; line-height: 1.65; color: #555; margin: .6rem 0 0; }
-.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-.chart { min-width: 0; padding-top: 1rem; border-top: 1px solid #1112; margin: 0; }
-.comparison { display: flex; flex-direction: column; gap: .9rem; list-style: none; margin: 0; padding: 0; }
-.barLabel { display: flex; justify-content: space-between; gap: .8rem; align-items: baseline; margin-bottom: .3rem; }
-.barLabel > span { font-size: .78rem; line-height: 1.6; color: #333; }
-.barLabel strong { font-size: .92rem; font-weight: 600; line-height: 1.5; font-variant-numeric: tabular-nums; text-align: right; }
-.barTrack { height: .85rem; background: #f1f1f1; overflow: hidden; }
+.workflow figcaption, .chart figcaption { font-size: 1rem; font-weight: 550; line-height: 1.5; margin-bottom: 1rem; }
+.workflow ol { display: flex; margin: 0; padding: 0; list-style: none; }
+.workflow li { position: relative; flex: 1; min-width: 0; padding: 1rem 1.2rem .6rem 0; border-top: 2px solid var(--rule, #ddd7cb); }
+.workflow li:last-child { border-color: #2657ef; }
+.workflow li + li { padding-left: 1.2rem; }
+.workflow li:not(:last-child)::after { content: '→'; position: absolute; top: -.85rem; right: -.3rem; background: var(--paper, #faf7f0); color: var(--ink, #191714); font-size: 1rem; padding: 0 .2rem; z-index: 1; }
+.stepNumber { display: block; font-size: .875rem; color: var(--muted, #625e56); margin-bottom: .5rem; }
+.workflow strong { display: block; font-size: 1.05rem; font-weight: 550; line-height: 1.45; overflow-wrap: anywhere; }
+.workflow li p { font-size: .925rem; line-height: 1.6; color: var(--muted, #625e56); margin-top: .5rem; }
+.workflowNote, .chartNote { font-size: .9rem; line-height: 1.65; color: var(--muted, #625e56); margin: .9rem 0 0; max-width: 68ch; }
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 2rem; margin-top: 2rem; }
+.chart { min-width: 0; padding-top: 1.25rem; border-top: 1px solid var(--rule, #ddd7cb); margin: 0; }
+.comparison { display: flex; flex-direction: column; gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
+.barLabel { display: flex; justify-content: space-between; gap: .8rem; align-items: baseline; margin-bottom: .45rem; }
+.barLabel > span { font-size: .95rem; line-height: 1.6; color: var(--muted, #625e56); }
+.barLabel strong { font-size: 1.15rem; font-weight: 550; line-height: 1.5; font-variant-numeric: tabular-nums; text-align: right; }
+.barTrack { height: .65rem; background: #e9e3d8; overflow: hidden; border-radius: 0 .2rem .2rem 0; }
 .barTrack > span { display: block; height: 100%; }
-.chartScale { display: flex; justify-content: space-between; font-size: .65rem; color: #666; margin-top: .45rem; }
-.donutLayout { display: flex; align-items: center; gap: 1.25rem; }
-.donut { width: 8rem; flex: 0 0 8rem; }
-.donut text { font-family: inherit; font-size: 20px; font-weight: 600; fill: #111; }
+.chartScale { display: flex; justify-content: space-between; font-size: .875rem; color: var(--muted, #625e56); margin-top: .5rem; }
+.donutLayout { display: flex; align-items: center; gap: 1.5rem; }
+.donut { width: 9rem; flex: 0 0 9rem; }
+.donut text { font-family: inherit; font-size: 20px; font-weight: 550; fill: var(--ink, #191714); }
 .legend { flex: 1; min-width: 0; }
-.legend > div + div { margin-top: .65rem; }
-.legend dt { display: flex; gap: .45rem; align-items: baseline; font-size: .75rem; line-height: 1.5; color: #333; }
-.legend dd { font-size: .95rem; font-weight: 600; margin: .2rem 0 0 .9rem; }
-.colourKey { display: inline-block; flex: 0 0 .45rem; width: .45rem; height: .45rem; border-radius: 50%; }
-.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: 1rem; }
-.metrics > div { border-left: 3px solid; padding-left: .75rem; min-width: 0; }
-.metrics dt { font-size: .75rem; line-height: 1.6; color: #444; }
-.metrics dd { font-size: clamp(1.2rem, 2.5vw, 1.75rem); font-weight: 550; line-height: 1.3; margin-top: .35rem; letter-spacing: -.035em; overflow-wrap: anywhere; }
-.impact { display: flex; gap: 1.5rem; border-top: 1px solid #1112; padding-top: 1rem; font-size: .85rem; line-height: 1.7; color: #333; margin-top: 1.5rem; }
-.impact strong { color: #111; font-size: .72rem; font-weight: 600; flex: 0 0 7rem; }
-.compact .workflow figcaption { font-size: .75rem; }
-.compact .workflow strong { font-size: .78rem; }
-.compact .workflow li { padding-right: .65rem; }
-.compact .workflow li + li { padding-left: .65rem; }
-.compact .workflowNote { font-size: .7rem; }
-.compact .charts { margin-top: .75rem; }
-.compactChart { padding-top: .75rem; }
-.compactChart figcaption { font-size: .75rem; margin-bottom: .6rem; }
-.compactChart .metrics dd { font-size: 1.25rem; }
-@media (max-width: 600px) {
-  .framing { grid-template-columns: 1fr; gap: .8rem; }
-  .workflow ol { display: block; border-top: 0; }
-  .workflow li, .workflow li + li { border-top: 0; border-left: 3px solid #2657ef; padding: .6rem .7rem .6rem 1rem; }
-  .workflow li:nth-child(5n + 2) { border-left-color: #ff7628; }
-  .workflow li:nth-child(5n + 3) { border-left-color: #f59dc6; }
-  .workflow li:nth-child(5n + 4) { border-left-color: #c5e875; }
-  .workflow li:nth-child(5n + 5) { border-left-color: #ffe348; }
+.legend > div + div { margin-top: .8rem; }
+.legend dt { display: flex; gap: .5rem; align-items: baseline; font-size: .95rem; line-height: 1.5; color: var(--muted, #625e56); }
+.legend dd { font-size: 1.15rem; font-weight: 550; margin: .25rem 0 0 1rem; }
+.colourKey { display: inline-block; flex: 0 0 .5rem; width: .5rem; height: .5rem; border-radius: 50%; }
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: 1.5rem; }
+.metrics > div { border-left: 3px solid; padding-left: 1rem; min-width: 0; }
+.metrics dt { font-size: .95rem; line-height: 1.6; color: var(--muted, #625e56); }
+.metrics dd { font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 550; line-height: 1.25; margin-top: .5rem; letter-spacing: -.035em; overflow-wrap: anywhere; }
+.impact { border-top: 1px solid var(--rule, #ddd7cb); padding-top: 1.25rem; font-size: 1rem; line-height: 1.7; color: var(--muted, #625e56); margin-top: 2rem; }
+.impact strong { display: block; color: var(--ink, #191714); font-size: .95rem; font-weight: 550; margin-bottom: .5rem; }
+.compact .workflow figcaption { font-size: .95rem; }
+.compact .workflow li { padding-right: .8rem; }
+.compact .workflow li + li { padding-left: .8rem; }
+.compact .charts { margin-top: 1rem; }
+.compactChart { padding-top: 1rem; }
+.compactChart .metrics dd { font-size: 1.75rem; }
+@media (max-width: 700px) {
+  .framing { grid-template-columns: 1fr; gap: 1.2rem; }
+  .workflow ol { display: block; }
+  .workflow li, .workflow li + li { border-top: 0; border-left: 2px solid var(--rule, #ddd7cb); padding: .8rem .7rem .8rem 1.25rem; }
+  .workflow li:last-child { border-left-color: #2657ef; }
   .workflow li:not(:last-child)::after { content: '↓'; top: auto; bottom: -.55rem; left: -.52rem; right: auto; line-height: 1; padding: .1rem 0; }
-  .stepNumber { display: inline; margin-right: .6rem; }
+  .stepNumber { display: inline; margin-right: .7rem; }
   .workflow strong { display: inline; }
-  .workflow li p { margin-left: 1.5rem; }
-  .charts { gap: 1.2rem; margin-top: 1.2rem; }
-  .donut { width: 6rem; flex-basis: 6rem; }
-  .donutLayout { gap: .9rem; }
-  .impact { display: block; }
-  .impact strong { display: block; margin-bottom: .4rem; }
+  .workflow li p { margin-left: 1.8rem; }
+  .charts { gap: 1.5rem; margin-top: 1.5rem; }
+  .donut { width: 7rem; flex-basis: 7rem; }
+  .donutLayout { gap: 1rem; }
 }
+@media (max-width: 380px) { .donutLayout { flex-wrap: wrap; } .barLabel { flex-wrap: wrap; gap: .15rem .75rem; } }
 @media print { .workflow, .chart { break-inside: avoid; } }
+.metrics abbr { text-decoration: none; }

@@ -44,7 +44,12 @@ test('Work Explorer renders five initial studies, clear company controls and eve
     assert.equal((html.match(new RegExp(`href="/product/${study.slug}"`, 'g')) || []).length, 1, `${study.slug}: exactly one case action`);
     assert.ok(html.includes(study.visualSummary.title), `${study.slug}: short title missing`);
   }
-  assert.match(html, /<summary>Scope and leadership<\/summary>/);
+  assert.ok(html.includes(registry.companies[0].role));
+  for (const sentence of registry.companies[0].summary.split(/(?<=\.)\s+/)) assert.ok(html.includes(sentence));
+  assert.doesNotMatch(html, /class="workflow"|class="chart"|class="comparison"|class="donut"/);
+  assert.match(html, /Authored workflow overview; full technical model in the case study/);
+  assert.match(html, /Portfolio diagram explaining the historical account/);
+  assert.match(html, /<summary>Company context/);
   assert.match(html, /Read case study/);
   assert.doesNotMatch(html, /<a[^>]+download=/);
 });

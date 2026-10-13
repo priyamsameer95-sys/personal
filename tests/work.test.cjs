@@ -100,20 +100,21 @@ test('optional publishing database failure leaves authored work available', asyn
   assert.equal(work.findCaseStudy('company-one').title, study.title);
 });
 
-test('case study leads with a visual overview and keeps the complete story and sources in native disclosures', () => {
+test('case study has one readable orientation, an open main story and named source disclosures', () => {
   const Component = caseRenderer();
   const html = renderToStaticMarkup(createElement(Component, { study: { ...study, heroMediaId: 'screen' } }));
   assert.match(html, /<h1>A simpler lending journey<\/h1>/);
-  const overview = html.split('<details id="full-case-study"')[0];
+  const overview = html.split('<section id="full-case-study"')[0];
   assert.ok(overview.includes(study.visualSummary.challenge));
   assert.ok(overview.includes(study.visualSummary.charts[0].note));
   assert.ok(!overview.includes(study.executiveBrief.remit));
   assert.ok(!overview.includes('A complete narrative paragraph.'));
-  assert.match(html, /<details id="full-case-study"[^>]+data-case-section="true"/);
-  assert.doesNotMatch(html, /<details id="full-case-study"[^>]+open/);
+  assert.match(html, /<section id="full-case-study"[^>]+data-case-section="true"/);
+  assert.doesNotMatch(html, /<details id="full-case-study"/);
+  assert.match(html, /<section id="story-problem"/);
   assert.ok(html.includes(study.executiveBrief.remit));
   assert.ok(html.includes(study.sourceNotes[0]));
-  assert.match(html, /href="#story-problem"[^>]*>View product walkthroughs/);
+  assert.match(html, /href="#story-problem"[^>]*>Reference context/);
   assert.match(html, /A complete narrative paragraph\./);
   assert.match(html, /<details id="story-operating-model"[^>]+data-case-section="true"/);
   assert.doesNotMatch(html, /<details id="story-operating-model"[^>]+open/);
@@ -124,7 +125,7 @@ test('case study leads with a visual overview and keeps the complete story and s
   assert.match(html, /<th scope="col">Option<\/th>/);
   assert.match(html, /<td>Requires lender rules<\/td>/);
   assert.match(html, /aria-label="In this case study"/);
-  assert.match(html, /Discuss a product leadership role/);
+  assert.match(html, /Responsibility and results record/);
   assert.match(html, /Read case study/);
   assert.doesNotMatch(html, /<a[^>]+(?:download=|href="\/work\/)/);
   assert.doesNotMatch(html, /Downloads|Download this case study|Read story/);
@@ -138,7 +139,7 @@ test('media stays inline with accessible image enlargement, provenance and no se
   assert.match(html, /<dialog[^>]+aria-labelledby=/);
   assert.match(html, /<img[^>]+alt="The application flow"/);
   assert.match(html, /Historical material · Original product capture · 2024/);
-  assert.match(html, /<video[^>]+controls=""[^>]+controlsList="nodownload"[^>]+playsinline=""[^>]+preload="metadata"/);
+  assert.match(html, /<video[^>]+controls=""[^>]+controlsList="nodownload"[^>]+playsinline=""[^>]+preload="none"/);
   assert.match(html, /<track[^>]+kind="captions"/);
   assert.match(html, /A description of the walkthrough\./);
   assert.match(html, /<summary>Video description<\/summary>/);
@@ -415,13 +416,14 @@ test('published registry validates briefs, accessible chapter sources and every 
   }
 });
 
-test('every published case renders all media and useful old anchors without any visitor download options', () => {
+test('every published case keeps its main story readable, every source and legacy anchor, and no separate file actions', () => {
   const data = JSON.parse(readFileSync(path.join(root, 'content/work/case-studies.json'), 'utf8'));
   const Component = caseRenderer(data);
   for (const item of data.caseStudies.filter(study => study.status !== 'draft')) {
     const html = renderToStaticMarkup(createElement(Component, { study: item }));
-    assert.match(html, /<details id="full-case-study"[^>]+data-case-section="true"/, `${item.slug}: complete case should be expandable`);
-    const overview = html.split('<details id="full-case-study"')[0];
+    assert.match(html, /<section id="full-case-study"[^>]+data-case-section="true"/, `${item.slug}: main story must remain open`);
+    assert.doesNotMatch(html, /<details id="full-case-study"/, `${item.slug}: main narrative hidden in a parent disclosure`);
+    const overview = html.split('<section id="full-case-study"')[0];
     for (const chart of item.visualSummary.charts || []) assert.ok(overview.includes(chart.note.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')), `${item.slug}: chart qualifier missing from overview`);
     assert.match(html, /id="downloads"/, `${item.slug}: old evidence link no longer resolves`);
     assert.doesNotMatch(html, /<a[^>]+(?:download=|href="[^"#]*\.(?:pdf|zip|docx?|pptx?|mp4|webm|webp|png|jpe?g|svg)(?:[?"#]))/i, `${item.slug}: visitor file action returned`);
@@ -437,6 +439,14 @@ test('every published case renders all media and useful old anchors without any 
     for (const section of item.sections) {
       assert.ok(html.includes(`id="story-${section.id}"`), `${item.slug}: chapter anchor missing`);
       for (const alias of section.anchorAliases || []) assert.ok(html.includes(`id="${alias}"`), `${item.slug}: legacy anchor missing ${alias}`);
+      const escaped = text => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+      for (const paragraph of section.body) assert.ok(html.includes(escaped(paragraph)), `${item.slug}: original paragraph omitted in ${section.id}`);
+      for (const bullet of section.bullets || []) assert.ok(html.includes(escaped(bullet)), `${item.slug}: supporting example omitted in ${section.id}`);
+      for (const table of section.tables || []) {
+        assert.ok(html.includes(`<caption>${escaped(table.caption)}</caption>`), `${item.slug}: table omitted in ${section.id}`);
+        for (const row of table.rows) for (const cell of row) assert.ok(html.includes(escaped(cell)), `${item.slug}: table evidence omitted in ${section.id}`);
+      }
+      if (!section.group || section.group === 'story') assert.match(html, new RegExp(`<section id="story-${section.id}"`), `${item.slug}: main chapter hidden`);
     }
   }
 });

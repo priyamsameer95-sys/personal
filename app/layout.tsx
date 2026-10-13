@@ -1,5 +1,4 @@
 /* App Router owns the document head in this root layout. */
-/* eslint-disable @next/next/no-page-custom-font */
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -18,7 +17,12 @@ const geistMono = localFont({
   display: "swap",
 });
 
+const siteAddress = process.env.NEXT_PUBLIC_SITE_URL
+  || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined)
+  || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined);
+
 export const metadata: Metadata = {
+  ...(siteAddress ? { metadataBase: new URL(siteAddress) } : {}),
   title: { default: "Priyam Sameer — Product Leadership", template: "%s — Priyam Sameer" },
   description: "Product leadership from strategy to scale. Priyam Sameer’s work, experience and decisions across lending, marketplaces and agritech.",
   openGraph: {
@@ -41,12 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" />
-      </head>
-      <body className={`${geist.variable} ${geistMono.variable} bg-system-bg text-system-primary antialiased`}>
+      <body className={`${geist.variable} ${geistMono.variable} text-system-primary antialiased`}>
         <a href="#main-content" className="skip-link">Skip to content</a>
         {children}
       </body>

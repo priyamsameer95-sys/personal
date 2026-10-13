@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
+import styles from './blog.module.css';
 
 interface ContentItem {
   id: string;
@@ -24,47 +25,66 @@ export const metadata: Metadata = {
 
 export const revalidate = 0;
 
+async function loadWriting(): Promise<{ items: ContentItem[]; unavailable: boolean }> {
+  // Writing is optional; a missing connection must not make the portfolio fail.
+  if (!process.env.POSTGRES_URL) return { items: [], unavailable: process.env.NODE_ENV === 'production' };
+  try {
+    const { rows } = await db`
+      SELECT id, title, slug, summary, body_markdown, created_at
+      FROM content_items
+      WHERE type = 'blog' AND status = 'published'
+      ORDER BY created_at DESC
+    `;
+    return { items: rows as ContentItem[], unavailable: false };
+  } catch {
+    console.error('Published writing could not be loaded.');
+    return { items: [], unavailable: true };
+  }
+}
+
 export default async function BlogPage() {
-  const { rows } = await db`
-    SELECT id, title, slug, summary, body_markdown, created_at
-    FROM content_items
-    WHERE type = 'blog' AND status = 'published'
-    ORDER BY created_at DESC
-  `;
-  const items = rows as ContentItem[];
+  const { items, unavailable } = await loadWriting();
 
   return (
     <PublicShell>
         <Header />
 
-        <main id="main-content" className="animate-fade-in-up">
-          <div className="mb-12 max-w-2xl md:mb-16">
-            <p className="mb-4 text-xs font-medium uppercase tracking-[0.16em] text-system-accent">Ideas from product work</p>
-            <h1 className="mb-5 font-sans text-5xl leading-tight tracking-tight text-system-primary sm:text-6xl">Writing.</h1>
-            <p className="max-w-xl text-lg leading-relaxed text-system-secondary">My published writing about product decisions and the experience behind them.</p>
-          </div>
+        <main id="main-content" className={styles.page}>
+          <header className={styles.intro}>
+            <h1>Writing.</h1>
+            <p>Product decisions, lessons and the experience behind them.</p>
+          </header>
 
-          {items.length === 0 ? (
-            <div className="rounded-2xl border border-system-outline bg-system-surface px-6 py-14 sm:px-10">
-              <h2 className="mb-3 font-sans text-3xl text-system-primary">No writing published yet.</h2>
-              <p className="max-w-lg leading-relaxed text-system-secondary">There are no published articles here. My case studies explain the decisions, delivery and impact behind my product work.</p>
-              <Link href="/product" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-system-accent no-underline">Explore my work <span aria-hidden="true">→</span></Link>
-            </div>
+          {unavailable ? (
+            <section className={styles.empty} aria-labelledby="writing-unavailable-title">
+              <h2 id="writing-unavailable-title">Writing is temporarily unavailable.</h2>
+              <p>The articles couldn’t load. You can try again or explore the case studies.</p>
+              <div className={styles.actions}>
+                <a href="/blog">Try again <span aria-hidden="true">↗</span></a>
+                <Link href="/product">Explore my work <span aria-hidden="true">↗</span></Link>
+              </div>
+            </section>
+          ) : items.length === 0 ? (
+            <section className={styles.empty} aria-labelledby="writing-empty-title">
+              <h2 id="writing-empty-title">No essays to read here yet.</h2>
+              <p>For now, my case studies share the thinking behind the work.</p>
+              <Link href="/product">Explore my work <span aria-hidden="true">↗</span></Link>
+            </section>
           ) : (
-            <div className="max-w-3xl space-y-10">
+            <div className={styles.essays}>
               {items.map((post) => {
                 const excerpt = contentExcerpt(post.summary || post.body_markdown, 260);
                 const href = `/blog/${encodeURIComponent(post.slug || post.id)}`;
                 return (
-                  <article key={post.id} className="border-t border-system-outline pt-7">
-                    <time dateTime={new Date(post.created_at).toISOString()} className="mb-3 block text-xs uppercase tracking-[0.12em] text-system-tertiary">
+                  <article key={post.id} className={styles.essay}>
+                    <time dateTime={new Date(post.created_at).toISOString()}>
                       {new Date(post.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })}
                     </time>
-                    <Link href={href} className="no-underline">
-                      <h2 className="mb-4 font-sans text-3xl leading-tight text-system-primary transition-colors hover:text-system-accent sm:text-4xl">{post.title}</h2>
+                    <Link href={href} className={styles.titleLink}>
+                      <h2>{post.title}</h2>
                     </Link>
-                    {excerpt && <p className="leading-relaxed text-system-secondary">{excerpt}</p>}
-                    <Link href={href} className="mt-4 inline-flex min-h-11 items-center gap-3 text-sm font-medium text-system-accent no-underline">Read essay <span aria-hidden="true">→</span></Link>
+                    {excerpt && <p>{excerpt}</p>}
+                    <Link href={href} className={styles.readLink}>Read essay <span aria-hidden="true">↗</span></Link>
                   </article>
                 );
               })}

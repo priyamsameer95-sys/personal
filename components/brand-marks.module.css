@@ -4,7 +4,7 @@
 .square img { height: 64px; width: 64px; }
 .dark { background: #111; padding: .55rem .7rem; }
 .dark img { height: 26px; }
-.withLabel { gap: .5rem; color: #fff; font-size: .85rem; font-weight: 500; }
+.withLabel { gap: .5rem; color: #fff; font-size: .875rem; font-weight: 500; }
 .withLabel img { width: 24px; height: 24px; }
 .small { gap: .8rem; margin-bottom: .65rem; }
 .small .mark img { height: 26px; max-width: 125px; }

@@ -10,7 +10,7 @@ export default function ErrorPage({ reset }: { reset: () => void }) {
     <PublicShell>
         <Header />
         <main id="main-content" className="py-12 md:py-20">
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-system-tertiary mb-5">
+          <p className="text-sm text-system-tertiary mb-5">
             Page unavailable
           </p>
           <h1 className="font-sans text-4xl md:text-5xl text-system-primary tracking-tight mb-5">

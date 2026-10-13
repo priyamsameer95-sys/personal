@@ -15,7 +15,7 @@ interface ContentItem {
   title: string;
   slug: string;
   body_markdown: string | null;
-  media: Array<{ blob_url: string; kind: string; alt_text: string | null }>;
+  media: Array<{ blob_url: string; kind: string; alt_text: string | null; width: number | null; height: number | null }>;
 }
 
 const description = 'Paintings by Priyam Sameer in oil, acrylic and charcoal. Explore six works, their details and the artist’s original notes.';
@@ -38,7 +38,7 @@ async function loadAdditionalArt(): Promise<ContentItem[]> {
     const { rows } = await db`
       SELECT ci.id, ci.title, ci.slug, ci.body_markdown,
         COALESCE(json_agg(
-          json_build_object('blob_url', ma.blob_url, 'kind', ma.kind, 'alt_text', ma.alt_text)
+          json_build_object('blob_url', ma.blob_url, 'kind', ma.kind, 'alt_text', ma.alt_text, 'width', ma.width, 'height', ma.height)
           ORDER BY ma.sort_order
         ) FILTER (WHERE ma.id IS NOT NULL), '[]'::json) AS media
       FROM content_items ci
@@ -60,7 +60,7 @@ export default async function ArtGalleryPage() {
   return (
     <PublicShell>
       <Header />
-      <main id="main-content" className="animate-fade-in-up">
+      <main id="main-content">
         <header className={styles.intro}>
           <div>
             <p className={styles.eyebrow}>Priyam Sameer · Paintings</p>
@@ -94,7 +94,7 @@ export default async function ArtGalleryPage() {
                 <Link key={art.id} href={`/art/${encodeURIComponent(art.slug || art.id)}`} className={styles.additionalWork}>
                   {firstImage && (
                     /* eslint-disable-next-line @next/next/no-img-element */
-                    <img src={firstImage.blob_url} alt={firstImage.alt_text || art.title} loading="lazy" />
+                    <img src={firstImage.blob_url} alt={firstImage.alt_text || art.title} width={firstImage.width || undefined} height={firstImage.height || undefined} loading="lazy" decoding="async" />
                   )}
                   <h3>{art.title}</h3>
                   {excerpt && <p>{excerpt}</p>}

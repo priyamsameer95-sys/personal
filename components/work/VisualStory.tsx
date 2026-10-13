@@ -1,7 +1,7 @@
 import type { CaseStudyChart, CaseStudyVisualSummary } from '@/lib/work-types';
 import styles from './visual-story.module.css';
 
-const colours = ['#2657ef', '#ff7628', '#f59dc6', '#c5e875', '#ffe348'];
+const colours = ['#2657ef', '#cbc4b7', '#958c7c', '#635d52', '#191714'];
 
 export function formatChartValue(value: number, unit?: string): string {
   const number = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(value);
@@ -9,6 +9,13 @@ export function formatChartValue(value: number, unit?: string): string {
   if (unit === 'USD') return `$${number}`;
   if (unit === 'INR') return `₹${number}`;
   return unit ? `${number} ${unit}` : number;
+}
+
+function metricValue(value: number, unit?: string): string {
+  if (unit === 'USD' && Math.abs(value) >= 1000000) {
+    return `$${new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 2 }).format(value)}`;
+  }
+  return formatChartValue(value, unit);
 }
 
 export function Chart({ chart, compact = false }: { chart: CaseStudyChart; compact?: boolean }) {
@@ -30,23 +37,28 @@ export function Chart({ chart, compact = false }: { chart: CaseStudyChart; compa
       <dl className={styles.legend}>{values.map((item, index) => <div key={index}><dt><span className={styles.colourKey} style={{ backgroundColor: colours[index % colours.length] }} aria-hidden="true" />{item.label}</dt><dd>{formatChartValue(item.value, chart.unit)}</dd></div>)}</dl>
     </div> : isComparison ? <><ul className={styles.comparison}>{values.map((item, index) => <li key={index}>
       <div className={styles.barLabel}><span>{item.label}</span><strong>{formatChartValue(item.value, chart.unit)}</strong></div>
-      <div className={styles.barTrack} aria-hidden="true"><span style={{ width: `${item.value / maximum * 100}%`, backgroundColor: colours[index % colours.length] }} /></div>
-    </li>)}</ul><p className={styles.chartScale} aria-hidden="true"><span>0</span><span>{formatChartValue(maximum, chart.unit)}</span></p></> : <dl className={styles.metrics}>{values.map((item, index) => <div key={index} style={{ borderColor: colours[index % colours.length] }}><dt>{item.label}</dt><dd>{formatChartValue(item.value, chart.unit)}</dd></div>)}</dl>}
+      <div className={styles.barTrack} aria-hidden="true"><span style={{ width: `${item.value / maximum * 100}%`, backgroundColor: index === values.length - 1 ? colours[0] : colours[1] }} /></div>
+    </li>)}</ul><p className={styles.chartScale} aria-hidden="true"><span>0</span><span>{formatChartValue(maximum, chart.unit)}</span></p></> : <dl className={styles.metrics}>{values.map((item, index) => <div key={index} style={{ borderColor: colours[index % colours.length] }}><dt>{item.label}</dt><dd>{metricValue(item.value, chart.unit) !== formatChartValue(item.value, chart.unit) ? <abbr title={formatChartValue(item.value, chart.unit)}>{metricValue(item.value, chart.unit)}</abbr> : formatChartValue(item.value, chart.unit)}</dd></div>)}</dl>}
     <p className={styles.chartNote}>{chart.note}</p>
   </figure>;
+}
+
+export function Workflow({ workflow, compact = false }: { workflow: CaseStudyVisualSummary['workflow']; compact?: boolean }) {
+  if (workflow.steps.length === 0) return null;
+  return <figure className={styles.workflow}>
+      <figcaption>{workflow.label}</figcaption>
+      <ol>{workflow.steps.map((step, index) => <li key={`${step.title}-${index}`}>
+        <span className={styles.stepNumber} aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><strong>{step.title}</strong>{!compact && step.detail && <p>{step.detail}</p>}
+      </li>)}</ol>
+      {workflow.note && <p className={styles.workflowNote}>{workflow.note}</p>}
+    </figure>;
 }
 
 export function VisualStory({ summary, compact = false }: { summary: CaseStudyVisualSummary; compact?: boolean }) {
   const charts = compact ? summary.charts?.slice(0, 1) : summary.charts;
   return <div className={`${styles.visualStory}${compact ? ` ${styles.compact}` : ''}`}>
     {!compact && <dl className={styles.framing}><div><dt>The challenge</dt><dd>{summary.challenge}</dd></div><div><dt>My decision</dt><dd>{summary.decision}</dd></div></dl>}
-    {summary.workflow.steps.length > 0 && <figure className={styles.workflow}>
-      <figcaption>{summary.workflow.label}</figcaption>
-      <ol>{summary.workflow.steps.map((step, index) => <li key={`${step.title}-${index}`}>
-        <span className={styles.stepNumber} aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><strong>{step.title}</strong>{!compact && step.detail && <p>{step.detail}</p>}
-      </li>)}</ol>
-      {summary.workflow.note && <p className={styles.workflowNote}>{summary.workflow.note}</p>}
-    </figure>}
+    <Workflow workflow={summary.workflow} compact={compact} />
     {!!charts?.length && <div className={styles.charts}>{charts.map((chart) => <Chart key={chart.id} chart={chart} compact={compact} />)}</div>}
     {!compact && summary.impact && <p className={styles.impact}><strong>Result and scope</strong>{summary.impact}</p>}
   </div>;

@@ -83,6 +83,7 @@ export default function PeelReveal() {
     const current = motion.current;
     current.target = current.target === 1 ? 0 : 1;
     setPeeled(current.target === 1);
+    setSettled(false);
     if (reduceMotion.current) {
       snapToTarget();
     } else if (current.frame === null) {
@@ -111,10 +112,10 @@ export default function PeelReveal() {
             <clipPath id={`${id}-cover`}><path d={cover} /></clipPath>
             <clipPath id={`${id}-cap`}><path d={cap} /></clipPath>
             <linearGradient id={`${id}-paper`} gradientUnits="userSpaceOnUse" x1={crease / 2} y1={crease / 2} x2={crease / 2 + 48} y2={crease / 2 + 48}>
-              <stop offset="0" stopColor="#bcbcbc" />
-              <stop offset=".12" stopColor="#e9e9e9" />
+              <stop offset="0" stopColor="#c9c2b5" />
+              <stop offset=".12" stopColor="#eee9df" />
               <stop offset=".45" stopColor="#fff" />
-              <stop offset="1" stopColor="#fafafa" />
+              <stop offset="1" stopColor="#faf7f0" />
             </linearGradient>
             <filter id={`${id}-shadow`} x="-30%" y="-30%" width="160%" height="160%" colorInterpolationFilters="sRGB">
               <feGaussianBlur stdDeviation="5" />
@@ -147,7 +148,7 @@ export default function PeelReveal() {
       </div>
       <div className="peel-study-caption">
         <p>A little colour underneath.</p>
-        <button type="button" onClick={togglePeel} className="peel-toggle">
+        <button type="button" onClick={togglePeel} aria-pressed={peeled} className="peel-toggle">
           {peeled ? 'Fold back' : 'Peel back'} <span aria-hidden="true">{peeled ? '↙' : '↗'}</span>
         </button>
       </div>

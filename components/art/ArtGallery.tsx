@@ -67,7 +67,7 @@ export default function ArtGallery({ collections, works }: { collections: ArtCol
                 </div>
                 {(work.statement || Boolean(work.detailImages?.length)) && (
                   <details className={styles.details}>
-                    <summary>{work.detailImages?.length ? 'About this painting and details' : 'About this painting'} <span aria-hidden="true">+</span></summary>
+                    <summary>{work.detailImages?.length ? 'Artist’s note and close-up' : 'Artist’s note'} <span aria-hidden="true">+</span></summary>
                     {work.statement && <div className={styles.statement}>{work.statement.split(/\n\s*\n/).map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>}
                     {work.detailImages && work.detailImages.length > 0 && <div className={styles.detailImages}>
                       {work.detailImages.map((detail, index) => (

@@ -7,74 +7,81 @@ import PublicShell from '@/components/PublicShell';
 import PeelReveal from '@/components/PeelReveal';
 import CvDownload from '@/components/CvDownload';
 import BrandMarks from '@/components/BrandMarks';
-import { Chart } from '@/components/work/VisualStory';
 import styles from './home.module.css';
 
 export const metadata: Metadata = {
   title: { absolute: 'Priyam Sameer — Product Leadership' },
-  description: 'Priyam Sameer: product leadership across lending, marketplaces and agritech. Explore visual case studies, experience and the downloadable CV.',
-  openGraph: { title: 'Priyam Sameer — Product Leadership', description: 'From strategy to scale. Explore my product decisions, work and experience.' },
-  twitter: { title: 'Priyam Sameer — Product Leadership', description: 'From strategy to scale. Explore my product decisions, work and experience.' },
+  description: 'Product leadership across lending, marketplaces and agritech. Explore Priyam Sameer’s decisions, supported results, career and painting practice.',
+  openGraph: { title: 'Priyam Sameer — Product Leadership', description: 'From strategy to scale. My product decisions, work and experience.' },
+  twitter: { title: 'Priyam Sameer — Product Leadership', description: 'From strategy to scale. My product decisions, work and experience.' },
 };
 
-const selectedSlugs = ['cashkaro-personal-loan-marketplace', 'absolute-silkroute-marketplace', 'absolute-upaj-farmer-experience'];
+const selected = [
+  { slug: 'cashkaro-personal-loan-marketplace', domain: 'Lending', value: '16% → 45%', measure: 'Reported funnel conversion', note: 'Programme report; funnel events and comparison cohorts unavailable.' },
+  { slug: 'absolute-silkroute-marketplace', domain: 'Commodity trading', value: '$100M', measure: 'Reported GMV in nine months', note: 'Transaction value, not revenue. Source cohorts vary.' },
+  { slug: 'absolute-upaj-farmer-experience', domain: 'Farmer products', value: '100K → 600K', measure: 'Reported active users', note: 'Programme report; cohort definition and comparison period unavailable.' },
+];
 const career = [
   { name: 'UrbanKhet', period: '2019–2021', role: 'Founder & Director', id: 'urbankhet' },
-  { name: 'Absolute / Upaj', period: '2021–2024', role: 'PM → Principal PM', id: 'absolute' },
+  { name: 'Absolute / Upaj', period: '2021–2024', role: 'Product Manager → Principal PM', id: 'absolute' },
   { name: 'CredFlow', period: '2024–2025', role: 'Senior Product Manager', id: 'credflow' },
   { name: 'CashKaro / BankKaro', period: '2025–Present', role: 'Senior Manager → General Manager', id: 'cashkaro' },
 ];
 
 export default function HomePage() {
-  const selectedWork = selectedSlugs.flatMap(slug => {
-    const study = findCaseStudy(slug);
-    return study ? [study] : [];
-  });
-
   return <PublicShell>
     <Header />
     <main id="main-content">
       <section className={styles.hero} aria-labelledby="intro-title">
         <div>
           <p className={styles.label}>Priyam Sameer · Product leader</p>
-          <h1 id="intro-title">Product leadership.<br />From strategy to scale.</h1>
-          <p className={styles.intro}>I build lending, marketplace and agritech products—and the operations behind them.</p>
+          <h1 id="intro-title">Product leadership.<br /><em>From strategy<br className={styles.heroBreak} /> to scale.</em></h1>
+          <p className={styles.intro}>I build lending, marketplace and agritech products—and the operations that make them work.</p>
           <div className={styles.actions}>
             <Link href="/product" className="ink-button">Explore my work <span aria-hidden="true">↗</span></Link>
             <CvDownload className={styles.download} />
           </div>
-          <p className={styles.current}>General Manager, Product &amp; Business Growth<br />CashKaro / BankKaro</p>
+          <p className={styles.current}><span>Currently</span> General Manager, Product Management &amp; Business Growth<br />CashKaro / BankKaro</p>
         </div>
         <div className={styles.heroArtwork}><PeelReveal /></div>
       </section>
 
       <section className={styles.section} aria-labelledby="work-title">
-        <div className={styles.sectionHeader}><div><p className={styles.label}>Selected work</p><h2 id="work-title">Three problems. Three product stories.</h2></div><Link href="/product">All work <span aria-hidden="true">↗</span></Link></div>
-        <div className={styles.selectedWork}>{selectedWork.map(study => {
-          const visual = study.visualSummary;
-          const href = `/product/${encodeURIComponent(study.slug)}`;
+        <div className={styles.sectionHeader}><div><p className={styles.label}>Decisions, delivery and impact</p><h2 id="work-title">Selected work.</h2></div><Link href="/product" className="ink-link">Explore all work <span aria-hidden="true">↗</span></Link></div>
+        <div className={styles.selectedWork}>{selected.map(proof => {
+          const study = findCaseStudy(proof.slug);
+          if (!study) return null;
           return <article key={study.id} className={styles.workItem}>
-            <div className={styles.workCopy}>
-              <BrandMarks companyId={study.companyId} small />
-              <p className={styles.label}>{study.companyId === 'cashkaro' ? 'CashKaro / BankKaro' : 'Absolute / Upaj'}</p>
-              <h3>{visual?.title || study.title}</h3>
-              <p>{visual?.summary || study.summary}</p>
-              <Link href={href}>Read case study <span aria-hidden="true">→</span></Link>
-            </div>
-            <div className={styles.workVisual}>{visual?.charts?.[0] ? <Chart chart={visual.charts[0]} compact /> : <p>{visual?.impact || study.executiveBrief.impact}</p>}</div>
+            <p className={styles.domain}>{proof.domain}</p>
+            <BrandMarks companyId={study.companyId} small className={styles.workBrands} />
+            <h3>{study.visualSummary?.title || study.title}</h3>
+            <p className={styles.workSummary}>{study.visualSummary?.summary || study.summary}</p>
+            <div className={styles.proof}><p className={styles.proofValue}>{proof.value}</p><p className={styles.proofMeasure}>{proof.measure}</p><p className={styles.proofNote}>{proof.note}</p></div>
+            <Link href={`/product/${encodeURIComponent(study.slug)}`} className="ink-link">Read case study <span aria-hidden="true">→</span><span className="sr-only">: {study.visualSummary?.title || study.title}</span></Link>
           </article>;
         })}</div>
       </section>
 
       <section className={styles.section} aria-labelledby="career-title">
-        <div className={styles.sectionHeader}><div><p className={styles.label}>Experience</p><h2 id="career-title">Founder roots. Growing responsibility.</h2></div><Link href="/cv">Full experience <span aria-hidden="true">→</span></Link></div>
+        <div className={styles.sectionHeader}><div><p className={styles.label}>From founder to product leader</p><h2 id="career-title">A growing scope.</h2></div><Link href="/cv" className="ink-link">View experience <span aria-hidden="true">→</span></Link></div>
         <ol className={styles.career}>{career.map(item => <li key={item.id}>
-          <span className={styles.careerDot} aria-hidden="true" /><p>{item.period}</p><BrandMarks companyId={item.id} small className={styles.careerBrands} /><h3>{item.name}</h3><p className={styles.careerRole}>{item.role}</p><Link href={`/cv#${item.id}`}>Explore role <span aria-hidden="true">↗</span></Link>
+          <p className={styles.careerDate}>{item.period}</p><h3>{item.name}</h3><p className={styles.careerRole}>{item.role}</p><Link href={`/cv#${item.id}`} className="ink-link">View role <span aria-hidden="true">↗</span><span className="sr-only">: {item.name}</span></Link>
         </li>)}</ol>
       </section>
 
       <section className={`${styles.section} ${styles.personal}`} aria-labelledby="interests-title">
-        <div><p className={styles.label}>Outside work</p><BrandMarks companyId="cept" small /><h2 id="interests-title">A little colour. A wider perspective.</h2><p>CEPT graduate. FC Sparta captain. A continuing painting practice.</p><div className={styles.personalLinks}><Link href="/art">Art <span aria-hidden="true">↗</span></Link><Link href="/blog">Writing <span aria-hidden="true">↗</span></Link></div></div>
+        <div>
+          <p className={styles.label}>Beyond product</p>
+          <h2 id="interests-title">A little colour.<br /><em>A wider perspective.</em></h2>
+          <p>I paint alongside my product work. At CEPT, I studied construction technology and captained FC Sparta.</p>
+          <BrandMarks companyId="cept" small />
+          <div className={styles.personalLinks}><Link href="/art" className="ink-link">Explore my paintings <span aria-hidden="true">↗</span></Link><Link href="/blog" className="ink-link">Writing <span aria-hidden="true">↗</span></Link></div>
+        </div>
+        <Link href="/art#public-compass" className={styles.painting}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/art/priyam/public-compass-preview.webp" alt="Public Compass, my oil painting in red, green and gold" width={1000} height={879} loading="lazy" />
+          <span>Public Compass · Oil on canvas <span aria-hidden="true">↗</span></span>
+        </Link>
       </section>
     </main>
     <Footer />

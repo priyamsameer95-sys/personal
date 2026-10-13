@@ -8,7 +8,7 @@ export default function NotFoundPage() {
     <PublicShell>
       <Header />
       <main id="main-content" className="py-12 md:py-20">
-        <p className="mb-5 font-mono text-xs uppercase tracking-[0.16em] text-system-tertiary">404</p>
+        <p className="mb-5 font-mono text-sm text-system-tertiary">404</p>
         <h1 className="mb-5 font-sans text-4xl tracking-tight text-system-primary md:text-5xl">
           This page couldn&apos;t be found.
         </h1>

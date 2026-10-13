@@ -6,7 +6,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
 import WorkExplorer from '@/components/work/WorkExplorer';
-import styles from '@/components/work/work.module.css';
 import explorerStyles from '@/components/work/work-explorer.module.css';
 
 export const metadata: Metadata = {
@@ -21,8 +20,8 @@ export const revalidate = 0;
 export default async function ProductWorkPage() {
   const groups = groupCaseStudies().map(({ company, studies }) => ({
     company,
-    studies: studies.map(({ id, slug, title, summary, role, period, workType, visualSummary }) => ({
-      id, slug, title, summary, role, period, workType, visualSummary,
+    studies: studies.map(({ id, slug, title, summary, role, period, workType, visualSummary, media, heroMediaId, outcomes }) => ({
+      id, slug, title, summary, role, period, workType, visualSummary, media, heroMediaId, outcomes,
     })),
   }));
   const additionalWork = await loadPublishedWork();
@@ -32,9 +31,8 @@ export default async function ProductWorkPage() {
       <Header />
       <main id="main-content" className="animate-fade-in-up">
         <header className={explorerStyles.pageIntro}>
-          <p className={styles.eyebrow}>Product leadership in practice</p>
           <h1>My work.</h1>
-          <p>Decisions, workflows and outcomes from company and founder work.</p>
+          <p>Lending, marketplaces and agritech. Explore the decisions, the delivery and the evidence behind each product.</p>
         </header>
         <WorkExplorer groups={groups} />
         {additionalWork.length > 0 && (

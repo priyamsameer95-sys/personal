@@ -44,12 +44,12 @@ export default function CaseStudyNavigation({ rootId, chapters }: { rootId: stri
   const reference = supporting.filter((chapter) => chapter.group === 'reference');
 
   return <nav className={styles.storyNav} aria-label="In this case study">
-    <div className={styles.mainChapterLinks}><span>In this case study</span>{main.map(chapterLink)}</div>
+    <div className={styles.mainChapterLinks}><span>Read the story</span>{main.map(chapterLink)}</div>
     {supporting.length > 0 && <details className={styles.supportingNav}>
-      <summary>Supporting chapters <small>{supporting.length} chapters</small><span aria-hidden="true">+</span></summary>
+      <summary>Go to a deeper chapter <small>{supporting.length} chapters</small><span aria-hidden="true">+</span></summary>
       <div className={styles.supportingNavGroups}>
-        {detail.length > 0 && <div><p>Further detail</p><div>{detail.map(chapterLink)}</div></div>}
-        {reference.length > 0 && <div><p>Source chapters</p><div>{reference.map(chapterLink)}</div></div>}
+        {detail.length > 0 && <div><p>Decisions in detail</p><div>{detail.map(chapterLink)}</div></div>}
+        {reference.length > 0 && <div><p>Product references and source material</p><div>{reference.map(chapterLink)}</div></div>}
       </div>
     </details>}
   </nav>;
