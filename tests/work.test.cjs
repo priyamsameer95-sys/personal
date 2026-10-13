@@ -79,7 +79,7 @@ test('curated work excludes drafts, resolves aliases and groups stories in autho
   assert.equal(work.findCaseStudy('older-slug').slug, 'company-one');
   assert.equal(work.findCaseStudy('draft-alias'), undefined);
   assert.deepEqual(Array.from(work.groupCaseStudies()[0].studies, item => item.slug), ['company-one', 'company-two']);
-  const existing = [{ id: 'old-one', slug: 'company-one' }, { id: 'old-alias', slug: 'older-slug' }, { id: 'uuid-route', slug: null }, { id: 'other', slug: 'another-story' }];
+  const existing = [{ id: 'old-one', slug: 'company-one' }, { id: 'old-alias', slug: 'older-slug' }, { id: 'retired-case', slug: 'independent-moneylion-wow-strategy' }, { id: 'retired-alias', slug: 'moneylion-wow-strategy' }, { id: 'uuid-route', slug: null }, { id: 'other', slug: 'another-story' }];
   assert.deepEqual(Array.from(work.withoutCuratedDuplicates(existing), item => item.id), ['uuid-route', 'other']);
 });
 
@@ -286,7 +286,7 @@ function routeModule(work, db, env = {}) {
 
 test('legacy product UUID and unregistered slug routes retain a published-only lookup', async () => {
   let query;
-  const route = routeModule({ findCaseStudy: () => undefined, findWorkCompany: () => undefined }, async (strings, ...values) => {
+  const route = routeModule({ findCaseStudy: () => undefined, findWorkCompany: () => undefined, isRetiredWorkSlug: () => false }, async (strings, ...values) => {
     query = { sql: strings.join('?'), values };
     return { rows: [{ id: 'legacy-id', title: 'Legacy story', summary: 'Published entry', body_markdown: null, created_at: '2024-01-01', media: [] }] };
   }, { POSTGRES_URL: 'configured' });
@@ -298,7 +298,7 @@ test('legacy product UUID and unregistered slug routes retain a published-only l
   }
 });
 
-test('curated detail routes bypass the database, publish metadata and redirect old aliases', async () => {
+test('curated detail routes bypass the database, publish metadata, redirect old aliases and block retired studies', async () => {
   let calls = 0;
   const route = routeModule(workModule(), async () => { calls += 1; throw new Error('Should not query'); });
   assert.ok(await route.default({ params: { category: 'product', id: 'company-one' } }));
@@ -308,6 +308,12 @@ test('curated detail routes bypass the database, publish metadata and redirect o
   assert.equal(metadata.alternates.canonical, '/product/company-one');
   await assert.rejects(route.default({ params: { category: 'product', id: 'older-slug' } }), /Redirect: \/product\/company-one/);
   await assert.rejects(route.default({ params: { category: 'product', id: 'draft' } }), /Not found/);
+  const retiredRoute = routeModule(workModule(), async () => { calls += 1; throw new Error('Should not query'); }, { POSTGRES_URL: 'configured' });
+  for (const id of ['independent-moneylion-wow-strategy', 'moneylion-wow-strategy']) {
+    await assert.rejects(retiredRoute.default({ params: { category: 'product', id } }), /Not found/);
+    assert.equal(Object.keys(await retiredRoute.generateMetadata({ params: { category: 'product', id } })).length, 0);
+  }
+  assert.equal(calls, 0);
 });
 
 const expectedSlugs = [
@@ -315,21 +321,21 @@ const expectedSlugs = [
   'credflow-kuberx-launch', 'credflow-pay-via-credit-card', 'absolute-silkroute-marketplace', 'absolute-trade-payments-erp', 'absolute-rural-credit-uli', 'absolute-ondc-credit-infrastructure',
   'absolute-upaj-farmer-experience', 'absolute-farm-os-iot-gis', 'absolute-crop-health-ai', 'absolute-rainfall-grid-insurance', 'absolute-upaj-international', 'absolute-agri-input-institutional-commerce',
   'absolute-supporting-portfolio', 'urbankhet-farm-to-fork', 'urbankhet-covid-pivot', 'urbankhet-incubation-funding', 'water-farmers-aquaponics', 'gujarat-action-group-covid-resource-database',
-  'independent-founder-advisory', 'cept-football-creative-practice', 'independent-moneylion-wow-strategy',
+  'independent-founder-advisory', 'cept-football-creative-practice',
 ];
 const expectedAliases = [
   'personal-loan-marketplace', 'college-money-education-loans', 'eduloans-policy-workflow', 'lender-integration-operations', 'lending-mcp-feedback', 'kuberx-launch', 'pay-via-credit-card',
   'silkroute-marketplace', 'trade-payments-erp', 'rural-credit-uli', 'ondc-credit-infrastructure', 'upaj-farmer-experience', 'farm-os-iot-gis', 'crop-health-ai', 'rainfall-grid-insurance',
-  'upaj-international', 'agri-input-institutional-commerce', 'covid-resource-database', 'founder-advisory', 'football-creative-practice', 'moneylion-wow-strategy',
+  'upaj-international', 'agri-input-institutional-commerce', 'covid-resource-database', 'founder-advisory', 'football-creative-practice',
 ];
 
-test('registry preserves all 26 case routes, aliases, nine videos and eighteen authored diagrams', () => {
+test('registry preserves all 25 retained case routes, aliases, nine videos and seventeen authored diagrams', () => {
   const data = JSON.parse(readFileSync(path.join(root, 'content/work/case-studies.json'), 'utf8'));
   const work = workModule({ registry: data });
   assert.deepEqual(data.caseStudies.map(item => item.slug).sort(), [...expectedSlugs].sort());
   for (const alias of expectedAliases) assert.ok(work.findCaseStudy(alias), `Missing legacy alias: ${alias}`);
   assert.equal(new Set(data.caseStudies.flatMap(item => item.media).filter(media => media.kind === 'video').map(media => media.src)).size, 9);
-  assert.equal(new Set(data.caseStudies.flatMap(item => item.media).filter(media => media.src.startsWith('/work/workflows/')).map(media => media.src)).size, 18);
+  assert.equal(new Set(data.caseStudies.flatMap(item => item.media).filter(media => media.src.startsWith('/work/workflows/')).map(media => media.src)).size, 17);
 });
 
 test('published registry validates briefs, accessible chapter sources and every hosted media asset', () => {

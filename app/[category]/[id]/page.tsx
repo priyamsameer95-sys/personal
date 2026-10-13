@@ -8,7 +8,7 @@ import PublicShell from '@/components/PublicShell';
 import MarkdownContent from '@/components/MarkdownContent';
 import CaseStudy from '@/components/work/CaseStudy';
 import Media from '@/components/work/Media';
-import { findCaseStudy, findWorkCompany } from '@/lib/work';
+import { findCaseStudy, findWorkCompany, isRetiredWorkSlug } from '@/lib/work';
 import { contentExcerpt } from '@/lib/content';
 
 interface ContentItem {
@@ -33,6 +33,7 @@ const categories = {
 export const revalidate = 0;
 
 export async function generateMetadata({ params }: DetailPageProps): Promise<Metadata> {
+  if (params.category === 'product' && isRetiredWorkSlug(params.id)) return {};
   const study = params.category === 'product' ? findCaseStudy(params.id) : undefined;
   if (!study) {
     if (!Object.prototype.hasOwnProperty.call(categories, params.category)) return {};
@@ -77,6 +78,7 @@ export default async function DetailPage({ params }: DetailPageProps) {
   const section = categories[category as keyof typeof categories];
 
   if (category === 'product') {
+    if (isRetiredWorkSlug(id)) notFound();
     const study = findCaseStudy(id);
     if (study) {
       if (id !== study.slug) permanentRedirect(`/product/${encodeURIComponent(study.slug)}`);

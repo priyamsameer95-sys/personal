@@ -31,7 +31,7 @@ test('Work Explorer renders five initial studies, clear company controls and eve
   assert.match(html, /aria-label="Filter work by company"/);
   assert.match(html, /aria-pressed="true">CashKaro \/ BankKaro/);
   assert.equal((html.match(/aria-pressed="true"/g) || []).length, 1);
-  assert.match(html, /All work <span>26<\/span>/);
+  assert.match(html, /All work <span>25<\/span>/);
   assert.match(html, /CashKaro \/ BankKaro · 5 studies/);
   assert.match(html, /aria-live="polite"/);
   assert.match(html, /<label for="other-work-context">/);
@@ -49,13 +49,13 @@ test('Work Explorer renders five initial studies, clear company controls and eve
   assert.doesNotMatch(html, /<a[^>]+download=/);
 });
 
-test('Production filter logic exposes all26, each company and honest additional contexts without omissions', () => {
+test('Production filter logic exposes all25, each company and honest additional contexts without omissions', () => {
   const ids = selected => Array.from(explorer.filterWorkGroups(groups, selected), group => group.company.id);
   assert.deepEqual(ids('cashkaro'), ['cashkaro']);
   assert.deepEqual(ids('absolute'), ['absolute']);
   assert.deepEqual(ids('all'), registry.companies.map(company => company.id));
-  assert.equal(explorer.filterWorkGroups(groups, 'all').reduce((count, group) => count + group.studies.length, 0), 26);
-  assert.deepEqual(ids('other'), ['founder-programmes', 'water-farmers', 'gujarat-action-group', 'advisory', 'cept', 'independent-exercises']);
+  assert.equal(explorer.filterWorkGroups(groups, 'all').reduce((count, group) => count + group.studies.length, 0), 25);
+  assert.deepEqual(ids('other'), ['founder-programmes', 'water-farmers', 'gujarat-action-group', 'advisory', 'cept']);
   assert.deepEqual(ids('advisory'), ['advisory']);
   assert.deepEqual(ids('unrecognised'), []);
 });
@@ -73,8 +73,8 @@ test('Company deep links resolve the filter while malformed or unrelated fragmen
 });
 
 test('All visual summaries retain real processes and explicit chart scope without mutating the full story', () => {
-  assert.equal(registry.caseStudies.length, 26);
-  assert.equal(registry.caseStudies.reduce((count, study) => count + study.sections.length, 0), 213);
+  assert.equal(registry.caseStudies.length, 25);
+  assert.equal(registry.caseStudies.reduce((count, study) => count + study.sections.length, 0), 198);
   for (const study of registry.caseStudies) {
     const visual = study.visualSummary;
     for (const field of ['title', 'summary', 'challenge', 'role', 'decision', 'impact']) assert.ok(visual[field]?.trim(), `${study.slug}: ${field}`);
@@ -90,6 +90,4 @@ test('All visual summaries retain real processes and explicit chart scope withou
       }
     }
   }
-  const proposal = registry.caseStudies.find(study => study.id === 'moneylion-wow-strategy').visualSummary;
-  assert.match(proposal.charts[0].note, /Hypothetical target/);
 });

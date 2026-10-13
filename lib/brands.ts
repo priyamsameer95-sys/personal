@@ -49,10 +49,6 @@ export const brandAssets: Record<string, BrandAsset> = {
     name: 'GUSEC', src: '/brands/gusec.png', width: 1759, height: 539,
     sourcePage: 'https://gusec.edu.in/', sourceUrl: 'https://gusec.edu.in/wp-content/uploads/2019/02/GUSEC-Board-Meeting-20th-SEP-2025.png',
   },
-  moneylion: {
-    name: 'MoneyLion', src: '/brands/moneylion.svg', width: 254, height: 57, background: 'dark',
-    sourcePage: 'https://www.moneylion.com/', sourceUrl: 'https://r2.moneylion.com/production-6e6d36c/_next/static/media/footer-logo.86969239.svg',
-  },
   'college-money': {
     name: 'College.Money', label: 'College.Money', src: '/brands/college-money-icon.svg', width: 28, height: 28, background: 'dark',
     sourcePage: 'https://college.money/abroad', sourceUrl: 'https://college.money/assets/icons/logo-college-money.svg',
@@ -71,7 +67,6 @@ export const companyBrandIds: Record<string, readonly string[]> = {
   'founder-programmes': ['iima-ventures', 'gusec'],
   'water-farmers': ['water-farmers'],
   cept: ['cept'],
-  'independent-exercises': ['moneylion'],
 };
 
 export function caseBrandIds(companyId: string, slug: string): readonly string[] {

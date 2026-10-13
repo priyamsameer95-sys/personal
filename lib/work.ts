@@ -19,6 +19,13 @@ export interface WorkTeaser {
   image?: { src: string; alt: string };
 }
 
+// Retired curated routes must not fall through to an older publishing record.
+const retiredWorkSlugs = new Set(['independent-moneylion-wow-strategy', 'moneylion-wow-strategy']);
+
+export function isRetiredWorkSlug(identifier: string): boolean {
+  return retiredWorkSlugs.has(identifier);
+}
+
 export function publishedCaseStudies(studies: readonly CaseStudy[] = caseStudies): CaseStudy[] {
   return studies.filter((study) => study.status !== 'draft').sort((a, b) => a.order - b.order);
 }
@@ -71,7 +78,7 @@ export function withoutCuratedDuplicates(
 ): PublishedWorkItem[] {
   const published = publishedCaseStudies(studies);
   const reserved = new Set(published.flatMap((study) => [study.slug, ...(study.aliases || [])]));
-  return items.filter((item) => !item.slug || !reserved.has(item.slug));
+  return items.filter((item) => !item.slug || (!reserved.has(item.slug) && !isRetiredWorkSlug(item.slug)));
 }
 
 // Authored studies remain usable independently of the optional publishing database.

@@ -1,10 +1,10 @@
 # My Work: source coverage and publication scope
 
-Verified against `content/work/case-studies.json` and the website assets on 13 October 2026. The collection contains **26 case studies across 10 professional and personal contexts**. Visual summaries, complete decision narratives, deeper chapters and source references are read on the website. Case-source files have no visitor download actions; the supplied original CV download is restored on Experience. Document-to-chapter coverage is recorded in [`CONTENT-COVERAGE.md`](CONTENT-COVERAGE.md).
+Verified against `content/work/case-studies.json` and the website assets on 13 October 2026. The collection contains **25 case studies across nine professional and personal contexts**. Visual summaries, complete decision narratives, deeper chapters and source references are read on the website. Case-source files have no visitor download actions; the supplied original CV download is restored on Experience. Document-to-chapter coverage is recorded in [`CONTENT-COVERAGE.md`](CONTENT-COVERAGE.md).
 
 ## Case-study coverage
 
-The contexts are navigation groups, not ten employers. Incubation, volunteering, advisory, university activities and independent exercises retain their own relationship labels.
+The contexts are navigation groups, not nine employers. Incubation, volunteering, advisory and university activities retain their own relationship labels.
 
 | Context | Studies | Included work |
 | --- | ---: | --- |
@@ -17,9 +17,8 @@ The contexts are navigation groups, not ten employers. Incubation, volunteering,
 | Gujarat Action Group | 1 | COVID resource database and volunteer coordination |
 | Independent founder advisory | 1 | Product, economics, go-to-market and fundraising-narrative advisory |
 | CEPT and creative practice | 1 | FC Sparta captaincy and independent painting |
-| Independent product strategy | 1 | MoneyLion WOW strategy and retention exercise |
 
-The published registry is the source of truth for titles, slugs, captions, outcomes, visual summaries and attribution notes. All 26 studies have a compact real-process workflow; ten chart specifications retain their measure and qualification. The Work index starts with CashKaro’s five studies and exposes all ten contexts through company controls, All work and the additional-context selector, preserving incoming company fragments. Related stories are grouped into product studies rather than converted into a separate page for every interview example.
+The published registry is the source of truth for titles, slugs, captions, outcomes, visual summaries and attribution notes. All 25 studies have a compact real-process workflow; nine chart specifications retain their measure and qualification. The Work index starts with CashKaro’s five studies and exposes all nine contexts through company controls, All work and the additional-context selector, preserving incoming company fragments. The collection supports 45 canonical and alias routes. Related stories are grouped into product studies rather than converted into a separate page for every interview example.
 
 ## Research coverage
 
@@ -27,7 +26,7 @@ The published registry is the source of truth for titles, slugs, captions, outco
 - **Career archive:** all 87 product-story records and 49 leadership records were reviewed, for 136 records in total. Of these, 134 are mapped to the grouped studies. Two memory-only records are held out because a supported experience account was unavailable. The archive's metric register, platform-depth records, timeline, source register and unresolved questions were also used to reconcile scope.
 - **Career and technical documents:** the Professional Profile, dated CV/resume versions, AI project materials, lender-policy and workflow documentation, and additional Absolute notes informed the narrative. A draft question or incomplete interview prompt is not treated as a completed incident. No coaching, handover or model-evaluation episode was invented to fill those gaps.
 - **Shared portfolio conversation and generated packs:** the visible shared conversation, four generated source packs and their member inventories were reviewed. These supply current public product references and historical venture material; a capture or generated interpretation is distinct from evidence of personal delivery.
-- **Additional local documents:** institutional presentations, relevant architecture material and the MoneyLion strategy/retention variants were examined. Duplicate versions remain versions, rather than additional employment or separate delivered programmes.
+- **Additional local documents:** institutional presentations and relevant architecture material were examined. Duplicate versions remain versions, rather than additional employment or separate delivered programmes.
 
 ## Published material
 
@@ -40,9 +39,9 @@ The collection presents the following material inside the relevant case-study ch
 | Source-pack PDFs | Relevant information from the four generated references is presented in on-site chapters; the original files are retained locally |
 | UrbanKhet supporting formats | The business model and reviewed creative material appear as website explanations and image previews |
 | Authored study PDFs | Retired from public hosting; the revised narratives are read on the website |
-| Authored workflow diagrams | 18 SVGs illustrating the described work; captions distinguish interpretation from captured product screens |
-| Reviewed galleries | College.money, ULI and Upaj public screenshots; architecture and institutional excerpt previews; UrbanKhet material; MoneyLion document previews |
-| Further reference documents | Relevant ULI history, reviewed architecture and institutional material, and MoneyLion strategy/retention variants are represented as labelled reference chapters and tables |
+| Authored workflow diagrams | 17 SVGs illustrating the described work; captions distinguish interpretation from captured product screens |
+| Reviewed galleries | College.money, ULI and Upaj public screenshots; architecture and institutional excerpt previews; UrbanKhet material |
+| Further reference documents | Relevant ULI history and reviewed architecture and institutional material are represented as labelled reference chapters and tables |
 
 The retained College.money archive has 253 members, Upaj 132 and UrbanKhet 27. The credential-scrubbed ULI copy retains **all 507 original members**: six captured HTML files have runtime credentials removed, and all other original member payloads are unchanged. An added publication note brings that ZIP to 508 entries. Original checksum indices describe the original captures, so the six scrubbed HTML files have different hashes. These source bundles are no longer hosted as visitor downloads.
 
@@ -61,7 +60,6 @@ Business figures are source-reported, not independently audited. Each outcome re
 - ULI borrower-versus-loan counts and the under-30-minute timing window are not consistently defined. Partner lending outcomes remain separate from personal platform ownership.
 - Crop-health yield, precision and support-deflection claims lack attached evaluations; unsupported causal outcomes are excluded. Rainfall-premium, retention and funnel measures retain their source notes where cohorts or definitions are missing.
 - Projections, targets, working prototypes and open backlog items remain distinct from completed releases. Additional Absolute compilation figures have unresolved personal attribution and appear as supporting context.
-- MoneyLion is an independent authored exercise, not employment or a commissioned engagement. Its pilot targets, budgets, cohort curves and financial scenarios are explicitly assumptions, not observed MoneyLion results.
 
 ## Publication exclusions and privacy
 
@@ -69,4 +67,4 @@ Raw career workbooks, private research reports, applicant and farmer records, or
 
 The six-page EduLoans architecture excerpt and three-page Absolute institutional excerpt were rebuilt from reviewed visible pages before source conversion. Those retained reference PDFs contain only the rendered page images, with no hidden source images, source attachments or annotations. The website uses reviewed images and authored explanations rather than embedding or linking those PDFs.
 
-Reviewed galleries, inline videos and on-site reference chapters are the public evidence layer. Per-study `sourceNotes` preserve material limitations without exposing the private research ledger or local source locations. Case-source and legacy publisher attachment actions remain retired; the supplied original CV is the deliberate download exception. The complete 213 chapters remain available in expandable case sections, while qualifications stay beside charts and fuller source notes are in the evidence disclosure.
+Reviewed galleries, inline videos and on-site reference chapters are the public evidence layer. Per-study `sourceNotes` preserve material limitations without exposing the private research ledger or local source locations. Case-source and legacy publisher attachment actions remain retired; the supplied original CV is the deliberate download exception. The complete 198 chapters remain available in expandable case sections, while qualifications stay beside charts and fuller source notes are in the evidence disclosure.

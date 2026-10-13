@@ -27,7 +27,6 @@ FLOWS = {
     "urbankhet-covid-pivot": ["Changed supply and delivery constraints", "Rebuild sourcing and routes", "Decentralised delivery partners", "Operating SOPs and coordination", "Continuity and waste control"],
     "water-farmers-aquaponics": ["Aquaponics farm inputs", "Growing and farm operations", "Harvest procedures", "Packing and quality routines", "Supply-chain coordination"],
     "covid-resource-database": ["Ground volunteer updates", "Live resource availability", "Beds, oxygen and medicine records", "Volunteer coordination", "Resource information for patients"],
-    "moneylion-wow-strategy": ["Recurring member-value hypothesis", "Credit and merchant benefit concepts", "Visible realised-value measures", "Repeated-use cohort definition", "Proposed pilot and economics gates"],
 }
 
 
@@ -68,7 +67,7 @@ def build():
         media = {"id": "workflow-diagram", "kind": "image", "src": f"/work/workflows/{filename}",
                  "alt": "Documented workflow: " + " → ".join(steps),
                  "caption": "An authored explanation of the workflow described in this case study. This is a diagram, not a captured product screen.", "width": 1400, "height": 780}
-        if study["id"] in ("lending-mcp-feedback", "moneylion-wow-strategy"):
+        if study["id"] == "lending-mcp-feedback":
             media["caption"] += " It includes architecture or validation directions whose production deployment is not established."
         study["media"] = [m for m in study["media"] if m["id"] != media["id"]] + [media]
         if not study.get("heroMediaId"):

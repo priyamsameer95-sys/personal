@@ -20,7 +20,6 @@ const contextLabels: Record<string, string> = {
   'gujarat-action-group': 'Volunteering',
   advisory: 'Independent advisory',
   cept: 'University and creative practice',
-  'independent-exercises': 'Independent exercise',
 };
 
 export function filterWorkGroups(groups: readonly WorkExplorerGroup[], selected: string): WorkExplorerGroup[] {

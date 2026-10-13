@@ -4,19 +4,19 @@ Verified against the final work registry on 13 October 2026. This document expla
 
 ## Reading hierarchy
 
-The primary audience is a hiring leader evaluating product leadership. Work is organised by company: CashKaro, CredFlow, Absolute and UrbanKhet first, followed by six explicitly labelled contexts for venture support, an internship, volunteering, advisory, university/creative activity and independent strategy. The Work index opens with CashKaro’s five studies; company controls, All work (26) and a native Other experience selector expose the complete collection. Incoming company fragments reveal the matching group, including all six additional contexts.
+The primary audience is a hiring leader evaluating product leadership. Work is organised by company: CashKaro, CredFlow, Absolute and UrbanKhet first, followed by five explicitly labelled contexts for venture support, an internship, volunteering, advisory and university/creative activity. The Work index opens with CashKaro’s five studies; company controls, All work (25) and a native Other experience selector expose the complete collection. Incoming company fragments reveal the matching group, including all five additional contexts.
 
 Every study now starts with a manually authored visual summary: a short title, one-line framing, compact remit, a real process and supported charts where appropriate. The existing executive brief and exactly five story chapters—`problem`, `build`, `delivery`, `results` and `takeaway`—remain in expandable full-story chapters. Specialist workflows remain in `detail` chapters. Current-public, institutional and historical source explanations sit in `reference` chapters. Tables carry comparisons, assumptions, state transitions and timelines without requiring a document viewer.
 
-The collection has **26 studies, 10 contexts, 213 chapters and 23 tables**. The retained media layer has **103 unique URLs: 94 images and nine inline videos**; the images include **18 authored workflow diagrams**. These are unique-file counts, not the larger number of media entries repeated across relevant studies. There are no case-study `downloads` fields. Revised narratives and document substance are read on site; original case-source files remain in the local source archive rather than visitor-facing PDF, ZIP, DOCX, PPTX or separate-video actions. The separately supplied original CV is available to download from Experience; it is the explicit exception to the case-source policy.
+The collection has **25 studies, nine contexts, 198 chapters and 13 tables**, available through **45 canonical and alias routes**. The retained media layer has **99 unique URLs: 90 images and nine inline videos**; the images include **17 authored workflow diagrams**. These are unique-file counts, not the larger number of media entries repeated across relevant studies. There are no case-study `downloads` fields. Revised narratives and document substance are read on site; original case-source files remain in the local source archive rather than visitor-facing PDF, ZIP, DOCX, PPTX or separate-video actions. The separately supplied original CV is available to download from Experience; it is the explicit exception to the case-source policy.
 
-`workType` distinguishes delivered work, prototype, proposal, independent, community, creative and supporting material. Relationship labels distinguish employers from founder programmes and other activities. A delivered label describes the source-reported contribution, not an independent audit of every result. EduLoans is a working prototype; MCP is an architecture proposal/workstream; ONDC is proposal/product-definition scope; the mixed Absolute compilation is supporting context; MoneyLion is independent work.
+`workType` distinguishes delivered work, prototype, proposal, community, creative and supporting material. Relationship labels distinguish employers from founder programmes and other activities. A delivered label describes the source-reported contribution, not an independent audit of every result. EduLoans is a working prototype; MCP is an architecture proposal/workstream; ONDC is proposal/product-definition scope; the mixed Absolute compilation is supporting context.
 
 ## Case and story-register coverage
 
 The career archive contains 87 product records and 49 leadership records: 136 in total. The prior evidence mapping groups 134 records into the relevant studies and holds two memory-only records out. A mapped draft or unresolved question contributes its supported scope or limitation; it does not become an invented episode. The product and leadership records are grouped, not turned into 136 separate pages.
 
-The study IDs, canonical slugs, aliases, related-study links and original media ID/source/kind lists are retained. The table below records each group and its existing specialist chapters. The MoneyLion study comes from the independent document series rather than a career-story record.
+The remaining study IDs, canonical slugs, aliases, related-study links and original media ID/source/kind lists are retained. The table below records each group and its existing specialist chapters.
 
 | Case ID / context | Work type | Career-record IDs | Retained specialist chapters |
 | --- | --- | --- | --- |
@@ -45,7 +45,6 @@ The study IDs, canonical slugs, aliases, related-study links and original media 
 | `covid-resource-database` / gujarat-action-group | community | OT01, L45, L46 | `None` |
 | `founder-advisory` / advisory | delivered | OT02, L47 | `None` |
 | `football-creative-practice` / cept | creative | OT04, L49 | `None` |
-| `moneylion-wow-strategy` / independent-exercises | independent | Independent source series | `measurement`, `pilot`, `decision-guardrails` |
 
 The held-out records are `OT03` and `L48`, associated with a memory-only experience without a supported account. They are absent from public case narratives. Raw unresolved prompts, requests to reconstruct incidents and private memory are not presented as product evidence.
 
@@ -70,36 +69,17 @@ Chapter IDs below refer to the registry. Canonical fragments use `story-` follow
 | UrbanKhet-Portfolio-Case-Study.pdf, eight pages, plus matching narrative document and source illustrations | Farm-to-fork: `venture-history-reference`, `service-tradeoffs-reference`, `campaign-credit-reference`; COVID: `wind-down-reference`; incubation: `programme-history-reference` | Microfarm origin, produce evolution, dated public snapshot, operating coordination, mentoring, customer-scope differences, campaign credits, awards, backing and closure limits. Editorial imagery is distinct from operating photographs. |
 | GUSEC interview, Startup Gujarat June 2020, GUSEC annual snapshot/award materials, TIDE and IIMA portfolio references | The same UrbanKhet and incubation reference chapters | Contemporary dates and institutional context, distinct from later founder reach. Public 2018 origin does not replace the July 2019–September 2021 role chronology. |
 | Studio Sorted historical UrbanKhet campaign | Farm-to-fork: `campaign-credit-reference` and historical gallery | Creative direction, illustration/design and management credits; brand context rather than farm/product performance proof. |
-| Latest Priyam_Sameer_WOW_Final_60_Slides.pptx and source-text series | MoneyLion: six `wow-…` chapters described below | Full strategy mechanism, delivery, customer flows, measurement, economics and launch assumptions. No actual MoneyLion result or relationship is implied. |
-| MoneyLion WOW Product Strategy.pdf and MoneyLion WOW Product Strategy (21 Slides).pdf | MoneyLion: `earlier-credit-cockpit` with retained `decision-guardrails` | Earlier liability/credit utility, secured-line, furnishing/dispute/security and 90-day roadmap hypotheses. Score, cost, regulatory and integration claims remain unvalidated; cancellation/consumer-harm concerns are explicit. |
-| MoneyLion WOW - Cohort Retention Diagnostic.pdf, two pages | MoneyLion: `measurement`, `wow-metrics-and-experiments`, `earlier-credit-cockpit` | Cohort definition and illustrative curves; a flat sample window does not prove indefinite retention. |
-| MoneyLion_WOW_Priyam_Sameer_60_Slides_Final.pptx, MoneyLion_WOW_Priyam_Sameer_Macro_Arbitrage_60_Slides.pptx, moneylion v1.pptx and authored HTML | MoneyLion: `earlier-credit-cockpit`, the six latest-proposal topics and existing `pilot`/`decision-guardrails` | Version progression and overlapping credit/commercial concepts. Distinct assumptions are not blended into one implemented programme; duplicate layouts do not create additional cases. |
-| Prior 26 authored case-study PDFs | Corresponding revised case narratives | The previous case substance is retained in the main and specialist chapters. The PDFs are retired from visitor hosting, not offered as alternative versions of the newly edited copy. |
-
-## MoneyLion: six-topic coverage
-
-All budgets, targets, personas, performance curves, example offers, contractual dependencies and timelines in this independent exercise are assumptions or proposals. The latest deck's dated public comparison is not represented as an evergreen description of actual product terms.
-
-| Chapter | Latest-deck range | Detailed coverage |
-| --- | --- | --- |
-| `wow-strategy-and-market` | Slides 1–14 | Recurring-value challenge; competition/membership lessons; five perk directions; audit gaps; merchant prospects and readiness dependencies. |
-| `wow-execution-and-architecture` | Slides 15–23 | Proposed research/partner inputs; attribution and offer versions; purchase versus subscription gateways; reward ledger; funding/claims cadence; console controls; CPA/basket arithmetic and merchant incrementality. |
-| `wow-personas-and-safeguards` | Slides 26–34 and risk material | Hypothesised segments; optional participation; cash-flow/lender boundary; vintage/holdout/fairness checks; scoped consent; fraud/household distinction; referrals and leaderboard constraints. |
-| `wow-metrics-and-experiments` | Slides 24–25, 33, 59–60 | BUR90 numerator/denominator; settled-value events; leading measures; holdout/sample assumptions; signup scenario; proposed gates and scale/repair/stop decisions. |
-| `wow-economic-model` | Slides 18, 20, 35–44 | Fee and contribution model; CPA pass-through; purchase mix; member/free-tier comparison; downside/base/upside; channel CAC; churn/LTV; six-month scale scenario; break-even and reward working capital. |
-| `wow-design-and-launch` | Slides 45–58 | ROI, offer, wallet, withdrawal, claims and referral flows; consent/mock quote; merchant controls; readiness; six-month sequence; twelve-role staffing and budget; permissioned lifecycle prompts. |
-
-The earlier versions remain in `earlier-credit-cockpit`. A proposed preservation tier or credit-score effect is not a validated protection or a recommended cancellation-pressure tactic. The chapter preserves the concept while identifying the need for independent consumer-protection, lender and legal review.
+| Prior authored case-study PDFs | Corresponding retained case narratives | The retained case substance appears in the main and specialist chapters. The PDFs are retired from visitor hosting, not offered as alternative versions of the newly edited copy. |
 
 ## Fragment and detail continuity
 
-Across all 26 studies, the original `problem`, `build`, `results` and `takeaway` IDs remain. Their titles and copy were edited for the hiring-leader hierarchy, and original build substance remains in the decision chapter and specialist details. The old `role` chapter is represented in `executiveBrief.remit` and the new `delivery` chapter; its complete former fragment, `story-role`, is retained as an alias on `delivery`.
+Across all 25 retained studies, the original `problem`, `build`, `results` and `takeaway` IDs remain. Their titles and copy were edited for the hiring-leader hierarchy, and original build substance remains in the decision chapter and specialist details. The old `role` chapter is represented in `executiveBrief.remit` and the new `delivery` chapter; its complete former fragment, `story-role`, is retained as an alias on `delivery`.
 
-Every pre-existing specialist section ID listed above remains. New source-conversion IDs are additive. Canonical routes, aliases, related-study links and media object identities are unchanged. The obsolete `downloads` fragment resolves to an on-site reference chapter or the impact chapter rather than a file action. No role, delivery, specialist or source-reference URL needs to become a visitor download.
+Every pre-existing specialist section ID listed above remains. New source-conversion IDs are additive. Canonical routes, aliases, related-study links and media object identities for the retained collection are unchanged. The obsolete `downloads` fragment resolves to an on-site reference chapter or the impact chapter rather than a file action. No role, delivery, specialist or source-reference URL needs to become a visitor download.
 
 ## Visual-summary coverage and chart contracts
 
-The visual layer adds **26 summaries, 93 short workflow steps and ten chart specifications**. The 213 complete chapters, 23 source tables, 103 unique media URLs, routes, aliases and role/source fragments are preserved. Cards use one case-study action; fuller company introductions use native disclosures. Non-quantified work uses a process instead of invented statistics. Captaincy and painting remain separate activities, with only the captaincy sequence in the diagram.
+The visual layer contains **25 summaries, 89 short workflow steps and nine chart specifications**. The 198 complete chapters, 13 source tables, 99 unique media URLs, routes, aliases and role/source fragments for the retained collection are preserved. Cards use one case-study action; fuller company introductions use native disclosures. Non-quantified work uses a process instead of invented statistics. Captaincy and painting remain separate activities, with only the captaincy sequence in the diagram.
 
 | Case | Visual measure | Kind and scope boundary |
 | --- | --- | --- |
@@ -112,7 +92,6 @@ The visual layer adds **26 summaries, 93 short workflow steps and ten chart spec
 | Upaj engagement | 100,000 → 600,000 active users | Comparison; active-user definition and period unavailable |
 | Upaj engagement | Eleven → fifteen minutes average session | Comparison; combined programme, no isolated feature attribution |
 | Rainfall data | 25 → 10 km grid | Comparison; spatial scale, not model accuracy or causal premium effect |
-| MoneyLion exercise | 60% BUR90 pilot gate | Metric; hypothetical proposal target, not measured retention |
 
 Comparison series use the same unit. Retention lifts, cost reductions and targets are never rendered as a share of a whole. No allocations, interpolated time series, fabricated timelines or company-wide ownership claims are introduced. The existing outcome/source notes preserve additional limits.
 
