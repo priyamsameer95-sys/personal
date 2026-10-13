@@ -35,7 +35,8 @@
 .peel-sheet { position: relative; min-height: calc(100svh - 36px); background: var(--paper); border: 1px solid #19171455; box-shadow: 0 4px 24px #1917140b; }
 .peel-content { position: relative; z-index: 1; padding: clamp(1.25rem, 3vw, 3.5rem); margin-inline: auto; }
 .peel-corner { position: absolute; top: -1px; right: -1px; width: 72px; height: 72px; background: linear-gradient(135deg, var(--paper) 48%, #cec8bb 49%, #fffdf9 70%, var(--colour-yellow) 71%); clip-path: polygon(0 0, 100% 0, 100% 100%); pointer-events: none; }
-.ink-button { display: inline-flex; align-items: center; justify-content: center; gap: 1rem; min-height: 48px; border: 1px solid var(--ink); border-radius: 999px; background: var(--ink); color: var(--paper); padding: .8rem 1.3rem; font-size: .9rem; font-weight: 500; text-decoration: none; transition: background-color 160ms ease, color 160ms ease; }
+.ink-button { display: inline-flex; align-items: center; justify-content: center; gap: 1rem; min-height: 48px; border: 1px solid var(--ink); border-radius: .65rem; background: var(--ink); color: var(--paper); padding: .8rem 1.3rem; font-size: .9rem; font-weight: 500; text-decoration: none; transition: border-radius 220ms ease, background-color 160ms ease, color 160ms ease; }
+.ink-button:active, .ink-button:focus-visible { border-radius: 2rem; }
 .ink-button:hover { background: var(--paper); color: var(--ink); }
 .ink-link { display: inline-flex; min-height: 44px; align-items: center; gap: .75rem; font-size: .9rem; text-decoration: underline; text-underline-offset: .3em; }
 .peel-study { min-width: 0; }

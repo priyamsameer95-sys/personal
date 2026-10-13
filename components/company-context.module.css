@@ -1,0 +1,23 @@
+.context { min-width: 0; color: var(--ink, #191714); }
+.identity { margin-bottom: .85rem; }
+.brands { margin-bottom: .75rem; }
+.name { font-size: clamp(1.5rem, 2vw, 1.85rem); font-weight: 550; line-height: 1.25; letter-spacing: -.025em; margin: 0; }
+.about { max-width: 66ch; font-size: 1rem; line-height: 1.7; margin: 0 0 1.25rem; }
+.facts { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin: 0; }
+.facts > div { flex: 1 1 11rem; min-width: 0; }
+.facts dt { font-size: .875rem; line-height: 1.5; color: var(--muted, #625e56); margin-bottom: .3rem; }
+.facts dd { margin-left: 0; }
+.value { font-size: clamp(1.1rem, 1.6vw, 1.35rem); font-weight: 550; letter-spacing: -.015em; line-height: 1.35; }
+.factDetail { font-size: .875rem; line-height: 1.6; color: var(--muted, #625e56); margin-top: .3rem; max-width: 31ch; }
+.websites { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: .9rem; }
+.websites a { display: inline-flex; align-items: center; gap: .35rem; min-height: 44px; font-size: .95rem; text-underline-offset: .3em; }
+.scope { max-width: 72ch; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.6; margin-top: .8rem; }
+.sources { color: var(--muted, #625e56); font-size: .875rem; line-height: 1.7; margin-top: .5rem; }
+.sources a { text-underline-offset: .25em; }
+.reviewed { display: block; margin-top: .1rem; }
+.context a:focus-visible { outline: 3px solid #2657ef; outline-offset: 4px; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.compact .about { font-size: .95rem; margin-bottom: .9rem; }
+.compact .facts { gap: .8rem 1.3rem; }
+.compact .facts > div { flex-basis: 10rem; }
+@media (max-width: 560px) { .facts { gap: 1rem; } .facts > div { flex-basis: calc(50% - .5rem); } .about { line-height: 1.65; } }

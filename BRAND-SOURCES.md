@@ -30,3 +30,16 @@ The titles, issue months and credential IDs come from the certification screensh
 - [AI for Product Management — Pendo](https://www.credly.com/badges/13dde14c-704f-4348-80bb-d2185173e0c0/public_url): the credential page metadata confirms the title, Pendo as issuer and Priyam Sameer as recipient. The supplied screenshot records August 2026 and credential ID `13dde14c-704f-4348-80bb-d2185173e0c0`.
 
 Issuer artwork appears only beside the corresponding certification, separate from employment. No badge image, additional skill claim or update to the original downloadable CV is implied.
+
+## Company context — reviewed 14 October 2026
+
+Company context appears before personal responsibility on Work and Experience, with a shorter account on Home. The original logos are larger; the repeated company-name headings are smaller. The source registry is `lib/company-context.ts`.
+
+| Company | Supported context | Primary sources and time boundary |
+| --- | --- | --- |
+| CashKaro / BankKaro | Cashback shopping and financial-product marketplaces; 1,500+ shopping sites; 20M user milestone; named investors | [CashKaro overview](https://cashkaro.com/about-us) and [BankKaro overview](https://bankkaro.com/about-us). The user milestone is from the 2023 timeline. These are company facts, separate from lending outcomes. |
+| CredFlow | MSME finance software and lending infrastructure; 200K+ CredFloat businesses; 50+ partners across CredFund/CashFloat | [Current ecosystem](https://credflow.in/) and [company overview](https://credflow.in/about/). Current company figures postdate Priyam’s December 2024–March 2025 role. |
+| Absolute / Upaj | Bioscience, farm advisory and agricultural risk information; 3M+ farmers in the current farm business; 2023 Deloitte Fast 50 recognition | [Absolute](https://www.absolute.bio/) and [Upaj](https://www.upaj.org/). Farm-business reach is distinct from Upaj active users and Priyam’s historical delivery. |
+| UrbanKhet | Historical farm-to-customer venture; approximately 100 daily customers in June 2020; GUSEC Rise Award to Priyam in 2021 | [GUSEC venture history](https://gusec.edu.in/2020/06/03/urbankhet/) and [2021 awards](https://gusec.edu.in/2021/03/10/gusec-annual-awards-2021/). No venture website action is shown, as requested. |
+
+UrbanKhet’s [original LinkedIn company page](https://www.linkedin.com/company/khet-inc/) identifies the same KhetAgri venture. Its reviewed photographs and historical company graphics are attributed individually in the work registry, with original-source links. Public source provenance does not imply an identified photographer or a newly measured operating result.

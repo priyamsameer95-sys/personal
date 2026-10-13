@@ -6387,7 +6387,11 @@
             "UrbanKhet began with terrace farming. The later proposition served consumers who wanted fresh produce without taking on the work of growing it. I acquired the first 44 customers manually and developed farmer supply through cold outreach and local relationships. Those activities built the initial demand and supply sides before the venture had an established customer base.",
             "I pivoted towards direct farm-to-consumer distribution, then developed household subscription plans and business demand around the same sourcing operation. Serving a household and serving a hotel or marketplace created different buyer relationships, while both depended on produce arriving in usable condition. I owned business development and the fulfilment behind those commitments."
           ],
-          "group": "detail"
+          "group": "detail",
+          "mediaIds": [
+            "urbankhet-linkedin-sorted-packs",
+            "urbankhet-linkedin-khet-direct-launch"
+          ]
         },
         {
           "id": "physical-system",
@@ -6396,7 +6400,11 @@
             "I developed the web product and operating workflows, with decentralised urban distribution in Maharashtra and Gujarat described in the historical account. Sourcing, inventory, harvest timing and last-mile delivery had to work together. SOPs gave the team repeatable routines rather than making the customer promise depend only on individual improvisation.",
             "The March 2022 CV reports a maximum of 10% wastage, compared with a stated 35% industry benchmark. That is a level achieved in the described operation, not a company before-and-after reduction. The later operating account describes a six-hour harvest-to-home model. Both belong to the physical service design, where quality, timing and cost affected the venture’s economics."
           ],
-          "group": "detail"
+          "group": "detail",
+          "mediaIds": [
+            "urbankhet-linkedin-intermediary-chain",
+            "urbankhet-linkedin-direct-chain"
+          ]
         },
         {
           "id": "venture-history-reference",
@@ -6697,15 +6705,97 @@
             "date": "2021"
           },
           "category": "illustration"
+        },
+        {
+          "id": "urbankhet-linkedin-company-farm-cover",
+          "kind": "image",
+          "category": "photograph",
+          "src": "/work/urbankhet/linkedin/company-farm-cover.jpg",
+          "alt": "Farm landscape published as the cover photograph on UrbanKhet’s LinkedIn company page",
+          "caption": "Farm photograph from UrbanKhet’s LinkedIn company cover. Photograph date, exact location and photographer are not stated.",
+          "width": 1280,
+          "height": 960,
+          "provenance": {
+            "kind": "current-public",
+            "label": "Published by UrbanKhet on its LinkedIn company profile",
+            "sourceUrl": "https://www.linkedin.com/company/khet-inc/"
+          }
+        },
+        {
+          "id": "urbankhet-linkedin-khet-direct-launch",
+          "kind": "image",
+          "category": "illustration",
+          "src": "/work/urbankhet/linkedin/khet-direct-launch.jpg",
+          "alt": "Khet Direct launch poster with eight labelled subscription packs",
+          "caption": "Original Khet Direct launch artwork from UrbanKhet’s company post. Website and phone details are part of the historical artwork, not current ordering contacts.",
+          "width": 800,
+          "height": 1000,
+          "provenance": {
+            "kind": "historical",
+            "label": "Original company post · UrbanKhet on LinkedIn",
+            "date": "20 October 2020",
+            "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:6724278406797701120/"
+          }
+        },
+        {
+          "id": "urbankhet-linkedin-sorted-packs",
+          "kind": "image",
+          "category": "illustration",
+          "src": "/work/urbankhet/linkedin/sorted-packs-proposition.jpg",
+          "alt": "Original UrbanKhet Sorted-Packs graphic showing curated vegetable combinations and proportions",
+          "caption": "Original Sorted-Packs value proposition: curated combinations, household proportions and doorstep delivery. Historical company marketing material.",
+          "width": 800,
+          "height": 800,
+          "provenance": {
+            "kind": "historical",
+            "label": "Original company post · UrbanKhet on LinkedIn",
+            "date": "10 April 2020",
+            "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:6654457549527584768/"
+          }
+        },
+        {
+          "id": "urbankhet-linkedin-direct-chain",
+          "kind": "image",
+          "category": "diagram",
+          "src": "/work/urbankhet/linkedin/direct-supply-chain.jpg",
+          "alt": "Original UrbanKhet diagram connecting a farmer directly to a consumer",
+          "caption": "UrbanKhet’s original direct-chain diagram. A simplified company proposition, rather than an audited map of fulfilment.",
+          "width": 800,
+          "height": 800,
+          "provenance": {
+            "kind": "historical",
+            "label": "Original company post · UrbanKhet on LinkedIn",
+            "date": "5 November 2019",
+            "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:6597499722523598848/"
+          }
+        },
+        {
+          "id": "urbankhet-linkedin-intermediary-chain",
+          "kind": "image",
+          "category": "diagram",
+          "src": "/work/urbankhet/linkedin/intermediary-supply-chain.jpg",
+          "alt": "Original UrbanKhet diagram of farmers, mediators, facilitators, warehouses and consumers",
+          "caption": "The intermediary network as UrbanKhet described it in its original company post. Historical positioning, rather than independent industry research.",
+          "width": 800,
+          "height": 800,
+          "provenance": {
+            "kind": "historical",
+            "label": "Original company post · UrbanKhet on LinkedIn",
+            "date": "5 November 2019",
+            "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:6597499493359419392/"
+          }
         }
       ],
       "sourceNotes": [
         "Published contemporary material and later founder-reported results are distinguished in the supplied portfolio pack.",
         "₹1.2 crore is labelled P&L scope in one CV and ARR in another, so it is omitted as a headline financial result. Customer counts vary by source/period. The 35% waste comparator is an asserted industry benchmark; farmer-income comparisons and six-hour delivery are self-reported.",
-        "The original 72.56-second recording includes checkout and a B2B console. The published 20-second silent storefront excerpt excludes contact and account details; the full recording remains private. Two supplied video files were byte-identical, so one excerpt is published. The recording date was not supplied."
+        "The original 72.56-second recording includes checkout and a B2B console. The published 20-second silent storefront excerpt excludes contact and account details; the full recording remains private. Two supplied video files were byte-identical, so one excerpt is published. The recording date was not supplied.",
+        "The farm photograph is the cover image published on UrbanKhet’s LinkedIn company page. Its photograph date, photographer and exact location are not stated; farm ownership and operating results are not inferred from it.",
+        "UrbanKhet’s original company posts show the direct/intermediary supply-chain proposition on 5 November 2019, Sorted-Packs on 10 April 2020 and the Khet Direct launch on 20 October 2020. Post dates come from the public post metadata; the graphics are historical company communication, not portfolio-generated diagrams or independent measurements.",
+        "The October 2020 Khet Direct launch post promised delivery within eight hours of harvest. The six-hour delivery model in later founder records describes a separate source/version; neither timing is independently measured here. Historical website and business-phone details appear only within the original launch artwork, with no current ordering action."
       ],
       "featured": true,
-      "heroMediaId": "urbankhet-storefront-excerpt",
+      "heroMediaId": "urbankhet-linkedin-company-farm-cover",
       "relatedSlugs": [
         "urbankhet-covid-pivot"
       ],
@@ -6748,8 +6838,8 @@
       },
       "featuredOrder": 6,
       "primaryMediaIds": [
-        "urbankhet-storefront-excerpt",
-        "urbankhet-studio--urbankhet-farmer-market"
+        "urbankhet-linkedin-company-farm-cover",
+        "urbankhet-storefront-excerpt"
       ],
       "presentation": {
         "decisionBeats": [
@@ -6958,14 +7048,31 @@
             "label": "Portfolio diagram explaining the historical account"
           },
           "category": "diagram"
+        },
+        {
+          "id": "urbankhet-linkedin-sorted-packs",
+          "kind": "image",
+          "category": "illustration",
+          "src": "/work/urbankhet/linkedin/sorted-packs-proposition.jpg",
+          "alt": "Original UrbanKhet Sorted-Packs graphic showing curated vegetable combinations and proportions",
+          "caption": "Original Sorted-Packs value proposition: curated combinations, household proportions and doorstep delivery. Historical company marketing material.",
+          "width": 800,
+          "height": 800,
+          "provenance": {
+            "kind": "historical",
+            "label": "Original company post · UrbanKhet on LinkedIn",
+            "date": "10 April 2020",
+            "sourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:6654457549527584768/"
+          }
         }
       ],
       "sourceNotes": [
         "Continuity and closure chronology vary between source versions; first-wave continuity is the narrower documented claim.",
-        "First-wave continuity and fifteen-day rebuild come from the later profile. Early and later CVs differ on second-wave/closure timing. No individual employee, creditor or supplier closure outcome is independently established."
+        "First-wave continuity and fifteen-day rebuild come from the later profile. Early and later CVs differ on second-wave/closure timing. No individual employee, creditor or supplier closure outcome is independently established.",
+        "The lead graphic is from UrbanKhet’s original LinkedIn company post of 10 April 2020. It communicates the Sorted-Packs customer proposition; it does not independently establish COVID operating outcomes or the later closure account."
       ],
       "featured": false,
-      "heroMediaId": "urbankhet-studio--delivery-straight-outta-khet",
+      "heroMediaId": "urbankhet-linkedin-sorted-packs",
       "relatedSlugs": [
         "urbankhet-farm-to-fork"
       ],
@@ -7007,7 +7114,7 @@
         }
       },
       "primaryMediaIds": [
-        "urbankhet-studio--delivery-straight-outta-khet"
+        "urbankhet-linkedin-sorted-packs"
       ],
       "presentation": {
         "decisionBeats": [

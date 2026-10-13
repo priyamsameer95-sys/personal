@@ -80,11 +80,12 @@ export interface WorkMediaBase {
   id: string;
   src: string;
   caption: string;
-  category?: 'product-screenshot' | 'prototype-screenshot' | 'walkthrough' | 'diagram' | 'illustration' | 'source-document';
+  category?: 'product-screenshot' | 'prototype-screenshot' | 'walkthrough' | 'diagram' | 'illustration' | 'source-document' | 'photograph';
   provenance?: {
     kind: 'historical' | 'current-public' | 'authored' | 'proposal' | 'prototype';
     label: string;
     date?: string;
+    sourceUrl?: string;
   };
 }
 

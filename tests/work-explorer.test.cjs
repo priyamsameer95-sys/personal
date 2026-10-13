@@ -21,6 +21,8 @@ const registry = JSON.parse(readFileSync(path.join(root, 'content/work/case-stud
 const groups = registry.companies.map(company => ({ company, studies: registry.caseStudies.filter(study => study.companyId === company.id) }));
 const visuals = load('components/work/VisualStory.tsx', { './visual-story.module.css': css });
 const brandMarks = load('components/BrandMarks.tsx', { '@/lib/brands': load('lib/brands.ts'), './brand-marks.module.css': css }).default;
+const companyContextData = load('lib/company-context.ts');
+const companyContext = load('components/CompanyContext.tsx', { './BrandMarks': brandMarks, '@/lib/company-context': companyContextData, './company-context.module.css': css }).default;
 const presentation = load('lib/work-presentation.ts');
 const media = load('components/work/Media.tsx', { './work.module.css': css }).default;
 const preview = load('components/work/WorkPreview.tsx', { 'next/link': ({ children, ...props }) => createElement('a', props, children), '@/lib/work-types': load('lib/work-types.ts'), '@/lib/work-presentation': presentation, './Media': media, '@/components/BrandMarks': brandMarks, './work-preview.module.css': css }).default;
@@ -29,6 +31,7 @@ const explorer = load('components/work/WorkExplorer.tsx', {
   './WorkPreview': preview, '@/lib/work-presentation': presentation,
   '@/lib/work-types': load('lib/work-types.ts'), './VisualStory': visuals, './work-explorer.module.css': css,
   '@/components/BrandMarks': brandMarks,
+  '@/components/CompanyContext': companyContext, '@/lib/company-context': companyContextData,
 });
 
 test('Work starts with six media previews and exposes the entire company index initially', () => {
@@ -111,4 +114,26 @@ test('All visual summaries retain real processes and explicit chart scope withou
       }
     }
   }
+});
+
+test('company business, scale and official links appear before Priyam responsibility', () => {
+  const html = renderToStaticMarkup(createElement(explorer.default, { groups }));
+  for (const id of ['cashkaro','credflow','absolute','urbankhet']) {
+    const company = companyContextData.getCompanyContext(id);
+    const start = html.indexOf(`<section id="${id}"`);
+    const section = html.slice(start, html.indexOf('<div class="indexList"', start));
+    assert.ok(section.includes(company.about));
+    assert.ok(section.indexOf(company.about) < section.indexOf('My responsibility'));
+    for (const fact of company.facts) assert.ok(section.includes(fact.value));
+    for (const website of company.websites) assert.ok(section.includes(`href="${website.href}"`));
+    assert.ok(section.includes(company.scopeNote));
+    assert.doesNotMatch(section, /<details|<summary/);
+  }
+  assert.equal(companyContextData.getCompanyContext('urbankhet').websites.length, 0);
+  for (const company of Object.values(companyContextData.companyContexts)) {
+    assert.ok(company.sources.length > 0);
+    for (const fact of company.facts) assert.ok(company.sources.some(source => source.id === fact.sourceId));
+    assert.ok(company.websites.every(website => website.href.startsWith('https://')));
+  }
+  assert.equal(companyContextData.getCompanyContext('missing-company'), undefined);
 });

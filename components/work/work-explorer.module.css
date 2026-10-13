@@ -33,12 +33,14 @@
 .companySection { margin-bottom: 4rem; scroll-margin-top: 7rem; min-width: 0; }
 .companySection[hidden], .otherContexts[hidden] { display: none; }
 .companySection:focus, .otherContexts:focus { outline: none; }
-.companyHeader { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.5fr); gap: 2.5rem; align-items: start; margin-bottom: 2rem; }
+.companyHeader { display: block; max-width: 70rem; margin-bottom: 2rem; }
 .companyMeta { margin: .75rem 0 .45rem; color: var(--muted, #625e56); font-size: .9rem; line-height: 1.6; }
-.companyHeader h2, .otherIntro h2 { margin: 0; color: var(--ink, #191714); font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.16; letter-spacing: -.035em; font-weight: 500; overflow-wrap: anywhere; }
-.companyScope { max-width: 65ch; }
+.companyHeader h2 { margin: 0; color: var(--ink, #191714); font-size: clamp(1.5rem, 2vw, 1.85rem); line-height: 1.25; letter-spacing: -.025em; font-weight: 550; overflow-wrap: anywhere; }
+.otherIntro h2 { margin: 0; color: var(--ink, #191714); font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.16; letter-spacing: -.035em; font-weight: 500; }
+.companyScope { max-width: 68ch; margin-top: 1.7rem; padding-top: 1.3rem; border-top: 1px solid var(--rule, #ddd7cb); }
 .companyScope p { margin: .25rem 0 .7rem; color: var(--muted, #625e56); font-size: 1rem; line-height: 1.7; }
 .companyScope .companyRole { color: var(--ink, #191714); font-weight: 550; }
+.companyScope .remitLabel { color: var(--muted, #625e56); font-size: .875rem; margin: .9rem 0 .3rem; }
 .cardGrid { display: grid; grid-template-columns: minmax(0, 1fr); }
 .card { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.5fr); gap: 2.5rem; align-items: center; min-width: 0; padding: 2rem 0; border-top: 1px solid var(--rule, #ddd7cb); color: var(--ink, #191714); }
 .card:last-child { border-bottom: 1px solid var(--rule, #ddd7cb); }

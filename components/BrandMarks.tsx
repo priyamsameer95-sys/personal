@@ -15,7 +15,7 @@ export default function BrandMarks({ companyId, brandIds, small = false, classNa
     {brands.map(brand => <span key={brand.id} className={`${styles.mark}${brand.background === 'dark' ? ` ${styles.dark}` : ''}${brand.label ? ` ${styles.withLabel}` : brand.width / brand.height < 1.5 ? ` ${styles.square}` : ''}`}>
       {/* Original logo artwork retains its colours and aspect ratio. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={brand.src} alt={`${brand.name} logo`} width={brand.width} height={brand.height} loading="lazy" decoding="async" />
+      <img src={brand.src} alt={`${brand.name} logo`} width={brand.width} height={brand.height} style={{ aspectRatio: `${brand.width} / ${brand.height}` }} loading="lazy" decoding="async" />
       {brand.label && <span>{brand.label}</span>}
     </span>)}
   </div>;

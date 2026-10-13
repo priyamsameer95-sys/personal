@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
 import CvDownload from '@/components/CvDownload';
 import BrandMarks from '@/components/BrandMarks';
+import CompanyContext from '@/components/CompanyContext';
 import content from './content.json';
 import styles from './cv.module.css';
 
@@ -102,9 +103,9 @@ export default function ExperiencePage() {
                   <p>{job.dates}</p><span className={styles.relationship}>{job.relationship}</span>
                 </div>
                 <article className={styles.job} aria-labelledby={`${job.companyId}-title`}>
-                  <header className={styles.company}>
-                    <BrandMarks companyId={job.companyId} small className={styles.companyMarks} />
-                    <h3 id={`${job.companyId}-title`}>{job.company}</h3>
+                  <CompanyContext companyId={job.companyId} headingId={`${job.companyId}-title`} />
+                  <header className={styles.roleHeader}>
+                    <p className={styles.detailTitle}>My role</p>
                     <p className={styles.roleTitle}>{job.title}</p>
                     <p className={styles.context}>{job.context}</p>
                     <p className={styles.ownership}>{roleOverview[job.companyId]}</p>

@@ -24,7 +24,7 @@ function load(filename, stubs = {}) {
   });
   const module = { exports: {} };
   vm.runInNewContext(outputText, {
-    module, exports: module.exports, process: { env: {} }, console,
+    module, exports: module.exports, process: { env: {} }, console, URL,
     require: id => Object.hasOwn(stubs, id) ? stubs[id] : require(id),
   }, { filename });
   return module.exports;
@@ -32,12 +32,17 @@ function load(filename, stubs = {}) {
 
 const brands = load('lib/brands.ts');
 const BrandMarks = load('components/BrandMarks.tsx', { '@/lib/brands': brands, './brand-marks.module.css': css }).default;
+const companyContext = load('lib/company-context.ts');
+const CompanyContext = load('components/CompanyContext.tsx', {
+  './BrandMarks': BrandMarks, '@/lib/company-context': companyContext, './company-context.module.css': css,
+}).default;
 const shared = {
   'next/link': link,
   '@/components/Header': empty,
   '@/components/Footer': empty,
   '@/components/PublicShell': shell,
   '@/components/BrandMarks': BrandMarks,
+  '@/components/CompanyContext': CompanyContext,
 };
 
 function experienceHtml() {
@@ -65,6 +70,16 @@ test('the open Experience account preserves chronology, qualifications and relat
       for (const field of ['result', 'note']) if (responsibility[field]) assert.ok(html.includes(escapeHtml(responsibility[field])), responsibility[field]);
     }
     assert.ok(html.includes(escapeHtml(job.leadershipNote)), job.leadershipNote);
+    const company = companyContext.getCompanyContext(job.companyId);
+    const jobStart = html.indexOf(`id="${job.companyId}"`);
+    const jobEnd = html.indexOf('</article>', jobStart);
+    const account = html.slice(jobStart, jobEnd);
+    const contextAt = account.indexOf(escapeHtml(company.about));
+    const remitAt = account.indexOf(escapeHtml(job.title));
+    assert.ok(contextAt >= 0 && contextAt < remitAt, `Company context precedes personal role: ${job.company}`);
+    assert.ok(account.includes(escapeHtml(company.scopeNote)), `Company scale boundary: ${job.company}`);
+    assert.equal((account.match(new RegExp(`id="${job.companyId}-title"`, 'g')) || []).length, 1, `One company identity: ${job.company}`);
+    for (const brandId of company.brandIds) assert.equal(account.split(`src="${brands.brandAssets[brandId].src}"`).length - 1, 1, `One original logo: ${brandId}`);
   }
   for (const fact of ['MoEngage', 'MIS', 'recruitment', 'payment-failure analysis', 'SOP', 'Jira', 'Brazil and Malaysia']) assert.ok(html.includes(fact), fact);
   assert.ok(html.includes(escapeHtml(career.internship.dates)));
@@ -80,6 +95,31 @@ test('both certifications expose their credential IDs, original issuer logos and
     assert.ok(html.includes(`href="${escapeHtml(certification.credentialUrl)}" target="_blank" rel="noopener noreferrer"`));
     assert.match(html, new RegExp(`datetime="${certification.issuedDate}"`, 'i'));
     assert.ok(html.includes(`/brands/${certification.brandId}`), certification.brandId);
+  }
+});
+
+test('contact offers four existing channels in a labelled native dialog', () => {
+  const Contact = load('components/ContactChooser.tsx', { './contact-chooser.module.css': css }).default;
+  const html = renderToStaticMarkup(createElement(Contact));
+  assert.match(html, /<button[^>]+aria-label="Contact Priyam"[^>]+aria-haspopup="dialog"[^>]+aria-expanded="false"/);
+  assert.match(html, /<dialog[^>]+aria-labelledby="[^"]+"[^>]+aria-describedby="[^"]+"/);
+  assert.match(html, /Choose the channel that works for you\./);
+  assert.match(html, /aria-label="Close contact options"/);
+  for (const href of ['mailto:Priyam.Sameer.95@gmail.com', 'https://www.linkedin.com/in/priyam-sameer', 'https://wa.me/918238452277', 'tel:+918238452277']) assert.ok(html.includes(`href="${href}"`), href);
+  assert.equal((html.match(/<a\b/g) || []).length, 4);
+  assert.equal((html.match(/rel="noopener noreferrer"/g) || []).length, 2);
+});
+
+test('original media source links retain provenance and reject unsafe source URLs', () => {
+  const Media = load('components/work/Media.tsx', { './work.module.css': css }).default;
+  const image = { id: 'original-photo', kind: 'image', category: 'photograph', src: '/work/original.jpg', alt: 'Company farm photograph', width: 1280, height: 960, caption: 'Original company image; capture date unspecified.', provenance: { kind: 'historical', label: 'UrbanKhet LinkedIn company page', sourceUrl: 'https://www.linkedin.com/company/khet-inc/' } };
+  const html = renderToStaticMarkup(createElement(Media, { media: image }));
+  assert.match(html, /href="https:\/\/www.linkedin.com\/company\/khet-inc\/" target="_blank" rel="noopener noreferrer"/);
+  assert.match(html, /View original source/);
+  assert.match(html, /capture date unspecified/);
+  for (const sourceUrl of ['javascript:alert(1)', 'data:text/html,hello', 'not-a-url']) {
+    const unsafe = renderToStaticMarkup(createElement(Media, { media: { ...image, provenance: { ...image.provenance, sourceUrl } } }));
+    assert.doesNotMatch(unsafe, /View original source|href=/);
   }
 });
 

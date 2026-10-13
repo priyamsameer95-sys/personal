@@ -14,6 +14,16 @@ function provenanceText(media: CaseStudyMedia) {
   return [label, date].filter(Boolean).join(' · ');
 }
 
+function MediaSource({ media }: { media: CaseStudyMedia }) {
+  const source = media.provenance?.sourceUrl;
+  if (!source) return null;
+  try {
+    const url = new URL(source);
+    if (url.protocol !== 'https:') return null;
+    return <a className={styles.mediaSource} href={url.href} target="_blank" rel="noopener noreferrer">View original source <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>;
+  } catch { return null; }
+}
+
 export default function Media({ media, priority = false, previewSrc, compact = false }: { media: CaseStudyMedia; priority?: boolean; previewSrc?: string; compact?: boolean }) {
   const [expanded, setExpanded] = useState(false);
   const [actualSize, setActualSize] = useState(false);
@@ -61,7 +71,7 @@ export default function Media({ media, priority = false, previewSrc, compact = f
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={media.src} alt={media.alt} width={media.width} height={media.height} className={`${styles.dialogImage}${actualSize ? ` ${styles.actualSize}` : ''}`} />
               </div>
-              {(media.caption || sourceContext) && <p className={styles.dialogCaption}>{media.caption}{sourceContext && <span className={styles.provenance}>{sourceContext}</span>}</p>}
+              {(media.caption || sourceContext) && <p className={styles.dialogCaption}>{media.caption}{sourceContext && <span className={styles.provenance}>{sourceContext}</span>}<MediaSource media={media} /></p>}
             </div>}
           </dialog>
         </>
@@ -78,6 +88,7 @@ export default function Media({ media, priority = false, previewSrc, compact = f
       {(media.caption || media.provenance) && <figcaption>
         {media.caption}{media.kind === 'video' && media.duration ? ` · ${media.duration}` : ''}
         {sourceContext && <span className={styles.provenance}>{sourceContext}</span>}
+        <MediaSource media={media} />
       </figcaption>}
     </figure>
   );

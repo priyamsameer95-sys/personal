@@ -9,6 +9,7 @@ import WorkPreview from '@/components/work/WorkPreview';
 import { getPrimaryMedia } from '@/lib/work-presentation';
 import CvDownload from '@/components/CvDownload';
 import BrandMarks from '@/components/BrandMarks';
+import { getCompanyContext } from '@/lib/company-context';
 import styles from './home.module.css';
 
 export const metadata: Metadata = {
@@ -24,10 +25,10 @@ const selected = [
   { slug: 'absolute-upaj-farmer-experience', domain: 'Farmer products', value: '100K → 600K', measure: 'Reported active users', note: 'Programme report; cohort definition and comparison period unavailable.' },
 ];
 const career = [
-  { name: 'UrbanKhet', period: '2019–2021', role: 'Founder & Director', id: 'urbankhet' },
-  { name: 'Absolute / Upaj', period: '2021–2024', role: 'Product Manager → Principal PM', id: 'absolute' },
-  { name: 'CredFlow', period: '2024–2025', role: 'Senior Product Manager', id: 'credflow' },
-  { name: 'CashKaro / BankKaro', period: '2025–Present', role: 'Senior Manager → General Manager', id: 'cashkaro' },
+  { name: 'UrbanKhet', period: '2019–2021', role: 'Founder & Director', id: 'urbankhet', about: 'A farm-to-customer venture serving households and business buyers.', scale: '~100 daily customers in a June 2020 snapshot.', recognition: 'GUSEC Rise Award, 2021.', sourceId: 'gusec-story' },
+  { name: 'Absolute / Upaj', period: '2021–2024', role: 'Product Manager → Principal PM', id: 'absolute', about: 'Bioscience, agricultural data, farm advisory and risk products.', scale: '3M+ farmers: current farm-biosolutions reach.', recognition: 'Deloitte Fast 50, 2023.', sourceId: 'absolute-home' },
+  { name: 'CredFlow', period: '2024–2025', role: 'Senior Product Manager', id: 'credflow', about: 'Finance software and lending infrastructure for MSMEs.', scale: '200K+ businesses onboarded to CredFloat; current company report.', recognition: '50+ lending partners across CredFund and CashFloat.', sourceId: 'credflow-home' },
+  { name: 'CashKaro / BankKaro', period: '2025–Present', role: 'Senior Manager → General Manager', id: 'cashkaro', about: 'Cashback shopping and financial-product marketplaces.', scale: '20M users: CashKaro’s reported 2023 milestone.', recognition: 'Backed by Ratan Tata, Kalaari and Affle.', sourceId: 'cashkaro-about' },
 ];
 
 export default function HomePage() {
@@ -42,11 +43,6 @@ export default function HomePage() {
           <p className={styles.label}>Priyam Sameer · AI + business leadership</p>
           <h1 id="intro-title">AI product thinking.<br /><em>Business ownership.</em></h1>
           <p className={styles.intro}>I build lending, marketplace and agritech products—with AI-assisted workflows, deliberate decision systems and clear business ownership.</p>
-          <div className={styles.actions}>
-            <Link href="/product" className="ink-button">Explore my work <span aria-hidden="true">↗</span></Link>
-            <CvDownload className={styles.download} />
-          </div>
-          <p className={styles.current}><span>Currently</span> General Manager, Product Management &amp; Business Growth<br />CashKaro / BankKaro</p>
         </div>
         {heroMedia && <div className={styles.heroEvidence}>
           <div className={styles.prototypeHeading}><span>EduLoans</span><span>Working interaction prototype</span></div>
@@ -54,6 +50,18 @@ export default function HomePage() {
           <p className={styles.heroDecision}>AI-assisted delivery. Deterministic lender rules. Human verification before policy matching.</p>
           <Link href="/product/cashkaro-eduloans-policy-workflow" className="ink-link">Full case study <span aria-hidden="true">↗</span></Link>
         </div>}
+        <div className={styles.heroFollow}>
+          <div className={styles.actions}>
+            <Link href="/product" className="ink-button">Explore my work <span aria-hidden="true">↗</span></Link>
+            <CvDownload className={styles.download} />
+          </div>
+          <div className={styles.current}>
+            <p className={styles.currentLabel}>Current role</p>
+            <p className={styles.currentTitle}>General Manager</p>
+            <p>Product Management &amp; Business Growth</p>
+            <Link href="/cv#cashkaro">CashKaro / BankKaro <span aria-hidden="true">↗</span></Link>
+          </div>
+        </div>
       </section>
 
       <section className={styles.section} aria-labelledby="work-title">
@@ -78,9 +86,20 @@ export default function HomePage() {
 
       <section className={styles.section} aria-labelledby="career-title">
         <div className={styles.sectionHeader}><div><p className={styles.label}>From founder to product leader</p><h2 id="career-title">A growing scope.</h2></div><Link href="/cv" className="ink-link">View experience <span aria-hidden="true">→</span></Link></div>
-        <ol className={styles.career}>{career.map(item => <li key={item.id}>
-          <p className={styles.careerDate}>{item.period}</p><h3>{item.name}</h3><p className={styles.careerRole}>{item.role}</p>
-        </li>)}</ol>
+        <ol className={styles.career}>{career.map(item => {
+          const company = getCompanyContext(item.id);
+          const source = company?.sources.find(source => source.id === item.sourceId);
+          return <li key={item.id}>
+            <p className={styles.careerDate}>{item.period}</p>
+            <BrandMarks companyId={item.id} className={styles.careerBrands} />
+            <h3>{item.name}</h3>
+            <p className={styles.careerAbout}>{item.about}</p>
+            <p className={styles.careerScale}>{source ? <a href={source.href} target="_blank" rel="noopener noreferrer">{item.scale}<span className="sr-only"> (opens in a new tab)</span></a> : item.scale}</p>
+            <p className={styles.careerRecognition}>{item.recognition}</p>
+            <div className={styles.careerWebsites}>{company?.websites.map(website => <a key={website.href} href={website.href} target="_blank" rel="noopener noreferrer">{website.label} <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>)}</div>
+            <p className={styles.careerRole}><span>My role</span>{item.role}</p>
+          </li>;
+        })}</ol>
       </section>
 
       <section className={`${styles.section} ${styles.personal}`} aria-labelledby="interests-title">

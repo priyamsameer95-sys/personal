@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import CvDownload from './CvDownload';
+import ContactChooser from './ContactChooser';
 import styles from './site-chrome.module.css';
 
 const navItems = [
@@ -35,7 +36,7 @@ export default function Header() {
     </nav>
     <div className={styles.headerActions}>
       <CvDownload className={styles.cvButton} />
-      <a href="mailto:Priyam.Sameer.95@gmail.com" aria-label="Contact Priyam" className={styles.contactButton}><span className={styles.contactLong}>Contact Priyam</span><span className={styles.contactShort}>Contact</span> <span aria-hidden="true">↗</span></a>
+      <ContactChooser className={styles.contactButton}><span className={styles.contactLong}>Contact Priyam</span><span className={styles.contactShort}>Contact</span> <span aria-hidden="true">↗</span></ContactChooser>
     </div>
   </header>;
 }

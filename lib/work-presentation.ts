@@ -13,7 +13,7 @@ export function getPrimaryMedia(study: Pick<CaseStudy, 'media' | 'heroMediaId' |
   if (selected.length) return selected.filter((media, index, all) => all.findIndex(asset => asset.src === media.src) === index);
   const hero = study.media.find(media => media.id === study.heroMediaId);
   if (hero) return [hero];
-  const priorities = ['prototype-screenshot', 'product-screenshot', 'walkthrough', 'diagram', 'illustration', 'source-document'];
+  const priorities = ['prototype-screenshot', 'product-screenshot', 'walkthrough', 'photograph', 'diagram', 'illustration', 'source-document'];
   return [...study.media].sort((a, b) => priorities.indexOf(a.category || (a.kind === 'video' ? 'walkthrough' : 'illustration')) - priorities.indexOf(b.category || (b.kind === 'video' ? 'walkthrough' : 'illustration'))).slice(0, 1);
 }
 
@@ -21,6 +21,7 @@ export function mediaGroupTitle(media: CaseStudyMedia): string {
   if (media.category === 'prototype-screenshot' || media.provenance?.kind === 'prototype') return 'Original interaction prototype';
   if (media.kind === 'video') return media.provenance?.kind === 'authored' ? 'Public-reference walkthrough' : 'Product walkthrough';
   if (media.category === 'product-screenshot') return media.provenance?.kind === 'current-public' ? 'Current public product reference' : 'Product screenshot';
+  if (media.category === 'photograph') return 'Company photograph';
   if (media.category === 'diagram') return media.src.includes('/architecture/') ? 'Technical portfolio diagram' : 'Workflow explanation';
   if (media.category === 'source-document') return media.provenance?.kind === 'proposal' ? 'Institutional proposal reference' : 'Source document reference';
   if (media.category === 'illustration') return media.provenance?.label || 'Illustration of my approach';

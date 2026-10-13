@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from 'react';
 import type { CaseStudy, WorkCompany } from '@/lib/work-types';
 import { workTypeLabels } from '@/lib/work-types';
 import BrandMarks from '@/components/BrandMarks';
+import CompanyContext from '@/components/CompanyContext';
+import { getCompanyContext } from '@/lib/company-context';
 import styles from './work-explorer.module.css';
 import WorkPreview, { type WorkPreviewStudy } from './WorkPreview';
 import { featuredCaseStudies } from '@/lib/work-presentation';
@@ -36,14 +38,14 @@ export function resolveWorkFragment(hash: string, groups: readonly WorkExplorerG
 
 function CompanyWork({ group, hidden }: { group: WorkExplorerGroup; hidden: boolean }) {
   const { company, studies } = group;
+  const hasCompanyContext = !!getCompanyContext(company.id);
   return <section id={company.id} tabIndex={-1} aria-labelledby={`${company.id}-title`} className={styles.companySection} hidden={hidden}>
     <header className={styles.companyHeader}>
-      <div>
+      {hasCompanyContext ? <CompanyContext companyId={company.id} headingId={`${company.id}-title`} headingLevel={2} /> : <div>
         <BrandMarks companyId={company.id} />
-        <p className={styles.companyMeta}>{company.period} · {company.relationship || contextLabels[company.id] || 'Employment'}</p>
         <h2 id={`${company.id}-title`}>{company.name}</h2>
-      </div>
-      <div className={styles.companyScope}><p className={styles.companyRole}>{company.role}</p><p>{company.summary}</p></div>
+      </div>}
+      <div className={styles.companyScope}><p className={styles.companyMeta}>{company.period} · {company.relationship || contextLabels[company.id] || 'Employment'}</p><p className={styles.remitLabel}>My responsibility</p><p className={styles.companyRole}>{company.role}</p><p>{company.summary}</p></div>
     </header>
     <div className={styles.indexList}>{studies.map(study => <article className={styles.indexItem} key={study.id}>
       <div><p className={styles.cardMeta}>{workTypeLabels[study.workType]}</p><h3><Link href={`/product/${encodeURIComponent(study.slug)}`}>{study.visualSummary?.title || study.title}<span aria-hidden="true"> ↗</span></Link></h3></div>

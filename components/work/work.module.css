@@ -75,6 +75,7 @@
 .imageHint { position: absolute; bottom: .75rem; right: .75rem; background: var(--paper, #faf7f0); color: var(--ink, #191714); border: 1px solid var(--rule, #ddd7cb); border-radius: 2rem; padding: .55rem .8rem; font-size: .875rem; }
 .figure figcaption { margin-top: .75rem; font-size: .9rem; line-height: 1.65; color: var(--muted, #625e56); }
 .provenance { display: block; margin-top: .4rem; }
+.mediaSource { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; text-underline-offset: .25em; }
 .imageDialog { width: min(84rem, calc(100vw - 2rem)); max-width: none; max-height: calc(100dvh - 2rem); padding: 0; color: var(--ink, #191714); background: var(--paper, #faf7f0); border: 1px solid var(--rule, #ddd7cb); border-radius: .65rem; overflow: hidden; }
 .imageDialog::backdrop { background: #191714b8; }
 .dialogLayout { display: flex; flex-direction: column; height: calc(100dvh - 2rem); max-height: calc(100dvh - 2rem); }

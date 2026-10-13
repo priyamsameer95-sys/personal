@@ -1,23 +1,25 @@
-.marks { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; min-width: 0; margin: 0 0 .85rem; }
+.marks { display: flex; flex-wrap: wrap; align-items: center; gap: 1.15rem; min-width: 0; margin: 0 0 1rem; }
 .mark { display: inline-flex; flex: 0 1 auto; align-items: center; justify-content: flex-start; max-width: 100%; }
-.mark img { display: block; width: auto; height: 34px; max-width: 160px; object-fit: contain; }
-.square img { height: 64px; width: 64px; }
-.dark { background: #111; padding: .55rem .7rem; }
-.dark img { height: 26px; }
+.mark img { display: block; width: auto; height: 44px; max-width: 220px; object-fit: contain; }
+.square img { height: 80px; width: 80px; }
+.dark { background: #111; padding: .65rem .85rem; }
+.dark img { height: 36px; width: auto; max-width: 220px; }
 .withLabel { gap: .5rem; color: #fff; font-size: .875rem; font-weight: 500; }
-.withLabel img { width: 24px; height: 24px; }
-.small { gap: .8rem; margin-bottom: .65rem; }
-.small .mark img { height: 26px; max-width: 125px; }
-.small .square img { height: 48px; width: 48px; }
+.withLabel img { width: 30px; height: 30px; }
+.small { gap: .85rem; margin-bottom: .7rem; }
+.small .mark img { height: 30px; max-width: 150px; }
+.small .square img { height: 56px; width: 56px; }
 .small .dark { padding: .45rem .6rem; }
-.small .dark img { height: 20px; }
-.small .withLabel img { width: 20px; height: 20px; }
+.small .dark img { height: 24px; max-width: 150px; }
+.small .withLabel img { width: 24px; height: 24px; }
 @media (max-width: 600px) {
-  .marks { gap: .75rem; }
-  .mark img { height: 30px; max-width: 140px; }
-  .square img { height: 56px; width: 56px; }
-  .dark img { height: 24px; }
-  .small .mark img { height: 24px; }
-  .small .square img { height: 48px; width: 48px; }
-  .small .dark img { height: 20px; }
+  .marks { gap: .8rem; }
+  .mark img { height: 38px; max-width: 190px; }
+  .square img { height: 72px; width: 72px; }
+  .dark { padding: .55rem .7rem; }
+  .dark img { height: 30px; max-width: 190px; }
+  .small .mark img { height: 28px; max-width: 145px; }
+  .small .square img { height: 52px; width: 52px; }
+  .small .dark img { height: 22px; max-width: 145px; }
+  .small .withLabel img { width: 24px; height: 24px; }
 }

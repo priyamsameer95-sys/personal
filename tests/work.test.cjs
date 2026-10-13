@@ -459,8 +459,14 @@ test('ranked featured stories and explicit primary media preserve intentional or
   assert.equal(getPrimaryMedia({...study,primaryMediaIds:['missing'],heroMediaId:'screen'})[0].id,'screen');
   assert.equal(getPrimaryMedia({...study,media:[]}).length,0);
   const urban = data.caseStudies.find(item => item.id === 'urbankhet-farm-to-fork');
-  assert.equal(getPrimaryMedia(urban)[0].id, 'urbankhet-storefront-excerpt');
-  assert.equal(getPrimaryMedia(urban)[0].provenance.kind, 'historical');
+  assert.deepEqual(Array.from(getPrimaryMedia(urban), media => media.id), ['urbankhet-linkedin-company-farm-cover', 'urbankhet-storefront-excerpt']);
+  assert.equal(getPrimaryMedia(urban)[0].category, 'photograph');
+  assert.equal(mediaGroupTitle(getPrimaryMedia(urban)[0]), 'Company photograph');
+  assert.equal(getPrimaryMedia(urban)[0].provenance.sourceUrl, 'https://www.linkedin.com/company/khet-inc/');
+  assert.equal(getPrimaryMedia(urban)[1].provenance.kind, 'historical');
+  const urbanCovid = data.caseStudies.find(item => item.id === 'urbankhet-covid-pivot');
+  assert.equal(getPrimaryMedia(urbanCovid)[0].id, 'urbankhet-linkedin-sorted-packs');
+  assert.equal(getPrimaryMedia(urbanCovid)[0].provenance.sourceUrl, 'https://www.linkedin.com/feed/update/urn:li:activity:6654457549527584768/');
   const mcp = data.caseStudies.find(item => item.id === 'lending-mcp-feedback');
   assert.equal(getPrimaryMedia(mcp)[0].id, 'lending-mcp-proposal');
   assert.equal(getPrimaryMedia(mcp)[0].provenance.kind, 'proposal');

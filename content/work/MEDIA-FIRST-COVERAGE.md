@@ -1,6 +1,6 @@
 # Media-first portfolio coverage — 14 October 2026
 
-The current presentation retains 25 studies, nine contexts and 45 canonical/alias routes. All 198 original source sections remain mapped; four additive software-validation/evaluation sections bring the total to 202. There are 17 source tables and 105 unique media files: 95 images and ten videos. The original nine generated reference videos and 17 workflow SVGs remain, alongside four original prototype captures, one MCP architecture SVG and one historical storefront excerpt.
+The current presentation retains 25 studies, nine contexts and 45 canonical/alias routes. All 198 original source sections remain mapped; four additive software-validation/evaluation sections bring the total to 202. There are 17 source tables and 110 unique media files: 100 images and ten videos, represented by 118 registry entries. The original nine generated reference videos and 17 workflow SVGs remain, alongside four original prototype captures, one MCP architecture SVG, one historical storefront excerpt and five original UrbanKhet LinkedIn images.
 
 All public case content is open. Every selected primary asset appears before the main story, and each asset appears once within its case. Source families consolidate context without nested disclosures or nested scrolling galleries. The table below is the exact registry-to-presentation mapping. The original `story-*`, `heading-*` and `anchorAliases` targets remain beside their owning open groups.
 
@@ -13,7 +13,21 @@ All public case content is open. Every selected primary asset appears before the
 | 3 | `cashkaro-lending-mcp-feedback` | `lending-mcp-proposal` | Proposed system design: shared policy evaluation, with human approval before policy changes. Live MCP wiring is not established. |
 | 4 | `cashkaro-college-money-education-loans` | `college-money-College-Money-02-Loan-Discovery` | A silent, authored overview using the captured public pages and source illustrations; it does not show an authenticated application. |
 | 5 | `absolute-silkroute-marketplace` | `workflow-diagram` | Workflow explanation: Catalogue and discovery → Negotiation and price matching → Trade and compliance checks → Payment and operations → Shipment and transaction completion. |
-| 6 | `urbankhet-farm-to-fork` | `urbankhet-storefront-excerpt` | Historical storefront walkthrough — a 20-second silent excerpt of the original recording. |
+| 6 | `urbankhet-farm-to-fork` | `urbankhet-linkedin-company-farm-cover`, then `urbankhet-storefront-excerpt` | Original company farm cover, with photograph date/location/photographer unspecified; historical storefront walkthrough — a 20-second silent excerpt. |
+
+## Original UrbanKhet LinkedIn evidence
+
+Five unchanged source images are hosted with natural dimensions and individual original-source links. The farm cover leads the venture case; the existing storefront video follows immediately. The other four appear openly with their relevant historical account. The Sorted-Packs graphic also leads the COVID operating-model case. All pre-existing campaign imagery, its Studio Sorted attribution, diagrams and video remain.
+
+| Hosted original | Registry location | Provenance and boundary |
+| --- | --- | --- |
+| `company-farm-cover.jpg` | `urbankhet-farm-to-fork` primary evidence | UrbanKhet LinkedIn company profile. Photograph date, location and photographer unspecified; not proof of farm ownership. |
+| `khet-direct-launch.jpg` | Venture case, historical customer proposition | Original company launch post, 20 October 2020. Embedded contact/website details are historical artwork, not current ordering actions. |
+| `sorted-packs-proposition.jpg` | Venture proposition and COVID case primary evidence | Original company post, 10 April 2020. Historical subscription marketing. |
+| `direct-supply-chain.jpg` | Venture customer and coordination context | Original company post, 5 November 2019. Simplified company proposition, not an audited fulfilment map. |
+| `intermediary-supply-chain.jpg` | Venture customer and coordination context | Original company post, 5 November 2019. Company positioning, not independent industry research. |
+
+Files are under `/work/urbankhet/linkedin/`. The registry retains the exact post URLs and publication dates. The supplied source sections and their existing anchors are unchanged; no new employment or operating-result claims are introduced.
 
 ## Source-section mapping
 

@@ -1,14 +1,20 @@
-.hero { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.2fr); align-items: center; gap: clamp(2rem, 4vw, 4rem); padding: .5rem 0 3.5rem; }
+.hero { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.2fr); grid-template-rows: min-content 1fr; align-items: start; column-gap: clamp(2rem, 4vw, 4rem); row-gap: 1.75rem; padding: .5rem 0 3.5rem; }
+.heroCopy { grid-column: 1; grid-row: 1; }
+.heroFollow { grid-column: 1; grid-row: 2; }
+.heroFollow .actions { margin-top: 0; }
 .label { color: var(--muted); font-size: .9rem; line-height: 1.6; margin-bottom: .9rem; }
 .hero h1 { font-size: clamp(2.6rem, 4.5vw, 4.25rem); line-height: 1.06; letter-spacing: -.055em; font-weight: 500; margin: 0 0 1.5rem; }
 .hero h1 em { font-family: var(--font-editorial); font-weight: 400; letter-spacing: -.045em; }
 .intro { max-width: 36ch; color: var(--muted); line-height: 1.75; font-size: 1.1rem; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: .85rem; margin-top: 1.75rem; }
-.download { display: inline-flex; align-items: center; justify-content: center; gap: .65rem; padding: .8rem 1.1rem; min-height: 48px; border: 1px solid var(--ink); border-radius: 99px; font-size: .9rem; text-decoration: none; }
+.download { display: inline-flex; align-items: center; justify-content: center; gap: .65rem; padding: .8rem 1.1rem; min-height: 48px; border: 1px solid var(--ink); border-radius: .65rem; font-size: .9rem; text-decoration: none; transition: border-radius 220ms ease; }
+.download:active, .download:focus-visible { border-radius: 2rem; }
 .download:hover { background: var(--paper-soft); }
-.current { max-width: 48ch; margin-top: 1.5rem; font-size: .9rem; color: var(--muted); line-height: 1.7; text-wrap: pretty; }
-.current > span { color: var(--ink); margin-right: .4rem; }
-.heroEvidence { min-width: 0; background: var(--paper-soft); padding: 1.1rem; border-radius: .55rem; }
+.current { max-width: 48ch; margin-top: 1.5rem; padding-left: 1rem; border-left: 2px solid var(--ink); font-size: .875rem; color: var(--muted); line-height: 1.65; }
+.currentLabel { font-size: .8rem; margin-bottom: .35rem; }
+.currentTitle { color: var(--ink); font-size: 1rem; font-weight: 550; }
+.current a { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; color: var(--ink); text-underline-offset: .25em; }
+.heroEvidence { grid-column: 2; grid-row: 1 / span 2; align-self: center; min-width: 0; background: var(--paper-soft); padding: 1.1rem; border-radius: .55rem; }
 .heroEvidence figure { margin: 0; }
 .heroEvidence figure > button > img { width: 100%; height: auto; max-height: 31rem; object-fit: contain; }
 .heroEvidence figcaption { font-size: .875rem; line-height: 1.55; }
@@ -31,12 +37,18 @@
 .proofMeasure { margin-top: .5rem; font-size: .95rem; line-height: 1.6; }
 .proofNote { margin-top: .6rem; font-size: .875rem; line-height: 1.65; color: var(--muted); }
 .workItem > a { margin-top: 1.1rem; }
-.career { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; }
+.career { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 3rem; }
 .career li { border-top: 1px solid var(--rule); padding-top: 1rem; }
 .careerDate { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.career h3 { font-size: 1.2rem; font-weight: 500; line-height: 1.4; margin: .6rem 0; }
-.careerRole { min-height: 3.6rem; font-size: .9rem; color: var(--muted); line-height: 1.65; }
-.career a { margin-top: .5rem; }
+.careerBrands { min-height: 80px; margin: .9rem 0 .7rem; }
+.career h3 { font-size: 1.1rem; font-weight: 550; line-height: 1.4; margin: .6rem 0; }
+.careerAbout { max-width: 46ch; font-size: .95rem; line-height: 1.6; margin: .7rem 0; }
+.careerScale, .careerRecognition { font-size: .875rem; color: var(--muted); line-height: 1.65; }
+.careerScale a { text-underline-offset: .25em; }
+.careerWebsites { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: .5rem 0; }
+.careerWebsites a { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; font-size: .875rem; text-underline-offset: .25em; }
+.careerRole { margin-top: .9rem; padding-top: .8rem; border-top: 1px solid var(--rule); font-size: .95rem; line-height: 1.65; }
+.careerRole > span { display: block; color: var(--muted); font-size: .8rem; margin-bottom: .2rem; }
 .personal { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 4rem; }
 .personal > div > p:not(.label) { max-width: 45ch; margin: 1.25rem 0; font-size: 1rem; line-height: 1.8; color: var(--muted); }
 .personalLinks { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; }
@@ -53,14 +65,14 @@
   .career { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; }
 }
 @media (max-width: 767px) {
-  .hero { grid-template-columns: 1fr; gap: 1.5rem; padding: .5rem 0 2.5rem; }
-  .heroCopy { display: contents; }
+  .hero { grid-template-columns: 1fr; grid-template-rows: none; gap: 1.5rem; padding: .5rem 0 2.5rem; }
+  .heroCopy, .heroFollow { display: contents; }
   .heroCopy > .label { order: 0; margin: 0; }
   .hero h1 { order: 1; font-size: clamp(2.4rem, 8vw, 3.6rem); margin: 0; }
   .heroCopy > .intro { order: 2; }
-  .heroEvidence { order: 3; }
-  .heroCopy > .actions { order: 4; margin-top: 0; }
-  .heroCopy > .current { order: 5; margin-top: 0; }
+  .heroEvidence { grid-column: auto; grid-row: auto; order: 3; }
+  .heroFollow > .actions { order: 4; margin-top: 0; }
+  .heroFollow > .current { order: 5; margin-top: 0; }
   .heroBreak { display: none; }
   .heroEvidence { width: 100%; padding: .75rem; }
   .section { padding: 2.5rem 0; }
