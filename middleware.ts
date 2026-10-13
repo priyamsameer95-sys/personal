@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { verifySessionToken, SESSION_COOKIE_NAME } from './lib/auth';
+import { isAdminAuthenticated } from './lib/auth';
 
 export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
@@ -10,12 +10,22 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
+  // Vercel completion callbacks have no browser cookie. The upload route only
+  // accepts them after handleUpload verifies their signature; token generation
+  // still requires an authenticated admin inside the route.
+  if (
+    path === '/api/admin/blob-upload' &&
+    req.method === 'POST' &&
+    req.headers.has('x-vercel-signature')
+  ) {
+    return NextResponse.next();
+  }
+
   const isAdminPage = path.startsWith('/minforyam');
   const isAdminApi = path.startsWith('/api/admin');
 
   if (isAdminPage || isAdminApi) {
-    const sessionCookie = req.cookies.get(SESSION_COOKIE_NAME)?.value;
-    const isValid = await verifySessionToken(sessionCookie);
+    const isValid = await isAdminAuthenticated(req);
 
     if (!isValid) {
       if (isAdminApi) {

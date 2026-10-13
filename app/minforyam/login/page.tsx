@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-6 bg-[#FAFAFA]">
+    <main id="main-content" className="min-h-screen flex items-center justify-center px-6 bg-system-bg">
       <div className="w-full max-w-[400px] py-12 px-8 bg-white border border-[#E5E5E5] rounded-2xl shadow-sm">
         <header className="mb-8 text-center">
           <h1 className="font-mono text-[11px] font-bold tracking-[0.15em] uppercase text-[#1A1A1A] mb-2">

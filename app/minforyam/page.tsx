@@ -126,7 +126,7 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <main className="max-w-[1400px] mx-auto px-6 mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <main id="main-content" className="max-w-[1400px] mx-auto px-6 mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         
         {/* Left Column: Form */}
         <section className="bg-white border border-[#E5E5E5] p-8 rounded-2xl shadow-sm relative">

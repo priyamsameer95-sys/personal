@@ -1,10 +1,15 @@
-import { NextResponse } from 'next/server';
+import { isAdminAuthenticated } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/db';
 
 // POST /api/admin/migrate
-// Runs the database migration. Protected by middleware.
+// Runs the database migration after checking the admin session.
 // Refuses to run if content_items already exists.
-export async function POST() {
+export async function POST(request: NextRequest) {
+  if (!(await isAdminAuthenticated(request))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     // Step 1: Check if content_items already exists
     const { rows: existing } = await db`

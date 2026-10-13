@@ -1,5 +1,6 @@
-import React from 'react';
-import db from '@/lib/db';
+import type { Metadata } from 'next';
+import { publicDb as db } from '@/lib/db';
+import { contentExcerpt } from '@/lib/content';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -9,17 +10,20 @@ interface ContentItem {
   title: string;
   slug: string;
   summary: string | null;
-  type: 'blog';
-  status: 'draft' | 'published';
+  body_markdown: string | null;
   created_at: string;
 }
+
+export const metadata: Metadata = {
+  title: 'Writing',
+  description: 'Thoughts on product management, construction logic in software, and operational integrity.',
+};
 
 export const revalidate = 0;
 
 export default async function BlogPage() {
   const { rows } = await db`
-    SELECT
-      id, title, slug, summary, type, status, created_at
+    SELECT id, title, slug, summary, body_markdown, created_at
     FROM content_items
     WHERE type = 'blog' AND status = 'published'
     ORDER BY created_at DESC
@@ -27,53 +31,41 @@ export default async function BlogPage() {
   const items = rows as ContentItem[];
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <div className="max-w-[56rem] mx-auto px-6 py-20 pb-24">
+    <div className="min-h-screen bg-system-bg">
+      <div className="mx-auto max-w-6xl px-6 py-8 md:px-10 md:py-10">
         <Header />
 
-        <main className="animate-fade-in-up">
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-system-primary mb-4">Writing</h2>
-            <p className="text-system-secondary text-lg max-w-2xl font-serif">
-              Thoughts on product management, construction logic in software, and operational integrity.
-            </p>
+        <main id="main-content" className="animate-fade-in-up">
+          <div className="mb-12 max-w-2xl md:mb-16">
+            <p className="mb-4 text-xs font-medium uppercase tracking-[0.16em] text-system-accent">Notes & perspectives</p>
+            <h1 className="mb-5 font-serif text-5xl leading-tight tracking-tight text-system-primary sm:text-6xl">Writing.</h1>
+            <p className="max-w-xl text-lg leading-relaxed text-system-secondary">Thoughts on product management, construction logic in software, and operational integrity.</p>
           </div>
 
           {items.length === 0 ? (
-            <div className="py-20 text-center font-mono text-xs text-system-tertiary border border-dashed border-system-outline/40 rounded-2xl bg-white">
-              NO ESSAYS PUBLISHED YET
+            <div className="rounded-2xl border border-system-outline bg-system-surface px-6 py-14 sm:px-10">
+              <h2 className="mb-3 font-serif text-3xl text-system-primary">More to put into words.</h2>
+              <p className="max-w-lg leading-relaxed text-system-secondary">There are no published essays here yet. Explore my work or get in touch to continue the conversation.</p>
+              <Link href="/product" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-system-accent no-underline">Explore the work <span aria-hidden="true">→</span></Link>
             </div>
           ) : (
-            <div className="space-y-16 max-w-3xl">
-              {items.map((post) => (
-                <article key={post.id} className="group relative pb-8 border-b border-system-outline/40">
-                  <div className="flex items-baseline gap-4 mb-3">
-                    <time className="font-mono text-[11px] font-semibold text-system-tertiary uppercase tracking-widest">
-                      {new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+            <div className="max-w-3xl space-y-10">
+              {items.map((post) => {
+                const excerpt = contentExcerpt(post.summary || post.body_markdown, 260);
+                const href = `/blog/${encodeURIComponent(post.slug || post.id)}`;
+                return (
+                  <article key={post.id} className="border-t border-system-outline pt-7">
+                    <time dateTime={new Date(post.created_at).toISOString()} className="mb-3 block text-xs uppercase tracking-[0.12em] text-system-tertiary">
+                      {new Date(post.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })}
                     </time>
-                    <span className="w-8 h-px bg-system-outline/60"></span>
-                    <span className="font-mono text-[11px] font-semibold text-system-tertiary uppercase tracking-widest">
-                      Product
-                    </span>
-                  </div>
-                  <Link href={`/blog/${post.slug || post.id}`} className="no-underline">
-                    <h3 className="text-2xl font-bold text-system-primary mb-4 font-serif cursor-pointer hover:text-system-accent transition duration-200">
-                      {post.title}
-                    </h3>
-                  </Link>
-                  {post.summary && (
-                    <p className="text-system-secondary leading-relaxed mb-4 text-sm md:text-base">
-                      {post.summary}
-                    </p>
-                  )}
-                  <Link
-                    href={`/blog/${post.slug || post.id}`}
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-system-primary hover:text-system-accent transition duration-200 no-underline"
-                  >
-                    Read full essay <span className="material-symbols-rounded text-lg">arrow_forward</span>
-                  </Link>
-                </article>
-              ))}
+                    <Link href={href} className="no-underline">
+                      <h2 className="mb-4 font-serif text-3xl leading-tight text-system-primary transition-colors hover:text-system-accent sm:text-4xl">{post.title}</h2>
+                    </Link>
+                    {excerpt && <p className="leading-relaxed text-system-secondary">{excerpt}</p>}
+                    <Link href={href} className="mt-4 inline-flex min-h-11 items-center gap-3 text-sm font-medium text-system-accent no-underline">Read essay <span aria-hidden="true">→</span></Link>
+                  </article>
+                );
+              })}
             </div>
           )}
         </main>

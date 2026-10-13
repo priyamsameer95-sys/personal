@@ -1,230 +1,111 @@
-import React from 'react';
-import db from '@/lib/db';
+import { publicDb as db } from '@/lib/db';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import MarkdownContent from '@/components/MarkdownContent';
 
 interface ContentItem {
   id: string;
   title: string;
-  slug: string;
   summary: string | null;
   body_markdown: string | null;
-  type: 'art' | 'work' | 'blog' | 'cv';
-  status: 'draft' | 'published';
   downloadable: boolean;
   created_at: string;
-  media: Array<{
-    blob_url: string;
-    kind: string;
-  }>;
+  media: Array<{ blob_url: string; kind: string; alt_text: string | null }>;
 }
 
 interface DetailPageProps {
-  params: {
-    category: string;
-    id: string; // This can be either id or slug
-  };
+  params: { category: string; id: string };
 }
+
+const categories = {
+  art: { type: 'art', label: 'art', heading: 'Painting' },
+  product: { type: 'work', label: 'work', heading: 'Case study' },
+  blog: { type: 'blog', label: 'writing', heading: 'Essay' },
+};
 
 export const revalidate = 0;
 
 export default async function DetailPage({ params }: DetailPageProps) {
   const { category, id } = params;
+  if (!Object.prototype.hasOwnProperty.call(categories, category)) notFound();
+  const section = categories[category as keyof typeof categories];
 
-  // Map route category to schema type
-  const typeMap: Record<string, string> = {
-    'art': 'art',
-    'product': 'work',
-    'blog': 'blog',
-    'cv': 'cv'
-  };
-
-  const schemaType = typeMap[category];
-  if (!schemaType) {
-    notFound();
-  }
-
-  // Query database for public matching content by ID or slug
   const { rows } = await db`
     SELECT
-      ci.id, ci.title, ci.slug, ci.summary, ci.body_markdown, ci.type, ci.status, ci.downloadable, ci.created_at,
+      ci.id, ci.title, ci.summary, ci.body_markdown, ci.downloadable, ci.created_at,
       COALESCE(
         json_agg(
-          json_build_object('blob_url', ma.blob_url, 'kind', ma.kind) ORDER BY ma.sort_order
+          json_build_object('blob_url', ma.blob_url, 'kind', ma.kind, 'alt_text', ma.alt_text)
+          ORDER BY ma.sort_order
         ) FILTER (WHERE ma.id IS NOT NULL),
         '[]'::json
       ) AS media
     FROM content_items ci
     LEFT JOIN media_assets ma ON ma.content_id = ci.id
-    WHERE ci.type = ${schemaType} 
+    WHERE ci.type = ${section.type}
       AND ci.status = 'published'
-      AND (ci.id = ${id} OR ci.slug = ${id})
+      AND (ci.id::text = ${id} OR ci.slug = ${id})
     GROUP BY ci.id
     LIMIT 1
   `;
-  
   const item = rows[0] as ContentItem | undefined;
+  if (!item) notFound();
 
-  if (!item) {
-    notFound();
-  }
-
-  const isDownloadable = item.downloadable;
-  // Get first image and first pdf if available
-  const firstImage = item.media.find(m => m.kind === 'image');
-  const firstPdf = item.media.find(m => m.kind === 'pdf');
+  const images = item.media.filter((media) => media.kind === 'image');
+  const firstImage = images[0];
+  const firstPdf = item.media.find((media) => media.kind === 'pdf');
+  const downloadableMedia = firstPdf || (category === 'art' ? firstImage : undefined);
+  const date = new Date(item.created_at);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <div className="max-w-[56rem] mx-auto px-6 py-20 pb-24">
+    <div className="min-h-screen bg-system-bg">
+      <div className="mx-auto max-w-6xl px-6 py-8 md:px-10 md:py-10">
         <Header />
 
-        <main className="animate-[fadeInUp_0.4s_cubic-bezier(0.2,0,0,1)_both]">
-          {/* Back button */}
-          <div className="mb-8">
-            <Link
-              href={category === 'blog' ? '/blog' : category === 'product' ? '/product' : `/${category}`}
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-[#8C8C8C] hover:text-[#1A1A1A] no-underline"
-            >
-              <span className="material-symbols-rounded text-sm">arrow_back</span>
-              Back to {category === 'blog' ? 'writing' : category === 'product' ? 'work' : category.toUpperCase()}
-            </Link>
-          </div>
+        <main id="main-content" className="animate-fade-in-up">
+          <Link href={`/${category}`} className="mb-8 inline-flex min-h-11 items-center gap-3 text-sm text-system-secondary transition-colors hover:text-system-accent no-underline">
+            <span aria-hidden="true">←</span> Back to {section.label}
+          </Link>
 
-          {/* Paintings (Art) details view */}
-          {schemaType === 'art' && (
-            <article className="space-y-8">
-              <div className="aspect-[4/5] md:max-w-2xl mx-auto bg-[#F0EAE1] border border-[rgba(229,229,229,0.4)] rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex items-center justify-center relative">
-                {firstImage ? (
-                  <div className="relative w-full h-full select-none">
+          <article className="mx-auto max-w-3xl">
+            <header className="mb-10">
+              <p className="mb-4 text-xs uppercase tracking-[0.14em] text-system-accent">
+                {section.heading} · <time dateTime={date.toISOString()}>{category === 'blog' ? date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }) : date.getUTCFullYear()}</time>
+              </p>
+              <h1 className="font-serif text-4xl leading-tight tracking-tight text-system-primary sm:text-5xl">{item.title}</h1>
+              {item.summary && <p className="mt-5 text-lg leading-relaxed text-system-secondary">{item.summary}</p>}
+            </header>
+
+            {firstImage && (
+              <figure className={`mb-10 overflow-hidden rounded-xl border border-system-outline bg-system-surface ${category === 'art' ? 'p-4 sm:p-6' : ''}`}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={firstImage.blob_url} alt={firstImage.alt_text || item.title} className="max-h-[44rem] w-full object-contain" />
+              </figure>
+            )}
+
+            {item.body_markdown && <MarkdownContent source={item.body_markdown} />}
+
+            {images.length > 1 && (
+              <div className="mt-10 grid gap-6">
+                {images.slice(1).map((media, index) => (
+                  <figure key={`${media.blob_url}-${index}`} className="overflow-hidden rounded-xl border border-system-outline bg-system-surface">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={firstImage.blob_url}
-                      alt={item.title}
-                      className="w-full h-full object-cover pointer-events-none"
-                      draggable={false}
-                    />
-                    <div className="absolute inset-0 z-10 bg-transparent" title={item.title} />
-                  </div>
-                ) : (
-                  <span className="font-serif italic text-[#1A1A1A]/40">{item.title}</span>
-                )}
+                    <img src={media.blob_url} alt={media.alt_text || `${item.title} — image ${index + 2}`} loading="lazy" className="max-h-[44rem] w-full object-contain" />
+                  </figure>
+                ))}
               </div>
-              <div className="max-w-2xl mx-auto space-y-4">
-                <div className="flex justify-between items-baseline gap-4">
-                  <h2 className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-[#1A1A1A] m-0">
-                    {item.title}
-                  </h2>
-                  <span className="text-xs text-[#8C8C8C] font-mono">
-                    {new Date(item.created_at).getFullYear()}
-                  </span>
-                </div>
-                <p className="text-[#525252] text-sm leading-[1.65]">
-                  {item.body_markdown || 'Oil on Canvas'}
-                </p>
-                {isDownloadable && firstImage && (
-                  <div className="pt-4">
-                    <a
-                      href={firstImage.blob_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-[#1A1A1A] text-white hover:bg-black rounded-lg text-sm font-semibold transition no-underline"
-                    >
-                      <span className="material-symbols-rounded text-base">download</span> Download High-Res
-                    </a>
-                  </div>
-                )}
+            )}
+
+            {item.downloadable && downloadableMedia && (
+              <div className="no-print mt-10 border-t border-system-outline pt-6">
+                <a href={downloadableMedia.blob_url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-3 rounded-full bg-system-primary px-5 py-3 text-sm font-medium text-system-bg transition-colors hover:bg-system-accent no-underline">
+                  {firstPdf ? 'Open PDF' : 'Open full-size image'} <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span>
+                </a>
               </div>
-            </article>
-          )}
-
-          {/* Product Case Study details view */}
-          {schemaType === 'work' && (
-            <article className="space-y-8">
-              <header className="space-y-4">
-                <div className="inline-flex items-center px-3 py-1 bg-white border border-[rgba(229,229,229,0.5)] rounded-lg text-xs font-mono font-bold uppercase tracking-[0.08em] text-[#525252]">
-                  Case Study · {new Date(item.created_at).getFullYear()}
-                </div>
-                <h2 className="text-3xl font-bold tracking-tight text-[#1A1A1A] font-sans m-0">
-                  {item.title}
-                </h2>
-              </header>
-
-              {firstImage && (
-                <div className="aspect-[16/9] w-full border border-[rgba(229,229,229,0.5)] rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.05)] bg-[#F5F5F5]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={firstImage.blob_url}
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-
-              <div className="text-[#525252] text-sm leading-[1.7] whitespace-pre-wrap font-sans">
-                {item.body_markdown}
-              </div>
-
-              {isDownloadable && firstPdf && (
-                <div className="pt-6 border-t border-[#E5E5E5]">
-                  <a
-                    href={firstPdf.blob_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#1A1A1A] text-white hover:bg-black rounded-lg text-sm font-semibold transition no-underline"
-                  >
-                    <span className="material-symbols-rounded text-base">download</span> Download Case Files
-                  </a>
-                </div>
-              )}
-            </article>
-          )}
-
-          {/* Writing (Blog) details view */}
-          {schemaType === 'blog' && (
-            <article className="max-w-[48rem] mx-auto space-y-8">
-              <header className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <time className="font-mono text-xs font-bold text-[#8C8C8C] uppercase tracking-[0.14em]">
-                    {new Date(item.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                  </time>
-                </div>
-                <h2 className="font-serif italic text-3xl font-medium text-[#1A1A1A] leading-tight m-0">
-                  {item.title}
-                </h2>
-              </header>
-
-              {firstImage && (
-                <div className="aspect-[16/9] w-full border border-[rgba(229,229,229,0.5)] rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.05)] bg-[#F5F5F5]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={firstImage.blob_url}
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-
-              <div className="font-serif text-[#1A1A1A] text-base leading-[1.75] whitespace-pre-wrap italic">
-                {item.body_markdown}
-              </div>
-
-              {isDownloadable && firstPdf && (
-                <div className="pt-6 border-t border-[#E5E5E5] no-print">
-                  <a
-                    href={firstPdf.blob_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#1A1A1A] text-white hover:bg-black rounded-lg text-sm font-semibold transition no-underline"
-                  >
-                    <span className="material-symbols-rounded text-base">download</span> Download Essay PDF
-                  </a>
-                </div>
-              )}
-            </article>
-          )}
+            )}
+          </article>
         </main>
 
         <Footer />

@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Priyam Sameer — Portfolio
 
-## Getting Started
+A Next.js 14 portfolio for product work, paintings, writing, and a printable CV. The active application lives in `app/`, with authenticated content management at `/minforyam` and server routes under `/api/admin`.
 
-First, run the development server:
+## Local preview
+
+Use Node.js 22.3 or newer (Node.js 20.16–20.x is also supported by the PDF parser). Run these commands from the repository root:
 
 ```bash
+npm ci
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [localhost:3000](http://localhost:3000). No database or storage credentials are needed to preview the public site in development. Published collections will be empty, while the homepage and the existing CV remain available. Individual content links return a 404 until content is published.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+If database credentials are already configured and you want to preview without accessing that database, set `LOCAL_PREVIEW=true` in `.env.local`. This flag only applies when `NODE_ENV` is unset or `development`; it cannot bypass database access in a production build or deployment. Public preview reads never write data, and admin routes always use the real database.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+If any database URL is configured, automatic preview is disabled. A connection failure is reported as an error rather than treated as an empty collection. Remove unused database variables or explicitly enable local preview to work offline.
 
-## Learn More
+## Connected content and admin setup
 
-To learn more about Next.js, take a look at the following resources:
+The Next.js application uses PostgreSQL through `@vercel/postgres` and Vercel Blob for uploaded images and PDFs. Configure these variables in `.env.local` and separately in the deployment environment:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Variable | Purpose |
+| --- | --- |
+| `POSTGRES_URL` | Pooled connection URL for a compatible Vercel/Neon PostgreSQL database. Required for content reads and writes outside local preview. |
+| `ADMIN_PASSWORD` | Required strong, unique password for admin sign-in and session signing. There is no default password; missing configuration disables sign-in. |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob token for media uploads and deletion. |
+| `LOCAL_PREVIEW` | Optional `true` to keep public pages in empty preview mode during development. |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`DATABASE_URL` is not an alias for `POSTGRES_URL` in this application. A non-pooling URL alone is also insufficient for the default pooled client. Use `POSTGRES_URL` for the active site.
 
-## Deploy on Vercel
+For a new, dedicated database, sign in at `/minforyam/login`, then send an authenticated `POST` request to `/api/admin/migrate`. The route creates the `content_items` and `media_assets` schema and refuses to run if `content_items` already exists. It also renames older `content` and `content_images` tables when present; review the route and use a backup before running it against an existing database. Do not use the separate backend's Prisma schema for this application.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Create entries in the admin panel and mark them published to show them on the public site. Drafts remain private. CV PDF uploads extract text automatically when no body text is supplied. The CV page includes the existing text CV and offers a PDF download when a published CV upload permits it.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Validation and production
+
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run build
+npm start
+```
+
+The production server requires a configured database for public content pages. `LOCAL_PREVIEW=true` does not provide a production fallback. The public error screen allows retrying a failed load without exposing connection details to visitors.
+
+## Repository structure
+
+- `app/`: public pages, content detail pages, admin dashboard, and API routes.
+- `components/`: shared site components and admin forms.
+- `lib/`: database access, authentication, content validation, and slug generation.
+- `backend/`: a separate Express/Prisma/AWS S3 service with its own package and data model. The Next.js site does not call this service, and running it is unnecessary for the site preview. Its setup is documented in [`backend/README.md`](backend/README.md).
+
+Keep actual credentials in ignored environment files or hosting settings. `.env.example` contains placeholders only.

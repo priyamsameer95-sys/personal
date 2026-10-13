@@ -9,24 +9,24 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["B612", "system-ui", "sans-serif"],
-        mono: ["B612 Mono", "ui-monospace", "monospace"],
+        sans: ["var(--font-geist)", "system-ui", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
         serif: ["Newsreader", "Georgia", "serif"],
       },
       colors: {
-        bg: "#FAFAFA",
-        text: "#1A1A1A",
-        muted: "#8C8C8C",
-        body: "#525252",
-        border: "rgba(229,229,229,0.4)",
+        bg: "#F8F6F0",
+        text: "#202820",
+        muted: "#6B7266",
+        body: "#51594F",
+        border: "#DADDD2",
         system: {
-          bg: '#FAFAFA',       
-          surface: '#FFFFFF',  
-          primary: '#1A1A1A',  
-          secondary: '#525252',
-          tertiary: '#8C8C8C', 
-          outline: '#E5E5E5',  
-          accent: '#0A56D9',   
+          bg: '#F8F6F0',
+          surface: '#FFFFFF',
+          primary: '#202820',
+          secondary: '#51594F',
+          tertiary: '#6B7266',
+          outline: '#DADDD2',
+          accent: '#536349',
         }
       },
       boxShadow: {

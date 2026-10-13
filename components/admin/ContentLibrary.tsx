@@ -26,6 +26,7 @@ export default function ContentLibrary({ type, onEdit, refreshTrigger }: Content
 
   const fetchItems = async () => {
     setIsLoading(true);
+    setError(null);
     try {
       const res = await fetch(`/api/admin/content?type=${type}`);
       if (!res.ok) throw new Error('Failed to fetch content');
@@ -79,7 +80,10 @@ export default function ContentLibrary({ type, onEdit, refreshTrigger }: Content
   }
 
   if (error) {
-    return <div className="text-center p-8 text-red-500">{error}</div>;
+    return <div className="text-center p-8 text-red-600" role="alert">
+      <p>{error}</p>
+      <button type="button" onClick={fetchItems} className="mt-4 min-h-11 px-4 underline underline-offset-4">Try again</button>
+    </div>;
   }
 
   if (items.length === 0) {
@@ -110,7 +114,7 @@ export default function ContentLibrary({ type, onEdit, refreshTrigger }: Content
 
       <div className="grid gap-3">
         {items.map(item => (
-          <div key={item.id} className="flex gap-4 p-4 border border-[#E5E5E5] rounded-xl bg-white hover:border-[#1A1A1A] transition group">
+          <div key={item.id} className="flex flex-wrap sm:flex-nowrap gap-4 p-4 border border-[#E5E5E5] rounded-xl bg-white hover:border-[#1A1A1A] transition group">
             
             {/* Thumbnail */}
             <div className="w-16 h-16 bg-[#FAFAFA] rounded-lg shrink-0 overflow-hidden flex items-center justify-center border border-[#E5E5E5]">
@@ -144,11 +148,12 @@ export default function ContentLibrary({ type, onEdit, refreshTrigger }: Content
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="flex w-full sm:w-auto justify-end items-center gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100 transition-opacity">
               <button 
                 onClick={() => handleToggleStatus(item)}
                 disabled={isProcessing}
-                className="p-2 text-[#525252] hover:text-[#1A1A1A] hover:bg-[#FAFAFA] rounded-lg transition"
+                aria-label={`${item.status === 'published' ? 'Unpublish' : 'Publish'} ${item.title}`}
+                className="min-h-11 min-w-11 p-2 text-[#525252] hover:text-[#1A1A1A] hover:bg-[#FAFAFA] rounded-lg transition disabled:opacity-50"
                 title={item.status === 'published' ? 'Unpublish' : 'Publish'}
               >
                 <span className="material-symbols-rounded text-[20px]">
@@ -158,7 +163,9 @@ export default function ContentLibrary({ type, onEdit, refreshTrigger }: Content
               
               <button 
                 onClick={() => onEdit(item)}
-                className="p-2 text-[#525252] hover:text-blue-600 hover:bg-blue-50 rounded-lg transition"
+                disabled={isProcessing}
+                aria-label={`Edit ${item.title}`}
+                className="min-h-11 min-w-11 p-2 text-[#525252] hover:text-blue-600 hover:bg-blue-50 rounded-lg transition disabled:opacity-50"
                 title="Edit"
               >
                 <span className="material-symbols-rounded text-[20px]">edit</span>
@@ -166,7 +173,9 @@ export default function ContentLibrary({ type, onEdit, refreshTrigger }: Content
               
               <button 
                 onClick={() => setDeleteConfirmId(item.id)}
-                className="p-2 text-[#525252] hover:text-red-600 hover:bg-red-50 rounded-lg transition"
+                disabled={isProcessing}
+                aria-label={`Delete ${item.title}`}
+                className="min-h-11 min-w-11 p-2 text-[#525252] hover:text-red-600 hover:bg-red-50 rounded-lg transition disabled:opacity-50"
                 title="Delete"
               >
                 <span className="material-symbols-rounded text-[20px]">delete</span>

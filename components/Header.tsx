@@ -1,84 +1,60 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
+const navItems = [
+  { label: 'Home', path: '/' },
+  { label: 'Work', path: '/product' },
+  { label: 'Art', path: '/art' },
+  { label: 'Writing', path: '/blog' },
+  { label: 'CV', path: '/cv' },
+];
 
 export default function Header() {
   const pathname = usePathname();
 
-  const navItems = [
-    { label: 'Index', path: '/' },
-    { label: 'Work', path: '/product' },
-    { label: 'Art', path: '/art' },
-    { label: 'Writing', path: '/blog' },
-    { label: 'CV', path: '/cv' },
-  ];
-
   return (
-    <header className="mb-24 relative z-10">
-      <nav id="nav-header" className="flex flex-col md:flex-row md:items-baseline justify-between gap-8 mb-6">
-        <Link href="/" className="no-underline">
-          <h1 className="font-mono text-[16px] md:text-[18px] font-bold tracking-[0.15em] uppercase text-system-primary m-0">
-            Priyam Sameer
-          </h1>
+    <header className="no-print relative z-10 mb-16 border-b border-system-outline pb-5 md:mb-20">
+      <div id="nav-header" className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between md:gap-8">
+        <Link href="/" aria-label="Priyam Sameer — home" className="flex w-fit min-h-11 items-center gap-3 no-underline">
+          <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-system-primary font-serif text-xl italic text-system-bg">
+            ps.
+          </span>
+          <span className="text-base font-semibold tracking-tight text-system-primary">Priyam Sameer</span>
         </Link>
-        <div className="flex gap-6 overflow-x-auto pb-2 md:pb-0 scrollbar-hide w-full md:w-auto">
-          {navItems.map((item) => {
-            // Checks if path matches, or if it is a detail page of that section (e.g. /product/123)
-            const isActive =
-              item.path === '/'
-                ? pathname === '/'
-                : pathname === item.path || pathname.startsWith(item.path + '/');
-            return (
-              <Link
-                key={item.path}
-                href={item.path}
-                className={`pb-1 border-b-2 font-mono text-[11px] font-bold tracking-[0.12em] uppercase transition-colors duration-200 no-underline whitespace-nowrap ${
-                  isActive
-                    ? 'border-system-primary text-system-primary'
-                    : 'border-transparent text-system-tertiary hover:text-system-primary'
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
 
-      {/* Pristine Contact CTA Bar */}
-      <div className="flex flex-wrap gap-x-6 gap-y-3 items-center border-t border-system-outline/40 pt-4">
-        <a
-          href="tel:+918238452277"
-          className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.08em] uppercase text-system-tertiary hover:text-system-primary transition-colors duration-200 no-underline"
-        >
-          <span className="material-symbols-rounded text-sm">call</span>
-          <span>Call Now</span>
-        </a>
-        <a
-          href="https://wa.me/918238452277"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.08em] uppercase text-system-tertiary hover:text-system-primary transition-colors duration-200 no-underline"
-        >
-          <span className="material-symbols-rounded text-sm font-bold">chat</span>
-          <span>WhatsApp</span>
-        </a>
-        <a
-          href="mailto:Priyam.Sameer.95@gmail.com"
-          className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.08em] uppercase text-system-tertiary hover:text-system-primary transition-colors duration-200 no-underline"
-        >
-          <span className="material-symbols-rounded text-sm">mail</span>
-          <span>Email</span>
-        </a>
-        <a
-          href="sms:+918238452277"
-          className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.08em] uppercase text-system-tertiary hover:text-system-primary transition-colors duration-200 no-underline"
-        >
-          <span className="material-symbols-rounded text-sm">sms</span>
-          <span>Drop a Message</span>
-        </a>
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 md:justify-end md:gap-6">
+          <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-1 sm:gap-3">
+            {navItems.map((item) => {
+              const isActive = item.path === '/'
+                ? pathname === '/'
+                : pathname === item.path || pathname.startsWith(`${item.path}/`);
+
+              return (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`inline-flex min-h-11 items-center rounded-md px-2 text-sm transition-colors no-underline ${
+                    isActive
+                      ? 'font-semibold text-system-primary underline decoration-system-accent underline-offset-8'
+                      : 'text-system-secondary hover:text-system-accent'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <a
+            href="mailto:Priyam.Sameer.95@gmail.com"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-system-outline px-4 text-sm font-medium text-system-primary transition-colors hover:border-system-accent hover:text-system-accent no-underline"
+          >
+            Let’s talk <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
     </header>
   );

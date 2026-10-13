@@ -1,8 +1,11 @@
 import React from 'react';
-import db from '@/lib/db';
+import { publicDb as db } from '@/lib/db';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PrintButton from '@/components/PrintButton';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = { title: 'CV' };
 
 interface ContentItem {
   id: string;
@@ -38,21 +41,21 @@ export default async function CvPage() {
   const isDownloadable = cvItem && cvItem.downloadable && cvItem.media?.[0]?.blob_url;
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <div className="max-w-[56rem] mx-auto px-6 py-20 pb-24">
+    <div className="min-h-screen bg-system-bg">
+      <div className="max-w-6xl mx-auto px-6 md:px-10 py-8 md:py-10">
         <Header />
 
-        <main className="animate-fade-in-up bg-white p-6 md:p-12 shadow-material-soft border border-system-outline rounded-xl">
-          <div className="flex justify-between items-end border-b-2 border-black pb-4 mb-8">
+        <main id="main-content" className="animate-fade-in-up bg-white p-6 md:p-12 shadow-material-soft border border-system-outline rounded-xl">
+          <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-5 border-b-2 border-black pb-4 mb-8">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-1 font-sans">
+              <h1 className="text-3xl md:text-4xl font-bold text-black mb-1 font-sans">
                 Priyam Sameer
-              </h2>
+              </h1>
               <p className="font-mono text-xs md:text-sm tracking-widest uppercase text-gray-600 m-0">
                 Product Manager · Builder · Gurugram, India
               </p>
             </div>
-            <div className="text-right text-xs md:text-sm text-gray-600 space-y-1">
+            <div className="sm:text-right text-xs md:text-sm text-gray-600 space-y-1">
               <p className="m-0">priyam.sameer.95@gmail.com</p>
               <p className="m-0">linkedin.com/in/priyamsameer</p>
             </div>
@@ -60,7 +63,7 @@ export default async function CvPage() {
 
           <div className="space-y-8">
             {/* Experience Section */}
-            <section>
+            <section id="experience">
               <h3 className="font-bold text-base md:text-lg border-b border-gray-300 pb-1 mb-4 uppercase tracking-wider text-black">
                 Experience
               </h3>

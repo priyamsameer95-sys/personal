@@ -4,15 +4,15 @@
 
 @layer base {
   body {
-    background-color: #FAFAFA;
-    color: #1A1A1A;
-    font-family: "B612", system-ui, sans-serif;
+    background-color: #F8F6F0;
+    color: #202820;
+    font-family: var(--font-geist), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
   code, pre {
-    font-family: "B612 Mono", ui-monospace, monospace;
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
   }
 
   a {
@@ -20,8 +20,44 @@
   }
 
   ::selection {
-    background-color: #1A1A1A;
-    color: #FAFAFA;
+    background-color: #536349;
+    color: #FFFFFF;
+  }
+
+  :focus-visible {
+    outline: 2px solid #536349;
+    outline-offset: 5px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  img { max-width: 100%; }
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  border-radius: .5rem;
+  background: #202820;
+  color: white;
+  padding: .75rem 1rem;
+}
+.skip-link:focus { transform: translateY(0); }
+
+.portfolio-grid {
+  background-image: linear-gradient(#ffffff12 1px, transparent 1px), linear-gradient(90deg, #ffffff12 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
   }
 }
 

@@ -1,46 +1,29 @@
-import React from 'react';
-
 export default function Footer() {
   return (
-    <footer id="global-footer" className="no-print w-full bg-system-surface border-t border-system-outline/40 mt-auto pt-24 pb-16 relative z-10">
-      <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-start gap-16 md:gap-8">
-        
-        {/* Left Side: Contact & Network */}
-        <div className="w-full md:w-1/2">
-          <h3 className="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-system-tertiary mb-10">Contact & Network</h3>
-          
-          <div className="flex flex-col gap-6">
-            <a href="tel:+918238452277" className="group flex items-center gap-4 w-fit no-underline">
-              <span className="material-symbols-rounded text-system-tertiary text-[20px]">call</span>
-              <span className="font-mono text-sm tracking-wide text-system-secondary group-hover:text-system-primary transition-colors">Call Now</span>
-            </a>
-            
-            <a href="https://wa.me/918238452277" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 w-fit no-underline">
-              <span className="material-symbols-rounded text-system-tertiary text-[20px]">chat</span>
-              <span className="font-mono text-sm tracking-wide text-system-secondary group-hover:text-system-primary transition-colors">WhatsApp</span>
-            </a>
-            
-            <a href="mailto:Priyam.Sameer.95@gmail.com" className="group flex items-center gap-4 w-fit no-underline">
-              <span className="material-symbols-rounded text-system-tertiary text-[20px]">mail</span>
-              <span className="font-mono text-sm tracking-wide text-system-secondary group-hover:text-system-primary transition-colors">Priyam.Sameer.95@gmail.com</span>
-            </a>
-            
-            <a href="https://linkedin.com/in/priyamsameer" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 w-fit no-underline">
-              <span className="material-symbols-rounded text-system-tertiary text-[20px]">open_in_new</span>
-              <span className="font-mono text-sm tracking-wide text-system-secondary group-hover:text-system-primary transition-colors">LinkedIn Profile</span>
-            </a>
+    <footer id="global-footer" className="no-print relative z-10 mt-24 border-t border-system-outline pb-6 pt-12 md:mt-32 md:pt-16">
+      <div className="grid gap-10 md:grid-cols-2 md:gap-16">
+        <div>
+          <p className="mb-4 text-xs font-medium uppercase tracking-[0.16em] text-system-tertiary">Get in touch</p>
+          <h2 className="mb-4 font-serif text-3xl leading-tight text-system-primary sm:text-4xl">Have something in mind?</h2>
+          <a
+            href="mailto:Priyam.Sameer.95@gmail.com"
+            className="inline-flex min-h-11 max-w-full items-center gap-2 break-all text-sm text-system-accent underline decoration-system-outline underline-offset-4 transition-colors hover:decoration-system-accent sm:text-base"
+          >
+            Priyam.Sameer.95@gmail.com <span aria-hidden="true" className="shrink-0">↗</span>
+          </a>
+          <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1">
+            <a href="tel:+918238452277" className="inline-flex min-h-11 items-center text-sm text-system-secondary transition-colors hover:text-system-accent no-underline">Call</a>
+            <a href="https://wa.me/918238452277" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1 text-sm text-system-secondary transition-colors hover:text-system-accent no-underline">WhatsApp <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+            <a href="https://linkedin.com/in/priyamsameer" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1 text-sm text-system-secondary transition-colors hover:text-system-accent no-underline">LinkedIn <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+            <a href="https://github.com/priyamsameer" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1 text-sm text-system-secondary transition-colors hover:text-system-accent no-underline">GitHub <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+            <a href="https://heymaya.pro" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1 text-sm text-system-secondary transition-colors hover:text-system-accent no-underline">HeyMaya.pro <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
           </div>
         </div>
 
-        {/* Right Side: Philosophy & Copyright */}
-        <div className="w-full md:w-1/2 flex flex-col justify-end items-start md:items-end h-full">
-          <p className="font-serif italic text-system-secondary text-lg mb-12">&ldquo;A dream should outlast the dreamer.&rdquo;</p>
-          <div className="flex flex-col items-start md:items-end gap-2 mt-auto">
-            <span className="font-mono text-[10px] text-system-tertiary font-bold tracking-[0.15em] uppercase">&copy; 2026 Priyam Sameer</span>
-            <span className="font-mono text-[10px] text-system-primary font-bold tracking-[0.15em] uppercase">Built with structural integrity</span>
-          </div>
+        <div className="flex flex-col items-start justify-between gap-8 md:items-end md:text-right">
+          <p className="max-w-xs font-serif text-2xl italic leading-snug text-system-secondary">“A dream should outlast the dreamer.”</p>
+          <p className="text-xs text-system-tertiary">© {new Date().getFullYear()} Priyam Sameer</p>
         </div>
-
       </div>
     </footer>
   );

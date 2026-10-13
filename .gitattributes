@@ -1,0 +1,2 @@
+# PDF fixtures are binary artifacts; preserve their exact cross-reference bytes.
+tests/fixtures/*.pdf binary
