@@ -4,6 +4,7 @@ import { contentExcerpt } from '@/lib/content';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PublicShell from '@/components/PublicShell';
 
 interface ContentItem {
   id: string;
@@ -42,20 +43,19 @@ export default async function ProductWorkPage() {
   const items = rows as ContentItem[];
 
   return (
-    <div className="min-h-screen bg-system-bg">
-      <div className="mx-auto max-w-6xl px-6 py-8 md:px-10 md:py-10">
+    <PublicShell>
         <Header />
 
         <main id="main-content" className="animate-fade-in-up">
           <div className="mb-12 max-w-2xl md:mb-16">
             <p className="mb-4 text-xs font-medium uppercase tracking-[0.16em] text-system-accent">Product & practice</p>
-            <h1 className="mb-5 font-serif text-5xl leading-tight tracking-tight text-system-primary sm:text-6xl">Selected work.</h1>
+            <h1 className="mb-5 font-sans text-5xl leading-tight tracking-tight text-system-primary sm:text-6xl">Selected work.</h1>
             <p className="max-w-xl text-lg leading-relaxed text-system-secondary">Engineering structural logic into digital products.</p>
           </div>
 
           {items.length === 0 ? (
             <div className="rounded-2xl border border-system-outline bg-system-surface px-6 py-14 sm:px-10">
-              <h2 className="mb-3 font-serif text-3xl text-system-primary">Case studies are on their way.</h2>
+              <h2 className="mb-3 font-sans text-3xl text-system-primary">Case studies are on their way.</h2>
               <p className="max-w-lg leading-relaxed text-system-secondary">There are no published case studies here yet. Get in touch to discuss my work.</p>
               <a href="mailto:Priyam.Sameer.95@gmail.com" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-system-accent no-underline">Start a conversation <span aria-hidden="true">↗</span></a>
             </div>
@@ -70,7 +70,7 @@ export default async function ProductWorkPage() {
                     <div className={firstImage ? 'md:col-span-7' : 'md:col-span-10'}>
                       <p className="mb-3 text-xs uppercase tracking-[0.12em] text-system-tertiary">Case study · {new Date(item.created_at).getUTCFullYear()}</p>
                       <Link href={href} className="no-underline">
-                        <h2 className="mb-4 font-serif text-3xl leading-tight text-system-primary transition-colors hover:text-system-accent sm:text-4xl">{item.title}</h2>
+                        <h2 className="mb-4 font-sans text-3xl leading-tight text-system-primary transition-colors hover:text-system-accent sm:text-4xl">{item.title}</h2>
                       </Link>
                       {excerpt && <p className="max-w-xl leading-relaxed text-system-secondary">{excerpt}</p>}
                       <Link href={href} className="mt-5 inline-flex min-h-11 items-center gap-3 text-sm font-medium text-system-accent no-underline">Read case study <span aria-hidden="true">→</span></Link>
@@ -89,7 +89,6 @@ export default async function ProductWorkPage() {
         </main>
 
         <Footer />
-      </div>
-    </div>
+    </PublicShell>
   );
 }

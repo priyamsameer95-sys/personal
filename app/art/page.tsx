@@ -4,6 +4,7 @@ import { contentExcerpt } from '@/lib/content';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PublicShell from '@/components/PublicShell';
 
 interface ContentItem {
   id: string;
@@ -41,20 +42,19 @@ export default async function ArtGalleryPage() {
   const items = rows as ContentItem[];
 
   return (
-    <div className="min-h-screen bg-system-bg">
-      <div className="mx-auto max-w-6xl px-6 py-8 md:px-10 md:py-10">
+    <PublicShell>
         <Header />
 
         <main id="main-content" className="animate-fade-in-up">
           <div className="mb-12 max-w-2xl md:mb-16">
             <p className="mb-4 text-xs font-medium uppercase tracking-[0.16em] text-system-accent">A different kind of making</p>
-            <h1 className="mb-5 font-serif text-5xl leading-tight tracking-tight text-system-primary sm:text-6xl">Art.</h1>
+            <h1 className="mb-5 font-sans text-5xl leading-tight tracking-tight text-system-primary sm:text-6xl">Art.</h1>
             <p className="max-w-xl text-lg leading-relaxed text-system-secondary">Fluid expression as a counterbalance to rigid constraints.</p>
           </div>
 
           {items.length === 0 ? (
             <div className="rounded-2xl border border-system-outline bg-system-surface px-6 py-14 sm:px-10">
-              <h2 className="mb-3 font-serif text-3xl text-system-primary">The gallery is taking shape.</h2>
+              <h2 className="mb-3 font-sans text-3xl text-system-primary">The gallery is taking shape.</h2>
               <p className="max-w-lg leading-relaxed text-system-secondary">There are no published paintings here yet. You can explore my work and writing in the meantime.</p>
               <Link href="/product" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-system-accent no-underline">Explore the work <span aria-hidden="true">→</span></Link>
             </div>
@@ -70,11 +70,11 @@ export default async function ArtGalleryPage() {
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img src={firstImage.blob_url} alt={firstImage.alt_text || art.title} loading="lazy" className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]" />
                       ) : (
-                        <span className="font-serif text-xl italic text-system-tertiary">{art.title}</span>
+                        <span className="font-sans text-xl italic text-system-tertiary">{art.title}</span>
                       )}
                     </div>
                     <div className="flex items-baseline justify-between gap-4">
-                      <h2 className="font-serif text-2xl text-system-primary transition-colors group-hover:text-system-accent">{art.title}</h2>
+                      <h2 className="font-sans text-2xl text-system-primary transition-colors group-hover:text-system-accent">{art.title}</h2>
                       <span className="shrink-0 text-xs text-system-tertiary">{new Date(art.created_at).getUTCFullYear()}</span>
                     </div>
                     {excerpt && <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-system-secondary">{excerpt}</p>}
@@ -86,7 +86,6 @@ export default async function ArtGalleryPage() {
         </main>
 
         <Footer />
-      </div>
-    </div>
+    </PublicShell>
   );
 }

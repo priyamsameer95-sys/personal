@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PublicShell from '@/components/PublicShell';
 import type { Metadata } from 'next';
 import content from './content.json';
 import styles from './cv.module.css';
@@ -23,8 +24,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 export default function CvPage() {
   return (
-    <div className="min-h-screen bg-system-bg">
-      <div className={['max-w-6xl mx-auto px-6 md:px-10 py-8 md:py-10', styles.shell].join(' ')}>
+    <PublicShell className={styles.shell}>
         <Header />
         <div className={[styles.toolbar, 'no-print'].join(' ')}>
           <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-system-tertiary">Curriculum vitae</p>
@@ -91,7 +91,6 @@ export default function CvPage() {
           </Section>
         </main>
         <Footer />
-      </div>
-    </div>
+    </PublicShell>
   );
 }

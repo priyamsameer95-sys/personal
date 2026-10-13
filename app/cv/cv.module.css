@@ -14,23 +14,20 @@
   gap: .5rem;
   min-height: 44px;
   padding: .5rem 1rem;
-  border: 1px solid #202820;
-  background: #202820;
+  border: 1px solid #000;
+  background: #000;
   color: #fff;
   border-radius: .5rem;
   font-size: .875rem;
   font-weight: 600;
 }
-.download:hover { border-color: #536349; background: #536349; }
+.download:hover { border-color: #000; background: #000; text-decoration: underline; text-underline-offset: 3px; }
 .document {
   max-width: 56rem;
   margin: 0 auto;
   padding: 3rem;
   background: #fff;
-  border: 1px solid #d9ddd2;
-  border-radius: .75rem;
-  box-shadow: 0 4px 24px #20282006;
-  color: #202820;
+  color: #000;
   font-size: .9375rem;
   line-height: 1.65;
 }
@@ -38,18 +35,18 @@
 .identity {
   padding-bottom: 1.35rem;
   margin-bottom: 1.6rem;
-  border-bottom: 2px solid #202820;
+  border-bottom: 2px solid #000;
 }
 .identity h1 { font-size: 2.25rem; font-weight: 600; letter-spacing: -.04em; line-height: 1.15; }
-.headline { margin-top: .55rem; font-size: .9375rem; color: #536349; }
+.headline { margin-top: .55rem; font-size: .9375rem; color: #000; }
 .contact { display: flex; flex-wrap: wrap; gap: .2rem 1rem; margin-top: .7rem; font-size: .8125rem; }
 .contact a { text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
 .section + .section { margin-top: 1.65rem; }
 .sectionTitle {
   margin-bottom: .85rem;
   padding-bottom: .35rem;
-  border-bottom: 1px solid #202820;
-  color: #202820;
+  border-bottom: 1px solid #000;
+  color: #000;
   font-size: .75rem;
   font-weight: 700;
   letter-spacing: .13em;
@@ -58,10 +55,10 @@
 .job + .job { margin-top: 1.6rem; }
 .company, .role { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: .25rem 1rem; }
 .company h3 { font-weight: 700; font-size: 1rem; }
-.dates { font-size: .8125rem; color: #596158; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.roleHistory { margin-top: .1rem; font-size: .875rem; color: #414b3e; }
-.roleTitle { font-size: .875rem; color: #414b3e; }
-.context { margin-top: .3rem; font-size: .8125rem; color: #596158; }
+.dates { font-size: .8125rem; color: #000; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.roleHistory { margin-top: .1rem; font-size: .875rem; color: #000; }
+.roleTitle { font-size: .875rem; color: #000; }
+.context { margin-top: .3rem; font-size: .8125rem; color: #000; }
 .recognition { display: grid; gap: .55rem; }
 .bullets { list-style: disc; padding-left: 1.15rem; margin-top: .55rem; }
 .bullets li { padding-left: .15rem; }
@@ -75,6 +72,7 @@
   .identity h1 { font-size: 1.875rem; }
   .headline { font-size: .875rem; }
   .contact { display: grid; font-size: .75rem; gap: .3rem; }
+  .contact a { display: inline-flex; align-items: center; min-height: 44px; }
   .company, .role { grid-template-columns: minmax(0, 1fr); gap: .1rem; }
   .dates { text-align: left; font-size: .75rem; }
   .company h3 { font-size: .9375rem; }
@@ -101,7 +99,7 @@
   .identity h1 { font-size: 18pt; letter-spacing: -.4pt; }
   .headline { font-size: 10.5pt; color: #000; margin-top: 4pt; }
   .contact { display: flex; gap: 2pt 10pt; font-size: 9pt; margin-top: 5pt; }
-  .contact a { text-decoration: none; }
+  .contact a { text-decoration: none; min-height: 0; }
   .section + .section { margin-top: 12pt; }
   .sectionTitle { font-size: 10.5pt; letter-spacing: .6pt; padding-bottom: 3pt; margin-bottom: 6pt; color: #000; border-color: #000; break-after: avoid; }
   .job + .job { margin-top: 11pt; }

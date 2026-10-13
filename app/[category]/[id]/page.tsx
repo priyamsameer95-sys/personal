@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PublicShell from '@/components/PublicShell';
 import MarkdownContent from '@/components/MarkdownContent';
 
 interface ContentItem {
@@ -60,8 +61,7 @@ export default async function DetailPage({ params }: DetailPageProps) {
   const date = new Date(item.created_at);
 
   return (
-    <div className="min-h-screen bg-system-bg">
-      <div className="mx-auto max-w-6xl px-6 py-8 md:px-10 md:py-10">
+    <PublicShell>
         <Header />
 
         <main id="main-content" className="animate-fade-in-up">
@@ -74,7 +74,7 @@ export default async function DetailPage({ params }: DetailPageProps) {
               <p className="mb-4 text-xs uppercase tracking-[0.14em] text-system-accent">
                 {section.heading} · <time dateTime={date.toISOString()}>{category === 'blog' ? date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }) : date.getUTCFullYear()}</time>
               </p>
-              <h1 className="font-serif text-4xl leading-tight tracking-tight text-system-primary sm:text-5xl">{item.title}</h1>
+              <h1 className="font-sans text-4xl leading-tight tracking-tight text-system-primary sm:text-5xl">{item.title}</h1>
               {item.summary && <p className="mt-5 text-lg leading-relaxed text-system-secondary">{item.summary}</p>}
             </header>
 
@@ -100,7 +100,7 @@ export default async function DetailPage({ params }: DetailPageProps) {
 
             {item.downloadable && downloadableMedia && (
               <div className="no-print mt-10 border-t border-system-outline pt-6">
-                <a href={downloadableMedia.blob_url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-3 rounded-full bg-system-primary px-5 py-3 text-sm font-medium text-system-bg transition-colors hover:bg-system-accent no-underline">
+                <a href={downloadableMedia.blob_url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-3 rounded-full bg-system-primary px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-system-accent no-underline">
                   {firstPdf ? 'Open PDF' : 'Open full-size image'} <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </div>
@@ -109,7 +109,6 @@ export default async function DetailPage({ params }: DetailPageProps) {
         </main>
 
         <Footer />
-      </div>
-    </div>
+    </PublicShell>
   );
 }
