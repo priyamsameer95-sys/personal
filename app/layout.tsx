@@ -19,13 +19,18 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Priyam Sameer — Product & Art", template: "%s — Priyam Sameer" },
-  description: "Product manager, builder, and painter. Exploring products at the intersection of credit, agriculture, and trade.",
+  title: { default: "Priyam Sameer — Product Leadership", template: "%s — Priyam Sameer" },
+  description: "Product leadership from strategy to scale. Priyam Sameer’s work, experience and decisions across lending, marketplaces and agritech.",
   openGraph: {
-    title: "Priyam Sameer — Product & Art",
-    description: "Selected product work, paintings, and writing by Priyam Sameer.",
+    title: "Priyam Sameer — Product Leadership",
+    description: "Product leadership from strategy to scale. Explore Priyam Sameer’s work and experience across lending, marketplaces and agritech.",
     type: "website",
     locale: "en_IN",
+  },
+  twitter: {
+    card: "summary",
+    title: "Priyam Sameer — Product Leadership",
+    description: "Product leadership from strategy to scale. Work and experience across lending, marketplaces and agritech.",
   },
 };
 

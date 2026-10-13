@@ -1,6 +1,6 @@
 # My Work: source coverage and publication scope
 
-Verified against `content/work/case-studies.json` and the published assets on 13 October 2026. The collection contains **26 case studies across 10 professional and personal contexts**, with 180 narrative sections. Each study has its own authored PDF download.
+Verified against `content/work/case-studies.json` and the website assets on 13 October 2026. The collection contains **26 case studies across 10 professional and personal contexts**. Executive briefs, decision narratives, deeper chapters and source references are read on the website; there are no visitor downloads. Document-to-chapter coverage is recorded in [`CONTENT-COVERAGE.md`](CONTENT-COVERAGE.md).
 
 ## Case-study coverage
 
@@ -31,22 +31,22 @@ The published registry is the source of truth for titles, slugs, captions, outco
 
 ## Published material
 
-The collection makes the following material available through the relevant case-study galleries and downloads:
+The collection presents the following material inside the relevant case-study chapters and galleries:
 
 | Material | Published coverage |
 | --- | --- |
-| Generated source archives | Four ZIP downloads: College.money, ULI, Upaj and UrbanKhet |
-| Source-pack videos | Nine original silent walkthroughs: three each for College.money, ULI and Upaj |
-| Source-pack PDFs | Four references: College.money, ULI, Upaj and the UrbanKhet portfolio case study |
-| UrbanKhet supporting formats | Original DOCX and PNG infographic, with an editable SVG and labelled creative previews |
-| Authored study PDFs | 26, one for each published study; these are website-authored narratives, not original employer reports |
+| Generated source archives | College.money, ULI, Upaj and UrbanKhet packs are retained as local source material, without website download controls |
+| Source-pack videos | Nine original silent walkthroughs shown inline: three each for College.money, ULI and Upaj |
+| Source-pack PDFs | Relevant information from the four generated references is presented in on-site chapters; the original files are retained locally |
+| UrbanKhet supporting formats | The business model and reviewed creative material appear as website explanations and image previews |
+| Authored study PDFs | Retired from public hosting; the revised narratives are read on the website |
 | Authored workflow diagrams | 18 SVGs illustrating the described work; captions distinguish interpretation from captured product screens |
 | Reviewed galleries | College.money, ULI and Upaj public screenshots; architecture and institutional excerpt previews; UrbanKhet material; MoneyLion document previews |
-| Further reference documents | Public ULI institutional PDFs, two privacy-reviewed excerpts, and MoneyLion PDF/PPTX variants; the strategy HTML is offered as a text download |
+| Further reference documents | Relevant ULI history, reviewed architecture and institutional material, and MoneyLion strategy/retention variants are represented as labelled reference chapters and tables |
 
-The College.money archive has 253 members, Upaj 132 and UrbanKhet 27. The ULI public-safe copy retains **all 507 original members**: six captured HTML files have runtime credentials removed, and all other original member payloads are unchanged. An added publication note brings that ZIP to 508 entries. Original checksum indices describe the original captures, so the six scrubbed HTML files have different hashes.
+The retained College.money archive has 253 members, Upaj 132 and UrbanKhet 27. The credential-scrubbed ULI copy retains **all 507 original members**: six captured HTML files have runtime credentials removed, and all other original member payloads are unchanged. An added publication note brings that ZIP to 508 entries. Original checksum indices describe the original captures, so the six scrubbed HTML files have different hashes. These source bundles are no longer hosted as visitor downloads.
 
-The ULI ZIP is stored as two static parts. Its download control assembles them in the browser into the exact 65,206,956-byte public-safe ZIP, checks the expected size, and verifies its SHA-256 where WebCrypto is available. A single download action returns the ZIP; there is no requirement for the reader to join the parts manually.
+The ULI source copy was verified at 65,206,956 bytes with its expected SHA-256 and ZIP integrity checks. Its former static parts and browser download assembler are retired. Website reference chapters explain the relevant programme history and service documentation alongside the original inline videos and reviewed captures.
 
 ## Attribution and measurement limits
 
@@ -67,6 +67,6 @@ Business figures are source-reported, not independently audited. Each outcome re
 
 Raw career workbooks, private research reports, applicant and farmer records, original private code repositories, credentials and internal memory prompts are withheld. Their supported product contribution is represented through narrative, scoped outcomes and reviewed excerpts rather than publication of the raw files.
 
-The six-page EduLoans architecture excerpt and three-page Absolute institutional excerpt were rebuilt as standalone PDFs from reviewed visible pages. Their published files contain only those rendered page images, with no retained hidden source images, source attachments or annotations. This prevents omitted report pages or private image objects from travelling inside an apparently safe excerpt.
+The six-page EduLoans architecture excerpt and three-page Absolute institutional excerpt were rebuilt from reviewed visible pages before source conversion. Those retained reference PDFs contain only the rendered page images, with no hidden source images, source attachments or annotations. The website uses reviewed images and authored explanations rather than embedding or linking those PDFs.
 
-Reviewed galleries and publication-safe downloads are the public evidence layer. Per-study `sourceNotes` preserve material limitations without exposing the private research ledger or local source locations.
+Reviewed galleries, inline videos and on-site reference chapters are the public evidence layer. Per-study `sourceNotes` preserve material limitations without exposing the private research ledger or local source locations. Public Markdown rejects attachment links, legacy public pages do not expose file actions, and obsolete publisher download settings are removed.

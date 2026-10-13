@@ -33,7 +33,6 @@ export default function BlogForm({ editItem, onSuccess, onDirtyChange }: BlogFor
   const [title, setTitle] = useState(editItem?.title || '');
   const [summary, setSummary] = useState(editItem?.summary || '');
   const [bodyMarkdown, setBodyMarkdown] = useState(editItem?.body_markdown || '');
-  const [downloadable, setDownloadable] = useState(editItem?.downloadable ?? true);
   
   const [images, setImages] = useState<ImageItem[]>(
     editItem?.media?.map((m: any) => ({
@@ -56,7 +55,7 @@ export default function BlogForm({ editItem, onSuccess, onDirtyChange }: BlogFor
 
   useEffect(() => {
     onDirtyChange(true);
-  }, [title, summary, bodyMarkdown, downloadable, images, onDirtyChange]);
+  }, [title, summary, bodyMarkdown, images, onDirtyChange]);
 
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -176,7 +175,7 @@ export default function BlogForm({ editItem, onSuccess, onDirtyChange }: BlogFor
         summary,
         body_markdown: bodyMarkdown,
         status,
-        downloadable,
+        downloadable: false,
         media: mediaPayload
       };
 
@@ -303,15 +302,7 @@ export default function BlogForm({ editItem, onSuccess, onDirtyChange }: BlogFor
           <WordCounter text={bodyMarkdown} limit={2500} />
         </div>
 
-        <label className="flex items-center gap-2 cursor-pointer pt-2">
-          <input 
-            type="checkbox" 
-            checked={downloadable} 
-            onChange={e => setDownloadable(e.target.checked)}
-            className="w-4 h-4 text-[#1A1A1A] bg-[#FAFAFA] border-[#E5E5E5] rounded"
-          />
-          <span className="text-sm font-medium text-[#525252]">Allow visitors to save images</span>
-        </label>
+        <p className="pt-2 text-sm leading-relaxed text-[#525252]">Visitors read the essay and view its images on the website.</p>
       </div>
 
       {isUploading && <ProgressBar progress={uploadProgress} message="Saving Post..." />}

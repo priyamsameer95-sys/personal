@@ -11,7 +11,7 @@ export default function ErrorPage({ reset }: { reset: () => void }) {
         <Header />
         <main id="main-content" className="py-12 md:py-20">
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-system-tertiary mb-5">
-            A brief interruption
+            Page unavailable
           </p>
           <h1 className="font-sans text-4xl md:text-5xl text-system-primary tracking-tight mb-5">
             This page couldn&apos;t load.
@@ -31,7 +31,7 @@ export default function ErrorPage({ reset }: { reset: () => void }) {
               Back to home
             </Link>
             <a href="mailto:Priyam.Sameer.95@gmail.com" className="inline-flex min-h-11 items-center text-sm text-system-secondary underline underline-offset-4">
-              Email Priyam
+              Contact Priyam
             </a>
           </div>
         </main>

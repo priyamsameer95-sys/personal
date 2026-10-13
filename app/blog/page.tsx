@@ -17,7 +17,9 @@ interface ContentItem {
 
 export const metadata: Metadata = {
   title: 'Writing',
-  description: 'Thoughts on product management, construction logic in software, and operational integrity.',
+  description: 'Published writing by Priyam Sameer about product decisions and operating experience, alongside his product leadership portfolio.',
+  openGraph: { title: 'Writing — Priyam Sameer', description: 'My published writing about product decisions and operating experience.' },
+  twitter: { title: 'Writing — Priyam Sameer', description: 'My published writing about product decisions and operating experience.' },
 };
 
 export const revalidate = 0;
@@ -37,16 +39,16 @@ export default async function BlogPage() {
 
         <main id="main-content" className="animate-fade-in-up">
           <div className="mb-12 max-w-2xl md:mb-16">
-            <p className="mb-4 text-xs font-medium uppercase tracking-[0.16em] text-system-accent">Notes & perspectives</p>
+            <p className="mb-4 text-xs font-medium uppercase tracking-[0.16em] text-system-accent">Ideas from product work</p>
             <h1 className="mb-5 font-sans text-5xl leading-tight tracking-tight text-system-primary sm:text-6xl">Writing.</h1>
-            <p className="max-w-xl text-lg leading-relaxed text-system-secondary">Thoughts on product management, construction logic in software, and operational integrity.</p>
+            <p className="max-w-xl text-lg leading-relaxed text-system-secondary">My published writing about product decisions and the experience behind them.</p>
           </div>
 
           {items.length === 0 ? (
             <div className="rounded-2xl border border-system-outline bg-system-surface px-6 py-14 sm:px-10">
-              <h2 className="mb-3 font-sans text-3xl text-system-primary">More to put into words.</h2>
-              <p className="max-w-lg leading-relaxed text-system-secondary">There are no published essays here yet. Explore my work or get in touch to continue the conversation.</p>
-              <Link href="/product" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-system-accent no-underline">Explore the work <span aria-hidden="true">→</span></Link>
+              <h2 className="mb-3 font-sans text-3xl text-system-primary">No writing published yet.</h2>
+              <p className="max-w-lg leading-relaxed text-system-secondary">There are no published articles here. My case studies explain the decisions, delivery and impact behind my product work.</p>
+              <Link href="/product" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-system-accent no-underline">Explore my work <span aria-hidden="true">→</span></Link>
             </div>
           ) : (
             <div className="max-w-3xl space-y-10">

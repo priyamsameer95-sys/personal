@@ -5,6 +5,33 @@ export interface WorkCompany {
   role: string;
   summary: string;
   order: number;
+  relationship?: string;
+}
+
+export const workTypeLabels = {
+  delivered: 'Delivered work',
+  prototype: 'Prototype',
+  proposal: 'Proposal',
+  independent: 'Independent exercise',
+  community: 'Community work',
+  creative: 'Creative work',
+  supporting: 'Supporting context',
+} as const;
+
+export type WorkType = keyof typeof workTypeLabels;
+
+export interface ExecutiveBrief {
+  challenge: string;
+  remit: string;
+  decision: string;
+  impact: string;
+}
+
+export interface CaseStudyTable {
+  caption: string;
+  headers: string[];
+  rows: string[][];
+  note?: string;
 }
 
 export interface CaseStudyOutcome {
@@ -19,12 +46,21 @@ export interface CaseStudySection {
   body: string[];
   bullets?: string[];
   mediaIds?: string[];
+  group?: 'story' | 'detail' | 'reference';
+  source?: { label: string; range?: string; date?: string; version?: string };
+  tables?: CaseStudyTable[];
+  anchorAliases?: string[];
 }
 
-interface WorkMediaBase {
+export interface WorkMediaBase {
   id: string;
   src: string;
   caption: string;
+  provenance?: {
+    kind: 'historical' | 'current-public' | 'authored' | 'proposal';
+    label: string;
+    date?: string;
+  };
 }
 
 export interface CaseStudyScreenshot extends WorkMediaBase {
@@ -46,17 +82,6 @@ export interface CaseStudyVideo extends WorkMediaBase {
 
 export type CaseStudyMedia = CaseStudyScreenshot | CaseStudyVideo;
 
-export interface CaseStudyDownload {
-  label: string;
-  url: string;
-  filename: string;
-  mime: string;
-  description?: string;
-  bytes?: number;
-  parts?: string[];
-  sha256?: string;
-}
-
 export interface CaseStudy {
   id: string;
   slug: string;
@@ -64,6 +89,8 @@ export interface CaseStudy {
   companyId: string;
   title: string;
   summary: string;
+  workType: WorkType;
+  executiveBrief: ExecutiveBrief;
   role: string;
   period: string;
   order: number;
@@ -73,7 +100,6 @@ export interface CaseStudy {
   outcomes: CaseStudyOutcome[];
   sections: CaseStudySection[];
   media: CaseStudyMedia[];
-  downloads: CaseStudyDownload[];
   relatedSlugs?: string[];
   sourceNotes?: string[];
 }

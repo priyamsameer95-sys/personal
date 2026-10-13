@@ -15,6 +15,7 @@ export default function MarkdownContent({ source }: { source: string }) {
       pluginsFilter={(type, plugins) => type === 'rehype' ? [] : plugins}
       components={{
         h1: ({ children }) => <h2>{children}</h2>,
+        a: ({ href, children }) => href ? <a href={href}>{children}</a> : <span>{children}</span>,
         table: ({ children }) => <div className="mb-6 overflow-x-auto"><table>{children}</table></div>,
       }}
     />

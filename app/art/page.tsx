@@ -17,7 +17,9 @@ interface ContentItem {
 
 export const metadata: Metadata = {
   title: 'Art',
-  description: 'Paintings and visual expression by Priyam Sameer.',
+  description: 'Priyam Sameer’s painting practice alongside his product leadership work. Published paintings appear here when available.',
+  openGraph: { title: 'Art — Priyam Sameer', description: 'My painting practice alongside product leadership.' },
+  twitter: { title: 'Art — Priyam Sameer', description: 'My painting practice alongside product leadership.' },
 };
 
 export const revalidate = 0;
@@ -47,16 +49,16 @@ export default async function ArtGalleryPage() {
 
         <main id="main-content" className="animate-fade-in-up">
           <div className="mb-12 max-w-2xl md:mb-16">
-            <p className="mb-4 text-xs font-medium uppercase tracking-[0.16em] text-system-accent">A different kind of making</p>
+            <p className="mb-4 text-xs font-medium uppercase tracking-[0.16em] text-system-accent">Outside product work</p>
             <h1 className="mb-5 font-sans text-5xl leading-tight tracking-tight text-system-primary sm:text-6xl">Art.</h1>
-            <p className="max-w-xl text-lg leading-relaxed text-system-secondary">Fluid expression as a counterbalance to rigid constraints.</p>
+            <p className="max-w-xl text-lg leading-relaxed text-system-secondary">I paint alongside my product work. This page is for the paintings I publish.</p>
           </div>
 
           {items.length === 0 ? (
             <div className="rounded-2xl border border-system-outline bg-system-surface px-6 py-14 sm:px-10">
-              <h2 className="mb-3 font-sans text-3xl text-system-primary">The gallery is taking shape.</h2>
-              <p className="max-w-lg leading-relaxed text-system-secondary">There are no published paintings here yet. You can explore my work and writing in the meantime.</p>
-              <Link href="/product" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-system-accent no-underline">Explore the work <span aria-hidden="true">→</span></Link>
+              <h2 className="mb-3 font-sans text-3xl text-system-primary">No paintings published yet.</h2>
+              <p className="max-w-lg leading-relaxed text-system-secondary">There are no published paintings in this gallery. My product case studies and experience are available to explore.</p>
+              <Link href="/product" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-system-accent no-underline">Explore my work <span aria-hidden="true">→</span></Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2">

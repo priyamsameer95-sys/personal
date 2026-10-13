@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation';
 const navItems = [
   { label: 'Home', path: '/' },
   { label: 'Work', path: '/product' },
-  { label: 'Art', path: '/art' },
+  { label: 'Experience', path: '/cv' },
   { label: 'Writing', path: '/blog' },
-  { label: 'CV', path: '/cv' },
+  { label: 'Art', path: '/art' },
 ];
 
 export default function Header() {
@@ -52,7 +52,7 @@ export default function Header() {
             href="mailto:Priyam.Sameer.95@gmail.com"
             className="inline-flex min-h-11 items-center gap-2 rounded-full border border-black bg-black px-5 text-sm font-medium text-white transition-[background-color,color,transform] duration-150 ease-out hover:bg-white hover:text-black focus-visible:outline-black active:scale-[0.97] no-underline"
           >
-            Let’s talk <span aria-hidden="true">↗</span>
+            Contact Priyam <span aria-hidden="true">↗</span>
           </a>
         </div>
       </div>

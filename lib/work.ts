@@ -1,7 +1,7 @@
 import { caseStudies, companies } from '@/content/work/case-studies';
 import { publicDb as db } from '@/lib/db';
 import { contentExcerpt } from '@/lib/content';
-import type { CaseStudy, CaseStudyMedia, PublishedWorkItem, WorkCompany } from '@/lib/work-types';
+import type { CaseStudy, CaseStudyMedia, PublishedWorkItem, WorkCompany, WorkType } from '@/lib/work-types';
 
 export interface WorkCompanyGroup {
   company: WorkCompany;
@@ -14,6 +14,7 @@ export interface WorkTeaser {
   title: string;
   summary: string;
   company?: string;
+  workType?: WorkType;
   outcome?: string;
   image?: { src: string; alt: string };
 }
@@ -108,7 +109,8 @@ export async function featuredWork(limit = 2): Promise<WorkTeaser[]> {
     title: study.title,
     summary: study.summary,
     company: findWorkCompany(study.companyId)?.name,
-    outcome: study.outcomes[0] ? [study.outcomes[0].value, study.outcomes[0].label].filter(Boolean).join(' · ') : undefined,
+    workType: study.workType,
+    outcome: study.executiveBrief?.impact,
     image: caseStudyPreview(study),
   }));
   if (teasers.length >= limit) return teasers;
