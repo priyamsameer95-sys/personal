@@ -1,0 +1,61 @@
+{
+  "name": "PRIYAM SAMEER",
+  "summary": "Product leader and former founder with 7+ years across product roles and technology-led businesses, including five years as a PM. Built 0-to-1 and scaled B2B marketplaces, B2C apps and fintech platforms across India, Brazil and Malaysia. A hands-on AI builder and learner who owns discovery, roadmaps, integrations, go-to-market and P&L through launch and scale.",
+  "experience": [
+    {
+      "title": "General Manager, Product Management and Business Growth",
+      "dates": "Mar 2025 - Present",
+      "company": "CashKaro / BankKaro",
+      "context": "Cashback and rewards group with a consumer-lending business | Joined as Senior Manager; promoted to General Manager",
+      "bullets": [
+        "Built 0-to-1 and scaled an education-loan marketplace to INR 55M (~USD 600K) in monthly disbursements, achieving positive unit economics within the first year. Created a single application journey for underserved students and integrated CashKaro's rewards distribution to keep acquisition costs low. Owned the roadmap, P&L, lender commercials and hiring across product, sales and operations.",
+        "Raised personal-loan funnel conversion from 16% to 45% through single-form onboarding and lender matching. Used funnel data and lender feedback to identify rejection and abandonment points, and prioritized weekly fixes with growth, engineering and operations.",
+        "Built reusable API infrastructure for 20+ banks and non-banking financial companies (NBFCs), standardizing eligibility, know-your-customer (KYC) handoffs, application status and payouts. Worked with engineering on system design and configurable partner onboarding. Added lender reporting, payout reconciliation, dispute logging and service-level tracking to diagnose partner performance.",
+        "Reduced analyst processing time in live education-loan origination from nine to four hours per file, saving INR 1,562 (~USD 17) per lead. Built Gemini-assisted document classification, KYC extraction and review triage; coded key components before engineering productionisation. Added prompts to correct documents during application and retained human review for uncertain cases.",
+        "Personally built two working EduLoans prototypes using Lovable and Emergent with React, TypeScript and Supabase. Authored the product requirements document (PRD), modeled 62 rules across eight lenders and 23 workflow states, and created one conversational surface for students, distribution partners and account managers, covering application capture, lender narrowing and case handling.",
+        "Kept EduLoans matching deterministic and explainable; required account-manager verification before showing results and tailored checklists to each lender and applicant type. Prioritized policy validation and rule consistency across repositories before API and dashboard enhancements, using Claude and Gemini for policy review and Antigravity for refactoring."
+      ]
+    },
+    {
+      "title": "Principal Product Manager",
+      "dates": "Oct 2021 - Nov 2024",
+      "company": "Absolute.ag (ECSO Global)",
+      "context": "Agritech company building consumer apps, B2B trade and financial data SaaS | Founding PM, promoted through Senior PM to Principal PM",
+      "bullets": [
+        "Built 0-to-1 and scaled SilkRoute, a web and mobile B2B trading platform, to USD 100M in gross merchandise value (GMV) in nine months. Used trader interviews and focus groups to define catalogue, price discovery, negotiation, ordering and settlement workflows. Aligned regional priorities with leadership across 25+ country teams through execution workshops.",
+        "Rebuilt Upaj, a consumer farming-advisory app, to address stagnant retention, prioritizing monitoring, market prices and notifications. Grew active users from 100,000 to 600,000, reduced acquisition cost by 66% and increased average session time from 11 to 15 minutes.",
+        "Led bank-facing credit-risk products supporting the Reserve Bank of India's Unified Lending Interface (ULI) for borrowers with limited credit histories. Defined lender APIs, underwriting workflows and risk inputs covering 167 satellite indices with engineering and data teams. Adapted rural-credit components for small-business requirements with Open Network for Digital Commerce (ONDC) leadership.",
+        "Reduced settlement time from five days to one and complaint tickets by 80% through an in-house enterprise resource planning (ERP) system and IDFC payments integration. Worked with engineering and finance on multi-currency settlement, reconciliation, compliance checks, documents and dispute handling.",
+        "Led plant-disease detection delivery using 500,000 images across 14 crops. Built agronomist review into model validation and specified offline image capture so diagnoses could run after connectivity returned; worked with engineering on efficient inference for low-end phones.",
+        "Led a machine-learning rainfall-grid product for crop-insurance pricing, improving resolution from 25km to 10km. Worked with technical and actuarial teams on model validation and premium tables, contributing to a 27% reduction in average premiums for farmer networks served.",
+        "Built a mobile app and web portal for government crop-insurance surveys, serving 400,000+ users and generating INR 300M (~USD 3.3M) in revenue across three seasons. Owned product requirements and end-to-end delivery of insurance workflows.",
+        "Adapted credit and advisory platforms for Brazil and Malaysia, including language, environmental data and institutional requirements. Coordinated procurement, technical due diligence and integrations with Bank of Brazil and Experian; adapted credit scoring with CRIF and Experian to local data availability.",
+        "Led a cross-functional farm-advisory squad, influencing one PM, two designers, four engineers, two data scientists and four operations colleagues. Reported to the CPTO with regular CEO reviews, aligning product delivery across web and mobile journeys."
+      ]
+    },
+    {
+      "title": "Founder and Director",
+      "dates": "Jul 2019 - Sep 2021",
+      "company": "UrbanKhet",
+      "context": "Farm-to-customer subscription and supply-chain business for households and enterprises",
+      "bullets": [
+        "Founded and built a farm-to-customer subscription business to INR 12M (~USD 145K) in annual recurring revenue. Acquired the first 44 customers manually before expanding to household subscriptions and 45+ B2B clients, including Marriott, Udaan and Ninjacart.",
+        "Onboarded 3,000+ farmers and built a 28-person team. Owned product, customer acquisition, partnerships and P&L; developed decentralised distribution and last-mile fulfilment, reducing fulfilment time by 35%.",
+        "Raised institutional seed funding through IIM Ahmedabad Ventures and secured government innovation grants. Rebuilt logistics in under 15 days during COVID-19, maintaining deliveries through the first wave."
+      ]
+    }
+  ],
+  "education": "CEPT University | BS in Construction Technology",
+  "skills": [
+    "Product: 0-to-1 discovery, customer research, strategy, roadmaps, PRDs, prioritization, go-to-market, KPI design, P&L and unit economics.",
+    "Platforms: B2B marketplaces, B2C journeys, lending, API integrations, partner onboarding, ordering, payments and reconciliation.",
+    "AI and engineering: AI prototyping, document AI, human review, rule engines, React, TypeScript, Supabase and Gemini API.",
+    "Data and delivery: SQL, Python, funnel and retention analysis, experimentation, Jira, Figma and MoEngage.",
+    "Leadership: Cross-functional squads, hiring, stakeholder communication, partner negotiations, procurement and market expansion."
+  ],
+  "recognition": [
+    "IIM Ahmedabad Ventures (CIIE.CO) | Startup incubation and seed investment",
+    "Awards: CashKaro Rock Star (2025); Atal Innovation Award, Government of Gujarat (2021).",
+    "Innovation grants: TIDE 2.0, Ministry of Electronics and Information Technology; Gujarat SSIP startup grant."
+  ]
+}

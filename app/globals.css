@@ -68,7 +68,7 @@
     color: #000000 !important;
     font-size: 12pt !important;
   }
-  #nav-header, .no-print, footer {
+  #nav-header, .no-print, footer, .skip-link {
     display: none !important;
   }
   main {

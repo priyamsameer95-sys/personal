@@ -1,140 +1,95 @@
 import React from 'react';
-import { publicDb as db } from '@/lib/db';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import PrintButton from '@/components/PrintButton';
 import type { Metadata } from 'next';
+import content from './content.json';
+import styles from './cv.module.css';
 
-export const metadata: Metadata = { title: 'CV' };
+export const metadata: Metadata = {
+  title: 'CV',
+  description: content.summary,
+};
 
-interface ContentItem {
-  id: string;
-  title: string;
-  downloadable: boolean;
-  media: Array<{
-    blob_url: string;
-  }>;
+const pdfFilename = 'Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf';
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className={styles.section} aria-label={title}>
+      <h2 className={styles.sectionTitle}>{title}</h2>
+      {children}
+    </section>
+  );
 }
 
-export const revalidate = 0; // Prevent stale caching
-
-export default async function CvPage() {
-  // Query the latest published CV upload
-  const { rows } = await db`
-    SELECT 
-      ci.id, ci.title, ci.downloadable,
-      COALESCE(
-        json_agg(
-          json_build_object('blob_url', ma.blob_url)
-        ) FILTER (WHERE ma.id IS NOT NULL),
-        '[]'::json
-      ) AS media
-    FROM content_items ci
-    LEFT JOIN media_assets ma ON ma.content_id = ci.id
-    WHERE ci.type = 'cv' AND ci.status = 'published'
-    GROUP BY ci.id
-    ORDER BY ci.created_at DESC LIMIT 1
-  `;
-  const cvItem = rows[0] as ContentItem | undefined;
-
-  // Check if downloading is allowed and PDF exists
-  const isDownloadable = cvItem && cvItem.downloadable && cvItem.media?.[0]?.blob_url;
-
+export default function CvPage() {
   return (
     <div className="min-h-screen bg-system-bg">
-      <div className="max-w-6xl mx-auto px-6 md:px-10 py-8 md:py-10">
+      <div className={['max-w-6xl mx-auto px-6 md:px-10 py-8 md:py-10', styles.shell].join(' ')}>
         <Header />
+        <div className={[styles.toolbar, 'no-print'].join(' ')}>
+          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-system-tertiary">Curriculum vitae</p>
+          <a href={`/cv/${pdfFilename}`} download={pdfFilename} className={styles.download}>
+            Download CV <span aria-hidden="true">↓</span>
+          </a>
+        </div>
 
-        <main id="main-content" className="animate-fade-in-up bg-white p-6 md:p-12 shadow-material-soft border border-system-outline rounded-xl">
-          <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-5 border-b-2 border-black pb-4 mb-8">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-black mb-1 font-sans">
-                Priyam Sameer
-              </h1>
-              <p className="font-mono text-xs md:text-sm tracking-widest uppercase text-gray-600 m-0">
-                Product Manager · Builder · Gurugram, India
-              </p>
+        <main id="main-content" className={[styles.document, 'animate-fade-in-up'].join(' ')}>
+          <div className={styles.identity}>
+            <h1>{content.name}</h1>
+            <div className={styles.contact} aria-label="Contact details and portfolio links">
+              <span>India</span>
+              <a href="mailto:priyam.sameer.95@gmail.com">priyam.sameer.95@gmail.com</a>
+              <a href="tel:+918238452277">+91 8238452277</a>
+              <a href="https://www.linkedin.com/in/priyam-sameer" target="_blank" rel="noopener noreferrer">linkedin.com/in/priyam-sameer<span className="sr-only"> (opens in a new tab)</span></a>
+              <a href="https://github.com/priyamsameer95-sys/V1.03-Chat-eduloans" target="_blank" rel="noopener noreferrer">AI builds<span className="sr-only"> (opens in a new tab)</span></a>
+              <a href="https://github.com/priyamsameer95-sys/eduloans" target="_blank" rel="noopener noreferrer">Source code<span className="sr-only"> (opens in a new tab)</span></a>
             </div>
-            <div className="sm:text-right text-xs md:text-sm text-gray-600 space-y-1">
-              <p className="m-0">priyam.sameer.95@gmail.com</p>
-              <p className="m-0">linkedin.com/in/priyamsameer</p>
+          </div>
+
+          <Section title="Summary">
+            <p>{content.summary}</p>
+          </Section>
+
+          <Section title="Experience">
+            {content.experience.map(job => (
+              <article key={job.company} className={styles.job}>
+                <div className={styles.company}>
+                  <h3>{job.company}</h3>
+                  <p className={styles.dates}>{job.dates}</p>
+                </div>
+                <p className={styles.roleTitle}>{job.title}</p>
+                <p className={styles.context}>{job.context}</p>
+                <ul className={styles.bullets}>
+                  {job.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}
+                </ul>
+              </article>
+            ))}
+          </Section>
+
+          <Section title="Education">
+            <p>{content.education}</p>
+          </Section>
+
+          <Section title="Skills">
+            <dl className={styles.skills}>
+              {content.skills.map(skill => {
+                const separator = skill.indexOf(':');
+                return (
+                  <div key={skill}>
+                    <dt>{skill.slice(0, separator)}:</dt>
+                    <dd>{skill.slice(separator + 1).trim()}</dd>
+                  </div>
+                );
+              })}
+            </dl>
+          </Section>
+
+          <Section title="Awards and recognition">
+            <div className={styles.recognition}>
+              {content.recognition.map(line => <p key={line}>{line}</p>)}
             </div>
-          </div>
-
-          <div className="space-y-8">
-            {/* Experience Section */}
-            <section id="experience">
-              <h3 className="font-bold text-base md:text-lg border-b border-gray-300 pb-1 mb-4 uppercase tracking-wider text-black">
-                Experience
-              </h3>
-              
-              <div className="mb-6">
-                <div className="flex justify-between font-bold mb-1 text-sm md:text-base text-black flex-wrap gap-2">
-                  <span>CashKaro</span>
-                  <span className="font-mono text-xs md:text-sm font-normal text-gray-600">2024 - Present</span>
-                </div>
-                <div className="italic text-xs md:text-sm text-gray-700 mb-2">Senior Product Manager (Education Loans)</div>
-                <ul className="list-disc pl-5 text-xs md:text-sm space-y-1 text-gray-800">
-                  <li>End-to-end P&amp;L ownership of the Education Loans vertical.</li>
-                  <li>Building &apos;Antigravity&apos;, a 0-1 education loan platform with proprietary rules engine.</li>
-                </ul>
-              </div>
-
-              <div className="mb-6">
-                <div className="flex justify-between font-bold mb-1 text-sm md:text-base text-black flex-wrap gap-2">
-                  <span>Absolute.ag</span>
-                  <span className="font-mono text-xs md:text-sm font-normal text-gray-600">2021 - 2024</span>
-                </div>
-                <div className="italic text-xs md:text-sm text-gray-700 mb-2">Principal Product Manager</div>
-                <ul className="list-disc pl-5 text-xs md:text-sm space-y-1 text-gray-800">
-                  <li>Architected satellite-data rural credit engine for RBI&apos;s Unified Lending Interface.</li>
-                  <li>Managed iTrade cross-border platform scaling to $100M+ GMV across 25 countries.</li>
-                </ul>
-              </div>
-
-              <div className="mb-6">
-                <div className="flex justify-between font-bold mb-1 text-sm md:text-base text-black flex-wrap gap-2">
-                  <span>UrbanKhet</span>
-                  <span className="font-mono text-xs md:text-sm font-normal text-gray-600">2019 - 2021</span>
-                </div>
-                <div className="italic text-xs md:text-sm text-gray-700 mb-2">Founder (Incubated at IIM-A Ventures)</div>
-                <ul className="list-disc pl-5 text-xs md:text-sm space-y-1 text-gray-800">
-                  <li>Built D2C Agritech platform scaling to 3,400 users and 28 employees.</li>
-                  <li>Raised ₹1.5Cr seed grant. Wound down operations with 100% payout to all creditors.</li>
-                </ul>
-              </div>
-            </section>
-
-            {/* Education Section */}
-            <section>
-              <h3 className="font-bold text-base md:text-lg border-b border-gray-300 pb-1 mb-4 uppercase tracking-wider text-black">
-                Education
-              </h3>
-              <div className="flex justify-between font-bold text-sm md:text-base text-black">
-                <span>CEPT University</span>
-                <span className="font-mono text-xs md:text-sm font-normal text-gray-600">2014 - 2018</span>
-              </div>
-              <div className="text-xs md:text-sm text-gray-800 mt-1">
-                B.Tech, Construction Technology (Selected independently over IIT)
-              </div>
-            </section>
-          </div>
-
-          <div className="mt-12 flex justify-center gap-4 no-print flex-wrap">
-            <PrintButton />
-            {isDownloadable && cvItem && cvItem.media[0] && (
-              <a
-                href={cvItem.media[0].blob_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white text-black border border-[#CCCCCC] px-6 py-2.5 rounded-lg font-mono text-[11px] font-bold uppercase tracking-widest hover:bg-gray-100 transition-colors shadow-material-soft no-underline flex items-center gap-1.5"
-              >
-                <span className="material-symbols-rounded text-sm">download</span> Download PDF
-              </a>
-            )}
-          </div>
+          </Section>
         </main>
-
         <Footer />
       </div>
     </div>

@@ -109,8 +109,8 @@ export default async function HomePage() {
                 <span className="font-serif italic text-3xl relative -translate-y-2">From 0 to 1.</span>
               </div>
               <div className="border-t border-white/20 pt-6 relative">
-                <h2 className="text-2xl font-medium tracking-tight mb-3">CashKaro &amp; Antigravity</h2>
-                <p className="text-[#E1E8DC] text-sm leading-relaxed">Owning the Education Loans P&amp;L as a Senior PM and building an education loan platform from scratch.</p>
+                <h2 className="text-2xl font-medium tracking-tight mb-3">CashKaro &amp; lending</h2>
+                <p className="text-[#E1E8DC] text-sm leading-relaxed">Leading lending products and P&amp;L at CashKaro; building systems that make loan journeys simpler.</p>
                 <div className="flex items-center justify-between mt-6">
                   <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#D0DBC7]">Credit · Education · Systems</span>
                   <Link href="/cv" aria-label="Read about my current work in my CV" className="w-10 h-10 rounded-full border border-white/30 inline-flex items-center justify-center hover:bg-white/10 transition-colors">↗</Link>
@@ -129,9 +129,9 @@ export default async function HomePage() {
             </div>
             <div className="grid md:grid-cols-3 gap-7 md:gap-10">
               {[
-                { period: '2024 — Present', company: 'CashKaro', role: 'Senior Product Manager', description: 'Education loans, end-to-end P&L ownership, and a new platform built from the ground up.' },
-                { period: '2021 — 2024', company: 'Absolute.ag', role: 'Principal Product Manager', description: 'Rural credit using satellite data and a cross-border trade platform spanning 25 countries.' },
-                { period: '2019 — 2021', company: 'UrbanKhet', role: 'Founder', description: 'A D2C agritech platform, incubated at IIM Ahmedabad Ventures, serving 3,400 users.' },
+                { period: 'Mar 2025 — Present', company: 'CashKaro', role: 'General Manager, Product Management', description: 'Leading lending products, end-to-end P&L ownership, and business growth.' },
+                { period: 'Oct 2021 — Nov 2024', company: 'Absolute.ag', role: 'Principal Product Manager', description: 'Satellite-data rural credit and SilkRoute, a B2B trade platform spanning 25+ countries.' },
+                { period: 'Jul 2019 — Sep 2021', company: 'UrbanKhet', role: 'Founder & Director', description: 'A D2C agritech platform, incubated at IIM Ahmedabad CIIE.CO, serving 3,600+ buyers.' },
               ].map((experience, index) => (
                 <article key={experience.company} className="border-t border-system-outline pt-5">
                   <div className="flex justify-between font-mono text-[10px] text-system-tertiary mb-7"><span>{experience.period}</span><span aria-hidden="true">0{index + 1}</span></div>
@@ -177,7 +177,7 @@ export default async function HomePage() {
               <h2 id="about-title" className="font-serif text-3xl md:text-4xl leading-tight">Structure meets<br /><span className="italic text-system-accent">expression.</span></h2>
             </div>
             <div className="space-y-5 text-system-secondary text-base md:text-lg leading-relaxed">
-              <p>I studied Construction Technology at CEPT University. That architectural background shapes how I approach products: sound foundations, clear logic, and systems that hold up in the real world.</p>
+              <p>I studied Construction Technology at CEPT University. That construction background shapes how I approach products: sound foundations, clear logic, and systems that hold up in the real world.</p>
               <p>Painting gives me space for a different kind of thinking. The canvas is a counterbalance to the constraints of software and business.</p>
               <Link href="/art" className="inline-flex items-center gap-3 text-system-primary text-sm font-medium underline underline-offset-4">Visit the art collection <span aria-hidden="true">↗</span></Link>
             </div>
