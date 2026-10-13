@@ -66,15 +66,14 @@ export default function ArtGallery({ collections, works }: { collections: ArtCol
                   {work.description && <p className={styles.description}>{work.description}</p>}
                 </div>
                 {(work.statement || Boolean(work.detailImages?.length)) && (
-                  <details className={styles.details}>
-                    <summary>{work.detailImages?.length ? 'Artist’s note and close-up' : 'Artist’s note'} <span aria-hidden="true">+</span></summary>
-                    {work.statement && <div className={styles.statement}>{work.statement.split(/\n\s*\n/).map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>}
+                  <div className={styles.notes}>
+                    {work.statement && <div className={styles.statement}><h4>Artist’s note</h4>{work.statement.split(/\n\s*\n/).map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>}
                     {work.detailImages && work.detailImages.length > 0 && <div className={styles.detailImages}>
                       {work.detailImages.map((detail, index) => (
                         <Media key={detail.src} previewSrc={detail.previewSrc} media={{ id: `${work.id}-detail-${index + 1}`, kind: 'image', src: detail.src, alt: detail.alt, width: detail.width, height: detail.height, caption: detail.caption || '' }} />
                       ))}
                     </div>}
-                  </details>
+                  </div>
                 )}
               </article>
             ))}

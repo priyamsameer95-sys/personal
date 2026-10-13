@@ -21,37 +21,53 @@ const registry = JSON.parse(readFileSync(path.join(root, 'content/work/case-stud
 const groups = registry.companies.map(company => ({ company, studies: registry.caseStudies.filter(study => study.companyId === company.id) }));
 const visuals = load('components/work/VisualStory.tsx', { './visual-story.module.css': css });
 const brandMarks = load('components/BrandMarks.tsx', { '@/lib/brands': load('lib/brands.ts'), './brand-marks.module.css': css }).default;
+const presentation = load('lib/work-presentation.ts');
+const media = load('components/work/Media.tsx', { './work.module.css': css }).default;
+const preview = load('components/work/WorkPreview.tsx', { 'next/link': ({ children, ...props }) => createElement('a', props, children), '@/lib/work-types': load('lib/work-types.ts'), '@/lib/work-presentation': presentation, './Media': media, '@/components/BrandMarks': brandMarks, './work-preview.module.css': css }).default;
 const explorer = load('components/work/WorkExplorer.tsx', {
+  'next/link': ({ children, ...props }) => createElement('a', props, children),
+  './WorkPreview': preview, '@/lib/work-presentation': presentation,
   '@/lib/work-types': load('lib/work-types.ts'), './VisualStory': visuals, './work-explorer.module.css': css,
   '@/components/BrandMarks': brandMarks,
 });
 
-test('Work Explorer renders five initial studies, clear company controls and every reachable case route', () => {
+test('Work starts with six media previews and exposes the entire company index initially', () => {
   const html = renderToStaticMarkup(createElement(explorer.default, { groups }));
   assert.match(html, /aria-label="Filter work by company"/);
-  assert.match(html, /aria-pressed="true">CashKaro \/ BankKaro/);
+  assert.match(html, /aria-pressed="true">All work/);
   assert.equal((html.match(/aria-pressed="true"/g) || []).length, 1);
   assert.match(html, /All work <span>25<\/span>/);
-  assert.match(html, /CashKaro \/ BankKaro · 5 studies/);
+  assert.match(html, /All work · 25 studies/);
   assert.match(html, /aria-live="polite"/);
   assert.match(html, /<label for="other-work-context">/);
   const sectionStart = id => html.match(new RegExp(`<section id="${id}"[^>]*>`))?.[0];
-  assert.ok(sectionStart('cashkaro'));
-  assert.doesNotMatch(sectionStart('cashkaro'), /hidden=/);
-  for (const company of registry.companies.filter(company => company.id !== 'cashkaro')) assert.match(sectionStart(company.id), /hidden=/);
-  assert.match(sectionStart('other-contexts'), /hidden=/);
+  for (const company of registry.companies) {
+    assert.ok(sectionStart(company.id));
+    assert.doesNotMatch(sectionStart(company.id), /hidden=/);
+  }
+  assert.doesNotMatch(sectionStart('other-contexts'), /hidden=/);
+  const featured = registry.caseStudies.filter(study => study.featuredOrder).sort((a,b) => a.featuredOrder-b.featuredOrder);
+  assert.equal(featured.length, 6);
+  const featureArea = html.slice(html.indexOf('id="featured-title"'), html.indexOf('id="company-index"'));
+  let preceding = -1;
+  for (const study of featured) {
+    const at = featureArea.indexOf(`id="preview-${study.id}"`);
+    assert.ok(at > preceding, `${study.slug}: featured in configured order`);
+    preceding = at;
+    const primary = presentation.getPrimaryMedia(study)[0];
+    assert.ok(featureArea.includes(primary.src), `${study.slug}: primary evidence visible`);
+  }
+  assert.match(featureArea, /<video[^>]+controls=""/);
+  assert.match(featureArea, /aria-haspopup="dialog"/);
+  assert.match(featureArea, /Validation status/);
+  assert.match(featureArea, /Proposal/);
   for (const study of registry.caseStudies) {
-    assert.equal((html.match(new RegExp(`href="/product/${study.slug}"`, 'g')) || []).length, 1, `${study.slug}: exactly one case action`);
+    assert.equal((html.match(new RegExp(`href="/product/${study.slug}"`, 'g')) || []).length, study.featuredOrder ? 2 : 1, `${study.slug}: one index action plus optional feature action`);
     assert.ok(html.includes(study.visualSummary.title), `${study.slug}: short title missing`);
   }
-  assert.ok(html.includes(registry.companies[0].role));
   for (const sentence of registry.companies[0].summary.split(/(?<=\.)\s+/)) assert.ok(html.includes(sentence));
-  assert.doesNotMatch(html, /class="workflow"|class="chart"|class="comparison"|class="donut"/);
-  assert.match(html, /Authored workflow overview; full technical model in the case study/);
-  assert.match(html, /Portfolio diagram explaining the historical account/);
-  assert.match(html, /<summary>Company context/);
-  assert.match(html, /Read case study/);
-  assert.doesNotMatch(html, /<a[^>]+download=/);
+  assert.doesNotMatch(html, /<details|<summary|Read more|Company context/);
+  assert.doesNotMatch(html, /autoPlay|autoplay|<a[^>]+download=/);
 });
 
 test('Production filter logic exposes all25, each company and honest additional contexts without omissions', () => {
@@ -79,7 +95,7 @@ test('Company deep links resolve the filter while malformed or unrelated fragmen
 
 test('All visual summaries retain real processes and explicit chart scope without mutating the full story', () => {
   assert.equal(registry.caseStudies.length, 25);
-  assert.equal(registry.caseStudies.reduce((count, study) => count + study.sections.length, 0), 198);
+  assert.ok(registry.caseStudies.reduce((count, study) => count + study.sections.length, 0) >= 198, 'original source sections preserved alongside validation material');
   for (const study of registry.caseStudies) {
     const visual = study.visualSummary;
     for (const field of ['title', 'summary', 'challenge', 'role', 'decision', 'impact']) assert.ok(visual[field]?.trim(), `${study.slug}: ${field}`);

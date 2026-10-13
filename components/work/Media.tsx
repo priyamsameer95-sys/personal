@@ -4,20 +4,24 @@ import { useEffect, useId, useRef, useState } from 'react';
 import type { CaseStudyMedia } from '@/lib/work-types';
 import styles from './work.module.css';
 
-const provenanceLabels = {
-  historical: 'Historical material',
-  'current-public': 'Current public reference',
-  authored: 'Illustration of my approach',
-  proposal: 'Proposal material',
-};
+function provenanceText(media: CaseStudyMedia) {
+  if (!media.provenance) return '';
+  const { kind, label, date } = media.provenance;
+  if (kind === 'prototype') return `${media.kind === 'image' ? media.alt : media.title} · V1.03`;
+  if (kind === 'current-public') return `Current public reference${date ? ` · ${date}` : ''}`;
+  if (kind === 'authored' && media.kind === 'video') return `Generated from public reference pages${date ? ` · ${date}` : ''}`;
+  if (kind === 'authored' && media.category === 'diagram') return 'Authored explanation; not a product screen.';
+  return [label, date].filter(Boolean).join(' · ');
+}
 
-export default function Media({ media, priority = false, previewSrc }: { media: CaseStudyMedia; priority?: boolean; previewSrc?: string }) {
+export default function Media({ media, priority = false, previewSrc, compact = false }: { media: CaseStudyMedia; priority?: boolean; previewSrc?: string; compact?: boolean }) {
   const [expanded, setExpanded] = useState(false);
   const [actualSize, setActualSize] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
   const labelId = useId();
+  const sourceContext = provenanceText(media);
   const isLongImage = media.kind === 'image' && Boolean(media.width && media.height && media.height > media.width * 2.5);
 
   useEffect(() => {
@@ -38,7 +42,7 @@ export default function Media({ media, priority = false, previewSrc }: { media: 
   }
 
   return (
-    <figure className={`${styles.figure}${media.kind === 'video' ? ` ${styles.videoFigure}` : ''}`}>
+    <figure className={`${styles.figure}${media.kind === 'video' ? ` ${styles.videoFigure}` : ''}${compact ? ` ${styles.compactMedia}` : ''}`}>
       {media.kind === 'image' ? (
         <>
           <button ref={trigger} type="button" aria-haspopup="dialog" aria-label={`Enlarge image: ${media.alt}`} className={styles.imageButton} onClick={() => { setActualSize(false); setExpanded(true); }}>
@@ -57,7 +61,7 @@ export default function Media({ media, priority = false, previewSrc }: { media: 
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={media.src} alt={media.alt} width={media.width} height={media.height} className={`${styles.dialogImage}${actualSize ? ` ${styles.actualSize}` : ''}`} />
               </div>
-              {(media.caption || media.provenance) && <p className={styles.dialogCaption}>{media.caption}{media.provenance && <span className={styles.provenance}>{provenanceLabels[media.provenance.kind]} · {media.provenance.label}{media.provenance.date ? ` · ${media.provenance.date}` : ''}</span>}</p>}
+              {(media.caption || sourceContext) && <p className={styles.dialogCaption}>{media.caption}{sourceContext && <span className={styles.provenance}>{sourceContext}</span>}</p>}
             </div>}
           </dialog>
         </>
@@ -68,12 +72,12 @@ export default function Media({ media, priority = false, previewSrc }: { media: 
             {media.captions?.map((track, index) => <track key={track.src} kind="captions" src={track.src} srcLang={track.language} label={track.label} default={index === 0} />)}
             Your browser cannot play this video.
           </video>
-          {media.transcript && <details className={styles.transcript}><summary>Video description</summary><p>{media.transcript}</p></details>}
+          {!compact && media.transcript && <p className={styles.videoDescription}><span>Walkthrough description</span>{media.transcript}</p>}
         </>
       )}
       {(media.caption || media.provenance) && <figcaption>
         {media.caption}{media.kind === 'video' && media.duration ? ` · ${media.duration}` : ''}
-        {media.provenance && <span className={styles.provenance}>{provenanceLabels[media.provenance.kind]} · {media.provenance.label}{media.provenance.date ? ` · ${media.provenance.date}` : ''}</span>}
+        {sourceContext && <span className={styles.provenance}>{sourceContext}</span>}
       </figcaption>}
     </figure>
   );

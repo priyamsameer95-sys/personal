@@ -80,8 +80,9 @@ export interface WorkMediaBase {
   id: string;
   src: string;
   caption: string;
+  category?: 'product-screenshot' | 'prototype-screenshot' | 'walkthrough' | 'diagram' | 'illustration' | 'source-document';
   provenance?: {
-    kind: 'historical' | 'current-public' | 'authored' | 'proposal';
+    kind: 'historical' | 'current-public' | 'authored' | 'proposal' | 'prototype';
     label: string;
     date?: string;
   };
@@ -106,6 +107,19 @@ export interface CaseStudyVideo extends WorkMediaBase {
 
 export type CaseStudyMedia = CaseStudyScreenshot | CaseStudyVideo;
 
+export interface CaseStudyChapterGroup {
+  id: string;
+  title: string;
+  sectionIds: string[];
+  /** Edited account of these source sections; unique facts remain mapped to the source records. */
+  body?: string[];
+}
+
+export interface CaseStudyPresentation {
+  decisionBeats: CaseStudyChapterGroup[];
+  supportingGroups: CaseStudyChapterGroup[];
+}
+
 export interface CaseStudy {
   id: string;
   slug: string;
@@ -120,6 +134,9 @@ export interface CaseStudy {
   period: string;
   order: number;
   featured?: boolean;
+  featuredOrder?: number;
+  primaryMediaIds?: string[];
+  presentation?: CaseStudyPresentation;
   status?: 'published' | 'draft';
   heroMediaId?: string;
   outcomes: CaseStudyOutcome[];

@@ -68,7 +68,7 @@ export default async function ArtGalleryPage() {
           </div>
           <div className={styles.introNote}>
             <p>Communicating with one’s soul.</p>
-            <span>Oil, acrylic and charcoal. Open a painting to see it up close.</span>
+            <span>Oil, acrylic and charcoal. Six paintings, my notes and their original close-ups.</span>
           </div>
         </header>
         <ArtGallery collections={artCollections} works={artworks} />

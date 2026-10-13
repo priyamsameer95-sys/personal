@@ -1,6 +1,6 @@
 # My Work: source coverage and publication scope
 
-Verified against `content/work/case-studies.json` and the website assets on 13 October 2026. The collection contains **25 case studies across nine professional and personal contexts**. Visual summaries, complete decision narratives, deeper chapters and source references are read on the website. Case-source files have no visitor download actions; the supplied original CV download is restored on Experience. Document-to-chapter coverage is recorded in [`CONTENT-COVERAGE.md`](CONTENT-COVERAGE.md).
+Verified against `content/work/case-studies.json` and the website assets on 14 October 2026. The collection contains **25 case studies across nine professional and personal contexts**. Visual summaries, complete decision narratives, deeper chapters and source references are read on the website. Case-source files have no visitor download actions; the supplied original CV download is restored on Experience. Document-to-chapter coverage is recorded in [`CONTENT-COVERAGE.md`](CONTENT-COVERAGE.md).
 
 ## Case-study coverage
 
@@ -18,7 +18,7 @@ The contexts are navigation groups, not nine employers. Incubation, volunteering
 | Independent founder advisory | 1 | Product, economics, go-to-market and fundraising-narrative advisory |
 | CEPT and creative practice | 1 | FC Sparta captaincy and independent painting |
 
-The published registry is the source of truth for titles, slugs, captions, outcomes, visual summaries and attribution notes. All 25 studies have a compact real-process workflow; nine chart specifications retain their measure and qualification. The Work index starts with CashKaro’s five studies and exposes all nine contexts through company controls, All work and the additional-context selector, preserving incoming company fragments. The collection supports 45 canonical and alias routes. Related stories are grouped into product studies rather than converted into a separate page for every interview example.
+The published registry is the source of truth for titles, slugs, captions, outcomes, visual summaries and attribution notes. All 25 studies have a compact real-process workflow; nine chart specifications retain their measure and qualification. Home and Work feature EduLoans, crop AI, the lending MCP proposal, College.money, SilkRoute and UrbanKhet in that order, while company navigation exposes all nine contexts and preserves incoming company fragments. The collection supports 45 canonical and alias routes. Related stories are grouped into product studies rather than converted into a separate page for every interview example.
 
 ## Research coverage
 
@@ -35,7 +35,11 @@ The collection presents the following material inside the relevant case-study ch
 | Material | Published coverage |
 | --- | --- |
 | Generated source archives | College.money, ULI, Upaj and UrbanKhet packs are retained as local source material, without website download controls |
-| Source-pack videos | Nine original silent walkthroughs shown inline: three each for College.money, ULI and Upaj |
+| Source-pack videos | All nine original silent reference walkthroughs remain inline: three each for College.money, ULI and Upaj |
+| Original prototype UI | Four original EduLoans student/partner/KAM screenshots, clearly labelled sample data and scripted responses |
+| Historical storefront recording | One 20-second silent UrbanKhet excerpt, excluding the private checkout/B2B account screens |
+| Proposed MCP system design | One additional authored architecture diagram with explicit unverified live-wiring and human-approval boundaries |
+| Validation evidence and plans | Archived March 2026 software-test record; three proposed evaluation tables, all rows marked not executed |
 | Source-pack PDFs | Relevant information from the four generated references is presented in on-site chapters; the original files are retained locally |
 | UrbanKhet supporting formats | The business model and reviewed creative material appear as website explanations and image previews |
 | Authored study PDFs | Retired from public hosting; the revised narratives are read on the website |
@@ -67,4 +71,4 @@ Raw career workbooks, private research reports, applicant and farmer records, or
 
 The six-page EduLoans architecture excerpt and three-page Absolute institutional excerpt were rebuilt from reviewed visible pages before source conversion. Those retained reference PDFs contain only the rendered page images, with no hidden source images, source attachments or annotations. The website uses reviewed images and authored explanations rather than embedding or linking those PDFs.
 
-Reviewed galleries, inline videos and on-site reference chapters are the public evidence layer. Per-study `sourceNotes` preserve material limitations without exposing the private research ledger or local source locations. Case-source and legacy publisher attachment actions remain retired; the supplied original CV is the deliberate download exception. The complete 198 chapters remain available in expandable case sections, while qualifications stay beside charts and fuller source notes are in the evidence disclosure.
+Reviewed galleries, inline videos and on-site reference chapters are the public evidence layer. Per-study `sourceNotes` preserve material limitations without exposing the private research ledger or local source locations. Case-source and legacy publisher attachment actions remain retired; the supplied original CV is the deliberate download exception. All 198 original section records remain mapped to open decisions and source families; four new validation sections bring the source total to 202. All 17 tables, 105 unique media assets (95 images and ten videos), and 45 routes remain available. Qualifications stay beside charts and fuller source notes are open. Public content uses no Read more controls or accordions; primary media is visible before the account and is not repeated lower down. The six edited AI/business main accounts are approximately 367–618 words, retaining unique facts rather than repeated summaries. The source-to-edited-account crosswalk is recorded in CONTENT-COVERAGE.md.

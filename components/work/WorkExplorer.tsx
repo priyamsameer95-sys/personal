@@ -6,10 +6,12 @@ import type { CaseStudy, WorkCompany } from '@/lib/work-types';
 import { workTypeLabels } from '@/lib/work-types';
 import BrandMarks from '@/components/BrandMarks';
 import styles from './work-explorer.module.css';
+import WorkPreview, { type WorkPreviewStudy } from './WorkPreview';
+import { featuredCaseStudies } from '@/lib/work-presentation';
 
 export interface WorkExplorerGroup {
   company: WorkCompany;
-  studies: Array<Pick<CaseStudy, 'id' | 'slug' | 'title' | 'summary' | 'role' | 'period' | 'workType' | 'visualSummary'> & Partial<Pick<CaseStudy, 'media' | 'heroMediaId' | 'outcomes'>>>;
+  studies: Array<WorkPreviewStudy & Pick<CaseStudy, 'period'>>;
 }
 
 const primaryIds = ['cashkaro', 'credflow', 'absolute', 'urbankhet'];
@@ -34,63 +36,27 @@ export function resolveWorkFragment(hash: string, groups: readonly WorkExplorerG
 
 function CompanyWork({ group, hidden }: { group: WorkExplorerGroup; hidden: boolean }) {
   const { company, studies } = group;
-  return (
-    <section id={company.id} tabIndex={-1} aria-labelledby={`${company.id}-title`} className={styles.companySection} hidden={hidden}>
-      <header className={styles.companyHeader}>
-        <div>
-          <BrandMarks companyId={company.id} />
-          <p className={styles.companyMeta}>{company.period} · {company.relationship || contextLabels[company.id] || 'Employment'}</p>
-          <h2 id={`${company.id}-title`}>{company.name}</h2>
-        </div>
-        <div className={styles.companyScope}>
-          <p className={styles.companyRole}>{company.role}</p>
-          <p>{company.summary.split(/(?<=\.)\s+/)[0]}</p>
-          {company.summary.split(/(?<=\.)\s+/).length > 1 && <details className={styles.companyContext}><summary>{primaryIds.includes(company.id) ? 'Company context' : 'More context'} <span aria-hidden="true">+</span></summary><p>{company.summary.split(/(?<=\.)\s+/).slice(1).join(' ')}</p></details>}
-        </div>
-      </header>
-      <div className={styles.cardGrid}>
-        {studies.map(study => {
-          const hero = study.media?.find(asset => asset.id === study.heroMediaId);
-          const heroImage = hero?.kind === 'image' ? hero : study.media?.find(asset => asset.kind === 'image');
-          const image = study.slug === 'cashkaro-eduloans-policy-workflow' ? {
-            kind: 'image' as const,
-            src: '/work/workflows/cashkaro-eduloans-policy-workflow.svg',
-            width: 1400,
-            height: 780,
-            alt: 'Authored overview of the education-loan policy workflow',
-            provenance: { kind: 'authored' as const, label: 'Authored workflow overview; full technical model in the case study' },
-          } : heroImage;
-          const previewLabel = image?.provenance?.label || (study.workType === 'prototype' ? 'Prototype reference' : study.workType === 'proposal' ? 'Proposal reference' : 'Reference material');
-          return (
-          <article key={study.id} className={styles.card}>
-            {image?.kind === 'image' ? <div className={styles.preview}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" />
-              <span>{previewLabel}</span>
-            </div> : <div className={styles.textPreview}><p>{workTypeLabels[study.workType]}</p><p>{study.visualSummary?.impact || study.outcomes?.[0]?.label || study.role}</p>{study.outcomes?.[0]?.detail && <small>{study.outcomes[0].detail}</small>}</div>}
-            <div className={styles.cardContent}>
-            <header>
-              <p className={styles.cardMeta}>{workTypeLabels[study.workType]}</p>
-              <h3>{study.visualSummary?.title || study.title}</h3>
-              <p className={styles.cardSummary}>{study.visualSummary?.summary || study.summary}</p>
-              <p className={styles.cardRole}><span>My role</span> {study.visualSummary?.role || study.role}</p>
-            </header>
-            <Link className={styles.readCase} href={`/product/${encodeURIComponent(study.slug)}`}>
-              Read case study <span aria-hidden="true">→</span><span className={styles.visuallyHidden}>: {study.visualSummary?.title || study.title}</span>
-            </Link>
-            </div>
-          </article>
-        ); })}
+  return <section id={company.id} tabIndex={-1} aria-labelledby={`${company.id}-title`} className={styles.companySection} hidden={hidden}>
+    <header className={styles.companyHeader}>
+      <div>
+        <BrandMarks companyId={company.id} />
+        <p className={styles.companyMeta}>{company.period} · {company.relationship || contextLabels[company.id] || 'Employment'}</p>
+        <h2 id={`${company.id}-title`}>{company.name}</h2>
       </div>
-    </section>
-  );
+      <div className={styles.companyScope}><p className={styles.companyRole}>{company.role}</p><p>{company.summary}</p></div>
+    </header>
+    <div className={styles.indexList}>{studies.map(study => <article className={styles.indexItem} key={study.id}>
+      <div><p className={styles.cardMeta}>{workTypeLabels[study.workType]}</p><h3><Link href={`/product/${encodeURIComponent(study.slug)}`}>{study.visualSummary?.title || study.title}<span aria-hidden="true"> ↗</span></Link></h3></div>
+      <p className={styles.cardSummary}>{study.visualSummary?.summary || study.summary}</p>
+    </article>)}</div>
+  </section>;
 }
 
 export default function WorkExplorer({ groups }: { groups: WorkExplorerGroup[] }) {
   const primary = primaryIds.flatMap(id => groups.filter(group => group.company.id === id));
   const other = groups.filter(group => !primaryIds.includes(group.company.id));
-  const initialCompany = primary.find(group => group.company.id === 'cashkaro') || primary[0] || groups[0];
-  const [selected, setSelected] = useState(initialCompany?.company.id || 'all');
+  const featured = featuredCaseStudies(groups.flatMap(group => group.studies));
+  const [selected, setSelected] = useState('all');
   const selectedRef = useRef(selected);
   selectedRef.current = selected;
   const pendingFragment = useRef<string | null>(null);
@@ -142,14 +108,19 @@ export default function WorkExplorer({ groups }: { groups: WorkExplorerGroup[] }
 
   return (
     <div className={styles.explorer}>
+      <section className={styles.featured} aria-labelledby="featured-title">
+        <div className={styles.featuredIntro}><h2 id="featured-title">Six featured projects</h2><a href="#company-index" className="ink-link">Browse all {total} projects <span aria-hidden="true">↓</span></a></div>
+        {featured.map((study, index) => <WorkPreview key={study.id} study={study} priority={index === 0} />)}
+      </section>
+      <div id="company-index" className={styles.indexIntro}><p>Full project index</p><h2>Every company. Every context.</h2><p>All {total} projects are here. Use a filter if you have a particular company in mind.</p></div>
       <div className={styles.controls}>
         <div role="group" aria-label="Filter work by company" className={styles.primaryFilters}>
+          <button type="button" aria-pressed={selected === 'all'} onClick={() => choose('all')}>All work <span>{total}</span></button>
           {primary.map(({ company, studies }) => (
             <button key={company.id} type="button" aria-pressed={selected === company.id} onClick={() => choose(company.id)}>
               {company.name}<span>{studies.length}</span>
             </button>
           ))}
-          <button type="button" aria-pressed={selected === 'all'} onClick={() => choose('all')}>All work <span>{total}</span></button>
         </div>
         {other.length > 0 && (
           <div className={styles.otherFilter}>

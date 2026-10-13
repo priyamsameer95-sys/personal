@@ -4,16 +4,18 @@ import { findCaseStudy } from '@/lib/work';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
-import PeelReveal from '@/components/PeelReveal';
+import Media from '@/components/work/Media';
+import WorkPreview from '@/components/work/WorkPreview';
+import { getPrimaryMedia } from '@/lib/work-presentation';
 import CvDownload from '@/components/CvDownload';
 import BrandMarks from '@/components/BrandMarks';
 import styles from './home.module.css';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Priyam Sameer — Product Leadership' },
-  description: 'Product leadership across lending, marketplaces and agritech. Explore Priyam Sameer’s decisions, supported results, career and painting practice.',
-  openGraph: { title: 'Priyam Sameer — Product Leadership', description: 'From strategy to scale. My product decisions, work and experience.' },
-  twitter: { title: 'Priyam Sameer — Product Leadership', description: 'From strategy to scale. My product decisions, work and experience.' },
+  title: { absolute: 'Priyam Sameer — AI + Business Leadership' },
+  description: 'AI product thinking and business ownership. Explore original prototypes, crop-health AI, lending MCP architecture and commercial outcomes from Priyam Sameer’s work.',
+  openGraph: { title: 'Priyam Sameer — AI + Business Leadership', description: 'AI product thinking. Business ownership. Interfaces, decisions and evidence from my work.' },
+  twitter: { title: 'Priyam Sameer — AI + Business Leadership', description: 'AI product thinking. Business ownership. Interfaces, decisions and evidence from my work.' },
 };
 
 const selected = [
@@ -29,35 +31,47 @@ const career = [
 ];
 
 export default function HomePage() {
+  const prototype = findCaseStudy('cashkaro-eduloans-policy-workflow');
+  const heroMedia = prototype ? getPrimaryMedia(prototype)[0] : undefined;
+  const previews = ['absolute-crop-health-ai', 'cashkaro-lending-mcp-feedback', 'cashkaro-college-money-education-loans'];
   return <PublicShell>
     <Header />
     <main id="main-content">
       <section className={styles.hero} aria-labelledby="intro-title">
-        <div>
-          <p className={styles.label}>Priyam Sameer · Product leader</p>
-          <h1 id="intro-title">Product leadership.<br /><em>From strategy<br className={styles.heroBreak} /> to scale.</em></h1>
-          <p className={styles.intro}>I build lending, marketplace and agritech products—and the operations that make them work.</p>
+        <div className={styles.heroCopy}>
+          <p className={styles.label}>Priyam Sameer · AI + business leadership</p>
+          <h1 id="intro-title">AI product thinking.<br /><em>Business ownership.</em></h1>
+          <p className={styles.intro}>I build lending, marketplace and agritech products—with AI-assisted workflows, deliberate decision systems and clear business ownership.</p>
           <div className={styles.actions}>
             <Link href="/product" className="ink-button">Explore my work <span aria-hidden="true">↗</span></Link>
             <CvDownload className={styles.download} />
           </div>
           <p className={styles.current}><span>Currently</span> General Manager, Product Management &amp; Business Growth<br />CashKaro / BankKaro</p>
         </div>
-        <div className={styles.heroArtwork}><PeelReveal /></div>
+        {heroMedia && <div className={styles.heroEvidence}>
+          <div className={styles.prototypeHeading}><span>EduLoans</span><span>Working interaction prototype</span></div>
+          <Media media={heroMedia} priority compact />
+          <p className={styles.heroDecision}>AI-assisted delivery. Deterministic lender rules. Human verification before policy matching.</p>
+          <Link href="/product/cashkaro-eduloans-policy-workflow" className="ink-link">Full case study <span aria-hidden="true">↗</span></Link>
+        </div>}
       </section>
 
       <section className={styles.section} aria-labelledby="work-title">
-        <div className={styles.sectionHeader}><div><p className={styles.label}>Decisions, delivery and impact</p><h2 id="work-title">Selected work.</h2></div><Link href="/product" className="ink-link">Explore all work <span aria-hidden="true">↗</span></Link></div>
+        <div className={styles.sectionHeader}><div><p className={styles.label}>The work, up close</p><h2 id="work-title">AI judgment. Real-world stakes.</h2></div><Link href="/product" className="ink-link">All 25 projects <span aria-hidden="true">↗</span></Link></div>
+        {previews.map(slug => { const study = findCaseStudy(slug); return study ? <WorkPreview key={study.id} study={study} /> : null; })}
+      </section>
+
+      <section className={styles.section} aria-labelledby="impact-title">
+        <div className={styles.sectionHeader}><div><p className={styles.label}>Commercial ownership</p><h2 id="impact-title">The business behind the product.</h2></div></div>
         <div className={styles.selectedWork}>{selected.map(proof => {
           const study = findCaseStudy(proof.slug);
           if (!study) return null;
           return <article key={study.id} className={styles.workItem}>
             <p className={styles.domain}>{proof.domain}</p>
-            <BrandMarks companyId={study.companyId} small className={styles.workBrands} />
-            <h3>{study.visualSummary?.title || study.title}</h3>
-            <p className={styles.workSummary}>{study.visualSummary?.summary || study.summary}</p>
-            <div className={styles.proof}><p className={styles.proofValue}>{proof.value}</p><p className={styles.proofMeasure}>{proof.measure}</p><p className={styles.proofNote}>{proof.note}</p></div>
-            <Link href={`/product/${encodeURIComponent(study.slug)}`} className="ink-link">Read case study <span aria-hidden="true">→</span><span className="sr-only">: {study.visualSummary?.title || study.title}</span></Link>
+            <p className={styles.proofValue}>{proof.value}</p>
+            <p className={styles.proofMeasure}>{proof.measure}</p>
+            <p className={styles.proofNote}>{proof.note}</p>
+            <Link href={`/product/${encodeURIComponent(study.slug)}`} className="ink-link">{study.visualSummary?.title || study.title} <span aria-hidden="true">↗</span></Link>
           </article>;
         })}</div>
       </section>
@@ -65,7 +79,7 @@ export default function HomePage() {
       <section className={styles.section} aria-labelledby="career-title">
         <div className={styles.sectionHeader}><div><p className={styles.label}>From founder to product leader</p><h2 id="career-title">A growing scope.</h2></div><Link href="/cv" className="ink-link">View experience <span aria-hidden="true">→</span></Link></div>
         <ol className={styles.career}>{career.map(item => <li key={item.id}>
-          <p className={styles.careerDate}>{item.period}</p><h3>{item.name}</h3><p className={styles.careerRole}>{item.role}</p><Link href={`/cv#${item.id}`} className="ink-link">View role <span aria-hidden="true">↗</span><span className="sr-only">: {item.name}</span></Link>
+          <p className={styles.careerDate}>{item.period}</p><h3>{item.name}</h3><p className={styles.careerRole}>{item.role}</p>
         </li>)}</ol>
       </section>
 

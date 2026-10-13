@@ -8,7 +8,7 @@ export default function Footer() {
       <a href="mailto:Priyam.Sameer.95@gmail.com" className={styles.email}>Priyam.Sameer.95@gmail.com <span aria-hidden="true">↗</span></a>
     </div>
     <div className={styles.footerSide}>
-      <p>Product, partnerships or a good idea.</p>
+      <p>AI products, business growth and teams.</p>
       <div className={styles.connections}>
         <a href="https://www.linkedin.com/in/priyam-sameer" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
         <a href="tel:+918238452277">Call</a>

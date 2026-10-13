@@ -81,10 +81,9 @@ export default async function BlogPage() {
                       {new Date(post.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })}
                     </time>
                     <Link href={href} className={styles.titleLink}>
-                      <h2>{post.title}</h2>
+                      <h2>{post.title} <span aria-hidden="true">↗</span></h2>
                     </Link>
                     {excerpt && <p>{excerpt}</p>}
-                    <Link href={href} className={styles.readLink}>Read essay <span aria-hidden="true">↗</span></Link>
                   </article>
                 );
               })}

@@ -189,7 +189,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -261,6 +262,37 @@
             "note": "Programme-level report. Funnel events and comparison cohorts are not supplied."
           }
         ]
+      },
+      "primaryMediaIds": [
+        "workflow-diagram"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "One application, different lender requirements",
+            "sectionIds": [
+              "build",
+              "routing"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "A weekly rhythm for improving the funnel",
+            "sectionIds": [
+              "delivery",
+              "operating-rhythm"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     },
     {
@@ -463,7 +495,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "college-money-abroad-country-selector",
@@ -477,7 +510,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "college-money-abroad-desktop-initial",
@@ -491,7 +525,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "college-money-abroad-faq-expanded-verified",
@@ -505,7 +540,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "college-money-abroad-hero-final",
@@ -519,7 +555,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "college-money-abroad-hero-live",
@@ -533,7 +570,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "college-money-abroad-how-it-works",
@@ -547,7 +585,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "college-money-abroad-loan-types",
@@ -561,7 +600,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "college-money-abroad-readiness",
@@ -575,7 +615,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "college-money-abroad-university-loading",
@@ -589,7 +630,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "college-money-abroad-university-options-verified",
@@ -603,7 +645,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "college-money-emi-calculator-default",
@@ -617,7 +660,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "college-money-College-Money-01-Product-Overview",
@@ -634,7 +678,8 @@
             "kind": "authored",
             "label": "Generated public-reference walkthrough",
             "date": "13 October 2026"
-          }
+          },
+          "category": "walkthrough"
         },
         {
           "id": "college-money-College-Money-02-Loan-Discovery",
@@ -651,7 +696,8 @@
             "kind": "authored",
             "label": "Generated public-reference walkthrough",
             "date": "13 October 2026"
-          }
+          },
+          "category": "walkthrough"
         },
         {
           "id": "college-money-College-Money-03-Published-Journey",
@@ -668,7 +714,8 @@
             "kind": "authored",
             "label": "Generated public-reference walkthrough",
             "date": "13 October 2026"
-          }
+          },
+          "category": "walkthrough"
         }
       ],
       "sourceNotes": [
@@ -699,7 +746,7 @@
         "challenge": "Fragmented requirements create repeat work and uncertain next steps.",
         "role": "Education-loan journey, partner commercials and operations.",
         "decision": "Unify capture, evidence and lender routing.",
-        "impact": "Reported launch-year enquiry-to-application conversion: 40%.",
+        "impact": "Reported 40% enquiry-to-application conversion; launch-year cohort definition not supplied.",
         "workflow": {
           "label": "How the work connects",
           "steps": [
@@ -739,6 +786,60 @@
               }
             ],
             "note": "Launch-year report. The 60% remainder is computed, not separately measured; enquiry cohort not supplied."
+          }
+        ]
+      },
+      "featuredOrder": 4,
+      "primaryMediaIds": [
+        "college-money-College-Money-02-Loan-Discovery",
+        "college-money-abroad-country-selector"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Turning student intent into a workable case",
+            "sectionIds": [
+              "build",
+              "borrower-to-case"
+            ],
+            "body": [
+              "I mapped the journey from enquiry to application around the evidence a student needed to collect and the handoffs that could stop a case. A thin origination layer connected common inputs, documents, eligibility pre-checks and lender routing, making case preparation part of the product instead of a separate task left to the applicant.",
+              "The marketplace addressed education-lending needs including upskilling and tier-2/3 applicants. College.money is the production education-loan environment identified in the project conversation; its current published discovery surface is reference context. The related EduLoans prototype explores the later study-abroad policy, document and reviewer journeys in more detail."
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Building the product and the business together",
+            "sectionIds": [
+              "delivery",
+              "business-and-team"
+            ],
+            "body": [
+              "I worked with engineering on application and lender handoff, growth on CashKaro distribution, and operations on following a submitted case. MoEngage and internal dashboards exposed abandonment and delay at individual stages, so the team could discuss the point of friction instead of only the final conversion.",
+              "I owned partner conversations on pricing, payouts, KYC responsibilities and service levels. Agreements defined how applications and commercial outcomes moved between organisations. A completed loan creates a student outcome and a partner payout: the integration, journey and commercial model needed to describe the same service before cases could move reliably."
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ],
+            "body": [
+              "My judgment is to make a complex service understandable through its next action. Student evidence, reviewer work and lender requirements must describe the same case. Case preparation and commercial follow-through belong in one product account; a clear application is useful only when the receiving organisation can assess it."
+            ]
+          }
+        ],
+        "supportingGroups": [
+          {
+            "id": "public-product-reference",
+            "title": "Current public discovery and published journey",
+            "sectionIds": [
+              "public-discovery-reference",
+              "published-application-reference",
+              "college-money-walkthroughs"
+            ]
           }
         ]
       }
@@ -870,7 +971,8 @@
           "title": "Why the builds used different tools",
           "body": [
             "I used tools for distinct jobs rather than treating generated output as one finished product. The policy/chat build made the rule logic and conversations reviewable; the React, TypeScript and Supabase scaffold made the application structure tangible. A polished scaffold still needed confirmed policy and operational checks before release.",
-            "The portfolio places reasoning, specification and review alongside scaffolding and repository work. These choices accelerated an inspectable build; they do not establish production completeness, independent model quality or a fully autonomous loan decision."
+            "The portfolio places reasoning, specification and review alongside scaffolding and repository work. These choices accelerated an inspectable build; they do not establish production completeness, independent model quality or a fully autonomous loan decision.",
+            "The written product model documents a fourteen-turn student journey; the supplied V1.03 frontend displays a thirteen-step counter. The four original interaction screenshots use sample records and scripted responses, without a lender, backend or live model connection."
           ],
           "group": "detail",
           "source": {
@@ -1004,6 +1106,121 @@
             "range": "“What I’m learning next” and skills chapters",
             "version": "Follow-on exploration"
           }
+        },
+        {
+          "id": "software-validation-record",
+          "title": "Archived unit and regression validation — March 2026",
+          "body": [
+            "The archived React–TypeScript build includes deterministic, utility and UI regression tests. Its Vitest JSON report records 145 passing assertions across ten files on 5 March 2026 at 06:51 UTC. This is an archived run, not a fresh verification or a model-quality score.",
+            "The BRE tests define their helpers inside the test file rather than importing the deployed suggest-lender function. Admin smoke tests mock Supabase; document assertions cover status utilities. Other archived logs show earlier selector failures, and a separate last-run marker says failed without identifying tests. The archive alone does not establish the current deployed state."
+          ],
+          "group": "detail",
+          "source": {
+            "label": "edulaons-main.zip",
+            "range": "src/test, vitest_report.json, test_out.txt, earlier failure logs",
+            "date": "5 March 2026",
+            "version": "Archived software-validation evidence; not independently rerun"
+          },
+          "tables": [
+            {
+              "caption": "What the archived validation establishes",
+              "headers": [
+                "Evidence",
+                "Recorded scope",
+                "Limit"
+              ],
+              "rows": [
+                [
+                  "Deterministic BRE tests",
+                  "26 assertions: urgency, strategy, warnings and academic weighting",
+                  "Local test helpers; not the deployed edge function"
+                ],
+                [
+                  "UI and utility regression tests",
+                  "Auth hydration, selectors, field validation, completeness, formatting and disclosures",
+                  "Mocks replace auth, Supabase and selected UI dependencies"
+                ],
+                [
+                  "Document-related assertions",
+                  "Document-status labels and utilities",
+                  "No labelled-document model evaluation"
+                ],
+                [
+                  "JSON run report",
+                  "145 passing assertions across ten test files",
+                  "One March 2026 snapshot; older failure logs remain"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "evaluation-plan",
+          "title": "Evaluation and release validation — proposed",
+          "body": [
+            "I would validate policy correctness separately from document-model quality and user workflow behaviour. No held-out document dataset, model benchmark or measured agent evaluation is attached; the proposed checks below do not turn the archived software tests into those results."
+          ],
+          "group": "detail",
+          "source": {
+            "label": "Proposed validation plan",
+            "version": "Authored portfolio plan; not executed results"
+          },
+          "tables": [
+            {
+              "caption": "Proposed evaluation plan — no measured results claimed",
+              "headers": [
+                "Scenario",
+                "Expected behaviour",
+                "Available evidence",
+                "Status"
+              ],
+              "rows": [
+                [
+                  "Missing lender thresholds",
+                  "Block matching/release for affected lenders until approved thresholds are supplied; never substitute a guessed value.",
+                  "Existing: release notes identify 13 threshold gaps across five lenders and require relationship-manager policy confirmation. Proposed: signed-off boundary fixtures and a release-blocking test.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Verification bypass",
+                  "Do not return a lender match before required KAM verification; reject attempts to skip the gate.",
+                  "Existing: workflow and architecture describe verification before BRE results. Proposed: student, partner and KAM attempts to bypass the gate, with permission and recovery checks.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Deterministic repeatability",
+                  "The same applicant inputs and rule version produce the same gates, score and tier across each implementation.",
+                  "Existing: deterministic policy model and archived local-helper BRE tests; the deployed edge function was not tested by those helpers. Proposed: shared approved fixtures against the model and both builds, recording version disagreements.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Score boundaries",
+                  "Clamp scores to 0–100 and assign the documented five tiers consistently at each boundary.",
+                  "Existing: bounded-scoring model, scoring diagram and archived local-helper assertions. Proposed: approved lender-specific fixtures at, below and above every score/tier boundary.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Uncertain documents",
+                  "Separate classification, validation and verification; uncertain extraction routes to human review instead of a confident match.",
+                  "Existing: document-pipeline diagram and regional marksheet, tax-scan and joint-statement examples. Archived document assertions cover status utilities, not model quality. Proposed: consented deidentified difficult scans with per-type quality, abstention and reviewer-correction checks.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Role permissions and incomplete-case recovery",
+                  "Keep student, partner and KAM actions within their remit; explain missing evidence and recover without losing the case state.",
+                  "Existing: three-role original interaction prototype with scripted sample data and a confirmation card. Proposed: incomplete-document, unauthorised-action and recovery journeys; expand the 32 unsecured checklist combinations.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Rule-source reconciliation before release",
+                  "Use the approved policy version in each build and resolve differences before deployment.",
+                  "Existing: master/build consistency backlog and proposed checksum or rules-admin controls. Proposed: version reconciliation, signed-off fixtures and documented disagreement resolution.",
+                  "Proposed — not executed"
+                ]
+              ],
+              "note": "The test sets, baselines and release thresholds must be agreed before execution. This table records proposed validation work."
+            }
+          ]
         }
       ],
       "media": [
@@ -1018,7 +1235,8 @@
           "provenance": {
             "kind": "historical",
             "label": "Technical-portfolio architecture diagram; not a captured production screen"
-          }
+          },
+          "category": "diagram"
         },
         {
           "id": "college-money-lender-scoring",
@@ -1031,7 +1249,8 @@
           "provenance": {
             "kind": "historical",
             "label": "Technical-portfolio architecture diagram; not a captured production screen"
-          }
+          },
+          "category": "diagram"
         },
         {
           "id": "college-money-lead-workflow",
@@ -1044,7 +1263,8 @@
           "provenance": {
             "kind": "historical",
             "label": "Technical-portfolio architecture diagram; not a captured production screen"
-          }
+          },
+          "category": "diagram"
         },
         {
           "id": "college-money-document-pipeline",
@@ -1057,7 +1277,8 @@
           "provenance": {
             "kind": "historical",
             "label": "Technical-portfolio architecture diagram; not a captured production screen"
-          }
+          },
+          "category": "diagram"
         },
         {
           "id": "workflow-diagram",
@@ -1070,6 +1291,63 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the proposed or supporting workflow"
+          },
+          "category": "diagram"
+        },
+        {
+          "id": "eduloans-prototype-student",
+          "kind": "image",
+          "category": "prototype-screenshot",
+          "src": "/work/eduloans/prototype/student-intake.png",
+          "alt": "Student conversational intake with captured information and progress",
+          "caption": "Original interaction prototype — sample data; scripted responses.",
+          "width": 1440,
+          "height": 1000,
+          "provenance": {
+            "kind": "prototype",
+            "label": "Original V1.03 interaction prototype; illustrative data and indicators"
+          }
+        },
+        {
+          "id": "eduloans-prototype-partner",
+          "kind": "image",
+          "category": "prototype-screenshot",
+          "src": "/work/eduloans/prototype/partner-pipeline.png",
+          "alt": "Partner pipeline and stage filters using sample leads",
+          "caption": "Original interaction prototype — sample data; scripted responses.",
+          "width": 1440,
+          "height": 1000,
+          "provenance": {
+            "kind": "prototype",
+            "label": "Original V1.03 interaction prototype; illustrative data and indicators"
+          }
+        },
+        {
+          "id": "eduloans-prototype-kam",
+          "kind": "image",
+          "category": "prototype-screenshot",
+          "src": "/work/eduloans/prototype/kam-queue.png",
+          "alt": "KAM review queue with sample cases and operational priorities",
+          "caption": "Original interaction prototype — sample data; scripted responses.",
+          "width": 1440,
+          "height": 1000,
+          "provenance": {
+            "kind": "prototype",
+            "label": "Original V1.03 interaction prototype; illustrative data and indicators"
+          }
+        },
+        {
+          "id": "eduloans-prototype-inspector",
+          "kind": "image",
+          "category": "prototype-screenshot",
+          "src": "/work/eduloans/prototype/kam-inspector.png",
+          "alt": "KAM case inspector and confirmation before an action",
+          "caption": "Original interaction prototype — sample data; scripted responses.",
+          "width": 1440,
+          "height": 1000,
+          "provenance": {
+            "kind": "prototype",
+            "label": "Original V1.03 interaction prototype; illustrative data and indicators"
           }
         }
       ],
@@ -1081,8 +1359,8 @@
       "aliases": [
         "eduloans-policy-workflow"
       ],
-      "featured": false,
-      "heroMediaId": "college-money-system-architecture",
+      "featured": true,
+      "heroMediaId": "eduloans-prototype-inspector",
       "relatedSlugs": [
         "cashkaro-personal-loan-marketplace",
         "cashkaro-college-money-education-loans",
@@ -1096,12 +1374,12 @@
         "impact": "The model covers 62 rules, eight lender configurations and 23 workflow states. The broader origination workflow reports nine to four hours of effort per file; prototype completeness is separate."
       },
       "visualSummary": {
-        "title": "EduLoans policy and workflow",
-        "summary": "Explainable rules, verification gates and an inspectable prototype.",
+        "title": "EduLoans: AI-assisted lending workflows",
+        "summary": "An original student, partner and reviewer prototype, built around inspectable lender rules and human verification.",
         "challenge": "Incomplete policy and uncertain documents can produce a misleading match.",
         "role": "PRD, rule model, role journeys and AI-assisted builds.",
         "decision": "Use deterministic gates; route uncertainty to a reviewer.",
-        "impact": "62 rules, eight lender configurations and 23 workflow states.",
+        "impact": "Policy model: 62 rules, eight lender configurations. Release blockers remain.",
         "workflow": {
           "label": "How the work connects",
           "steps": [
@@ -1141,6 +1419,85 @@
               }
             ],
             "note": "Broader origination-workflow result, not an isolated prototype, BRE or OCR benchmark."
+          }
+        ]
+      },
+      "featuredOrder": 1,
+      "primaryMediaIds": [
+        "eduloans-prototype-inspector",
+        "eduloans-prototype-student",
+        "eduloans-prototype-partner",
+        "eduloans-prototype-kam"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Deterministic policy before confident automation",
+            "sectionIds": [
+              "build",
+              "policy-and-launch"
+            ],
+            "body": [
+              "I chose deterministic lender matching for the first version and deferred ML scoring until outcome data existed. The policy model covers 62 rules across eight lender configurations: eligibility gates first, then a score bounded at 0–100 and five result tiers. The same inputs and rule version should produce the same answer.",
+              "Thirteen missing thresholds across five lenders became P0 release restrictions. Relationship-manager confirmation, backed by a policy screenshot, was required before affected lenders could ship. A polished interface could not resolve missing policy. Premium-university exceptions, course factors and urgency adjustments remained explicit; source consistency and further coverage were release work."
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Verification, document uncertainty and human review",
+            "sectionIds": [
+              "delivery",
+              "people-and-exceptions"
+            ],
+            "body": [
+              "I separated policy correctness from application scaffolding. Parallel policy/chat and React–TypeScript–Supabase builds made the lender model and journeys inspectable. Emergent, Lovable, Claude, Gemini and Antigravity supported different prototype, scaffold, review and repository tasks; their roles and release gates are recorded below.",
+              "Classification, validation and verification are separate document steps. Lender-by-applicant checklists govern requirements. Regional marksheets, scanned tax returns and joint statements illustrate cases where extraction cannot settle the question: uncertain evidence goes to KAM review. Verification precedes a lender match. Thirty-two unsecured checklist combinations and operational case views remain coverage work."
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "One case model, three different jobs",
+            "sectionIds": [
+              "takeaway",
+              "interaction-design"
+            ],
+            "body": [
+              "The shared conversational shell explores three jobs. Students follow a fourteen-turn capture journey; partners submit and handle cases in bulk with payout context; KAMs inspect risk and SLA signals, verify evidence and work through case detail. Role-specific conversations and action sheets make those differences visible in the original interaction prototype.",
+              "The 23-state lifecycle describes workflow states, not geographic reach. Verification, matching and documents depend on one case and policy model. A separate operational KAM dashboard, rule sync and expanded coverage remain roadmap work. My product judgment is to make uncertainty visible: an explainable rule, a release blocker or human review is more useful than confident automation over a policy gap."
+            ]
+          }
+        ],
+        "supportingGroups": [
+          {
+            "id": "build-and-release",
+            "title": "Build choices and release gates",
+            "sectionIds": [
+              "tool-choices",
+              "defended-policy-choices",
+              "release-backlog"
+            ]
+          },
+          {
+            "id": "further-ai-learning",
+            "title": "Further learning: agent orchestration and connector boundaries",
+            "sectionIds": [
+              "further-ai-learning"
+            ]
+          },
+          {
+            "id": "software-validation-record",
+            "title": "Archived unit and regression validation — March 2026",
+            "sectionIds": [
+              "software-validation-record"
+            ]
+          },
+          {
+            "id": "evaluation-plan",
+            "title": "Evaluation and release validation — proposed",
+            "sectionIds": [
+              "evaluation-plan"
+            ]
           }
         ]
       }
@@ -1249,7 +1606,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -1302,6 +1660,37 @@
           ],
           "note": "The broader panel differs from the eight lender configurations in the EduLoans model."
         }
+      },
+      "primaryMediaIds": [
+        "workflow-diagram"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Making the common steps explicit",
+            "sectionIds": [
+              "build",
+              "contract"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Building an operating team around the integration",
+            "sectionIds": [
+              "delivery",
+              "team-and-records"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     },
     {
@@ -1393,9 +1782,85 @@
             "That separation matters because changing a policy affects future cases. A deterministic rule can be inspected for one applicant, while an update needs its own ownership and approval process. The workstream brings that operating question into the architecture; production use and the exact update mechanism remain at the development stage described in the source notes."
           ],
           "group": "detail"
+        },
+        {
+          "id": "evaluation-plan",
+          "title": "Evaluation and release validation — proposed",
+          "body": [
+            "Before presenting this architecture as deployed, I would verify the tool contract, access boundary and rule-version behaviour. Outcome feedback would enter an approval workflow; it would not change production policy automatically."
+          ],
+          "group": "detail",
+          "source": {
+            "label": "Proposed validation plan",
+            "version": "Authored portfolio plan; not executed results"
+          },
+          "tables": [
+            {
+              "caption": "Proposed evaluation plan — no measured results claimed",
+              "headers": [
+                "Scenario",
+                "Expected behaviour",
+                "Available evidence",
+                "Status"
+              ],
+              "rows": [
+                [
+                  "Tool selection",
+                  "Select the intended policy engine for the consumer and lender context; do not fabricate an available tool or policy result.",
+                  "Existing: proposed one-server/two-BRE architecture and shared evaluation direction. No executed MCP tool-selection tests are available. Proposed: routing fixtures including ambiguous and unavailable-tool cases, with consistent answers across consuming interfaces.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Arguments and schema versions",
+                  "Validate required applicant/lender arguments and the rule/schema version before evaluation; preserve caller identity in the audit record.",
+                  "Existing: shared-request/result system diagram and rule-source direction. No executable contract-test report is available. Proposed: typed schema fixtures, missing/extra arguments and version-mismatch checks.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Malformed or unauthorised requests",
+                  "Reject malformed and out-of-scope calls explicitly; do not expose another role’s case or return an invented decision.",
+                  "Existing: proposed interface, reviewer and lender boundaries. No adversarial access-test results are available. Proposed: role-scoped malformed requests, audit inspection and permission-boundary tests.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Failure handling",
+                  "On timeout or an unavailable dependency, return an explicit recoverable failure rather than a made-up result; bound retry behaviour.",
+                  "Existing: architecture proposal only; live failure behaviour is not established. Proposed: timeout, retry and unavailable-dependency scenarios with recorded behaviour before release.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Unapproved policy changes",
+                  "A rejection or override must not change active policy without an identified owner and human approval.",
+                  "Existing: proposed separation of evaluation, reviewed feedback and human approval. No operating approval mechanism is verified. Proposed: attempted unapproved updates and approval/ownership checks.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Approved feedback, versioning and rollback",
+                  "Review rejection/override evidence, record the approved rule version and demonstrate rollback before a changed policy affects later cases.",
+                  "Existing: feedback workstream describes rejections and manual underwriter overrides as review inputs. Production retuning is not established. Proposed: reviewed change examples, audit trail, version transitions and rollback tests.",
+                  "Proposed — not executed"
+                ]
+              ],
+              "note": "The test sets, baselines and release thresholds must be agreed before execution. This table records proposed validation work."
+            }
+          ]
         }
       ],
       "media": [
+        {
+          "id": "lending-mcp-proposal",
+          "kind": "image",
+          "category": "diagram",
+          "src": "/work/architecture/lending-mcp-proposal.svg",
+          "alt": "Proposed single MCP server connecting two policy engines to a shared evaluation request and result, with reviewed feedback and human approval before rule changes",
+          "width": 1200,
+          "height": 850,
+          "caption": "Proposed system design: shared policy evaluation, with human approval before policy changes. Live MCP wiring is not established.",
+          "provenance": {
+            "kind": "proposal",
+            "label": "Authored architecture proposal; deployment not verified"
+          }
+        },
         {
           "id": "workflow-diagram",
           "kind": "image",
@@ -1407,7 +1872,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the proposed or supporting workflow"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -1417,13 +1883,13 @@
       "aliases": [
         "lending-mcp-feedback"
       ],
-      "featured": false,
+      "featured": true,
       "relatedSlugs": [
         "cashkaro-personal-loan-marketplace",
         "cashkaro-college-money-education-loans",
         "cashkaro-eduloans-policy-workflow"
       ],
-      "heroMediaId": "workflow-diagram",
+      "heroMediaId": "lending-mcp-proposal",
       "workType": "proposal",
       "executiveBrief": {
         "challenge": "A rule embedded in one interface is difficult to reuse. Rejections and reviewer overrides can reveal policy gaps, but changing future decisions needs clear ownership.",
@@ -1432,8 +1898,8 @@
         "impact": "The output is an architecture workstream alongside working EduLoans builds. Production reuse, exact wiring and an isolated business result remain unconfirmed."
       },
       "visualSummary": {
-        "title": "Callable lending policy",
-        "summary": "An architecture direction for reusable rules and reviewed feedback.",
+        "title": "MCP for lending policy",
+        "summary": "A proposed shared policy service, with evaluation kept separate from approving a changed rule.",
         "challenge": "Interface-bound rules are difficult to reuse or update responsibly.",
         "role": "Lending-policy architecture and implementation review.",
         "decision": "Separate evaluation from approved policy change.",
@@ -1460,6 +1926,57 @@
           ],
           "note": "Architecture proposal: two BREs behind one MCP server are described, not verified as deployed."
         }
+      },
+      "featuredOrder": 3,
+      "primaryMediaIds": [
+        "lending-mcp-proposal"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Separating the policy from its interface",
+            "sectionIds": [
+              "build",
+              "service-boundary"
+            ],
+            "body": [
+              "The working-guide direction separates lender-policy evaluation from the interface consuming it: two business-rule engines behind one MCP server. A chat, reviewer surface or another application could call the same capability while using a different interaction pattern. This is the proposed service boundary, rather than evidence that those integrations are live.",
+              "The starting point is EduLoans: lender-specific conditions, KAM verification before matching and a source of truth for rules. Deterministic matching remains the first-version approach. A shared request and result would support reuse while preserving the lender’s credit-decision ownership and the product’s application-handoff responsibility."
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "What lender outcomes can tell the product",
+            "sectionIds": [
+              "delivery",
+              "feedback"
+            ],
+            "body": [
+              "I brought rejection reasons and manual underwriter overrides into the feedback design. They can indicate a missing condition, an unsuitable route or information captured too late. That evidence should inform review of the policy; it is a separate concern from evaluating the next applicant against the current rule.",
+              "A policy change affects future cases and needs an identified owner and approval process. The proposed design marks human approval before changes, but the exact operating mechanism still requires validation. Live MCP wiring, production reuse and automatic retuning are not established by this workstream."
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ],
+            "body": [
+              "My judgment is to distinguish an inspectable decision from an evolving policy. Reuse is valuable when product, reviewer and lender boundaries stay clear, including who approves a change. The proposed evaluation plan below therefore separates consistent evaluation from authorisation, failures and reviewed feedback."
+            ]
+          }
+        ],
+        "supportingGroups": [
+          {
+            "id": "evaluation-plan",
+            "title": "Evaluation and release validation — proposed",
+            "sectionIds": [
+              "evaluation-plan"
+            ]
+          }
+        ]
       }
     },
     {
@@ -1567,7 +2084,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -1633,6 +2151,37 @@
             "note": "This is a reduction, not a share. Baseline, channel mix and retained-user quality are not supplied."
           }
         ]
+      },
+      "primaryMediaIds": [
+        "workflow-diagram"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Making acquisition and activation visible",
+            "sectionIds": [
+              "build",
+              "events"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Bringing the workstreams into one launch",
+            "sectionIds": [
+              "delivery",
+              "launch-execution"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     },
     {
@@ -1764,6 +2313,35 @@
           ],
           "note": "Transaction value is not revenue; initiated, successful and settled states are not reconciled."
         }
+      },
+      "primaryMediaIds": [],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "A customer flow with a money-movement dependency",
+            "sectionIds": [
+              "build",
+              "customer-and-capacity"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "The payment feature inside the KuberX programme",
+            "sectionIds": [
+              "delivery",
+              "launch-context"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     },
     {
@@ -1871,7 +2449,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -1881,7 +2460,7 @@
       "aliases": [
         "silkroute-marketplace"
       ],
-      "featured": false,
+      "featured": true,
       "relatedSlugs": [
         "absolute-trade-payments-erp",
         "absolute-rural-credit-uli",
@@ -1901,7 +2480,7 @@
         "challenge": "A catalogue alone could not digitise large-ticket commodity trading.",
         "role": "Research, connected modules and cross-functional delivery.",
         "decision": "Build marketplace and operating workflows together.",
-        "impact": "Reported programme GMV: $100 million in nine months.",
+        "impact": "$100M programme GMV in nine months; transaction value, not revenue.",
         "workflow": {
           "label": "How the work connects",
           "steps": [
@@ -1939,6 +2518,49 @@
             "note": "Source-reported programme scale, not platform revenue or one feature’s isolated effect."
           }
         ]
+      },
+      "featuredOrder": 5,
+      "primaryMediaIds": [
+        "workflow-diagram"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Working from the way traders already operated",
+            "sectionIds": [
+              "build",
+              "discovery-to-negotiation"
+            ],
+            "body": [
+              "I researched farmers, FPOs and rural and small-town traders, including their existing processes and payment failures. Catalogue and discovery had to connect to negotiation, matching and settlement if regular business was to move onto a mobile and web marketplace. The difficult operating steps could not remain outside the product.",
+              "I led product development across those connected modules. Direct buyer–seller negotiation reflected a large-ticket B2B transaction rather than a fixed-price retail checkout. Payment-gateway and internal ERP workflows formed part of the trade lifecycle, alongside customs and trade documentation."
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Coordinating delivery with a live trading business",
+            "sectionIds": [
+              "delivery",
+              "delivery-and-rollout"
+            ],
+            "body": [
+              "I prioritised Jira work and ran daily scrum as scrum master with engineering. Finance, operations and business colleagues supplied issues that crossed the platform boundary; root-cause analysis of payment failures helped turn those live problems into backlog decisions. This was cross-functional coordination, rather than line management of every participating team.",
+              "Regional execution workshops with leadership connected local requirements to the common platform across India, Southeast Asia and the Middle East. Rollout joined product, engineering, finance, operations and country teams. The reported programme scale belongs to that connected trading system, rather than an isolated catalogue feature or workshop."
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ],
+            "body": [
+              "My judgment is to build a marketplace’s operating spine. Discovery and negotiation matter when they can end in an executable trade. Live failures connect business reality to priorities: the transaction record, payment and regional handoffs need to work together before the interface can deliver its promise."
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     },
     {
@@ -2050,7 +2672,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -2122,6 +2745,37 @@
             "note": "Earlier source wording retained. Later “real-time” claims and missing cohort definitions are not merged."
           }
         ]
+      },
+      "primaryMediaIds": [
+        "workflow-diagram"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Connecting payment with the trade record",
+            "sectionIds": [
+              "build",
+              "trade-state"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Trade documentation and customer complaints",
+            "sectionIds": [
+              "delivery",
+              "documentation-and-service"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     },
     {
@@ -2694,7 +3348,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-docs-land-records-async-pipeline",
@@ -2708,7 +3363,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-docs-land-records-error-codes",
@@ -2722,7 +3378,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-docs-land-records-master-data",
@@ -2736,7 +3393,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-docs-land-records-overview",
@@ -2750,7 +3408,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-docs-land-records-state-providers",
@@ -2764,7 +3423,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-dashboard-august-2026",
@@ -2778,7 +3438,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-how-it-works",
@@ -2792,7 +3453,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-overview-full",
@@ -2806,7 +3468,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-overview-top",
@@ -2820,7 +3483,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-services-asset",
@@ -2834,7 +3498,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-services-credit",
@@ -2848,7 +3513,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-services-document-full",
@@ -2862,7 +3528,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-services-document",
@@ -2876,7 +3543,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-services-identity",
@@ -2890,7 +3558,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-services-income-full",
@@ -2904,7 +3573,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-services-income",
@@ -2918,7 +3588,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-services-value-added",
@@ -2932,7 +3603,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-whats-new-full",
@@ -2946,7 +3618,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-whats-new-middle",
@@ -2960,7 +3633,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-whats-new-rural-updates",
@@ -2974,7 +3648,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-whats-new-top",
@@ -2988,7 +3663,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-workflow-step-2",
@@ -3002,7 +3678,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-workflow-step-3",
@@ -3016,7 +3693,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-workflow-step-4",
@@ -3030,7 +3708,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "uli-uli-platform-workflow",
@@ -3047,7 +3726,8 @@
             "kind": "authored",
             "label": "Generated public-reference walkthrough",
             "date": "13 October 2026"
-          }
+          },
+          "category": "walkthrough"
         },
         {
           "id": "uli-uli-latest-updates",
@@ -3064,7 +3744,8 @@
             "kind": "authored",
             "label": "Generated public-reference walkthrough",
             "date": "13 October 2026"
-          }
+          },
+          "category": "walkthrough"
         },
         {
           "id": "uli-uli-data-and-services",
@@ -3081,7 +3762,8 @@
             "kind": "authored",
             "label": "Generated public-reference walkthrough",
             "date": "13 October 2026"
-          }
+          },
+          "category": "walkthrough"
         },
         {
           "id": "upaj-riskstac-data-inputs",
@@ -3095,7 +3777,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-riskstac-hero",
@@ -3109,7 +3792,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-riskstac-monitoring",
@@ -3123,7 +3807,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-riskstac-repayment-risk",
@@ -3137,7 +3822,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-riskstac-why-and-data",
@@ -3151,7 +3837,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-Upaj-01-Riskstac",
@@ -3168,7 +3855,8 @@
             "kind": "authored",
             "label": "Generated public-reference walkthrough",
             "date": "13 October 2026"
-          }
+          },
+          "category": "walkthrough"
         }
       ],
       "sourceNotes": [
@@ -3221,6 +3909,68 @@
           ],
           "note": "Count and timing definitions vary. ULI and 2026 RiskStac pages are context, not personal platform ownership."
         }
+      },
+      "primaryMediaIds": [
+        "upaj-Upaj-01-Riskstac",
+        "upaj-riskstac-data-inputs"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Turning farm signals into lender information",
+            "sectionIds": [
+              "build",
+              "bank-information"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Product work at the institutional boundary",
+            "sectionIds": [
+              "delivery",
+              "integration"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": [
+          {
+            "id": "riskstac-reference",
+            "title": "RiskStac: current public product references",
+            "sectionIds": [
+              "riskstac-reference",
+              "riskstac-current-journey",
+              "upaj-walkthroughs"
+            ]
+          },
+          {
+            "id": "uli-access-and-services",
+            "title": "ULI reference: access, services and failure states",
+            "sectionIds": [
+              "uli-actors-and-journey",
+              "uli-consent-and-data",
+              "uli-asynchronous-land-records",
+              "uli-service-map"
+            ]
+          },
+          {
+            "id": "uli-history-and-scale",
+            "title": "ULI context: history, published scale and forward plans",
+            "sectionIds": [
+              "uli-current-updates",
+              "uli-history-and-scale",
+              "uli-institutional-forward-plan",
+              "uli-walkthroughs"
+            ]
+          }
+        ]
       }
     },
     {
@@ -3321,7 +4071,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the proposed or supporting workflow"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -3370,6 +4121,37 @@
           ],
           "note": "Proposal scope; rural-credit outcomes are not transferred to this workstream."
         }
+      },
+      "primaryMediaIds": [
+        "workflow-diagram"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Keeping the SME workstream distinct",
+            "sectionIds": [
+              "build",
+              "changed-context"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "The contribution that can be described",
+            "sectionIds": [
+              "delivery",
+              "scope"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     },
     {
@@ -3481,7 +4263,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "workflow-diagram",
@@ -3494,7 +4277,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -3583,6 +4367,37 @@
             "note": "Programme-level report. It does not isolate content, notifications or any one design change."
           }
         ]
+      },
+      "primaryMediaIds": [
+        "upaj-growstac-personalised"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "A product organised around recurring decisions",
+            "sectionIds": [
+              "build",
+              "recurring-use"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Onboarding, phones and notifications",
+            "sectionIds": [
+              "delivery",
+              "constraints"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     },
     {
@@ -3743,7 +4558,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-growstac-demo-inquiry",
@@ -3757,7 +4573,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-growstac-hero",
@@ -3771,7 +4588,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-growstac-inquiry-interests",
@@ -3785,7 +4603,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-growstac-personalised",
@@ -3799,7 +4618,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-growstac-research",
@@ -3813,7 +4633,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-growstac-technology",
@@ -3827,7 +4648,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-Upaj-03-Growstac",
@@ -3844,7 +4666,8 @@
             "kind": "authored",
             "label": "Generated public-reference walkthrough",
             "date": "13 October 2026"
-          }
+          },
+          "category": "walkthrough"
         },
         {
           "id": "workflow-diagram",
@@ -3857,7 +4680,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -3906,6 +4730,59 @@
           ],
           "note": "Monitoring is distinct from automated control. No isolated adoption or yield result is supplied."
         }
+      },
+      "primaryMediaIds": [
+        "upaj-Upaj-03-Growstac"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Two operating environments, different inputs",
+            "sectionIds": [
+              "build",
+              "two-environments"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Monitoring as part of a usable farm service",
+            "sectionIds": [
+              "delivery",
+              "farm-context"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": [
+          {
+            "id": "growstac-reference",
+            "title": "GrowStac: current product reference",
+            "sectionIds": [
+              "growstac-reference"
+            ]
+          },
+          {
+            "id": "upaj-walkthroughs",
+            "title": "Public-reference walkthroughs",
+            "sectionIds": [
+              "upaj-walkthroughs"
+            ]
+          },
+          {
+            "id": "growstac-current-journey",
+            "title": "GrowStac: public offering, integration and enquiry",
+            "sectionIds": [
+              "growstac-current-journey"
+            ]
+          }
+        ]
       }
     },
     {
@@ -4016,6 +4893,80 @@
           "anchorAliases": [
             "downloads"
           ]
+        },
+        {
+          "id": "evaluation-plan",
+          "title": "Evaluation and release validation — proposed",
+          "body": [
+            "Dataset coverage and delivery scope are available; model precision, causal yield gains and support-deflection results are not established. I would evaluate diagnostic quality and the usefulness of the next action as separate product questions."
+          ],
+          "group": "detail",
+          "source": {
+            "label": "Proposed validation plan",
+            "version": "Authored portfolio plan; not executed results"
+          },
+          "tables": [
+            {
+              "caption": "Proposed evaluation plan — no measured results claimed",
+              "headers": [
+                "Scenario",
+                "Expected behaviour",
+                "Available evidence",
+                "Status"
+              ],
+              "rows": [
+                [
+                  "Representative labelled images",
+                  "Evaluate diagnosis against held-out agronomist-labelled examples across crop conditions; report errors and per-crop precision/recall.",
+                  "Existing: source-reported 500K+ image dataset and agronomist labelling/review loop. No held-out examples or model-evaluation results are attached. Proposed: representative labelled evaluation set separated from training data.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Crop coverage",
+                  "Check each of the fourteen reported crops and disclose uneven condition/class coverage rather than treating the total dataset as uniform coverage.",
+                  "Existing: reported fourteen-crop scope; a per-crop/class evaluation breakdown is unavailable. Proposed: crop/condition coverage inventory and stratified results.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Poor image quality",
+                  "Detect or safely handle blur, poor light and unusable framing; request a better capture or defer advice instead of confident unsupported diagnosis.",
+                  "Existing: capture-to-advice workflow and low-end-device constraints. No difficult-image evaluation results are attached. Proposed: labelled poor-quality capture cases and recovery checks.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Expert agreement",
+                  "Compare model outputs and advisory with agronomist judgements, recording disagreements and review decisions.",
+                  "Existing: reported agronomist review loop and crop-specific field playbooks; measured expert-agreement results are unavailable. Proposed: independently reviewed examples with agreement, correction and error analysis.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Uncertainty handling",
+                  "Make uncertainty understandable and abstain or escalate when evidence cannot support a useful answer.",
+                  "Existing: product account identifies uncertainty and advice as delivery questions. No calibrated-uncertainty benchmark is attached. Proposed: ambiguous, unfamiliar and conflicting cases with abstention and reviewer checks.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Field usability and reconnection",
+                  "Preserve offline evidence capture, recover after reconnection and keep response time and guidance usable on low-end devices.",
+                  "Existing: described offline capture/reconnection flow and inference-efficiency constraints. Proposed: device, network, successful-capture/recovery and response-time observations.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Advisory safety and usefulness",
+                  "Return correct, useful crop-specific next actions; escalate unsafe or unsupported guidance.",
+                  "Existing: crop playbooks and the described OpenAI API conversational layer. No measured advisory-quality report is attached. Proposed: expert-reviewed playbooks and realistic farmer questions.",
+                  "Proposed — not executed"
+                ],
+                [
+                  "Adoption and agronomic impact",
+                  "Define a user cohort, baseline and follow-up period; distinguish adoption/advice use from causal crop outcomes.",
+                  "Existing: reported dataset/delivery scope only; causal yield and support-deflection evaluations are absent. Proposed: agreed adoption measures and a separately designed agronomic impact study.",
+                  "Proposed — not executed"
+                ]
+              ],
+              "note": "The test sets, baselines and release thresholds must be agreed before execution. This table records proposed validation work."
+            }
+          ]
         }
       ],
       "media": [
@@ -4031,7 +4982,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-growstac-technology",
@@ -4045,7 +4997,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "workflow-diagram",
@@ -4058,7 +5011,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -4068,7 +5022,7 @@
       "aliases": [
         "crop-health-ai"
       ],
-      "featured": false,
+      "featured": true,
       "heroMediaId": "upaj-growstac-advisory",
       "relatedSlugs": [
         "absolute-silkroute-marketplace",
@@ -4083,12 +5037,12 @@
         "impact": "The reported scope covers 500K+ images and 14 crops. Separate accuracy, causal yield improvement and support-deflection outcomes are not established."
       },
       "visualSummary": {
-        "title": "Crop-health diagnosis",
-        "summary": "Turn a leaf photograph into a usable field decision.",
+        "title": "Crop-health AI: capture to advice",
+        "summary": "Connect image capture, expert review and diagnosis to an action a farmer can take.",
         "challenge": "A diagnosis needs reliable capture and understandable next actions.",
         "role": "Product delivery with engineering, modelling and agronomy.",
         "decision": "Connect expert-reviewed data, offline capture and advisory.",
-        "impact": "Reported scope: 500K+ images across fourteen crops.",
+        "impact": "Reported dataset: 500K+ images across 14 crops; model accuracy was not supplied.",
         "workflow": {
           "label": "How the work connects",
           "steps": [
@@ -4111,6 +5065,65 @@
           ],
           "note": "Dataset scope is not accuracy. Causal yield and support-deflection figures are not established."
         }
+      },
+      "featuredOrder": 2,
+      "primaryMediaIds": [
+        "upaj-growstac-advisory",
+        "workflow-diagram"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "The work before a farmer could receive an answer",
+            "sectionIds": [
+              "build",
+              "dataset-and-experts"
+            ],
+            "body": [
+              "The reported data scope was more than 500,000 crop images across fourteen crops. Image curation, labelling and an agronomist review loop prepared the inputs; domain specialists helped establish the meaning of training labels. This is dataset scope, rather than a model-accuracy result.",
+              "My role was product leadership around crop-disease capability and farmer-facing delivery, working with engineering, modelling and agronomy expertise. The product question joined the evidence a farmer could capture, what the system could return and how the answer would become useful at the moment help was needed."
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "From taking a photograph to knowing the next step",
+            "sectionIds": [
+              "delivery",
+              "capture-to-advice"
+            ],
+            "body": [
+              "The Upaj flow let a farmer photograph a leaf offline and receive diagnosis after reconnection. Separating evidence capture from network availability addressed the place and conditions of use. The diagnosis belonged inside the advisory journey, rather than ending at a model label.",
+              "Crop-specific field playbooks and an OpenAI API conversational layer were intended to connect the result to practical guidance. Low-end phones, inference efficiency and uncertainty remained delivery constraints. Engineering and modelling colleagues supplied the technical capability while specialists contributed ground truth and review."
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ],
+            "body": [
+              "My judgment is to own the path from prediction to action. Data, uncertainty, explanation and device conditions belong in the product decision alongside model output. The proposed evaluation plan below makes those questions explicit; no attached precision, causal yield or support-deflection evaluation turns the reported scope into an achieved model-quality claim."
+            ]
+          }
+        ],
+        "supportingGroups": [
+          {
+            "id": "growstac-advisory",
+            "title": "GrowStac and the current advisory proposition",
+            "sectionIds": [
+              "growstac-advisory"
+            ]
+          },
+          {
+            "id": "evaluation-plan",
+            "title": "Evaluation and release validation — proposed",
+            "sectionIds": [
+              "evaluation-plan"
+            ]
+          }
+        ]
       }
     },
     {
@@ -4263,7 +5276,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-finstac-diy-platform",
@@ -4277,7 +5291,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-finstac-hero",
@@ -4291,7 +5306,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-finstac-insurance-products",
@@ -4305,7 +5321,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-finstac-phygital",
@@ -4319,7 +5336,8 @@
             "kind": "current-public",
             "label": "Public product page; historical ownership is described separately",
             "date": "13 October 2026"
-          }
+          },
+          "category": "product-screenshot"
         },
         {
           "id": "upaj-Upaj-02-Finstac",
@@ -4336,7 +5354,8 @@
             "kind": "authored",
             "label": "Generated public-reference walkthrough",
             "date": "13 October 2026"
-          }
+          },
+          "category": "walkthrough"
         },
         {
           "id": "workflow-diagram",
@@ -4349,7 +5368,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -4415,6 +5435,58 @@
               }
             ],
             "note": "Spatial grid scale, not accuracy. Resolution change and reported premium effect are separate measures."
+          }
+        ]
+      },
+      "primaryMediaIds": [
+        "upaj-Upaj-02-Finstac"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Connecting a finer grid with a pricing task",
+            "sectionIds": [
+              "build",
+              "data-to-pricing"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Putting the decision into practice",
+            "sectionIds": [
+              "delivery"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": [
+          {
+            "id": "finstac-reference",
+            "title": "FinStac: current product reference",
+            "sectionIds": [
+              "finstac-reference"
+            ]
+          },
+          {
+            "id": "upaj-walkthroughs",
+            "title": "Public-reference walkthroughs",
+            "sectionIds": [
+              "upaj-walkthroughs"
+            ]
+          },
+          {
+            "id": "finstac-current-distribution",
+            "title": "FinStac: current cover and distribution proposition",
+            "sectionIds": [
+              "finstac-current-distribution"
+            ]
           }
         ]
       }
@@ -4523,7 +5595,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -4576,6 +5649,37 @@
           ],
           "note": "Named deployments are source-reported; module-level commercial scope and adoption are not supplied."
         }
+      },
+      "primaryMediaIds": [
+        "workflow-diagram"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Localising the product assumptions",
+            "sectionIds": [
+              "build",
+              "localisation"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Working through an institutional deployment",
+            "sectionIds": [
+              "delivery",
+              "institutional-delivery"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     },
     {
@@ -4741,7 +5845,8 @@
           "provenance": {
             "kind": "proposal",
             "label": "Historical institutional-presentation material; company context and proposed scope"
-          }
+          },
+          "category": "source-document"
         },
         {
           "id": "workflow-diagram",
@@ -4754,7 +5859,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -4803,6 +5909,45 @@
           ],
           "note": "Launch cohort stays separate from larger phygital figures and institutional proposals."
         }
+      },
+      "primaryMediaIds": [
+        "absolute-institutional-overview-1"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "A catalogue with a physical distribution dependency",
+            "sectionIds": [
+              "build",
+              "commerce-launch"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Different institutions, different product jobs",
+            "sectionIds": [
+              "delivery",
+              "institutional-use-cases"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": [
+          {
+            "id": "institutional-service-map",
+            "title": "Institutional proposals: one farm service, several jobs",
+            "sectionIds": [
+              "institutional-service-map"
+            ]
+          }
+        ]
       }
     },
     {
@@ -5038,7 +6183,8 @@
           "provenance": {
             "kind": "proposal",
             "label": "Historical institutional-presentation material; company context and proposed scope"
-          }
+          },
+          "category": "source-document"
         },
         {
           "id": "absolute-institutional-overview-3",
@@ -5051,7 +6197,8 @@
           "provenance": {
             "kind": "proposal",
             "label": "Historical institutional-presentation material; company context and proposed scope"
-          }
+          },
+          "category": "source-document"
         },
         {
           "id": "absolute-institutional-overview-1",
@@ -5064,7 +6211,8 @@
           "provenance": {
             "kind": "proposal",
             "label": "Historical institutional-presentation material; company context and proposed scope"
-          }
+          },
+          "category": "source-document"
         }
       ],
       "sourceNotes": [
@@ -5110,6 +6258,58 @@
           ],
           "note": "₹14 crore ARR is projected; ₹6 crore farmer credit is a target, not realised output."
         }
+      },
+      "primaryMediaIds": [
+        "absolute-institutional-overview-2"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "The supporting workstreams in the archive",
+            "sectionIds": [
+              "build",
+              "supporting-workstreams"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Putting the decision into practice",
+            "sectionIds": [
+              "delivery"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": [
+          {
+            "id": "institutional-data-flow",
+            "title": "Proposed data flow: connect registries and observations without exposing a farmer",
+            "sectionIds": [
+              "institutional-data-flow"
+            ]
+          },
+          {
+            "id": "institutional-proposal-boundaries",
+            "title": "Tamil Nadu proposal: acceptance and outcomes still need evidence",
+            "sectionIds": [
+              "institutional-proposal-boundaries"
+            ]
+          },
+          {
+            "id": "supporting-scope-register",
+            "title": "Additional workstreams: preserve their units and status",
+            "sectionIds": [
+              "supporting-scope-register"
+            ]
+          }
+        ]
       }
     },
     {
@@ -5305,6 +6505,22 @@
       ],
       "media": [
         {
+          "id": "urbankhet-storefront-excerpt",
+          "kind": "video",
+          "category": "walkthrough",
+          "src": "/work/urbankhet/video/urbankhet-storefront-excerpt.mp4",
+          "poster": "/work/urbankhet/video/urbankhet-storefront-poster.jpg",
+          "title": "Original UrbanKhet storefront walkthrough",
+          "mime": "video/mp4",
+          "duration": "0:20",
+          "caption": "Historical storefront walkthrough — a 20-second silent excerpt of the original recording.",
+          "transcript": "The silent excerpt shows the original mobile storefront: the homepage, delivery calendar, custom produce pack and adding a pack to the cart. The historical campaign illustration and design shown in the storefront are credited to Studio Sorted. Checkout, contact details and the business-account console are outside this excerpt.",
+          "provenance": {
+            "kind": "historical",
+            "label": "Original UrbanKhet storefront recording; recording date not supplied"
+          }
+        },
+        {
           "id": "urbankhet-UrbanKhet-Infographic",
           "kind": "image",
           "src": "/work/urbankhet/assets/previews/UrbanKhet-Infographic.webp",
@@ -5315,7 +6531,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Editorial portfolio-reference illustration, not an operating photograph"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "urbankhet-UrbanKhet-Original-Interpretation",
@@ -5328,7 +6545,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Editorial portfolio-reference illustration, not an operating photograph"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "urbankhet-studio--campaign-poster-01",
@@ -5342,7 +6560,8 @@
             "kind": "historical",
             "label": "Studio Sorted campaign; creative credits in the case reference",
             "date": "2021"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "urbankhet-studio--campaign-poster-02",
@@ -5356,7 +6575,8 @@
             "kind": "historical",
             "label": "Studio Sorted campaign; creative credits in the case reference",
             "date": "2021"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "urbankhet-studio--customer-fresh-vegetables",
@@ -5370,7 +6590,8 @@
             "kind": "historical",
             "label": "Studio Sorted campaign; creative credits in the case reference",
             "date": "2021"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "urbankhet-studio--delivery-straight-outta-khet",
@@ -5384,7 +6605,8 @@
             "kind": "historical",
             "label": "Studio Sorted campaign; creative credits in the case reference",
             "date": "2021"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "urbankhet-studio--market-detail-06",
@@ -5398,7 +6620,8 @@
             "kind": "historical",
             "label": "Studio Sorted campaign; creative credits in the case reference",
             "date": "2021"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "urbankhet-studio--market-detail-07",
@@ -5412,7 +6635,8 @@
             "kind": "historical",
             "label": "Studio Sorted campaign; creative credits in the case reference",
             "date": "2021"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "urbankhet-studio--market-detail-08",
@@ -5426,7 +6650,8 @@
             "kind": "historical",
             "label": "Studio Sorted campaign; creative credits in the case reference",
             "date": "2021"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "urbankhet-studio--market-detail-09",
@@ -5440,7 +6665,8 @@
             "kind": "historical",
             "label": "Studio Sorted campaign; creative credits in the case reference",
             "date": "2021"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "urbankhet-studio--urbankhet-farmer-market",
@@ -5454,7 +6680,8 @@
             "kind": "historical",
             "label": "Studio Sorted campaign; creative credits in the case reference",
             "date": "2021"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "urbankhet-studio--urbankhet-superhero-market",
@@ -5468,15 +6695,17 @@
             "kind": "historical",
             "label": "Studio Sorted campaign; creative credits in the case reference",
             "date": "2021"
-          }
+          },
+          "category": "illustration"
         }
       ],
       "sourceNotes": [
         "Published contemporary material and later founder-reported results are distinguished in the supplied portfolio pack.",
-        "₹1.2 crore is labelled P&L scope in one CV and ARR in another, so it is omitted as a headline financial result. Customer counts vary by source/period. The 35% waste comparator is an asserted industry benchmark; farmer-income comparisons and six-hour delivery are self-reported."
+        "₹1.2 crore is labelled P&L scope in one CV and ARR in another, so it is omitted as a headline financial result. Customer counts vary by source/period. The 35% waste comparator is an asserted industry benchmark; farmer-income comparisons and six-hour delivery are self-reported.",
+        "The original 72.56-second recording includes checkout and a B2B console. The published 20-second silent storefront excerpt excludes contact and account details; the full recording remains private. Two supplied video files were byte-identical, so one excerpt is published. The recording date was not supplied."
       ],
       "featured": true,
-      "heroMediaId": "urbankhet-UrbanKhet-Infographic",
+      "heroMediaId": "urbankhet-storefront-excerpt",
       "relatedSlugs": [
         "urbankhet-covid-pivot"
       ],
@@ -5493,7 +6722,7 @@
         "challenge": "Fresh produce ties customer demand to harvest, waste and delivery.",
         "role": "Founder: proposition, product, sourcing, fulfilment and P&L.",
         "decision": "Move from terrace farming to direct produce supply.",
-        "impact": "Reported scope: 3,600+ clients and forty-five business customers.",
+        "impact": "Reported 3,600+ clients and 45 business customers; counts vary by period.",
         "workflow": {
           "label": "How the work connects",
           "steps": [
@@ -5516,6 +6745,66 @@
           ],
           "note": "Customer counts vary by period; farmer reach is not assumed to mean active suppliers."
         }
+      },
+      "featuredOrder": 6,
+      "primaryMediaIds": [
+        "urbankhet-storefront-excerpt",
+        "urbankhet-studio--urbankhet-farmer-market"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "From terrace farming to a paid customer promise",
+            "sectionIds": [
+              "build",
+              "early-demand"
+            ],
+            "body": [
+              "UrbanKhet began with terrace farming. I moved towards direct produce supply for people who wanted fresh food without growing it themselves, acquiring the first 44 customers manually. Cold outreach and local relationships developed the farmer supply side before the venture had an established customer base.",
+              "Household subscriptions and business demand then shared the same sourcing operation. A household, hotel and marketplace have different relationships, but each depends on produce arriving in usable condition. I owned business development and fulfilment behind those commitments. The records report a 28-person team and enterprise customers including Marriott, BigBasket, Udaan and Ninjacart."
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "A web product supported by distributed operations",
+            "sectionIds": [
+              "delivery",
+              "physical-system"
+            ],
+            "body": [
+              "I built the web product and operating workflows around decentralised distribution in Maharashtra and Gujarat. Sourcing, inventory, harvest timing and last-mile delivery had to stay aligned. SOPs made routines repeatable for the team, rather than leaving the customer promise to individual improvisation.",
+              "The later operating account describes a six-hour harvest-to-home model. A March 2022 CV reports maximum 10% wastage against a stated 35% industry benchmark: that is a reported operating level, rather than a company before-and-after reduction. Quality, timing and cost belong to the physical service design and the venture’s economics."
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ],
+            "body": [
+              "My judgment is to own the physical promise behind a digital order. Customer learning, supplier relationships, team routines and unit economics determine whether fulfilment stays reliable. A useful web product makes the next action clear while the operating system carries out the commitment; the historical recording above shows that storefront, rather than proving every operating outcome."
+            ]
+          }
+        ],
+        "supportingGroups": [
+          {
+            "id": "venture-context",
+            "title": "UrbanKhet: operating history and service trade-offs",
+            "sectionIds": [
+              "venture-history-reference",
+              "service-tradeoffs-reference"
+            ]
+          },
+          {
+            "id": "campaign-credits",
+            "title": "Historical campaign and creative credits",
+            "sectionIds": [
+              "campaign-credit-reference"
+            ]
+          }
+        ]
       }
     },
     {
@@ -5638,7 +6927,8 @@
             "kind": "historical",
             "label": "Studio Sorted campaign; creative credits in the case reference",
             "date": "2021"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "urbankhet-studio--urbankhet-farmer-market",
@@ -5652,7 +6942,8 @@
             "kind": "historical",
             "label": "Studio Sorted campaign; creative credits in the case reference",
             "date": "2021"
-          }
+          },
+          "category": "illustration"
         },
         {
           "id": "workflow-diagram",
@@ -5665,7 +6956,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -5713,6 +7005,45 @@
           ],
           "note": "First-wave continuity and later closure are separate periods; detailed stakeholder outcomes are unconfirmed."
         }
+      },
+      "primaryMediaIds": [
+        "urbankhet-studio--delivery-straight-outta-khet"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "Changing the model as demand and access changed",
+            "sectionIds": [
+              "build",
+              "demand-and-routes"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Leadership through a changing operating reality",
+            "sectionIds": [
+              "delivery",
+              "team-and-viability"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": [
+          {
+            "id": "wind-down-reference",
+            "title": "UrbanKhet: continuity and closure are different periods",
+            "sectionIds": [
+              "wind-down-reference"
+            ]
+          }
+        ]
       }
     },
     {
@@ -5812,7 +7143,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Editorial portfolio-reference illustration, not an operating photograph"
-          }
+          },
+          "category": "illustration"
         }
       ],
       "sourceNotes": [
@@ -5856,6 +7188,43 @@
           ],
           "note": "Venture support is not employment or a degree; no consolidated funding amount is claimed."
         }
+      },
+      "primaryMediaIds": [
+        "urbankhet-UrbanKhet-Original-Interpretation"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "The product decision",
+            "sectionIds": [
+              "build"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Putting the decision into practice",
+            "sectionIds": [
+              "delivery"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": [
+          {
+            "id": "programme-history-reference",
+            "title": "Venture backing: programmes, awards and investment context",
+            "sectionIds": [
+              "programme-history-reference"
+            ]
+          }
+        ]
       }
     },
     {
@@ -5944,7 +7313,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the historical account"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -5986,6 +7356,35 @@
           ],
           "note": "Coordination under farm leadership, not ownership of the whole farm or an isolated production uplift."
         }
+      },
+      "primaryMediaIds": [
+        "workflow-diagram"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "The product decision",
+            "sectionIds": [
+              "build"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Putting the decision into practice",
+            "sectionIds": [
+              "delivery"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     },
     {
@@ -6074,7 +7473,8 @@
           "provenance": {
             "kind": "authored",
             "label": "Portfolio diagram explaining the proposed or supporting workflow"
-          }
+          },
+          "category": "diagram"
         }
       ],
       "sourceNotes": [
@@ -6119,6 +7519,35 @@
           ],
           "note": "Volunteer contribution. Verified beneficiary counts and clinical effects are not supplied."
         }
+      },
+      "primaryMediaIds": [
+        "workflow-diagram"
+      ],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "The product decision",
+            "sectionIds": [
+              "build"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Putting the decision into practice",
+            "sectionIds": [
+              "delivery"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     },
     {
@@ -6229,6 +7658,33 @@
           ],
           "note": "Actual advisory work, outside employment; no named client outcome or adopted-decision episode is invented."
         }
+      },
+      "primaryMediaIds": [],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "The product decision",
+            "sectionIds": [
+              "build"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Putting the decision into practice",
+            "sectionIds": [
+              "delivery"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     },
     {
@@ -6343,6 +7799,33 @@
           ],
           "note": "Captaincy and reported competition result; painting is a separate independent creative practice."
         }
+      },
+      "primaryMediaIds": [],
+      "presentation": {
+        "decisionBeats": [
+          {
+            "id": "decision",
+            "title": "The product decision",
+            "sectionIds": [
+              "build"
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Putting the decision into practice",
+            "sectionIds": [
+              "delivery"
+            ]
+          },
+          {
+            "id": "judgment",
+            "title": "The judgment I take forward",
+            "sectionIds": [
+              "takeaway"
+            ]
+          }
+        ],
+        "supportingGroups": []
       }
     }
   ]

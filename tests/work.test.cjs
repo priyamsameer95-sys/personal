@@ -68,6 +68,7 @@ function caseRenderer(registry = fixture) {
   const brandMarks = load('components/BrandMarks.tsx', { '@/lib/brands': brands, './brand-marks.module.css': css }).default;
   return load('components/work/CaseStudy.tsx', {
     '@/lib/work': workModule({ registry }), '@/lib/work-types': load('lib/work-types.ts'),
+    '@/lib/work-presentation': load('lib/work-presentation.ts'),
     './work.module.css': css, './Media': media, './CaseStudyNavigation': navigation, './VisualStory': visual,
     '@/components/BrandMarks': brandMarks, '@/lib/brands': brands,
   }).default;
@@ -100,35 +101,28 @@ test('optional publishing database failure leaves authored work available', asyn
   assert.equal(work.findCaseStudy('company-one').title, study.title);
 });
 
-test('case study has one readable orientation, an open main story and named source disclosures', () => {
+test('case study shows original media first, three open decisions and consolidated supporting context', () => {
   const Component = caseRenderer();
-  const html = renderToStaticMarkup(createElement(Component, { study: { ...study, heroMediaId: 'screen' } }));
+  const html = renderToStaticMarkup(createElement(Component, { study: { ...study, primaryMediaIds: ['screen'] } }));
   assert.match(html, /<h1>A simpler lending journey<\/h1>/);
-  const overview = html.split('<section id="full-case-study"')[0];
-  assert.ok(overview.includes(study.visualSummary.challenge));
-  assert.ok(overview.includes(study.visualSummary.charts[0].note));
-  assert.ok(!overview.includes(study.executiveBrief.remit));
-  assert.ok(!overview.includes('A complete narrative paragraph.'));
-  assert.match(html, /<section id="full-case-study"[^>]+data-case-section="true"/);
-  assert.doesNotMatch(html, /<details id="full-case-study"/);
-  assert.match(html, /<section id="story-problem"/);
+  assert.ok(html.indexOf('src="/work/screen.webp"') < html.indexOf('id="full-case-study"'));
   assert.ok(html.includes(study.executiveBrief.remit));
+  assert.match(html, /<section id="full-case-study"[^>]+data-case-section="true"/);
+  assert.doesNotMatch(html, /<details|<summary/);
   assert.ok(html.includes(study.sourceNotes[0]));
-  assert.match(html, /href="#story-problem"[^>]*>Reference context/);
   assert.match(html, /A complete narrative paragraph\./);
-  assert.match(html, /<details id="story-operating-model"[^>]+data-case-section="true"/);
-  assert.doesNotMatch(html, /<details id="story-operating-model"[^>]+open/);
+  assert.match(html, /id="story-operating-model"/);
   assert.match(html, /id="story-build"/);
   assert.match(html, /id="downloads"/);
   assert.match(html, /Project note · Pages 2–3 · 2024 · Initial proposal/);
-  assert.match(html, /<caption>Decision comparison<\/caption>/);
+  assert.match(html.replace(/<\/?span[^>]*>/g, ''), /<caption>Decision comparison<\/caption>/);
   assert.match(html, /<th scope="col">Option<\/th>/);
   assert.match(html, /<td>Requires lender rules<\/td>/);
   assert.match(html, /aria-label="In this case study"/);
-  assert.match(html, /Responsibility and results record/);
+  assert.match(html, /Results and scope/);
   assert.match(html, /Read case study/);
   assert.doesNotMatch(html, /<a[^>]+(?:download=|href="\/work\/)/);
-  assert.doesNotMatch(html, /Downloads|Download this case study|Read story/);
+  assert.doesNotMatch(html, /Downloads|Download this case study|Read more|Reference context/);
   assert.equal((html.match(/<h1>/g) || []).length, 1);
 });
 
@@ -138,11 +132,12 @@ test('media stays inline with accessible image enlargement, provenance and no se
   assert.match(html, /<button[^>]+aria-haspopup="dialog"[^>]+aria-label="Enlarge image: The application flow"/);
   assert.match(html, /<dialog[^>]+aria-labelledby=/);
   assert.match(html, /<img[^>]+alt="The application flow"/);
-  assert.match(html, /Historical material · Original product capture · 2024/);
+  assert.match(html, /Original product capture · 2024/);
   assert.match(html, /<video[^>]+controls=""[^>]+controlsList="nodownload"[^>]+playsinline=""[^>]+preload="none"/);
   assert.match(html, /<track[^>]+kind="captions"/);
   assert.match(html, /A description of the walkthrough\./);
-  assert.match(html, /<summary>Video description<\/summary>/);
+  assert.match(html, /Walkthrough description/);
+  assert.doesNotMatch(html, /<details|<summary/);
   assert.doesNotMatch(html, /<a[^>]+href="\/work\/(?:screen.webp|demo.mp4)"/);
   assert.doesNotMatch(html, /target="_blank"/);
 });
@@ -150,12 +145,12 @@ test('media stays inline with accessible image enlargement, provenance and no se
 test('proposal cases distinguish their evidence from delivered outcomes and legacy data renders safely', () => {
   const Component = caseRenderer();
   const proposal = renderToStaticMarkup(createElement(Component, { study: { ...study, workType: 'proposal' } }));
-  assert.match(proposal, /What I proposed/);
-  assert.match(proposal, /Proposal and validation/);
+  assert.match(proposal, /The proposed product approach/);
+  assert.match(proposal, /Proposed approach and validation/);
   assert.doesNotMatch(proposal, /Results and scope/);
   const exercise = renderToStaticMarkup(createElement(Component, { study: { ...study, workType: 'independent' } }));
-  assert.match(exercise, /What I explored/);
-  assert.match(exercise, /Proposal and validation/);
+  assert.match(exercise, /The proposed product approach/);
+  assert.match(exercise, /Proposed approach and validation/);
   const legacy = { ...study };
   delete legacy.workType;
   delete legacy.executiveBrief;
@@ -236,7 +231,7 @@ test('former downloads fragments resolve once, whether the case has a reference 
   assert.equal((explicitHtml.match(/id="downloads"/g) || []).length, 1);
   const gallery = { ...study, sections: [{ id: 'problem', title: 'The problem', body: ['The main narrative.'] }] };
   const galleryHtml = renderToStaticMarkup(createElement(Component, { study: gallery }));
-  assert.match(galleryHtml, /<details id="evidence"/);
+  assert.match(galleryHtml, /<section id="evidence"/);
   assert.equal((galleryHtml.match(/id="downloads"/g) || []).length, 1);
 });
 
@@ -305,7 +300,7 @@ test('curated detail routes bypass the database, publish metadata, redirect old 
   assert.ok(await route.default({ params: { category: 'product', id: 'company-one' } }));
   assert.equal(calls, 0);
   const metadata = await route.generateMetadata({ params: { category: 'product', id: 'company-one' } });
-  assert.equal(metadata.description, study.summary);
+  assert.equal(metadata.description, study.visualSummary.summary);
   assert.equal(metadata.alternates.canonical, '/product/company-one');
   await assert.rejects(route.default({ params: { category: 'product', id: 'older-slug' } }), /Redirect: \/product\/company-one/);
   await assert.rejects(route.default({ params: { category: 'product', id: 'draft' } }), /Not found/);
@@ -330,12 +325,14 @@ const expectedAliases = [
   'upaj-international', 'agri-input-institutional-commerce', 'covid-resource-database', 'founder-advisory', 'football-creative-practice',
 ];
 
-test('registry preserves all 25 retained case routes, aliases, nine videos and seventeen authored diagrams', () => {
+test('registry preserves all 25 retained routes, nine reference videos, the original storefront excerpt and seventeen authored diagrams', () => {
   const data = JSON.parse(readFileSync(path.join(root, 'content/work/case-studies.json'), 'utf8'));
   const work = workModule({ registry: data });
   assert.deepEqual(data.caseStudies.map(item => item.slug).sort(), [...expectedSlugs].sort());
   for (const alias of expectedAliases) assert.ok(work.findCaseStudy(alias), `Missing legacy alias: ${alias}`);
-  assert.equal(new Set(data.caseStudies.flatMap(item => item.media).filter(media => media.kind === 'video').map(media => media.src)).size, 9);
+  const videos = new Set(data.caseStudies.flatMap(item => item.media).filter(media => media.kind === 'video').map(media => media.src));
+  assert.equal(videos.size, 10);
+  assert.equal(Array.from(videos).filter(src => !src.startsWith('/work/urbankhet/video/')).length, 9);
   assert.equal(new Set(data.caseStudies.flatMap(item => item.media).filter(media => media.src.startsWith('/work/workflows/')).map(media => media.src)).size, 17);
 });
 
@@ -401,7 +398,7 @@ test('published registry validates briefs, accessible chapter sources and every 
       assert.ok(['image', 'video'].includes(media.kind), `${item.slug}: invalid media kind`);
       assert.ok(media.kind === 'image' ? media.alt : media.title, `${item.slug}: unnamed media`);
       assert.ok(media.caption, `${item.slug}: media missing context`);
-      if (media.provenance) assert.ok(['historical', 'current-public', 'authored', 'proposal'].includes(media.provenance.kind) && media.provenance.label?.trim(), `${item.slug}: invalid provenance`);
+      if (media.provenance) assert.ok(['historical', 'current-public', 'authored', 'proposal', 'prototype'].includes(media.provenance.kind) && media.provenance.label?.trim(), `${item.slug}: invalid provenance`);
     }
     for (const relatedSlug of item.relatedSlugs || []) assert.ok(data.caseStudies.some(other => other.slug === relatedSlug && other.status !== 'draft'), `${item.slug}: unknown related case ${relatedSlug}`);
     const assets = [...item.media.map(media => media.src), ...item.media.map(media => media.poster).filter(Boolean), ...item.media.flatMap(media => (media.captions || []).map(track => track.src))];
@@ -416,37 +413,112 @@ test('published registry validates briefs, accessible chapter sources and every 
   }
 });
 
-test('every published case keeps its main story readable, every source and legacy anchor, and no separate file actions', () => {
+test('every published case is open, preserves substance and mapped anchors, and deduplicates media', () => {
   const data = JSON.parse(readFileSync(path.join(root, 'content/work/case-studies.json'), 'utf8'));
   const Component = caseRenderer(data);
+  const escaped = text => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
   for (const item of data.caseStudies.filter(study => study.status !== 'draft')) {
     const html = renderToStaticMarkup(createElement(Component, { study: item }));
-    assert.match(html, /<section id="full-case-study"[^>]+data-case-section="true"/, `${item.slug}: main story must remain open`);
-    assert.doesNotMatch(html, /<details id="full-case-study"/, `${item.slug}: main narrative hidden in a parent disclosure`);
-    const overview = html.split('<section id="full-case-study"')[0];
-    for (const chart of item.visualSummary.charts || []) assert.ok(overview.includes(chart.note.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')), `${item.slug}: chart qualifier missing from overview`);
-    assert.match(html, /id="downloads"/, `${item.slug}: old evidence link no longer resolves`);
-    assert.doesNotMatch(html, /<a[^>]+(?:download=|href="[^"#]*\.(?:pdf|zip|docx?|pptx?|mp4|webm|webp|png|jpe?g|svg)(?:[?"#]))/i, `${item.slug}: visitor file action returned`);
-    const navigation = html.match(/<nav class="storyNav"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
-    assert.ok(navigation, `${item.slug}: case navigation missing`);
-    const mainNavigation = navigation.split('<details')[0];
-    assert.equal((mainNavigation.match(/<a /g) || []).length, 5, `${item.slug}: the five main chapter links are not isolated`);
-    if (item.sections.some(section => section.group === 'detail' || section.group === 'reference')) {
-      assert.match(navigation, /<details class="supportingNav">/, `${item.slug}: optional chapters should start collapsed`);
+    assert.match(html, /<section id="full-case-study"[^>]+data-case-section="true"/);
+    assert.doesNotMatch(html, /<details|<summary/, `${item.slug}: public content hidden`);
+    assert.doesNotMatch(html, /Read more|Show more/);
+    assert.match(html, /id="downloads"/);
+    assert.equal((html.match(/id="downloads"/g) || []).length, 1);
+    assert.doesNotMatch(html, /<a[^>]+(?:download=|href="[^"#]*\.(?:pdf|zip|docx?|pptx?|mp4|webm|webp|png|jpe?g|svg)(?:[?"#]))/i);
+    for (const chart of item.visualSummary.charts || []) assert.ok(html.includes(escaped(chart.note)), `${item.slug}: chart qualification omitted`);
+    for (const media of item.media) {
+      assert.ok(html.includes(`src="${media.src}"`), `${item.slug}: media omitted ${media.id}`);
+      assert.equal(html.split(`src="${media.src}"`).length - 1, 1, `${item.slug}: duplicated media ${media.id}`);
     }
-    for (const section of item.sections) assert.ok(navigation.includes(`href="#story-${section.id}"`), `${item.slug}: chapter missing from navigation`);
-    for (const media of item.media) assert.ok(html.includes(`src="${media.src}"`), `${item.slug}: media omitted ${media.id}`);
     for (const section of item.sections) {
-      assert.ok(html.includes(`id="story-${section.id}"`), `${item.slug}: chapter anchor missing`);
-      for (const alias of section.anchorAliases || []) assert.ok(html.includes(`id="${alias}"`), `${item.slug}: legacy anchor missing ${alias}`);
-      const escaped = text => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
-      for (const paragraph of section.body) assert.ok(html.includes(escaped(paragraph)), `${item.slug}: original paragraph omitted in ${section.id}`);
-      for (const bullet of section.bullets || []) assert.ok(html.includes(escaped(bullet)), `${item.slug}: supporting example omitted in ${section.id}`);
+      for (const id of [`story-${section.id}`, `heading-${section.id}`, ...(section.anchorAliases || [])]) assert.ok(html.includes(`id="${id}"`), `${item.slug}: anchor omitted ${id}`);
+      const editedGroup = [...item.presentation.decisionBeats,...item.presentation.supportingGroups].find(group => group.body && group.sectionIds.includes(section.id));
+      for (const paragraph of editedGroup ? editedGroup.body : section.body) assert.ok(html.includes(escaped(paragraph)), `${item.slug}: account omitted in ${section.id}`);
+      for (const bullet of section.bullets || []) assert.ok(html.includes(escaped(bullet)), `${item.slug}: bullet omitted in ${section.id}`);
       for (const table of section.tables || []) {
-        assert.ok(html.includes(`<caption>${escaped(table.caption)}</caption>`), `${item.slug}: table omitted in ${section.id}`);
-        for (const row of table.rows) for (const cell of row) assert.ok(html.includes(escaped(cell)), `${item.slug}: table evidence omitted in ${section.id}`);
+        assert.ok(html.replace(/<\/?span[^>]*>/g, '').includes(`<caption>${escaped(table.caption)}</caption>`), `${item.slug}: table omitted`);
+        for (const row of table.rows) for (const cell of row) assert.ok(html.includes(escaped(cell)), `${item.slug}: table evidence omitted`);
       }
-      if (!section.group || section.group === 'story') assert.match(html, new RegExp(`<section id="story-${section.id}"`), `${item.slug}: main chapter hidden`);
     }
+    const presentation = item.presentation;
+    assert.equal(presentation.decisionBeats.length, 3);
+    const mapped = new Set(['problem','results',...presentation.decisionBeats.flatMap(group => group.sectionIds),...presentation.supportingGroups.flatMap(group => group.sectionIds)]);
+    for (const section of item.sections) assert.ok(mapped.has(section.id), `${item.slug}: unmapped section`);
   }
+});
+
+test('ranked featured stories and explicit primary media preserve intentional ordering', () => {
+  const { featuredCaseStudies, getPrimaryMedia, mediaGroupTitle } = load('lib/work-presentation.ts');
+  const data = JSON.parse(readFileSync(path.join(root, 'content/work/case-studies.json'), 'utf8'));
+  assert.deepEqual(Array.from(featuredCaseStudies(data.caseStudies), item => item.slug), ['cashkaro-eduloans-policy-workflow','absolute-crop-health-ai','cashkaro-lending-mcp-feedback','cashkaro-college-money-education-loans','absolute-silkroute-marketplace','urbankhet-farm-to-fork']);
+  assert.equal(featuredCaseStudies([{featuredOrder:undefined},{featuredOrder:0},{featuredOrder:NaN}]).length,0);
+  const edu = data.caseStudies.find(item => item.id === 'eduloans-policy-workflow');
+  assert.deepEqual(Array.from(getPrimaryMedia(edu), media => media.id), ['eduloans-prototype-inspector','eduloans-prototype-student','eduloans-prototype-partner','eduloans-prototype-kam']);
+  assert.ok(getPrimaryMedia(edu).every(media => media.category === 'prototype-screenshot' && media.provenance.kind === 'prototype'));
+  assert.equal(mediaGroupTitle(getPrimaryMedia(edu)[0]), 'Original interaction prototype');
+  assert.equal(getPrimaryMedia({...study,primaryMediaIds:['missing'],heroMediaId:'screen'})[0].id,'screen');
+  assert.equal(getPrimaryMedia({...study,media:[]}).length,0);
+  const urban = data.caseStudies.find(item => item.id === 'urbankhet-farm-to-fork');
+  assert.equal(getPrimaryMedia(urban)[0].id, 'urbankhet-storefront-excerpt');
+  assert.equal(getPrimaryMedia(urban)[0].provenance.kind, 'historical');
+  const mcp = data.caseStudies.find(item => item.id === 'lending-mcp-feedback');
+  assert.equal(getPrimaryMedia(mcp)[0].id, 'lending-mcp-proposal');
+  assert.equal(getPrimaryMedia(mcp)[0].provenance.kind, 'proposal');
+});
+
+test('every primary asset is visible before the main account with accurate screenshot categories', () => {
+  const data = JSON.parse(readFileSync(path.join(root, 'content/work/case-studies.json'), 'utf8'));
+  const Component = caseRenderer(data);
+  const { getPrimaryMedia } = load('lib/work-presentation.ts');
+  for (const item of data.caseStudies) {
+    const html = renderToStaticMarkup(createElement(Component, { study: item }));
+    const main = html.indexOf('id="full-case-study"');
+    for (const asset of getPrimaryMedia(item)) assert.ok(html.indexOf(`src="${asset.src}"`) < main, `${item.slug}: primary evidence postponed`);
+    const primary = html.slice(html.indexOf('id="product-reference"'), main);
+    assert.doesNotMatch(primary, /<details|\shidden(?:=|[\s>])|aria-hidden="true"[^>]*>\s*<(?:img|video)/);
+    if (/<h[1-6][^>]*>[^<]*screenshots?/i.test(html)) assert.ok(item.media.some(asset => ['product-screenshot','prototype-screenshot'].includes(asset.category)), `${item.slug}: screenshot heading without screenshots`);
+  }
+});
+
+test('AI validation plans remain proposed while archived software checks retain their precise limits', () => {
+  const data = JSON.parse(readFileSync(path.join(root, 'content/work/case-studies.json'), 'utf8'));
+  const Component = caseRenderer(data);
+  for (const id of ['eduloans-policy-workflow','crop-health-ai','lending-mcp-feedback']) {
+    const item = data.caseStudies.find(item => item.id === id);
+    const section = item.sections.find(section => section.id === 'evaluation-plan');
+    const html = renderToStaticMarkup(createElement(Component, { study: item }));
+    assert.ok(html.includes('Proposed evaluation plan — no measured results claimed'));
+    for (const table of section.tables) {
+      assert.deepEqual(table.headers, ['Scenario','Expected behaviour','Available evidence','Status']);
+      assert.ok(table.rows.length >= 5);
+      assert.ok(table.rows.every(row => row[3] === 'Proposed — not executed'));
+      assert.ok(table.rows.every(row => row[2].startsWith('Existing:') && row[2].includes('Proposed:')), `${id}: available and proposed evidence must remain distinct`);
+      for (const header of table.headers) assert.ok(html.includes(`<th scope="col">${header}</th>`));
+    }
+    assert.match(html, /Proposed — not executed/);
+    assert.match(html, /not executed results/);
+  }
+  const edu = data.caseStudies.find(item => item.id === 'eduloans-policy-workflow');
+  const html = renderToStaticMarkup(createElement(Component, { study: edu }));
+  assert.match(html, /Archived unit and regression validation — March 2026/);
+  for (const text of ['145 passing assertions across ten files','5 March 2026 at 06:51 UTC','not a fresh verification or a model-quality score','not independently rerun','Admin smoke tests mock Supabase','Local test helpers; not the deployed edge function','No labelled-document model evaluation','thirteen-step counter']) assert.ok(html.includes(text), `Archived validation limit omitted: ${text}`);
+  const expectedScenarios = {
+    'eduloans-policy-workflow': ['Missing lender thresholds','Verification bypass','Deterministic repeatability','Score boundaries','Uncertain documents'],
+    'lending-mcp-feedback': ['Tool selection','Arguments and schema versions','Malformed or unauthorised requests','Failure handling','Unapproved policy changes'],
+    'crop-health-ai': ['Representative labelled images','Crop coverage','Poor image quality','Expert agreement','Uncertainty handling'],
+  };
+  for (const [id, scenarios] of Object.entries(expectedScenarios)) {
+    const item = data.caseStudies.find(item => item.id === id);
+    const section = item.sections.find(section => section.id === 'evaluation-plan');
+    const scenarioNames = section.tables.flatMap(table => table.rows.map(row => row[0]));
+    for (const scenario of scenarios) assert.ok(scenarioNames.includes(scenario), `${id}: missing concrete scenario ${scenario}`);
+  }
+});
+
+test('compact shared media omits long descriptions without hiding controls or provenance', () => {
+  const Media = load('components/work/Media.tsx', { './work.module.css': css }).default;
+  const html = renderToStaticMarkup(createElement(Media, {media:study.media[1],compact:true}));
+  assert.match(html, /<video/);
+  assert.match(html, /A recorded walkthrough/);
+  assert.doesNotMatch(html, /A description of the walkthrough|<details|<summary/);
 });

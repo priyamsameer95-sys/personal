@@ -23,18 +23,18 @@ const siteAddress = process.env.NEXT_PUBLIC_SITE_URL
 
 export const metadata: Metadata = {
   ...(siteAddress ? { metadataBase: new URL(siteAddress) } : {}),
-  title: { default: "Priyam Sameer — Product Leadership", template: "%s — Priyam Sameer" },
-  description: "Product leadership from strategy to scale. Priyam Sameer’s work, experience and decisions across lending, marketplaces and agritech.",
+  title: { default: "Priyam Sameer — AI + Business Leadership", template: "%s — Priyam Sameer" },
+  description: "AI product thinking and business ownership. Priyam Sameer’s prototypes, product decisions and commercial outcomes across lending, marketplaces and agritech.",
   openGraph: {
-    title: "Priyam Sameer — Product Leadership",
-    description: "Product leadership from strategy to scale. Explore Priyam Sameer’s work and experience across lending, marketplaces and agritech.",
+    title: "Priyam Sameer — AI + Business Leadership",
+    description: "AI product thinking. Business ownership. Explore prototypes, system design, product delivery and commercial outcomes.",
     type: "website",
     locale: "en_IN",
   },
   twitter: {
     card: "summary",
-    title: "Priyam Sameer — Product Leadership",
-    description: "Product leadership from strategy to scale. Work and experience across lending, marketplaces and agritech.",
+    title: "Priyam Sameer — AI + Business Leadership",
+    description: "AI product thinking. Business ownership. Work and experience across lending, marketplaces and agritech.",
   },
 };
 

@@ -59,16 +59,19 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
     } catch { return fallback; }
   }
   const company = findWorkCompany(study.companyId);
+  const title = study.visualSummary?.title || study.title;
+  const description = study.visualSummary?.summary || study.summary;
   return {
-    title: `${study.title}${company ? ` — ${company.name}` : ''}`,
-    description: study.summary,
+    title: `${title}${company ? ` — ${company.name}` : ''}`,
+    description,
     alternates: { canonical: `/product/${study.slug}` },
     openGraph: {
-      title: `${study.title} — Priyam Sameer`,
-      description: study.summary,
+      title: `${title} — Priyam Sameer`,
+      description,
       type: 'article',
       url: `/product/${study.slug}`,
     },
+    twitter: { title: `${title} — Priyam Sameer`, description },
   };
 }
 

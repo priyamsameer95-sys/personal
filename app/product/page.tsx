@@ -10,9 +10,9 @@ import explorerStyles from '@/components/work/work-explorer.module.css';
 
 export const metadata: Metadata = {
   title: 'Work',
-  description: 'Explore Priyam Sameer’s product decisions, leadership remit and impact across CashKaro, CredFlow, Absolute and UrbanKhet, with additional community and independent work.',
-  openGraph: { title: 'Work — Priyam Sameer', description: 'Product decisions, leadership remit and impact across lending, marketplaces and agritech.' },
-  twitter: { title: 'Work — Priyam Sameer', description: 'Product decisions, leadership remit and impact across lending, marketplaces and agritech.' },
+  description: 'Explore working prototypes, crop-health AI, lending MCP architecture and business outcomes. Six featured projects and the complete company index, with visible media and explicit validation status.',
+  openGraph: { title: 'Work — Priyam Sameer', description: 'AI product thinking and business ownership: prototypes, system design and commercial outcomes, with evidence in view.' },
+  twitter: { title: 'Work — Priyam Sameer', description: 'AI product thinking and business ownership: prototypes, system design and commercial outcomes, with evidence in view.' },
 };
 
 export const revalidate = 0;
@@ -20,8 +20,8 @@ export const revalidate = 0;
 export default async function ProductWorkPage() {
   const groups = groupCaseStudies().map(({ company, studies }) => ({
     company,
-    studies: studies.map(({ id, slug, title, summary, role, period, workType, visualSummary, media, heroMediaId, outcomes }) => ({
-      id, slug, title, summary, role, period, workType, visualSummary, media, heroMediaId, outcomes,
+    studies: studies.map(({ id, slug, companyId, title, summary, role, period, workType, visualSummary, media, heroMediaId, primaryMediaIds, featuredOrder, outcomes }) => ({
+      id, slug, companyId, title, summary, role, period, workType, visualSummary, media, heroMediaId, primaryMediaIds, featuredOrder, outcomes,
     })),
   }));
   const additionalWork = await loadPublishedWork();
@@ -32,7 +32,7 @@ export default async function ProductWorkPage() {
       <main id="main-content" className="animate-fade-in-up">
         <header className={explorerStyles.pageIntro}>
           <h1>My work.</h1>
-          <p>Lending, marketplaces and agritech. Explore the decisions, the delivery and the evidence behind each product.</p>
+          <p>AI-assisted lending, crop-health AI and callable policy systems—alongside the marketplaces and businesses I’ve led.</p>
         </header>
         <WorkExplorer groups={groups} />
         {additionalWork.length > 0 && (
@@ -49,7 +49,7 @@ export default async function ProductWorkPage() {
                       // eslint-disable-next-line @next/next/no-img-element
                       <img className={explorerStyles.additionalImage} src={image.blob_url} alt={image.alt_text || item.title} loading="lazy" />
                     )}
-                    <Link className={explorerStyles.readCase} href={`/product/${encodeURIComponent(item.slug || item.id)}`}>Read case study <span aria-hidden="true">→</span><span className={explorerStyles.visuallyHidden}>: {item.title}</span></Link>
+                    <Link className={explorerStyles.readCase} href={`/product/${encodeURIComponent(item.slug || item.id)}`}>Full case study <span aria-hidden="true">→</span><span className={explorerStyles.visuallyHidden}>: {item.title}</span></Link>
                   </article>
                 );
               })}
