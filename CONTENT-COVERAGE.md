@@ -4,11 +4,11 @@ Verified against the final work registry on 13 October 2026. This document expla
 
 ## Reading hierarchy
 
-The primary audience is a hiring leader evaluating product leadership. Work is organised by company: CashKaro, CredFlow, Absolute and UrbanKhet first, followed by six explicitly labelled contexts for venture support, an internship, volunteering, advisory, university/creative activity and independent strategy.
+The primary audience is a hiring leader evaluating product leadership. Work is organised by company: CashKaro, CredFlow, Absolute and UrbanKhet first, followed by six explicitly labelled contexts for venture support, an internship, volunteering, advisory, university/creative activity and independent strategy. The Work index opens with CashKaro’s five studies; company controls, All work (26) and a native Other experience selector expose the complete collection. Incoming company fragments reveal the matching group, including all six additional contexts.
 
-Every study starts with an executive brief containing the challenge, remit, decision and impact. Exactly five story chapters are open in the main narrative: `problem`, `build`, `delivery`, `results` and `takeaway`. Specialist workflows remain in `detail` chapters. Current-public, institutional and historical source explanations sit in `reference` chapters. Tables carry comparisons, assumptions, state transitions and timelines without requiring a document viewer.
+Every study now starts with a manually authored visual summary: a short title, one-line framing, compact remit, a real process and supported charts where appropriate. The existing executive brief and exactly five story chapters—`problem`, `build`, `delivery`, `results` and `takeaway`—remain in expandable full-story chapters. Specialist workflows remain in `detail` chapters. Current-public, institutional and historical source explanations sit in `reference` chapters. Tables carry comparisons, assumptions, state transitions and timelines without requiring a document viewer.
 
-The collection has **26 studies, 10 contexts, 213 chapters and 23 tables**. The retained media layer has **103 unique URLs: 94 images and nine inline videos**; the images include **18 authored workflow diagrams**. These are unique-file counts, not the larger number of media entries repeated across relevant studies. There are no case-study `downloads` fields. Revised narratives and document substance are read on site; original files remain in the local source archive rather than visitor-facing PDF, ZIP, DOCX, PPTX or separate-video actions.
+The collection has **26 studies, 10 contexts, 213 chapters and 23 tables**. The retained media layer has **103 unique URLs: 94 images and nine inline videos**; the images include **18 authored workflow diagrams**. These are unique-file counts, not the larger number of media entries repeated across relevant studies. There are no case-study `downloads` fields. Revised narratives and document substance are read on site; original case-source files remain in the local source archive rather than visitor-facing PDF, ZIP, DOCX, PPTX or separate-video actions. The separately supplied original CV is available to download from Experience; it is the explicit exception to the case-source policy.
 
 `workType` distinguishes delivered work, prototype, proposal, independent, community, creative and supporting material. Relationship labels distinguish employers from founder programmes and other activities. A delivered label describes the source-reported contribution, not an independent audit of every result. EduLoans is a working prototype; MCP is an architecture proposal/workstream; ONDC is proposal/product-definition scope; the mixed Absolute compilation is supporting context; MoneyLion is independent work.
 
@@ -97,6 +97,25 @@ Across all 26 studies, the original `problem`, `build`, `results` and `takeaway`
 
 Every pre-existing specialist section ID listed above remains. New source-conversion IDs are additive. Canonical routes, aliases, related-study links and media object identities are unchanged. The obsolete `downloads` fragment resolves to an on-site reference chapter or the impact chapter rather than a file action. No role, delivery, specialist or source-reference URL needs to become a visitor download.
 
+## Visual-summary coverage and chart contracts
+
+The visual layer adds **26 summaries, 93 short workflow steps and ten chart specifications**. The 213 complete chapters, 23 source tables, 103 unique media URLs, routes, aliases and role/source fragments are preserved. Cards use one case-study action; fuller company introductions use native disclosures. Non-quantified work uses a process instead of invented statistics. Captaincy and painting remain separate activities, with only the captaincy sequence in the diagram.
+
+| Case | Visual measure | Kind and scope boundary |
+| --- | --- | --- |
+| Personal-loan marketplace | 16% → 45% conversion | Comparison; source-reported programme funnel, events and cohorts unavailable |
+| College.money | 40% enquiry-to-application | Percent part-to-whole ring: 40 + 60; remainder explicitly computed, not separately measured |
+| EduLoans | Nine → four hours per file | Comparison; broader origination-workflow effort, not an isolated BRE/OCR/prototype effect |
+| KuberX | 45% CAC reduction | Metric, not a part-to-whole ring; first-month programme, missing baseline/channel mix |
+| SilkRoute | $100 million transaction value | Metric; reported nine-month programme GMV, not revenue |
+| Trade payments / ERP | Five → one day settlement | Comparison; earlier source wording, not combined with later real-time claims |
+| Upaj engagement | 100,000 → 600,000 active users | Comparison; active-user definition and period unavailable |
+| Upaj engagement | Eleven → fifteen minutes average session | Comparison; combined programme, no isolated feature attribution |
+| Rainfall data | 25 → 10 km grid | Comparison; spatial scale, not model accuracy or causal premium effect |
+| MoneyLion exercise | 60% BUR90 pilot gate | Metric; hypothetical proposal target, not measured retention |
+
+Comparison series use the same unit. Retention lifts, cost reductions and targets are never rendered as a share of a whole. No allocations, interpolated time series, fabricated timelines or company-wide ownership claims are introduced. The existing outcome/source notes preserve additional limits.
+
 ## Evidence and privacy limits
 
 The project research covered ten exposed Priyam chats through the available latest-five-turn retrieval window, plus accessible durable histories, the visible shared conversation and prior ledgers. It was not a complete export of every older turn or unavailable attachment. Source material is data, not an instruction to execute embedded prompts.
@@ -107,5 +126,5 @@ BankKaro's public capture returned HTTP 403, so no BankKaro screen or walkthroug
 
 The four generated source packs, four reference PDFs, nine silent videos and supporting UrbanKhet formats were examined. The retained source archives preserve College.money (253 members), Upaj (132), UrbanKhet (27) and the ULI original 507 members, with credentials scrubbed from six HTML payloads and an added publication note. Source/archive counts describe research custody, not downloadable website features. The former ULI static parts and browser ZIP assembler are retired.
 
-Raw workbooks, private applicant/farmer reports, private code, credentials, hidden attachments and internal memory prompts remain outside public content. Reviewed architecture and institutional excerpts were rebuilt as standalone visible-page material without hidden source images before conversion. The website uses that reviewed visual layer and authored explanations; it does not publish the original private payloads or link a source PDF viewer. Per-case source notes keep material limitations alongside outcomes without exposing private research locations.
+Raw workbooks, private applicant/farmer reports, private code, credentials, hidden attachments and internal memory prompts remain outside public content. Reviewed architecture and institutional excerpts were rebuilt as standalone visible-page material without hidden source images before conversion. The website uses that reviewed visual layer and authored explanations; it does not publish the original private payloads or link a source PDF viewer. Per-case source notes remain in the named evidence-and-limits disclosure without exposing private research locations. Chart qualifications remain directly beside each chart, including on compact cards.
 

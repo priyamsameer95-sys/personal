@@ -221,6 +221,55 @@
         "remit": "I owned the application journey, partner commercials, lending operations and P&L, working with engineering, growth and lender teams.",
         "decision": "Use a common application with eligibility-based routing, while making KYC responsibilities, rejection feedback and payout follow-through part of partner onboarding.",
         "impact": "The programme reports 16% to 45% funnel conversion and a broader panel of 20+ banks and NBFCs. Exact funnel events and comparison cohorts are unavailable."
+      },
+      "visualSummary": {
+        "title": "Personal-loan marketplace",
+        "summary": "One application, lender-specific routing and commercial follow-through.",
+        "challenge": "Completed forms could still reach unsuitable lenders.",
+        "role": "Journey, lender partnerships, operations and P&L.",
+        "decision": "Match eligibility before lender handoff.",
+        "impact": "Reported programme conversion: 16% → 45%.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Apply",
+              "detail": "Common borrower inputs"
+            },
+            {
+              "title": "Match",
+              "detail": "Income, bureau, employment and geography"
+            },
+            {
+              "title": "Handoff",
+              "detail": "Lender review and KYC"
+            },
+            {
+              "title": "Follow through",
+              "detail": "Status, payouts and rejection feedback"
+            }
+          ],
+          "note": "Routing and partner operations were delivered together; lenders retain the credit decision."
+        },
+        "charts": [
+          {
+            "id": "conversion",
+            "title": "Reported funnel conversion",
+            "kind": "comparison",
+            "unit": "%",
+            "values": [
+              {
+                "label": "Earlier",
+                "value": 16
+              },
+              {
+                "label": "Later",
+                "value": 45
+              }
+            ],
+            "note": "Programme-level report. Funnel events and comparison cohorts are not supplied."
+          }
+        ]
       }
     },
     {
@@ -652,6 +701,55 @@
         "remit": "I owned the education-loan journey, integrations, funnel measurement, operating model and partner commercials across the lending programme.",
         "decision": "Build a thin origination layer around common inputs, document collection, eligibility pre-checks and routing; connect it to reviewer and lender operations.",
         "impact": "The launch reports 40% enquiry-to-application conversion. ₹5.5 crore monthly disbursement is retained as CashKaro lending context, with conflicting vertical definitions."
+      },
+      "visualSummary": {
+        "title": "College.money education loans",
+        "summary": "Turn student intent and documents into a lender-ready case.",
+        "challenge": "Fragmented requirements create repeat work and uncertain next steps.",
+        "role": "Education-loan journey, partner commercials and operations.",
+        "decision": "Unify capture, evidence and lender routing.",
+        "impact": "Reported launch-year enquiry-to-application conversion: 40%.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Enquire",
+              "detail": "Capture student intent"
+            },
+            {
+              "title": "Prepare",
+              "detail": "Collect application inputs and evidence"
+            },
+            {
+              "title": "Route",
+              "detail": "Eligibility pre-check and lender handoff"
+            },
+            {
+              "title": "Review",
+              "detail": "Operations and lender follow-through"
+            }
+          ],
+          "note": "Current public pages are reference context; OTP-protected application stages were not tested."
+        },
+        "charts": [
+          {
+            "id": "application-share",
+            "title": "Reported enquiry-to-application share",
+            "kind": "donut",
+            "unit": "%",
+            "values": [
+              {
+                "label": "Application",
+                "value": 40
+              },
+              {
+                "label": "Remainder (implied)",
+                "value": 60
+              }
+            ],
+            "note": "Launch-year report. The 60% remainder is computed, not separately measured; enquiry cohort not supplied."
+          }
+        ]
       }
     },
     {
@@ -1005,6 +1103,55 @@
         "remit": "I authored the PRD, lender-rule model and workflows, and used parallel policy/chat and React–TypeScript–Supabase builds to make the choices reviewable.",
         "decision": "Choose deterministic gates and bounded scoring first, require KAM verification before BRE results, and route uncertain documents to human review.",
         "impact": "The model covers 62 rules, eight lender configurations and 23 workflow states. The broader origination workflow reports nine to four hours of effort per file; prototype completeness is separate."
+      },
+      "visualSummary": {
+        "title": "EduLoans policy and workflow",
+        "summary": "Explainable rules, verification gates and an inspectable prototype.",
+        "challenge": "Incomplete policy and uncertain documents can produce a misleading match.",
+        "role": "PRD, rule model, role journeys and AI-assisted builds.",
+        "decision": "Use deterministic gates; route uncertainty to a reviewer.",
+        "impact": "62 rules, eight lender configurations and 23 workflow states.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Capture",
+              "detail": "Student or partner case"
+            },
+            {
+              "title": "Verify",
+              "detail": "Lender-specific checklist and KAM review"
+            },
+            {
+              "title": "Evaluate",
+              "detail": "Eligibility gates, bounded scores and five tiers"
+            },
+            {
+              "title": "Explain",
+              "detail": "Lender result after verification"
+            }
+          ],
+          "note": "Working prototype with open release blockers. Workflow states are not geographic coverage."
+        },
+        "charts": [
+          {
+            "id": "processing-effort",
+            "title": "Reported processing effort per file",
+            "kind": "comparison",
+            "unit": "hours",
+            "values": [
+              {
+                "label": "Earlier",
+                "value": 9
+              },
+              {
+                "label": "Later",
+                "value": 4
+              }
+            ],
+            "note": "Broader origination-workflow result, not an isolated prototype, BRE or OCR benchmark."
+          }
+        ]
       }
     },
     {
@@ -1134,6 +1281,36 @@
         "remit": "I worked with engineering, lender teams and operations on integration requirements, partner reporting and the recurring review process; I also recruited across product, sales and operations.",
         "decision": "Normalise eligibility, KYC, status and payouts while preserving partner-specific policy. Follow application outcomes through service risks, disputes and reconciliation.",
         "impact": "The lending business reports 20+ banks and NBFCs. The shared contract and operating review are documented; a separate integration-time reduction is not supplied."
+      },
+      "visualSummary": {
+        "title": "Lender integrations",
+        "summary": "Reusable connections with daily operating accountability.",
+        "challenge": "Partner differences can fragment application and payout follow-through.",
+        "role": "Integration requirements, lender operations and team building.",
+        "decision": "Normalise shared steps and retain lender-specific policy.",
+        "impact": "Reported broader panel: 20+ banks and NBFCs.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Agree",
+              "detail": "Policy, KYC, service levels and commercials"
+            },
+            {
+              "title": "Connect",
+              "detail": "Common eligibility, status and payout contract"
+            },
+            {
+              "title": "Operate",
+              "detail": "Lender-wise MIS and application follow-up"
+            },
+            {
+              "title": "Reconcile",
+              "detail": "Payouts, disputes and partner review"
+            }
+          ],
+          "note": "The broader panel differs from the eight lender configurations in the EduLoans model."
+        }
       }
     },
     {
@@ -1262,6 +1439,36 @@
         "remit": "I worked on the education-loan rule architecture and implementation review. A later guide extends the direction to two BREs behind one MCP server.",
         "decision": "Separate policy evaluation from the consuming interface, and treat outcome feedback as a review input rather than evidence of automatic production retuning.",
         "impact": "The output is an architecture workstream alongside working EduLoans builds. Production reuse, exact wiring and an isolated business result remain unconfirmed."
+      },
+      "visualSummary": {
+        "title": "Callable lending policy",
+        "summary": "An architecture direction for reusable rules and reviewed feedback.",
+        "challenge": "Interface-bound rules are difficult to reuse or update responsibly.",
+        "role": "Lending-policy architecture and implementation review.",
+        "decision": "Separate evaluation from approved policy change.",
+        "impact": "Documented direction; live MCP wiring remains unconfirmed.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Request",
+              "detail": "A consuming product supplies case inputs"
+            },
+            {
+              "title": "Evaluate",
+              "detail": "A shared policy capability applies rules"
+            },
+            {
+              "title": "Handoff",
+              "detail": "Reviewer and lender retain their responsibilities"
+            },
+            {
+              "title": "Review feedback",
+              "detail": "Rejections and overrides inform policy review"
+            }
+          ],
+          "note": "Architecture proposal: two BREs behind one MCP server are described, not verified as deployed."
+        }
       }
     },
     {
@@ -1390,6 +1597,51 @@
         "remit": "I owned the launch journey, lending analytics, credit-card-payment work and P&L, collaborating with product, growth and engineering.",
         "decision": "Instrument acquisition and activation together, then combine targeted sign-up events and personalised onboarding with a usable payment capability.",
         "impact": "The programme reports 45% lower CAC and ₹10 lakh acquisition-cost savings in the first month. Baselines, channel mix and retained-user quality are not supplied."
+      },
+      "visualSummary": {
+        "title": "KuberX launch",
+        "summary": "Connect acquisition spending to useful SME activation.",
+        "challenge": "A built app needed measurable progress beyond sign-up.",
+        "role": "Launch journey, analytics, payment work and P&L.",
+        "decision": "Instrument acquisition and activation together.",
+        "impact": "Reported first-month CAC reduction: 45%.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Acquire",
+              "detail": "Targeted sign-up activity"
+            },
+            {
+              "title": "Onboard",
+              "detail": "Personalised SME journey"
+            },
+            {
+              "title": "Activate",
+              "detail": "Useful payment or lending action"
+            },
+            {
+              "title": "Measure",
+              "detail": "App analytics and MoEngage"
+            }
+          ],
+          "note": "Product, growth and engineering delivered a combined launch programme."
+        },
+        "charts": [
+          {
+            "id": "cac-reduction",
+            "title": "Reported acquisition-cost reduction",
+            "kind": "metric",
+            "unit": "%",
+            "values": [
+              {
+                "label": "First-month reduction",
+                "value": 45
+              }
+            ],
+            "note": "This is a reduction, not a share. Baseline, channel mix and retained-user quality are not supplied."
+          }
+        ]
       }
     },
     {
@@ -1495,6 +1747,32 @@
         "remit": "I owned the Pay via Credit Card launch and customer journey, working with engineering on the custom high-volume payment solution within KuberX.",
         "decision": "Deliver the payment capability alongside acquisition and onboarding, so newly acquired customers have a concrete business action to take.",
         "impact": "The feature reports ₹10 crore in first-week transaction value. It is not fee revenue; initiated, successful and settled transaction states are not reconciled in the records."
+      },
+      "visualSummary": {
+        "title": "SME credit-card payments",
+        "summary": "A custom payment capability inside the KuberX launch.",
+        "challenge": "The customer journey depended on reliable high-volume payment execution.",
+        "role": "Payment launch and engineering collaboration.",
+        "decision": "Deliver the payment capability alongside onboarding.",
+        "impact": "Reported first-week transaction value: ₹10 crore.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Start",
+              "detail": "SME initiates a business payment"
+            },
+            {
+              "title": "Execute",
+              "detail": "Custom high-volume payment solution"
+            },
+            {
+              "title": "Activate",
+              "detail": "Payment use within the launch programme"
+            }
+          ],
+          "note": "Transaction value is not revenue; initiated, successful and settled states are not reconciled."
+        }
       }
     },
     {
@@ -1625,6 +1903,51 @@
         "remit": "I led connected product modules, trader research, requirements and delivery coordination, including Jira, daily scrum and payment-failure investigation.",
         "decision": "Link catalogue, discovery, direct negotiation and matching to payments and the trade record, rather than leaving execution outside the marketplace.",
         "impact": "The connected trading programme reports $100 million GMV within nine months. Buyer, supplier and order-value cohorts vary across source versions."
+      },
+      "visualSummary": {
+        "title": "SilkRoute commodity trading",
+        "summary": "Connect discovery and negotiation to an executable trade.",
+        "challenge": "A catalogue alone could not digitise large-ticket commodity trading.",
+        "role": "Research, connected modules and cross-functional delivery.",
+        "decision": "Build marketplace and operating workflows together.",
+        "impact": "Reported programme GMV: $100 million in nine months.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Discover",
+              "detail": "Catalogue and buyer–seller matching"
+            },
+            {
+              "title": "Negotiate",
+              "detail": "Direct large-ticket B2B terms"
+            },
+            {
+              "title": "Execute",
+              "detail": "Payments and trade operations"
+            },
+            {
+              "title": "Learn",
+              "detail": "Failure investigation and regional rollout"
+            }
+          ],
+          "note": "GMV is not revenue. Supplier, buyer and order-value cohorts vary across records."
+        },
+        "charts": [
+          {
+            "id": "gmv",
+            "title": "Reported nine-month transaction value",
+            "kind": "metric",
+            "unit": "USD",
+            "values": [
+              {
+                "label": "Programme GMV",
+                "value": 100000000
+              }
+            ],
+            "note": "Source-reported programme scale, not platform revenue or one feature’s isolated effect."
+          }
+        ]
       }
     },
     {
@@ -1759,6 +2082,55 @@
         "remit": "I worked with engineering and finance on payment-gateway and ERP requirements, payment failures and the operating checks around trade execution.",
         "decision": "Connect the customer transaction, internal trade legs, reconciliation logic and customs documents in a common workflow; IDFC is the named banking partner.",
         "impact": "The combined programme reports five-to-one-day settlement, 80% fewer complaint tickets and 70–80% lower leakage. Baselines and comparison cohorts are unavailable."
+      },
+      "visualSummary": {
+        "title": "Trade payments and ERP",
+        "summary": "Give payments, finance and physical trade one shared state.",
+        "challenge": "Currencies, documents and manual reconciliation fragmented the trade record.",
+        "role": "Gateway and ERP requirements with engineering and finance.",
+        "decision": "Join trade legs, checks and reconciliation.",
+        "impact": "Reported settlement cycle: five days → one day.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Record",
+              "detail": "Trade legs and customer transaction"
+            },
+            {
+              "title": "Check",
+              "detail": "Regulatory, customs, CHA and challan requirements"
+            },
+            {
+              "title": "Pay",
+              "detail": "Large-ticket gateway execution"
+            },
+            {
+              "title": "Reconcile",
+              "detail": "Finance record and unresolved exceptions"
+            }
+          ],
+          "note": "The gateway and operating-process changes formed one programme."
+        },
+        "charts": [
+          {
+            "id": "settlement-cycle",
+            "title": "Reported settlement cycle",
+            "kind": "comparison",
+            "unit": "days",
+            "values": [
+              {
+                "label": "Earlier",
+                "value": 5
+              },
+              {
+                "label": "Later",
+                "value": 1
+              }
+            ],
+            "note": "Earlier source wording retained. Later “real-time” claims and missing cohort definitions are not merged."
+          }
+        ]
       }
     },
     {
@@ -2828,6 +3200,36 @@
         "remit": "I led the agricultural-risk assessment product and standardised information-sharing handoff, collaborating with lenders and data partners around ULI integration.",
         "decision": "Connect weather, soil moisture, vegetation, yield and parcel signals to a lender-facing risk output through standard APIs; leave credit approval with the lender.",
         "impact": "The programme reports 167 satellite indices, 500K+ farmers or loans reached and lending under 30 minutes. Count and clock definitions are not supplied."
+      },
+      "visualSummary": {
+        "title": "Farm-risk information for lenders",
+        "summary": "Translate agricultural signals into a lender’s appraisal workflow.",
+        "challenge": "Rural borrowers may lack conventional income or credit evidence.",
+        "role": "Risk-information product and institutional handoff.",
+        "decision": "Standardise assessment output and API access.",
+        "impact": "Reported partner reach: 500K+ farmers or loans.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Observe",
+              "detail": "Weather, soil, vegetation, yield and parcels"
+            },
+            {
+              "title": "Assess",
+              "detail": "Agricultural-risk output"
+            },
+            {
+              "title": "Share",
+              "detail": "Standard API and ULI handoff"
+            },
+            {
+              "title": "Appraise",
+              "detail": "Lender approval and disbursement"
+            }
+          ],
+          "note": "Count and timing definitions vary. ULI and 2026 RiskStac pages are context, not personal platform ownership."
+        }
       }
     },
     {
@@ -2951,6 +3353,32 @@
         "remit": "I contributed to the collaboration and product-definition workstream with ONDC leadership, alongside the agricultural-risk remit.",
         "decision": "Explore reuse through the new borrower and partner requirements rather than transferring rural-credit adoption numbers to the SME setting.",
         "impact": "The documented output is an adaptation workstream. Production acceptance, a complete pilot specification and an isolated borrower outcome are unavailable."
+      },
+      "visualSummary": {
+        "title": "ONDC credit adaptation",
+        "summary": "Explore agricultural-risk reuse for a different borrower ecosystem.",
+        "challenge": "SME evidence and partner workflows differ from farm credit.",
+        "role": "Collaboration and product definition with ONDC leadership.",
+        "decision": "Challenge assumptions before reusing the capability.",
+        "impact": "Documented workstream; release and borrower results are unconfirmed.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Review",
+              "detail": "Existing risk primitives"
+            },
+            {
+              "title": "Adapt",
+              "detail": "SME evidence and ecosystem requirements"
+            },
+            {
+              "title": "Define",
+              "detail": "Institutional product workstream"
+            }
+          ],
+          "note": "Proposal scope; rural-credit outcomes are not transferred to this workstream."
+        }
       }
     },
     {
@@ -3098,6 +3526,72 @@
         "remit": "I led the UI/UX revamp and platform monetisation, coordinating information features, content, notifications, design and engineering.",
         "decision": "Organise the app around recurring farming decisions; combine monitoring and mandi prices with contextual notifications, creator content and simpler entry.",
         "impact": "The programme reports D14/D30 lift of 50%/20%, active users of 100K to 600K, 66% lower CAC and sessions of 11 to 15 minutes. Cohort definitions are unavailable."
+      },
+      "visualSummary": {
+        "title": "Upaj recurring utility",
+        "summary": "Rebuild engagement around farm monitoring, markets and useful information.",
+        "challenge": "D14 and D30 retention had stayed flat for thirteen months.",
+        "role": "App revamp, content, lifecycle communication and monetisation.",
+        "decision": "Connect recurring farmer jobs and device constraints.",
+        "impact": "Reported active users: 100K → 600K.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Enter",
+              "detail": "Simpler onboarding on constrained phones"
+            },
+            {
+              "title": "Use",
+              "detail": "Farm monitoring and mandi prices"
+            },
+            {
+              "title": "Return",
+              "detail": "Contextual notifications and creator content"
+            },
+            {
+              "title": "Review",
+              "detail": "Retention, acquisition cost and session duration"
+            }
+          ],
+          "note": "Combined programme results; individual feature effects and cohort definitions are not supplied."
+        },
+        "charts": [
+          {
+            "id": "active-users",
+            "title": "Reported active users",
+            "kind": "comparison",
+            "unit": "users",
+            "values": [
+              {
+                "label": "Earlier",
+                "value": 100000
+              },
+              {
+                "label": "Later",
+                "value": 600000
+              }
+            ],
+            "note": "Reported active-user series. Cohort definition and comparison period are not supplied."
+          },
+          {
+            "id": "session-duration",
+            "title": "Reported average session duration",
+            "kind": "comparison",
+            "unit": "minutes",
+            "values": [
+              {
+                "label": "Earlier",
+                "value": 11
+              },
+              {
+                "label": "Later",
+                "value": 15
+              }
+            ],
+            "note": "Programme-level report. It does not isolate content, notifications or any one design change."
+          }
+        ]
       }
     },
     {
@@ -3395,6 +3889,32 @@
         "remit": "I worked at the product level on Farm OS requirements, monitoring capabilities and their place in the farmer-facing experience.",
         "decision": "Bring indoor sensor/controller information and parcel-level GIS monitoring into the wider farm stack while preserving each environment’s requirements.",
         "impact": "The reported scope is indoor/open-field monitoring. No isolated Farm OS adoption, productivity or automated-control result is supplied."
+      },
+      "visualSummary": {
+        "title": "Farm OS monitoring",
+        "summary": "Connect indoor sensor information and outdoor parcel visibility.",
+        "challenge": "Indoor farms and open fields need different inputs and controls.",
+        "role": "Product requirements and farmer-facing monitoring.",
+        "decision": "Preserve each environment within a shared farm stack.",
+        "impact": "Reported indoor IoT and open-field GIS capability.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Observe",
+              "detail": "Indoor sensors or outdoor parcel data"
+            },
+            {
+              "title": "Monitor",
+              "detail": "Environment-specific farm conditions"
+            },
+            {
+              "title": "Use",
+              "detail": "Information within the wider advisory service"
+            }
+          ],
+          "note": "Monitoring is distinct from automated control. No isolated adoption or yield result is supplied."
+        }
       }
     },
     {
@@ -3570,6 +4090,36 @@
         "remit": "I led product work around disease detection and the farmer journey, collaborating with engineering, modelling and agronomy expertise.",
         "decision": "Join image curation and expert review to offline capture, diagnosis after reconnection and crop-specific advisory, rather than ending at a model label.",
         "impact": "The reported scope covers 500K+ images and 14 crops. Separate accuracy, causal yield improvement and support-deflection outcomes are not established."
+      },
+      "visualSummary": {
+        "title": "Crop-health diagnosis",
+        "summary": "Turn a leaf photograph into a usable field decision.",
+        "challenge": "A diagnosis needs reliable capture and understandable next actions.",
+        "role": "Product delivery with engineering, modelling and agronomy.",
+        "decision": "Connect expert-reviewed data, offline capture and advisory.",
+        "impact": "Reported scope: 500K+ images across fourteen crops.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Prepare",
+              "detail": "Image curation, labels and agronomist review"
+            },
+            {
+              "title": "Capture",
+              "detail": "Leaf photograph, including offline"
+            },
+            {
+              "title": "Diagnose",
+              "detail": "Process when connectivity returns"
+            },
+            {
+              "title": "Advise",
+              "detail": "Crop-specific guidance inside Upaj"
+            }
+          ],
+          "note": "Dataset scope is not accuracy. Causal yield and support-deflection figures are not established."
+        }
       }
     },
     {
@@ -3831,6 +4381,51 @@
         "remit": "I connected the rainfall data requirement, ground-truth work and actuarial use, with a related PMFBY sandbox continuing into execution.",
         "decision": "Combine satellite estimates, stations, terrain and history into a finer grid, then connect validation to premium tables rather than treating resolution as the outcome.",
         "impact": "The earlier record reports 25 km to 10 km resolution and 27% lower premiums. Pricing cohorts are unavailable; the PMFBY sandbox is not presented as completed rollout."
+      },
+      "visualSummary": {
+        "title": "Rainfall data and insurance",
+        "summary": "Connect finer local data to an actuarial pricing task.",
+        "challenge": "Coarse rainfall grids hide differences between nearby villages.",
+        "role": "Rainfall-product definition, validation and insurance use.",
+        "decision": "Combine satellite, station, terrain and historical inputs.",
+        "impact": "Reported grid resolution: 25 km → 10 km.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Combine",
+              "detail": "Satellite, station, terrain and history"
+            },
+            {
+              "title": "Validate",
+              "detail": "Ground truth across monsoon cycles"
+            },
+            {
+              "title": "Price",
+              "detail": "Actuarial work and premium tables"
+            }
+          ],
+          "note": "The 27% premium change lacks a pricing cohort; PMFBY sandbox execution remains distinct."
+        },
+        "charts": [
+          {
+            "id": "grid-resolution",
+            "title": "Reported rainfall-grid resolution",
+            "kind": "comparison",
+            "unit": "km",
+            "values": [
+              {
+                "label": "Earlier grid",
+                "value": 25
+              },
+              {
+                "label": "Later grid",
+                "value": 10
+              }
+            ],
+            "note": "Spatial grid scale, not accuracy. Resolution change and reported premium effect are separate measures."
+          }
+        ]
       }
     },
     {
@@ -3960,6 +4555,36 @@
         "remit": "I led product adaptation and partner delivery with regional teams, including reported work with Bank of Brazil, Experian and CRIF.",
         "decision": "Adapt Portuguese and Bahasa Malaysia alongside units, weather, soil, credit assumptions and regulatory workflows; include due diligence and integration.",
         "impact": "The records report deployments in Brazil and Malaysia and named institutional onboarding. Module-level commercial scope and regional adoption are not supplied."
+      },
+      "visualSummary": {
+        "title": "Upaj in Brazil and Malaysia",
+        "summary": "Localise the data and institutional assumptions alongside language.",
+        "challenge": "An Indian configuration cannot transfer unchanged to another market.",
+        "role": "Adaptation, regional collaboration and institutional delivery.",
+        "decision": "Join language, units, environment and regulation.",
+        "impact": "Reported deployments in Brazil and Malaysia.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Localise",
+              "detail": "Portuguese, Bahasa Malaysia and units"
+            },
+            {
+              "title": "Adapt data",
+              "detail": "Weather, soil and local credit evidence"
+            },
+            {
+              "title": "Review",
+              "detail": "Procurement and technical due diligence"
+            },
+            {
+              "title": "Integrate",
+              "detail": "Regional institutions and partner workflows"
+            }
+          ],
+          "note": "Named deployments are source-reported; module-level commercial scope and adoption are not supplied."
+        }
       }
     },
     {
@@ -4161,6 +4786,32 @@
         "remit": "I led the agri-input store launch with operations, purchasing and finance, and worked on custom B2B/B2G platforms for named institutions.",
         "decision": "Launch the customer surface and physical dependencies together; keep the commerce cohort separate from bank, government and multilateral use cases.",
         "impact": "The launch reports ₹2 lakh daily revenue in its first month. Larger distribution claims and proposal-specific impact are not merged with that result."
+      },
+      "visualSummary": {
+        "title": "Agri-input commerce",
+        "summary": "Launch the catalogue and its physical distribution together.",
+        "challenge": "A product offer depends on purchasing, stock and fulfilment.",
+        "role": "Commerce launch and distinct B2B/B2G requirements.",
+        "decision": "Coordinate product with operations, purchasing and finance.",
+        "impact": "Reported launch: 2,000+ SKUs across 200 stores.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Prepare",
+              "detail": "Catalogue, purchasing and store network"
+            },
+            {
+              "title": "Launch",
+              "detail": "Customer-facing commerce in thirty days"
+            },
+            {
+              "title": "Operate",
+              "detail": "Distribution and commercial follow-through"
+            }
+          ],
+          "note": "Launch cohort stays separate from larger phygital figures and institutional proposals."
+        }
       }
     },
     {
@@ -4442,6 +5093,32 @@
         "remit": "I present these materials as supporting context. The compilation does not consistently establish which outputs I led, the team owned or the organisation proposed.",
         "decision": "Group the work by its product question and state proposal or team scope clearly, rather than combining disparate company figures into a personal impact claim.",
         "impact": "The additional workstreams remain available here. Projected ₹14 crore SaaS ARR, ₹6 crore farmer-credit targets and company/client scale are not delivered personal outcomes."
+      },
+      "visualSummary": {
+        "title": "Agricultural portfolio context",
+        "summary": "Keep platform breadth visible without inflating personal attribution.",
+        "challenge": "The compilation mixes team work, proposals, pilots and business scale.",
+        "role": "Supporting portfolio presentation; personal ownership varies.",
+        "decision": "Group each workstream with its scope and status.",
+        "impact": "Supporting context, not a consolidated personal impact total.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Map",
+              "detail": "Survey, value-chain and distribution work"
+            },
+            {
+              "title": "Explain",
+              "detail": "Institutional data flow and proposed integrations"
+            },
+            {
+              "title": "Qualify",
+              "detail": "Team, company, target or projection status"
+            }
+          ],
+          "note": "₹14 crore ARR is projected; ₹6 crore farmer credit is a target, not realised output."
+        }
       }
     },
     {
@@ -4818,6 +5495,36 @@
         "remit": "I founded UrbanKhet and owned its proposition, customer acquisition, web product, farmer sourcing, team, fulfilment and P&L.",
         "decision": "Move from terrace farming to direct produce supply, combining household subscriptions and business demand with decentralised distribution and SOPs.",
         "impact": "The venture reports a 28-person team, 3,600+ clients, 45 business customers and 3,000+ farmer reach. Sources use different dates and customer scopes."
+      },
+      "visualSummary": {
+        "title": "UrbanKhet farm-to-fork",
+        "summary": "Build the web order and its physical promise as one business.",
+        "challenge": "Fresh produce ties customer demand to harvest, waste and delivery.",
+        "role": "Founder: proposition, product, sourcing, fulfilment and P&L.",
+        "decision": "Move from terrace farming to direct produce supply.",
+        "impact": "Reported scope: 3,600+ clients and forty-five business customers.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Learn",
+              "detail": "First forty-four customers and farmer outreach"
+            },
+            {
+              "title": "Source",
+              "detail": "Farm relationships and harvest planning"
+            },
+            {
+              "title": "Order",
+              "detail": "Household subscriptions and business demand"
+            },
+            {
+              "title": "Deliver",
+              "detail": "Distributed fulfilment and team SOPs"
+            }
+          ],
+          "note": "Customer counts vary by period; farmer reach is not assumed to mean active suppliers."
+        }
       }
     },
     {
@@ -4985,6 +5692,36 @@
         "remit": "I remained accountable as founder for demand, routes, partnerships, the operating team and business viability.",
         "decision": "Rebuild the logistics chain around changed demand and daily volume, including Amul collaboration; keep continuation and viability as separate decisions.",
         "impact": "The profile reports a fifteen-day logistics rebuild and first-wave continuity. A later account records wind-down after the second wave; detailed closure outcomes are unavailable."
+      },
+      "visualSummary": {
+        "title": "UrbanKhet through COVID",
+        "summary": "Redesign routes and demand, then assess business viability.",
+        "challenge": "Lockdown disrupted business demand, access and cash runway.",
+        "role": "Founder accountability for the service, team and economics.",
+        "decision": "Rebuild logistics around daily volume and partnerships.",
+        "impact": "Reported fifteen-day rebuild and first-wave continuity.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Reassess",
+              "detail": "Changed demand and delivery access"
+            },
+            {
+              "title": "Rebuild",
+              "detail": "Amul collaboration and distributed logistics"
+            },
+            {
+              "title": "Operate",
+              "detail": "Routes adjusted to daily volume"
+            },
+            {
+              "title": "Assess viability",
+              "detail": "Later wind-down as economics became unsustainable"
+            }
+          ],
+          "note": "First-wave continuity and later closure are separate periods; detailed stakeholder outcomes are unconfirmed."
+        }
       }
     },
     {
@@ -5102,6 +5839,32 @@
         "remit": "I led UrbanKhet’s incubation and fundraising process as founder; this is venture development outside employment or an academic qualification.",
         "decision": "Explain the customer, service and economics alongside the operating venture, and use institutional mentorship around go-to-market, pricing and scale.",
         "impact": "The records support incubation, seed backing, TIDE 2.0 and SSIP grants and recognition. They do not establish one consolidated funding amount."
+      },
+      "visualSummary": {
+        "title": "UrbanKhet venture backing",
+        "summary": "Make the operating venture understandable to support institutions.",
+        "challenge": "Capital and credibility are needed while the model develops.",
+        "role": "Founder-led incubation and fundraising.",
+        "decision": "Connect customer evidence, operating model and economics.",
+        "impact": "Reported seed support, grants and venture recognition.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Explain",
+              "detail": "Customer, service and economics"
+            },
+            {
+              "title": "Develop",
+              "detail": "Incubation and operating mentorship"
+            },
+            {
+              "title": "Back",
+              "detail": "Seed support, grants and recognition"
+            }
+          ],
+          "note": "Venture support is not employment or a degree; no consolidated funding amount is claimed."
+        }
       }
     },
     {
@@ -5206,6 +5969,32 @@
         "remit": "I interned in Bengaluru during May–July 2018, supporting routines and daily work under farm leadership rather than owning the full farm business.",
         "decision": "Establish procedures across inputs, farm management, harvest, packing and supply, with practical exposure to pest management, biofiltration and diversification.",
         "impact": "The early record describes 1.5 acres and coordination with 35 field workers. No isolated production uplift is attributed to the internship."
+      },
+      "visualSummary": {
+        "title": "Aquaponics operating routines",
+        "summary": "Learn the dependencies between farm inputs, harvest and supply.",
+        "challenge": "Each farm routine affects the quality of the next task.",
+        "role": "Internship SOPs and daily field coordination.",
+        "decision": "Make inputs-to-supply procedures repeatable.",
+        "impact": "Reported internship context: 1.5 acres and thirty-five field workers.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Manage",
+              "detail": "Inputs and integrated farm routines"
+            },
+            {
+              "title": "Harvest",
+              "detail": "Crop preparation and timing"
+            },
+            {
+              "title": "Pack",
+              "detail": "Consistent handling and supply coordination"
+            }
+          ],
+          "note": "Coordination under farm leadership, not ownership of the whole farm or an isolated production uplift."
+        }
       }
     },
     {
@@ -5313,6 +6102,32 @@
         "remit": "I volunteered with Gujarat Action Group during April–June 2021, creating the database and working with volunteers and ground staff.",
         "decision": "Bring changing bed, oxygen and medicine updates into a central resource with people coordinating the information flow.",
         "impact": "The contribution is the information resource and volunteer coordination. Thousands-helped wording is self-reported; verified beneficiary and clinical outcomes are unavailable."
+      },
+      "visualSummary": {
+        "title": "COVID resource coordination",
+        "summary": "Make rapidly changing bed, oxygen and medicine information useful.",
+        "challenge": "Availability updates could become stale before families found them.",
+        "role": "Volunteer database creation and information coordination.",
+        "decision": "Centralise updates from volunteers and ground staff.",
+        "impact": "Information resource delivered; clinical outcomes are not established.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Collect",
+              "detail": "Volunteer and ground-staff updates"
+            },
+            {
+              "title": "Organise",
+              "detail": "Shared bed, oxygen and medicine database"
+            },
+            {
+              "title": "Coordinate",
+              "detail": "Information access for families and teams"
+            }
+          ],
+          "note": "Volunteer contribution. Verified beneficiary counts and clinical effects are not supplied."
+        }
       }
     },
     {
@@ -5397,6 +6212,32 @@
         "remit": "I provide independent founder advice. Client identities, adopted recommendations and quantified outcomes are not disclosed.",
         "decision": "Connect product direction, customer demand, unit economics and the fundraising explanation as related operating questions.",
         "impact": "The documented output is advisory scope. No named client implementation or quantified result is presented."
+      },
+      "visualSummary": {
+        "title": "Independent founder advisory",
+        "summary": "Connect product direction with the venture’s operating business.",
+        "challenge": "An idea needs a customer, economics and a route to market.",
+        "role": "Independent advice across FMCG, energy and carbon-credit ventures.",
+        "decision": "Connect product, cost to serve, GTM and fundraising narrative.",
+        "impact": "Documented advisory scope; client results remain undisclosed.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Frame",
+              "detail": "Product direction and customer demand"
+            },
+            {
+              "title": "Connect",
+              "detail": "Unit economics and go-to-market"
+            },
+            {
+              "title": "Explain",
+              "detail": "Fundraising narrative and operating choices"
+            }
+          ],
+          "note": "Actual advisory work, outside employment; no named client outcome or adopted-decision episode is invented."
+        }
       }
     },
     {
@@ -5485,6 +6326,32 @@
         "remit": "I captained FC Sparta and paint independently, mainly in oils. These are university and personal activities.",
         "decision": "Keep captaincy and creative work visible on their own terms, without constructing a causal story about later professional results.",
         "impact": "The profile reports three consecutive football championships. No commercial design or quantified painting outcome is claimed."
+      },
+      "visualSummary": {
+        "title": "Captaincy and painting",
+        "summary": "Leadership and making outside professional product roles.",
+        "challenge": "A struggling team and sustained practice offer different working contexts.",
+        "role": "FC Sparta captain and independent oil painter.",
+        "decision": "Keep each activity visible on its own terms.",
+        "impact": "Reported football result: three consecutive championships.",
+        "workflow": {
+          "label": "Football captaincy",
+          "steps": [
+            {
+              "title": "Captain",
+              "detail": "FC Sparta at CEPT University"
+            },
+            {
+              "title": "Compete",
+              "detail": "University football-team participation"
+            },
+            {
+              "title": "Record",
+              "detail": "Three consecutive reported championships"
+            }
+          ],
+          "note": "Captaincy and reported competition result; painting is a separate independent creative practice."
+        }
       }
     },
     {
@@ -6200,6 +7067,51 @@
         "remit": "I independently authored the strategy iterations and retention diagnostic. This was not MoneyLion employment or a commissioned client engagement.",
         "decision": "Test merchant-funded cashback and cash-flow-first lender matching, make settled membership ROI visible, and gate scale on repeated use, quality and contribution.",
         "impact": "The outputs are proposals, flows and an assumption-based pilot model. No MoneyLion launch, retention, credit or financial improvement is claimed."
+      },
+      "visualSummary": {
+        "title": "MoneyLion WOW strategy exercise",
+        "summary": "Test recurring member value before scaling paid membership.",
+        "challenge": "An immediate liquidity benefit may not justify continued membership.",
+        "role": "Independent strategy author; no employment or client relationship.",
+        "decision": "Connect settled benefits, repeat use, risk and contribution.",
+        "impact": "Proposed pilot and economic model, not achieved results.",
+        "workflow": {
+          "label": "How the work connects",
+          "steps": [
+            {
+              "title": "Fund",
+              "detail": "Merchant offers and lender quote agreements"
+            },
+            {
+              "title": "Deliver",
+              "detail": "Consent, attribution and settled reward ledger"
+            },
+            {
+              "title": "Measure",
+              "detail": "BUR90, renewal, quality and contribution"
+            },
+            {
+              "title": "Decide",
+              "detail": "Scale, repair or stop against the mechanism"
+            }
+          ],
+          "note": "Independent proposal: staffing, budgets, personas, partner counts and targets are assumptions."
+        },
+        "charts": [
+          {
+            "id": "bur-target",
+            "title": "Proposed BUR90 pilot gate",
+            "kind": "metric",
+            "unit": "%",
+            "values": [
+              {
+                "label": "Assumed target",
+                "value": 60
+              }
+            ],
+            "note": "Hypothetical target: two qualifying settled orders by day 90. It is not measured retention or a share achieved."
+          }
+        ]
       }
     }
   ]

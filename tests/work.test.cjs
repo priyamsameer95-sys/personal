@@ -15,6 +15,12 @@ const study = {
   title: 'A product story', summary: 'An evidence-based summary.', role: 'Product manager', period: '2024', order: 1,
   workType: 'delivered',
   executiveBrief: { challenge: 'An application was losing eligible customers.', remit: 'I owned routing and partner operations.', decision: 'I made eligibility part of the shared journey.', impact: 'Reported programme conversion improved; individual contribution was shared.' },
+  visualSummary: {
+    title: 'A simpler lending journey', summary: 'One application with lender-specific routing.', role: 'Journey and partner operations.',
+    challenge: 'Eligible customers were reaching unsuitable lenders.', decision: 'Check lender fit before handoff.', impact: 'Programme-level conversion improved.',
+    workflow: { label: 'From application to lender review', steps: [{ title: 'Apply', detail: 'Common borrower inputs' }, { title: 'Match', detail: 'Lender eligibility rules' }, { title: 'Review', detail: 'Lender credit decision' }], note: 'Lenders retain the credit decision.' },
+    charts: [{ id: 'conversion', title: 'Reported funnel conversion', kind: 'comparison', unit: '%', values: [{ label: 'Earlier', value: 16 }, { label: 'Later', value: 45 }], note: 'Programme-level report; event definitions are not supplied.' }],
+  },
   outcomes: [{ label: 'A documented outcome', value: '10%', detail: 'Measured against the earlier process.' }],
   sections: [
     { id: 'problem', title: 'The problem', body: ['A complete narrative paragraph.'], mediaIds: ['screen', 'demo'] },
@@ -56,10 +62,11 @@ function caseRenderer(registry = fixture) {
   const media = load('components/work/Media.tsx', { './work.module.css': css }).default;
   const navigation = load('components/work/CaseStudyNavigation.tsx', {
     './work.module.css': css, './anchors': load('components/work/anchors.ts'),
-  }).default;
+  });
+  const visual = load('components/work/VisualStory.tsx', { './visual-story.module.css': css });
   return load('components/work/CaseStudy.tsx', {
     '@/lib/work': workModule({ registry }), '@/lib/work-types': load('lib/work-types.ts'),
-    './work.module.css': css, './Media': media, './CaseStudyNavigation': navigation,
+    './work.module.css': css, './Media': media, './CaseStudyNavigation': navigation, './VisualStory': visual,
   }).default;
 }
 
@@ -90,13 +97,20 @@ test('optional publishing database failure leaves authored work available', asyn
   assert.equal(work.findCaseStudy('company-one').title, study.title);
 });
 
-test('case study leads with a leadership brief, preserves full chapters and offers no file actions', () => {
+test('case study leads with a visual overview and keeps the complete story and sources in native disclosures', () => {
   const Component = caseRenderer();
   const html = renderToStaticMarkup(createElement(Component, { study: { ...study, heroMediaId: 'screen' } }));
-  assert.match(html, /<h1>A product story<\/h1>/);
-  assert.ok(html.indexOf(study.executiveBrief.challenge) < html.indexOf('<img'));
-  assert.ok(html.indexOf('Measured against the earlier process.') < html.indexOf('<img'));
-  assert.ok(html.indexOf(study.sourceNotes[0]) < html.indexOf('<img'));
+  assert.match(html, /<h1>A simpler lending journey<\/h1>/);
+  const overview = html.split('<details id="full-case-study"')[0];
+  assert.ok(overview.includes(study.visualSummary.challenge));
+  assert.ok(overview.includes(study.visualSummary.charts[0].note));
+  assert.ok(!overview.includes(study.executiveBrief.remit));
+  assert.ok(!overview.includes('A complete narrative paragraph.'));
+  assert.match(html, /<details id="full-case-study"[^>]+data-case-section="true"/);
+  assert.doesNotMatch(html, /<details id="full-case-study"[^>]+open/);
+  assert.ok(html.includes(study.executiveBrief.remit));
+  assert.ok(html.includes(study.sourceNotes[0]));
+  assert.match(html, /href="#story-problem"[^>]*>View product walkthroughs/);
   assert.match(html, /A complete narrative paragraph\./);
   assert.match(html, /<details id="story-operating-model"[^>]+data-case-section="true"/);
   assert.doesNotMatch(html, /<details id="story-operating-model"[^>]+open/);
@@ -141,7 +155,74 @@ test('proposal cases distinguish their evidence from delivered outcomes and lega
   const legacy = { ...study };
   delete legacy.workType;
   delete legacy.executiveBrief;
+  delete legacy.visualSummary;
   assert.doesNotThrow(() => renderToStaticMarkup(createElement(Component, { study: legacy })));
+  assert.match(renderToStaticMarkup(createElement(Component, { study: legacy })), /<h1>A product story<\/h1>/);
+});
+
+function visualRenderer() {
+  return load('components/work/VisualStory.tsx', { './visual-story.module.css': css });
+}
+
+test('comparison charts use a zero baseline, fixed percent scale and explicit same-unit values', () => {
+  const { Chart } = visualRenderer();
+  const percent = renderToStaticMarkup(createElement(Chart, { chart: study.visualSummary.charts[0] }));
+  assert.match(percent, /width:16%/);
+  assert.match(percent, /width:45%/);
+  assert.match(percent, /<strong>16%<\/strong>/);
+  assert.match(percent, /<strong>45%<\/strong>/);
+  assert.ok(percent.includes(study.visualSummary.charts[0].note));
+  const hours = renderToStaticMarkup(createElement(Chart, { chart: { id: 'effort', title: 'Processing effort', kind: 'comparison', unit: 'hours', values: [{ label: 'Earlier', value: 9 }, { label: 'Later', value: 4 }], note: 'Programme-level processing, not an OCR benchmark.' } }));
+  assert.match(hours, /width:100%/);
+  assert.match(hours, /width:44\.444/);
+  assert.match(hours, /9 hours/);
+  assert.match(hours, /4 hours/);
+  assert.match(hours, /not an OCR benchmark/);
+});
+
+test('donuts render only explicit percent partitions and retain their implied-remainder qualification', () => {
+  const { Chart } = visualRenderer();
+  const chart = { id: 'share', title: 'Application share', kind: 'donut', unit: '%', values: [{ label: 'Application', value: 40 }, { label: 'Remainder (implied)', value: 60 }], note: 'The remainder is implied, not separately measured.' };
+  const html = renderToStaticMarkup(createElement(Chart, { chart }));
+  assert.match(html, /<svg[^>]+aria-hidden="true"/);
+  assert.match(html, /stroke-dasharray="40 60"/);
+  assert.match(html, /stroke-dasharray="60 40"/);
+  assert.match(html, /stroke-dashoffset="-40"/);
+  assert.match(html, /Remainder \(implied\)/);
+  assert.match(html, /not separately measured/);
+  for (const invalid of [{ ...chart, values: [{ label: 'Retention lift', value: 40 }] }, { ...chart, unit: 'users' }, { ...chart, values: [{ label: 'One', value: -40 }, { label: 'Other', value: 140 }] }]) {
+    assert.doesNotMatch(renderToStaticMarkup(createElement(Chart, { chart: invalid })), /<circle|<svg/);
+  }
+});
+
+test('chart safety handles nonfinite values and negative comparisons without invalid geometry', () => {
+  const { Chart, formatChartValue } = visualRenderer();
+  const chart = { id: 'safe', title: 'A measure', kind: 'comparison', unit: '%', values: [{ label: 'Change', value: -5 }, { label: 'Later', value: 20 }], note: 'A signed change rather than a share.' };
+  const negative = renderToStaticMarkup(createElement(Chart, { chart }));
+  assert.match(negative, /-5%/);
+  assert.doesNotMatch(negative, /class="barTrack"|width:-/);
+  const nonfinite = renderToStaticMarkup(createElement(Chart, { chart: { ...chart, values: [{ label: 'Invalid', value: NaN }, { label: 'Invalid too', value: Infinity }] } }));
+  assert.equal(nonfinite, '');
+  const mixed = renderToStaticMarkup(createElement(Chart, { chart: { ...chart, values: [{ label: 'Missing', value: NaN }, { label: 'Valid', value: 20 }] } }));
+  assert.doesNotMatch(mixed, /NaN|Infinity|width:undefined/);
+  assert.doesNotMatch(mixed, /class="barTrack"/);
+  assert.match(mixed, /20%/);
+  assert.equal(formatChartValue(100000000, 'USD'), '$100,000,000');
+});
+
+test('visual workflows stay semantic and compact previews retain the representative chart note', () => {
+  const { VisualStory } = visualRenderer();
+  const full = renderToStaticMarkup(createElement(VisualStory, { summary: study.visualSummary }));
+  const compact = renderToStaticMarkup(createElement(VisualStory, { summary: study.visualSummary, compact: true }));
+  for (const html of [full, compact]) {
+    assert.match(html, /<ol>/);
+    for (const step of study.visualSummary.workflow.steps) assert.ok(html.includes(step.title));
+    assert.ok(html.includes(study.visualSummary.workflow.note));
+    assert.ok(html.includes(study.visualSummary.charts[0].note));
+  }
+  assert.match(full, /Lender eligibility rules/);
+  assert.doesNotMatch(compact, /Lender eligibility rules|The challenge|My decision/);
+  assert.match(full, /Eligible customers were reaching unsuitable lenders\./);
 });
 
 test('former downloads fragments resolve once, whether the case has a reference chapter or an evidence gallery', () => {
@@ -173,7 +254,7 @@ test('deep links and old fragment aliases open their owning chapters and move fo
     return element;
   }
   const rootElement = node('case', 'ARTICLE', null);
-  const outer = node('outer', 'DETAILS', rootElement, true);
+  const outer = node('full-case-study', 'DETAILS', rootElement, true);
   const inner = node('story-reference', 'DETAILS', outer, true);
   inner.heading = node('reference-summary', 'SUMMARY', inner);
   node('story-old-reference', 'SPAN', inner);
@@ -259,6 +340,26 @@ test('published registry validates briefs, accessible chapter sources and every 
     for (const field of ['id', 'title', 'summary', 'role', 'period']) assert.ok(typeof item[field] === 'string' && item[field].trim(), `${item.slug}: missing ${field}`);
     assert.ok(Object.hasOwn(types.workTypeLabels, item.workType), `${item.slug}: invalid work type`);
     for (const field of ['challenge', 'remit', 'decision', 'impact']) assert.ok(typeof item.executiveBrief?.[field] === 'string' && item.executiveBrief[field].trim(), `${item.slug}: missing brief ${field}`);
+    for (const field of ['title', 'summary', 'challenge', 'role', 'decision', 'impact']) assert.ok(typeof item.visualSummary?.[field] === 'string' && item.visualSummary[field].trim(), `${item.slug}: missing visual ${field}`);
+    const workflow = item.visualSummary.workflow;
+    assert.ok(workflow.label?.trim() && workflow.note?.trim(), `${item.slug}: workflow needs context`);
+    assert.ok(workflow.steps.length >= 3 && workflow.steps.length <= 5, `${item.slug}: workflow should have 3–5 supported stages`);
+    assert.ok(workflow.steps.every(step => step.title?.trim()), `${item.slug}: unnamed workflow stage`);
+    const chartIds = new Set();
+    for (const chart of item.visualSummary.charts || []) {
+      assert.ok(!chartIds.has(chart.id), `${item.slug}: duplicate chart ID`);
+      chartIds.add(chart.id);
+      assert.ok(chart.title?.trim() && chart.note?.trim(), `${item.slug}: chart needs a title and qualification`);
+      assert.ok(['comparison', 'donut', 'metric'].includes(chart.kind), `${item.slug}: unsupported chart kind`);
+      assert.ok(chart.values.length > 0 && chart.values.every(value => value.label?.trim() && Number.isFinite(value.value)), `${item.slug}: invalid chart values`);
+      if (chart.kind === 'comparison') assert.ok(chart.unit?.trim() && chart.values.length >= 2 && chart.values.every(value => value.value >= 0), `${item.slug}: comparison must share a unit and zero baseline`);
+      if (chart.kind === 'donut') {
+        assert.equal(chart.unit, '%', `${item.slug}: donut needs percentage shares`);
+        assert.ok(chart.values.length > 1 && chart.values.every(value => value.value >= 0 && value.value <= 100), `${item.slug}: invalid donut partition`);
+        assert.ok(Math.abs(chart.values.reduce((sum, value) => sum + value.value, 0) - 100) < .01, `${item.slug}: explicit donut shares must total 100`);
+        if (chart.values.some(value => /implied/i.test(value.label))) assert.match(chart.note, /implied|computed|not separately measured/i, `${item.slug}: remainder needs qualification`);
+      }
+    }
     assert.equal(Object.hasOwn(item, 'downloads'), false, `${item.slug}: obsolete downloads model`);
     for (const route of [item.slug, ...(item.aliases || [])]) {
       assert.match(route, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
@@ -310,6 +411,9 @@ test('every published case renders all media and useful old anchors without any 
   const Component = caseRenderer(data);
   for (const item of data.caseStudies.filter(study => study.status !== 'draft')) {
     const html = renderToStaticMarkup(createElement(Component, { study: item }));
+    assert.match(html, /<details id="full-case-study"[^>]+data-case-section="true"/, `${item.slug}: complete case should be expandable`);
+    const overview = html.split('<details id="full-case-study"')[0];
+    for (const chart of item.visualSummary.charts || []) assert.ok(overview.includes(chart.note.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')), `${item.slug}: chart qualifier missing from overview`);
     assert.match(html, /id="downloads"/, `${item.slug}: old evidence link no longer resolves`);
     assert.doesNotMatch(html, /<a[^>]+(?:download=|href="[^"#]*\.(?:pdf|zip|docx?|pptx?|mp4|webm|webp|png|jpe?g|svg)(?:[?"#]))/i, `${item.slug}: visitor file action returned`);
     const navigation = html.match(/<nav class="storyNav"[^>]*>([\s\S]*?)<\/nav>/)?.[1];

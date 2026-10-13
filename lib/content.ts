@@ -18,7 +18,7 @@ export function contentExcerpt(markdown: string | null | undefined, maxLength = 
   return `${shortened.slice(0, lastSpace > maxLength * 0.6 ? lastSpace : maxLength).trimEnd()}…`;
 }
 
-/** Attachments stay in the source archive; public reading takes place on the site. */
+/** Project attachments stay in the source archive; the CV uses a dedicated download control. */
 export function isAttachmentUrl(url: string): boolean {
   let decoded = url;
   for (let pass = 0; pass < 2; pass += 1) {

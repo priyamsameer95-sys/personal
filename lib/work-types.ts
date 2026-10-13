@@ -27,6 +27,30 @@ export interface ExecutiveBrief {
   impact: string;
 }
 
+export interface CaseStudyChart {
+  id: string;
+  title: string;
+  kind: 'comparison' | 'donut' | 'metric';
+  unit?: string;
+  values: { label: string; value: number }[];
+  note: string;
+}
+
+export interface CaseStudyVisualSummary {
+  title: string;
+  summary: string;
+  challenge: string;
+  role: string;
+  decision: string;
+  impact: string;
+  workflow: {
+    label: string;
+    steps: { title: string; detail?: string }[];
+    note: string;
+  };
+  charts?: CaseStudyChart[];
+}
+
 export interface CaseStudyTable {
   caption: string;
   headers: string[];
@@ -91,6 +115,7 @@ export interface CaseStudy {
   summary: string;
   workType: WorkType;
   executiveBrief: ExecutiveBrief;
+  visualSummary?: CaseStudyVisualSummary;
   role: string;
   period: string;
   order: number;

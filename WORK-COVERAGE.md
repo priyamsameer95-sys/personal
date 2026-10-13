@@ -1,6 +1,6 @@
 # My Work: source coverage and publication scope
 
-Verified against `content/work/case-studies.json` and the website assets on 13 October 2026. The collection contains **26 case studies across 10 professional and personal contexts**. Executive briefs, decision narratives, deeper chapters and source references are read on the website; there are no visitor downloads. Document-to-chapter coverage is recorded in [`CONTENT-COVERAGE.md`](CONTENT-COVERAGE.md).
+Verified against `content/work/case-studies.json` and the website assets on 13 October 2026. The collection contains **26 case studies across 10 professional and personal contexts**. Visual summaries, complete decision narratives, deeper chapters and source references are read on the website. Case-source files have no visitor download actions; the supplied original CV download is restored on Experience. Document-to-chapter coverage is recorded in [`CONTENT-COVERAGE.md`](CONTENT-COVERAGE.md).
 
 ## Case-study coverage
 
@@ -19,7 +19,7 @@ The contexts are navigation groups, not ten employers. Incubation, volunteering,
 | CEPT and creative practice | 1 | FC Sparta captaincy and independent painting |
 | Independent product strategy | 1 | MoneyLion WOW strategy and retention exercise |
 
-The published registry is the source of truth for titles, slugs, captions, outcomes and attribution notes. Related stories are grouped into product studies rather than converted into a separate page for every interview example.
+The published registry is the source of truth for titles, slugs, captions, outcomes, visual summaries and attribution notes. All 26 studies have a compact real-process workflow; ten chart specifications retain their measure and qualification. The Work index starts with CashKaro’s five studies and exposes all ten contexts through company controls, All work and the additional-context selector, preserving incoming company fragments. Related stories are grouped into product studies rather than converted into a separate page for every interview example.
 
 ## Research coverage
 
@@ -69,4 +69,4 @@ Raw career workbooks, private research reports, applicant and farmer records, or
 
 The six-page EduLoans architecture excerpt and three-page Absolute institutional excerpt were rebuilt from reviewed visible pages before source conversion. Those retained reference PDFs contain only the rendered page images, with no hidden source images, source attachments or annotations. The website uses reviewed images and authored explanations rather than embedding or linking those PDFs.
 
-Reviewed galleries, inline videos and on-site reference chapters are the public evidence layer. Per-study `sourceNotes` preserve material limitations without exposing the private research ledger or local source locations. Public Markdown rejects attachment links, legacy public pages do not expose file actions, and obsolete publisher download settings are removed.
+Reviewed galleries, inline videos and on-site reference chapters are the public evidence layer. Per-study `sourceNotes` preserve material limitations without exposing the private research ledger or local source locations. Case-source and legacy publisher attachment actions remain retired; the supplied original CV is the deliberate download exception. The complete 213 chapters remain available in expandable case sections, while qualifications stay beside charts and fuller source notes are in the evidence disclosure.

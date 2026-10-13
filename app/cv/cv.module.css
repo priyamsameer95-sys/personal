@@ -1,66 +1,151 @@
 .shell { min-width: 0; }
-.document { max-width: 64rem; margin: 0 auto; color: #111; font-size: 1rem; line-height: 1.75; }
-.identity { padding-bottom: 2.5rem; margin-bottom: 3rem; border-bottom: 1px solid #1113; }
-.eyebrow { margin-bottom: .8rem; color: #555; font-size: .75rem; line-height: 1.5; }
-.identity h1 { margin: 0; font-size: clamp(2.7rem, 6vw, 5rem); font-weight: 500; letter-spacing: -.055em; line-height: 1.05; }
-.summary { max-width: 49rem; margin-top: 1.5rem; color: #414141; font-size: 1.15rem; line-height: 1.75; }
-.contact { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1.5rem; }
-.contact a { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; font-size: .875rem; text-decoration: underline; text-underline-offset: .3em; }
-.section + .section { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid #1113; }
-.sectionTitle { margin-bottom: 1.7rem; font-size: clamp(1.7rem, 3vw, 2.25rem); font-weight: 500; letter-spacing: -.035em; line-height: 1.2; }
-.sectionIntro { max-width: 45rem; margin: -1rem 0 1.5rem; color: #555; }
-.job + .job { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #1113; }
-.company { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: .25rem 1rem; }
-.company h3, .contextCard h3 { font-size: 1.4rem; font-weight: 550; letter-spacing: -.025em; line-height: 1.35; }
-.dates { color: #555; font-size: .8125rem; font-variant-numeric: tabular-nums; }
-.company .dates { text-align: right; }
-.roleTitle { margin-top: .3rem; font-size: .9375rem; font-weight: 500; }
-.roleHistory { display: grid; gap: .2rem; margin-top: .45rem; color: #555; font-size: .8125rem; list-style: none; }
-.context { margin-top: .8rem; color: #555; font-size: .9375rem; }
-.responsibilities { display: grid; gap: 1.4rem; margin-top: 1.3rem; list-style: none; }
-.responsibilities > li { padding-left: 1rem; border-left: 2px solid #1112; }
+.document { max-width: 66rem; margin: 0 auto; color: #0b0b0b; font-size: .9375rem; line-height: 1.7; }
+.document > *, .document li, .document article, .document dl, .document dd { min-width: 0; }
+.identity { margin-bottom: 1.75rem; }
+.eyebrow { margin: 0 0 .65rem; color: #515151; font-size: .75rem; font-weight: 500; line-height: 1.5; }
+.identity h1 { margin: 0; font-size: clamp(2.6rem, 6vw, 3.3rem); font-weight: 500; letter-spacing: -.055em; line-height: 1.05; }
+.intro { max-width: 43rem; margin-top: .8rem; color: #414141; font-size: 1rem; line-height: 1.65; }
+.actions, .closingActions { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem 1.4rem; margin-top: 1.15rem; }
+.textAction { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; font-size: .875rem; text-decoration: underline; text-underline-offset: .3em; }
+.textAction:hover, .caseLink:hover { text-decoration-thickness: 2px; }
+.pageNav { display: flex; flex-wrap: wrap; gap: .15rem 1.3rem; margin-top: 1rem; padding-top: .5rem; border-top: 1px solid #1113; }
+.pageNav a { display: inline-flex; align-items: center; min-height: 44px; font-size: .8125rem; text-underline-offset: .25em; }
+.pageNav a:hover { text-decoration: underline; }
+.lifecycle { margin-bottom: 1.5rem; }
+.lifecycleSteps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; padding: 0; border: 1px solid #111; background: #111; list-style: none; }
+.lifecycleSteps li { position: relative; display: grid; align-content: start; padding: 1.05rem; background: #fff; }
+.lifecycleSteps li::before { position: absolute; inset: 0 0 auto; height: 5px; background: #f59dc6; content: ''; }
+.lifecycleSteps li:nth-child(2)::before { background: #ff7628; }
+.lifecycleSteps li:nth-child(3)::before { background: #ffe348; }
+.lifecycleSteps li:nth-child(4)::before { background: #c5e875; }
+.lifecycleSteps li:nth-child(5)::before { background: #2657ef; }
+.stageNumber { margin: .2rem 0 .65rem; color: #555; font-size: .6875rem; font-variant-numeric: tabular-nums; }
+.lifecycleSteps h4 { font-size: 1rem; font-weight: 550; letter-spacing: -.02em; }
+.lifecycleSteps p { margin-top: .25rem; color: #515151; font-size: .75rem; line-height: 1.55; }
+.section { scroll-margin-top: 1.5rem; }
+.section + .section, .foundationGrid, .foundationGrid + .section { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid #1113; }
+.sectionHeading { margin-bottom: 1.25rem; }
+.sectionTitle { margin: 0; font-size: clamp(1.75rem, 3.5vw, 2.6rem); font-weight: 500; letter-spacing: -.04em; line-height: 1.2; }
+.sectionIntro { margin: -1rem 0 1.5rem; color: #515151; }
+.timeline { margin: 0; padding: 0; list-style: none; }
+.timelineItem { position: relative; display: grid; grid-template-columns: 10rem minmax(0, 1fr); gap: 2.2rem; padding: 0 0 2.75rem; scroll-margin-top: 1.5rem; }
+.timelineItem::before { position: absolute; top: .6rem; bottom: -.6rem; left: .35rem; width: 1px; background: #1113; content: ''; }
+.timelineItem:last-child { padding-bottom: 0; }
+.timelineItem:last-child::before { bottom: 0; }
+.timelineDate { position: relative; padding-left: 1.45rem; }
+.timelineDate p { padding-top: .1rem; font-size: .75rem; font-weight: 550; line-height: 1.55; font-variant-numeric: tabular-nums; }
+.timelineDate > span:not(.timelineDot) { display: block; margin-top: .45rem; color: #515151; font-size: .6875rem; line-height: 1.5; }
+.timelineDot { position: absolute; top: .4rem; left: 0; width: .75rem; height: .75rem; border: 1px solid #111; border-radius: 50%; background: #ff7628; }
+.timelineItem:nth-child(2) .timelineDot { background: #f59dc6; }
+.timelineItem:nth-child(3) .timelineDot { background: #c5e875; }
+.timelineItem:nth-child(4) .timelineDot { background: #ffe348; }
+.job { padding-bottom: 1.65rem; border-bottom: 1px solid #1113; }
+.timelineItem:last-child .job { padding-bottom: 0; border-bottom: 0; }
+.company h3, .internship h3, .contextCard h3, .foundationTitle { font-size: 1.45rem; font-weight: 550; letter-spacing: -.035em; line-height: 1.3; }
+.roleTitle { margin-top: .35rem; font-size: .875rem; font-weight: 500; line-height: 1.6; }
+.context { margin-top: .5rem; color: #515151; font-size: .8125rem; line-height: 1.6; }
+.progression { display: flex; align-items: stretch; gap: 1.25rem; margin: 1.15rem 0; padding: .95rem 0; border-top: 1px solid #1112; border-bottom: 1px solid #1112; list-style: none; }
+.progression li { display: flex; flex: 1 1 0; align-items: flex-start; gap: .55rem; }
+.roleMarker { display: inline-flex; flex: 0 0 1.5rem; justify-content: center; align-items: center; height: 1.5rem; border: 1px solid #111; border-radius: 50%; background: #fff; font-size: .625rem; font-variant-numeric: tabular-nums; }
+.progression li:last-child .roleMarker { background: #c5e875; }
+.progression h4 { font-size: .75rem; font-weight: 550; line-height: 1.5; }
+.progressionDate { margin-top: .2rem; color: #414141; font-size: .6875rem; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.progressionDetail { margin-top: .2rem; color: #555; font-size: .6875rem; line-height: 1.5; }
+.highlights { display: grid; gap: .4rem; padding-left: 1rem; color: #414141; font-size: .875rem; line-height: 1.7; list-style: disc; }
+.disclosure { margin-top: 1.1rem; border-top: 1px solid #1113; }
+.disclosure summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 48px; padding: .7rem 0; font-size: .8125rem; font-weight: 500; line-height: 1.6; list-style: none; cursor: pointer; }
+.disclosure summary::-webkit-details-marker { display: none; }
+.disclosure summary:hover { text-decoration: underline; text-underline-offset: .25em; }
+.toggle { display: inline-flex; flex: 0 0 1.6rem; align-items: center; justify-content: center; height: 1.6rem; border: 1px solid #111; border-radius: 50%; background: #fff; }
+.toggle::before { content: '+'; font-size: 1rem; font-weight: 400; line-height: 1; }
+.disclosure[open] > summary .toggle::before { content: '−'; }
+.disclosureBody { padding: .6rem 0 1rem; }
+.scope { display: grid; gap: 1rem; }
+.scope > div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: .4rem 1rem; }
+.scope dt, .skills dt { font-size: .8125rem; font-weight: 550; }
+.scope dd { margin: 0; color: #414141; font-size: .8125rem; line-height: 1.75; }
+.note { margin-top: .65rem; color: #555; font-size: .75rem; line-height: 1.7; }
+.detailTitle { margin: 1.5rem 0 .8rem; font-size: .875rem; font-weight: 550; }
+.responsibilities { display: grid; gap: 1.35rem; padding: 0; list-style: none; }
+.responsibilities > li { padding-left: .85rem; border-left: 2px solid #1112; font-size: .875rem; line-height: 1.8; }
 .result { margin-top: .45rem; font-weight: 500; }
-.note { margin-top: .35rem; max-width: 55rem; color: #555; font-size: .8125rem; line-height: 1.6; }
-.caseLinks { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin-top: .45rem; }
-.caseLink { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; margin-top: .35rem; font-size: .8125rem; line-height: 1.5; text-decoration: underline; text-underline-offset: .25em; }
-.caseLink:hover { text-decoration-thickness: 2px; }
-.contextGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
-.contextCard { padding-top: 1.25rem; border-top: 1px solid #1113; }
-.contextCard > p:not(.eyebrow):not(.dates):not(.roleTitle) { margin-top: .8rem; }
-.contextCard .dates { margin-top: .45rem; }
+.caseLinks { display: flex; flex-wrap: wrap; gap: .15rem 1.1rem; margin-top: .35rem; }
+.caseLink { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; max-width: 100%; margin-top: .3rem; font-size: .75rem; line-height: 1.55; text-decoration: underline; text-underline-offset: .25em; overflow-wrap: anywhere; }
+.internship { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 2rem; }
+.internship .highlights { margin-top: 0; }
+.contextGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.6rem 2.5rem; }
+.contextCard { padding-top: 1rem; border-top: 1px solid #1113; }
+.contextCard h3 { font-size: 1.2rem; }
+.dates { margin-top: .5rem; color: #515151; font-size: .75rem; font-variant-numeric: tabular-nums; }
+.contextCard .disclosureBody, .internship .disclosureBody { color: #414141; font-size: .875rem; line-height: 1.8; }
+.foundationGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem; }
+.foundationGrid .section + .section { margin: 0; padding: 0; border: 0; }
+.foundationTitle { font-size: 1.25rem; }
+.educationCopy { margin-top: 1rem; color: #414141; font-size: .875rem; }
+.recognition { display: grid; gap: 1rem; padding: 0; list-style: none; }
+.recognition li { display: flex; align-items: flex-start; gap: .75rem; }
+.recognitionMark { display: inline-flex; flex: 0 0 1.75rem; align-items: center; justify-content: center; height: 1.75rem; border: 1px solid #111; background: #ffe348; font-size: .875rem; }
+.recognition h3 { font-size: .875rem; font-weight: 550; line-height: 1.5; }
+.recognition p { margin-top: .2rem; color: #515151; font-size: .75rem; line-height: 1.6; }
+.skillsIntro { max-width: 48rem; margin-bottom: 1.4rem; color: #414141; font-size: .875rem; }
 .skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; }
-.skills dt { margin-bottom: .3rem; font-weight: 550; }
-.skills dd { margin: 0; color: #414141; }
-.recognition { display: grid; gap: .5rem; padding-left: 1.2rem; list-style: disc; }
-@media (max-width: 640px) {
-  .identity { margin-bottom: 2.5rem; padding-bottom: 2rem; }
-  .summary { font-size: 1rem; }
-  .company, .contextGrid, .skills { grid-template-columns: minmax(0, 1fr); }
-  .company .dates { text-align: left; }
-  .company h3, .contextCard h3 { font-size: 1.25rem; }
-  .job + .job { margin-top: 2.5rem; }
-  .section + .section { margin-top: 2.75rem; }
-  .responsibilities > li { padding-left: .75rem; }
+.skills dd { margin: .3rem 0 0; color: #414141; font-size: .875rem; }
+.closingActions { margin-top: 1.3rem; }
+
+@media (max-width: 800px) {
+  .timelineItem { grid-template-columns: 8rem minmax(0, 1fr); gap: 1.25rem; }
+  .lifecycleSteps li { padding: .85rem; }
+  .progression { gap: .8rem; }
+  .progression li { gap: .4rem; }
+  .scope > div { grid-template-columns: minmax(0, 1fr); gap: .2rem; }
+  .internship { grid-template-columns: 11rem minmax(0, 1fr); gap: 1.25rem; }
 }
-@page experience { size: A4; margin: 14mm 16mm; }
+@media (max-width: 600px) {
+  .intro { font-size: 1rem; }
+  .identity { margin-bottom: 1.5rem; }
+  .actions, .closingActions { gap: .3rem 1rem; }
+  .lifecycle { margin-bottom: 1.5rem; }
+  .lifecycleSteps { grid-template-columns: minmax(0, 1fr); }
+  .lifecycleSteps li { grid-template-columns: 1.7rem 5rem minmax(0, 1fr); align-items: baseline; gap: .5rem; padding: .9rem; }
+  .lifecycleSteps li::before { inset: 0 auto 0 0; width: 4px; height: auto; }
+  .stageNumber { margin: 0; }
+  .lifecycleSteps h4 { font-size: .875rem; }
+  .lifecycleSteps p { margin: 0; }
+  .timelineItem { grid-template-columns: minmax(0, 1fr); gap: .7rem; padding-left: 1.5rem; padding-bottom: 2rem; }
+  .timelineDate { padding-left: 0; }
+  .timelineDate > span:not(.timelineDot) { margin-top: .15rem; }
+  .timelineDot { left: -1.5rem; }
+  .timelineItem::before { left: .35rem; }
+  .company h3, .internship h3 { font-size: 1.25rem; }
+  .progression { flex-direction: column; gap: .75rem; }
+  .progression li { flex: 0 0 auto; }
+  .progressionDate, .progressionDetail { font-size: .75rem; }
+  .progression h4 { font-size: .8125rem; }
+  .highlights { font-size: .8125rem; }
+  .section + .section, .foundationGrid, .foundationGrid + .section { margin-top: 2.75rem; padding-top: 1.6rem; }
+  .internship, .contextGrid, .foundationGrid, .skills { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .foundationGrid .section + .section { margin-top: .5rem; padding-top: 1.5rem; border-top: 1px solid #1113; }
+  .sectionHeading { margin-bottom: 1.35rem; }
+}
 @media print {
-  .shell { page: experience; max-width: none; padding: 0; margin: 0; }
-  .document { max-width: none; padding: 0; margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 10.5pt; line-height: 1.4; color: #000; }
-  .identity { padding-bottom: 10pt; margin-bottom: 14pt; }
-  .identity h1 { font-size: 24pt; }
-  .summary { font-size: 11pt; margin-top: 8pt; }
-  .contact { display: none; }
-  .section + .section { margin-top: 16pt; padding-top: 10pt; }
-  .sectionTitle { margin-bottom: 9pt; font-size: 15pt; break-after: avoid; }
-  .job + .job { margin-top: 14pt; padding-top: 10pt; }
-  .company { grid-template-columns: minmax(0, 1fr) auto; break-after: avoid; }
-  .company h3, .contextCard h3 { font-size: 12pt; }
-  .roleTitle, .context, .roleHistory { break-after: avoid; }
-  .dates, .note, .roleHistory, .caseLink, .eyebrow { font-size: 9pt; }
-  .responsibilities { gap: 8pt; margin-top: 8pt; }
-  .responsibilities > li { break-inside: avoid; }
-  .caseLink { min-height: 0; margin-top: 3pt; }
-  .contextGrid, .skills { gap: 12pt 18pt; }
-  .contextCard, .skills > div { break-inside: avoid; }
+  .document { max-width: none; margin: 0; font-size: 10pt; line-height: 1.4; }
+  .identity h1 { font-size: 25pt; }
+  .intro { font-size: 11pt; }
+  .actions, .closingActions, .pageNav, .toggle { display: none; }
+  .lifecycle { margin-bottom: 15pt; }
+  .lifecycleSteps { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .lifecycleSteps li { padding: 7pt; break-inside: avoid; }
+  .timelineItem { grid-template-columns: 75pt minmax(0, 1fr); gap: 15pt; padding-bottom: 14pt; }
+  .timelineDot, .timelineItem::before { display: none; }
+  .timelineDate { padding: 0; }
+  .progression { flex-direction: row; }
+  .section + .section, .foundationGrid, .foundationGrid + .section { margin-top: 15pt; padding-top: 10pt; }
+  .sectionTitle { font-size: 17pt; break-after: avoid; }
+  .company, .sectionHeading, .roleTitle { break-after: avoid; }
+  .disclosure:not([open]) > :not(summary) { display: block !important; }
+  .disclosure::details-content { display: block; content-visibility: visible; }
+  .disclosure summary { min-height: 0; padding: 7pt 0; }
+  .responsibilities > li, .contextCard, .recognition li, .scope > div { break-inside: avoid; }
+  .caseLink { min-height: 0; }
   .section p { orphans: 2; widows: 2; }
 }

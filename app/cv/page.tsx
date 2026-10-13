@@ -5,19 +5,23 @@ import { findCaseStudy } from '@/lib/work';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
+import CvDownload from '@/components/CvDownload';
 import content from './content.json';
 import styles from './cv.module.css';
 
 export const metadata: Metadata = {
   title: 'Experience',
-  description: 'Priyam Sameer’s career chronology: product leadership at CashKaro, CredFlow and Absolute, founding UrbanKhet, and distinct internship, community and independent work.',
-  openGraph: { title: 'Experience — Priyam Sameer', description: 'My career in product leadership: CashKaro, CredFlow, Absolute and UrbanKhet, with internship, community and independent work.' },
-  twitter: { title: 'Experience — Priyam Sameer', description: 'My career in product leadership: CashKaro, CredFlow, Absolute and UrbanKhet, with internship, community and independent work.' },
+  description: 'Priyam Sameer’s career and progression: product leadership at CashKaro, CredFlow and Absolute, founding UrbanKhet, and distinct internship, community and independent work. Read the timeline or download the original CV.',
+  openGraph: { title: 'Experience — Priyam Sameer', description: 'My career in product leadership, with role progression, responsibilities, case studies and the original CV.' },
+  twitter: { title: 'Experience — Priyam Sameer', description: 'My career in product leadership, with role progression, responsibilities, case studies and the original CV.' },
 };
 
-function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
+function Section({ id, title, children, eyebrow }: { id: string; title: string; children: ReactNode; eyebrow?: string }) {
   return <section id={id} className={styles.section} aria-labelledby={`${id}-title`}>
-    <h2 id={`${id}-title`} className={styles.sectionTitle}>{title}</h2>
+    <div className={styles.sectionHeading}>
+      {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
+      <h2 id={`${id}-title`} className={styles.sectionTitle}>{title}</h2>
+    </div>
     {children}
   </section>;
 }
@@ -35,63 +39,113 @@ export default function ExperiencePage() {
         <header className={styles.identity}>
           <p className={styles.eyebrow}>{content.name} · {content.location}</p>
           <h1>Experience.</h1>
-          <p className={styles.summary}>{content.summary}</p>
-          <div className={styles.contact} aria-label="Contact Priyam">
-            <a href="mailto:Priyam.Sameer.95@gmail.com">Contact Priyam <span aria-hidden="true">↗</span></a>
-            <a href="https://www.linkedin.com/in/priyam-sameer" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
-            <Link href="/product">Explore my work <span aria-hidden="true">→</span></Link>
+          <p className={styles.intro}>{content.intro}</p>
+          <div className={styles.actions}>
+            <CvDownload className="ink-button" />
+            <Link href="/product" className={styles.textAction}>Explore my work <span aria-hidden="true">→</span></Link>
+            <a href="mailto:Priyam.Sameer.95@gmail.com" className={styles.textAction}>Contact Priyam <span aria-hidden="true">↗</span></a>
           </div>
+          <nav className={styles.pageNav} aria-label="On this page">
+            <a href="#career">Career</a><a href="#internship">Internship</a><a href="#other-contexts">Other experience</a><a href="#education">Education</a><a href="#recognition">Recognition</a>
+          </nav>
         </header>
 
-        <Section id="career" title="Employment and founder work">
-          {content.experience.map(job => <article key={job.companyId} className={styles.job}>
-            <div className={styles.company}><h3>{job.company}</h3><p className={styles.dates}>{job.dates}</p></div>
-            <p className={styles.roleTitle}>{job.title}</p>
-            {job.roleHistory.length > 0 && <ul className={styles.roleHistory}>{job.roleHistory.map(role => <li key={role}>{role}</li>)}</ul>}
-            <p className={styles.context}>{job.context}</p>
-            <ul className={styles.responsibilities}>
-              {job.responsibilities.map(responsibility => <li key={responsibility.text}>
-                <p>{responsibility.text}</p>
-                {'result' in responsibility && <p className={styles.result}>{responsibility.result}</p>}
-                {'note' in responsibility && <p className={styles.note}>{responsibility.note}</p>}
-                <div className={styles.caseLinks}>{responsibility.cases.map(slug => <CaseLink key={slug} slug={slug} />)}</div>
-              </li>)}
-            </ul>
-          </article>)}
+        <Section id="career" title="Career progression" eyebrow="Employment and founder work">
+          <ol className={styles.timeline}>
+            {content.experience.map(job => <li key={job.companyId} id={job.companyId} className={styles.timelineItem}>
+              <div className={styles.timelineDate}><span className={styles.timelineDot} aria-hidden="true" /><p>{job.dates}</p><span>{job.relationship}</span></div>
+              <article className={styles.job} aria-labelledby={`${job.companyId}-title`}>
+                <header className={styles.company}>
+                  <h3 id={`${job.companyId}-title`}>{job.company}</h3>
+                  <p className={styles.roleTitle}>{job.title}</p>
+                  <p className={styles.context}>{job.context}</p>
+                </header>
+
+                <ol className={styles.progression} aria-label={`Role progression at ${job.company}`}>
+                  {job.progression.map((role, index) => <li key={role.title}>
+                    <span className={styles.roleMarker} aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                    <div><h4>{role.title}</h4><p className={styles.progressionDate}>{role.dates}</p><p className={styles.progressionDetail}>{role.detail}</p></div>
+                  </li>)}
+                </ol>
+
+                <ul className={styles.highlights}>{job.highlights.map(highlight => <li key={highlight}>{highlight}</li>)}</ul>
+
+                <details className={styles.disclosure}>
+                  <summary>Responsibilities, leadership and case studies<span aria-hidden="true" className={styles.toggle} /></summary>
+                  <div className={styles.disclosureBody}>
+                    <dl className={styles.scope}>{job.scope.map(item => <div key={item.label}><dt>{item.label}</dt><dd>{item.text}</dd></div>)}</dl>
+                    <p className={styles.note}>{job.leadershipNote}</p>
+                    <h4 className={styles.detailTitle}>Work and outcomes</h4>
+                    <ul className={styles.responsibilities}>
+                      {job.responsibilities.map(responsibility => <li key={responsibility.text}>
+                        <p>{responsibility.text}</p>
+                        {'result' in responsibility && <p className={styles.result}>{responsibility.result}</p>}
+                        {'note' in responsibility && <p className={styles.note}>{responsibility.note}</p>}
+                        <div className={styles.caseLinks}>{responsibility.cases.map(slug => <CaseLink key={slug} slug={slug} />)}</div>
+                      </li>)}
+                    </ul>
+                  </div>
+                </details>
+              </article>
+            </li>)}
+          </ol>
         </Section>
 
-        <Section id="internship" title="Internship">
-          <article className={styles.contextCard}>
-            <div className={styles.company}><h3>{content.internship.company}</h3><p className={styles.dates}>{content.internship.dates}</p></div>
-            <p className={styles.roleTitle}>{content.internship.title}</p>
-            <p>{content.internship.description}</p>
-            <CaseLink slug={content.internship.caseSlug} />
+        <Section id="internship" title="An early grounding in operations" eyebrow={`Internship · ${content.internship.dates}`}>
+          <article className={styles.internship}>
+            <div><h3>{content.internship.company}</h3><p className={styles.roleTitle}>{content.internship.title}</p></div>
+            <div>
+              <ul className={styles.highlights}>{content.internship.highlights.map(highlight => <li key={highlight}>{highlight}</li>)}</ul>
+              <details className={styles.disclosure}><summary>Internship scope and case study<span aria-hidden="true" className={styles.toggle} /></summary><div className={styles.disclosureBody}>
+                <p>{content.internship.description}</p><p className={styles.note}>{content.internship.scope}</p><CaseLink slug={content.internship.caseSlug} />
+              </div></details>
+            </div>
           </article>
         </Section>
 
-        <Section id="other-contexts" title="Incubation, community and independent work">
-          <p className={styles.sectionIntro}>These activities have distinct relationships and are separate from my employment chronology.</p>
+        <Section id="other-contexts" title="Beyond employment" eyebrow="Incubation, community and independent work">
+          <p className={styles.sectionIntro}>Distinct relationships, separate from my employment chronology.</p>
           <div className={styles.contextGrid}>{content.otherContexts.map(context => <article key={context.caseSlug} className={styles.contextCard}>
             <p className={styles.eyebrow}>{context.title}</p>
             <h3>{context.organisation}</h3><p className={styles.dates}>{context.dates}</p>
-            <p>{context.description}</p>
-            <CaseLink slug={context.caseSlug} />
+            <details className={styles.disclosure}><summary>Scope and case study<span aria-hidden="true" className={styles.toggle} /></summary><div className={styles.disclosureBody}>
+              <p>{context.description}</p><CaseLink slug={context.caseSlug} />
+            </div></details>
           </article>)}</div>
         </Section>
 
-        <Section id="education" title="Education and interests">
-          <div className={styles.company}><h3>{content.education.institution}</h3><p className={styles.dates}>{content.education.dates}</p></div>
-          <p className={styles.roleTitle}>{content.education.degree}</p>
-          <p>{content.education.description}</p>
-          <CaseLink slug={content.education.caseSlug} />
-        </Section>
+        <div className={styles.foundationGrid}>
+          <Section id="education" title="Education" eyebrow="Academic background">
+            <h3 className={styles.foundationTitle}>{content.education.institution}</h3>
+            <p className={styles.roleTitle}>{content.education.degree}</p><p className={styles.dates}>{content.education.dates}</p>
+            <p className={styles.educationCopy}>{content.education.description}</p><CaseLink slug={content.education.caseSlug} />
+          </Section>
+          <Section id="recognition" title="Recognition" eyebrow="Awards and venture support">
+            <ul className={styles.recognition}>{content.recognitionDetails.map(item => <li key={item.title}><span className={styles.recognitionMark} aria-hidden="true">↗</span><div><h3>{item.title}</h3><p>{item.context}</p></div></li>)}</ul>
+          </Section>
+        </div>
 
-        <Section id="skills" title="What I bring">
-          <dl className={styles.skills}>{content.skills.map(skill => <div key={skill.area}><dt>{skill.area}</dt><dd>{skill.description}</dd></div>)}</dl>
-        </Section>
-
-        <Section id="recognition" title="Recognition">
-          <ul className={styles.recognition}>{content.recognition.map(line => <li key={line}>{line}</li>)}</ul>
+        <Section id="skills" title="What I bring" eyebrow="Product, business and people">
+          <details className={styles.disclosure}>
+            <summary>Product, platform and leadership scope<span aria-hidden="true" className={styles.toggle} /></summary>
+            <div className={styles.disclosureBody}>
+              <p className={styles.skillsIntro}>{content.summary}</p>
+              <div className={styles.lifecycle}>
+                <h3 className={styles.eyebrow}>Across the product lifecycle</h3>
+                <ol className={styles.lifecycleSteps}>
+                  {content.lifecycle.map((stage, index) => <li key={stage.label}>
+                    <span className={styles.stageNumber} aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                    <h4>{stage.label}</h4><p>{stage.detail}</p>
+                  </li>)}
+                </ol>
+              </div>
+              <dl className={styles.skills}>{content.skills.map(skill => <div key={skill.area}><dt>{skill.area}</dt><dd>{skill.description}</dd></div>)}</dl>
+            </div>
+          </details>
+          <div className={styles.closingActions}>
+            <CvDownload className="ink-button" />
+            <a href="https://www.linkedin.com/in/priyam-sameer" target="_blank" rel="noopener noreferrer" className={styles.textAction}>LinkedIn <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+          </div>
         </Section>
       </main>
       <Footer />

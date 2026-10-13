@@ -3,6 +3,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { readFileSync } = require('node:fs');
 const { readdirSync } = require('node:fs');
+const { createHash } = require('node:crypto');
 const path = require('node:path');
 const vm = require('node:vm');
 const ts = require('typescript');
@@ -43,7 +44,7 @@ test('public Markdown rejects attachment links including encoded filenames and l
   ]) assert.equal(safeMarkdownUrl(attachment), '', attachment);
 });
 
-test('public hosting contains website media rather than retired source documents and archive parts', () => {
+test('public hosting permits the supplied CV and keeps source documents and archive parts private', () => {
   const publicRoot = path.join(__dirname, '../public');
   const retired = [];
   function inspect(directory) {
@@ -51,12 +52,29 @@ test('public hosting contains website media rather than retired source documents
       const filename = path.join(directory, entry.name);
       if (entry.isDirectory()) inspect(filename);
       else if (/\.(?:pdf|docx?|pptx?|xlsx?|zip|7z|rar|tar|gz|txt)(?:\.part-\d+)?$/i.test(entry.name) || entry.name === 'archive-members.json') {
-        retired.push(path.relative(publicRoot, filename));
+        const relative = path.relative(publicRoot, filename);
+        if (relative !== 'cv/Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf') retired.push(relative);
       }
     }
   }
   inspect(publicRoot);
   assert.deepEqual(retired, [], `Retired files must not be publicly hosted: ${retired.join(', ')}`);
+});
+
+test('the CV download is the unchanged supplied PDF and has a direct download action', () => {
+  const bytes = readFileSync(path.join(__dirname, '../public/cv/Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf'));
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), '01978cf50d61878a4e55ad390a3c83e115779d430ddd2679f0eca0fced079176');
+  assert.equal(bytes.subarray(0, 5).toString(), '%PDF-');
+  const { outputText: componentJs } = ts.transpileModule(readFileSync(path.join(__dirname, '../components/CvDownload.tsx'), 'utf8'), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, jsx: ts.JsxEmit.ReactJSX },
+  });
+  const componentModule = { exports: {} };
+  vm.runInNewContext(componentJs, { module: componentModule, exports: componentModule.exports, require });
+  const { createElement } = require('react');
+  const { renderToStaticMarkup } = require('react-dom/server');
+  const html = renderToStaticMarkup(createElement(componentModule.exports.default));
+  assert.match(html, /href="\/cv\/Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf" download="Priyam_Sameer_CV.pdf"/);
+  assert.match(html, />Download CV/);
 });
 
 test('list excerpts omit formatting and only indicate actual truncation', () => {

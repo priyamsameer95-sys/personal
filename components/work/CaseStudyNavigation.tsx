@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, type MouseEvent } from 'react';
+import { useEffect, type MouseEvent, type ReactNode } from 'react';
 import { revealCaseStudyAnchor } from './anchors';
 import styles from './work.module.css';
 
@@ -9,6 +9,18 @@ interface ChapterLink {
   title: string;
   expandable: boolean;
   group?: 'story' | 'detail' | 'reference';
+}
+
+function navigate(event: MouseEvent<HTMLAnchorElement>, rootId: string, id: string) {
+  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  const root = document.getElementById(rootId);
+  if (!root || !revealCaseStudyAnchor(`#${id}`, root)) return;
+  event.preventDefault();
+  if (window.location.hash !== `#${id}`) window.history.pushState(null, '', `#${id}`);
+}
+
+export function CaseStudyJump({ rootId, targetId, children, className }: { rootId: string; targetId: string; children: ReactNode; className?: string }) {
+  return <a href={`#${targetId}`} className={className} onClick={(event) => navigate(event, rootId, targetId)}>{children}</a>;
 }
 
 export default function CaseStudyNavigation({ rootId, chapters }: { rootId: string; chapters: ChapterLink[] }) {
@@ -22,16 +34,8 @@ export default function CaseStudyNavigation({ rootId, chapters }: { rootId: stri
     return () => window.removeEventListener('hashchange', revealHash);
   }, [rootId]);
 
-  function navigate(event: MouseEvent<HTMLAnchorElement>, id: string) {
-    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    const root = document.getElementById(rootId);
-    if (!root || !revealCaseStudyAnchor(`#${id}`, root)) return;
-    event.preventDefault();
-    if (window.location.hash !== `#${id}`) window.history.pushState(null, '', `#${id}`);
-  }
-
   function chapterLink(chapter: ChapterLink) {
-    return <a key={chapter.id} href={`#${chapter.id}`} onClick={(event) => navigate(event, chapter.id)}>{chapter.title}</a>;
+    return <CaseStudyJump key={chapter.id} rootId={rootId} targetId={chapter.id}>{chapter.title}</CaseStudyJump>;
   }
 
   const main = chapters.filter((chapter) => !chapter.expandable);

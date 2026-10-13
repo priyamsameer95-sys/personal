@@ -1,0 +1,44 @@
+.pageIntro { margin-bottom: 1.5rem; }
+.pageIntro h1 { font-size: clamp(2.25rem, 4.1vw, 3.3rem); line-height: 1.08; letter-spacing: -.055em; font-weight: 550; margin: .65rem 0 .85rem; }
+.pageIntro > p:last-child { font-size: 1rem; line-height: 1.6; color: #444; max-width: 60ch; }
+.explorer { margin-top: 1.5rem; min-width: 0; }
+.controls { padding-bottom: 1rem; border-bottom: 1px solid #000; }
+.primaryFilters { display: flex; flex-wrap: wrap; gap: .5rem; }
+.primaryFilters button { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-height: 44px; padding: .6rem .9rem; border: 1px solid #000; border-radius: 0; background: #fff; color: #000; font-size: .85rem; line-height: 1.35; text-align: left; }
+.primaryFilters button[aria-pressed='true'] { background: #000; color: #fff; }
+.primaryFilters button span { font-family: var(--font-geist-mono), monospace; font-size: .75rem; }
+.primaryFilters button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.primaryFilters button:focus-visible, .otherFilter select:focus-visible, .readCase:focus-visible, .companyScope summary:focus-visible, .otherFilter summary:focus-visible { outline: 3px solid #0047ff; outline-offset: 4px; }
+.otherFilter { margin-top: .6rem; max-width: 32rem; }
+.otherFilter summary, .companyScope summary { min-height: 44px; padding: .7rem 0; color: #000; cursor: pointer; font-size: .85rem; font-weight: 500; }
+.otherFilter summary span { margin-left: .5rem; font-family: var(--font-geist-mono), monospace; font-size: .7rem; font-weight: 400; }
+.otherFilter label { display: block; margin: .2rem 0 .5rem; font-size: .8rem; }
+.otherFilter select { display: block; width: 100%; max-width: 100%; min-height: 44px; border: 1px solid #000; border-radius: 0; padding: .6rem .5rem; background: #fff; color: #000; font: inherit; font-size: .85rem; }
+.resultCount { margin: .8rem 0 1.5rem; font-family: var(--font-geist-mono), monospace; font-size: .75rem; line-height: 1.6; }
+.companySection { margin-bottom: 2.5rem; scroll-margin-top: 6rem; min-width: 0; }
+.companySection[hidden], .otherContexts[hidden] { display: none; }
+.companySection:focus, .otherContexts:focus { outline: none; }
+.companyHeader { margin-bottom: 1rem; }
+.companyMeta { margin: 0 0 .35rem; font-family: var(--font-geist-mono), monospace; font-size: .7rem; line-height: 1.6; }
+.companyHeader h2, .otherIntro h2 { margin: 0; color: #000; font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.12; letter-spacing: -.045em; font-weight: 500; overflow-wrap: anywhere; }
+.companyScope { margin-top: .3rem; max-width: 48rem; }
+.companyScope p { margin: .25rem 0 .65rem; font-size: .875rem; line-height: 1.7; }
+.companyScope .companyRole { font-weight: 500; }
+.cardGrid, .additionalGrid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+.card { display: flex; flex-direction: column; gap: .9rem; min-width: 0; padding: 1.15rem; border: 1px solid #000; background: #fff; color: #000; }
+.cardMeta { margin: 0 0 .5rem; font-family: var(--font-geist-mono), monospace; font-size: .65rem; line-height: 1.6; }
+.card h3 { margin: 0 0 .45rem; font-size: 1.35rem; line-height: 1.15; letter-spacing: -.035em; font-weight: 500; overflow-wrap: anywhere; }
+.cardSummary { margin: 0; font-size: .9rem; line-height: 1.55; }
+.cardRole { margin: .6rem 0 0; font-size: .75rem; line-height: 1.6; }
+.cardRole span { font-weight: 600; margin-right: .25rem; }
+.readCase { align-self: flex-start; display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; margin-top: auto; padding: .5rem 0; color: #000; font-size: .85rem; font-weight: 500; text-decoration: underline; text-underline-offset: 4px; }
+.otherContexts { scroll-margin-top: 6rem; }
+.otherIntro { margin: 1.5rem 0; max-width: 38rem; }
+.otherIntro p:last-child { margin: .5rem 0 0; font-size: .9rem; line-height: 1.6; }
+.additionalSection { padding-top: 2rem; border-top: 1px solid #000; }
+.additionalSection h2 { margin: 0 0 1rem; font-size: 1.8rem; line-height: 1.2; letter-spacing: -.04em; }
+.additionalImage { width: 100%; height: auto; max-height: 15rem; object-fit: contain; object-position: left center; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (min-width: 760px) { .cardGrid, .additionalGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .card { padding: 1.25rem; } }
+@media (max-width: 380px) { .card { padding: .85rem; } .primaryFilters button { padding: .6rem .65rem; font-size: .8rem; } }
+@media print { .controls, .readCase { display: none; } .companySection[hidden], .otherContexts[hidden] { display: block; } .card { break-inside: avoid; } }

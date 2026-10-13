@@ -30,17 +30,26 @@
 .empty { border-top: 1px solid #1113; padding: 2rem 0; line-height: 1.75; }
 .backLink { display: inline-flex; min-height: 44px; align-items: center; gap: .7rem; margin-bottom: 2rem; text-decoration: none; font-size: .9rem; }
 .backLink:hover { text-decoration: underline; text-underline-offset: .3em; }
-.caseHeader { max-width: 54rem; margin-bottom: 2.5rem; }
-.caseSummary { margin-top: 1.5rem; font-size: 1.18rem; line-height: 1.8; max-width: 45rem; color: #414141; }
+.caseHeader { max-width: 54rem; margin-bottom: 1.5rem; }
+.caseHeader h1 { font-size: clamp(2rem, 4.2vw, 3.3rem); line-height: 1.1; letter-spacing: -.045em; }
+.caseSummary { margin-top: .75rem; font-size: 1rem; line-height: 1.65; max-width: 45rem; color: #414141; }
+.visualRole { margin-top: .6rem; font-size: .8rem; line-height: 1.6; color: #444; }
+.visualRole strong { font-weight: 600; color: #111; margin-right: .35rem; }
+.mediaJump { display: inline-flex; align-items: center; gap: .75rem; min-height: 44px; margin-top: .75rem; font-size: .85rem; text-underline-offset: .3em; }
+.fullCase { margin-top: 1.75rem; }
+.fullCase > .chapterSummary { padding: 1.25rem 0; }
+.fullCaseHint { font-size: .75rem; color: #555; }
+.fullCaseBody { min-width: 0; padding-bottom: 1.25rem; }
+.fullCaseTitle { font-size: .85rem; font-weight: 500; line-height: 1.6; }
 .context { display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; margin: 2rem 0 0; }
 .context dt { font-size: .75rem; color: #666; margin-bottom: .35rem; }
 .context dd { font-size: .9rem; line-height: 1.5; }
 .workType { display: inline-block; padding: .35rem .75rem; margin: 0 0 1.25rem; border: 1px solid #1114; border-radius: 2rem; font-size: .75rem; line-height: 1.5; color: #111; }
 .executiveBrief { padding: 2rem 0; border-top: 1px solid #1113; margin-bottom: 1.5rem; }
-.executiveBrief h2 { font-size: 1rem; font-weight: 500; margin-bottom: 1.5rem; }
+.executiveBrief h3 { font-size: .85rem; font-weight: 600; margin-bottom: 1rem; }
 .briefGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2.75rem; }
 .briefGrid dt { font-size: .8rem; font-weight: 600; margin-bottom: .6rem; }
-.briefGrid dd { color: #333; font-size: .98rem; line-height: 1.8; }
+.briefGrid dd { color: #333; font-size: .87rem; line-height: 1.75; }
 .heroMedia { max-width: 58rem; margin: 0 auto 3rem; }
 .figure { min-width: 0; margin: 0; }
 .imageButton { display: block; position: relative; width: 100%; padding: 0; text-align: left; color: #111; font: inherit; background: #f6f6f6; border: 1px solid #1112; border-radius: .6rem; overflow: hidden; cursor: zoom-in; }
@@ -66,7 +75,7 @@
 .transcript summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; text-decoration: underline; text-underline-offset: .25em; }
 .transcript p { white-space: pre-line; }
 .outcomesSection { border-top: 1px solid #1113; border-bottom: 1px solid #1113; padding: 1.8rem 0 2rem; margin-bottom: 2.5rem; }
-.outcomesSection h2 { font-size: .85rem; font-weight: 500; margin-bottom: 1.5rem; }
+.outcomesSection h3 { font-size: .85rem; font-weight: 500; margin-bottom: 1.5rem; }
 .outcomes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.75rem; }
 .outcomes dt { font-size: .85rem; line-height: 1.65; color: #444; }
 .outcomeValue { margin-top: .6rem; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 500; letter-spacing: -.04em; line-height: 1.2; }
@@ -84,24 +93,24 @@
 .supportingNavGroups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 2rem; padding: 1rem 0; }
 .supportingNavGroups > div > p { font-size: .75rem; color: #555; margin-bottom: .5rem; }
 .supportingNavGroups > div > div { display: flex; flex-direction: column; align-items: start; }
-.storySection { display: grid; position: relative; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); gap: 2.5rem; padding: 2.75rem 0; border-top: 1px solid #1113; scroll-margin-top: 2rem; }
+.storySection { display: grid; position: relative; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); gap: 1.5rem; padding: 1.5rem 0; border-top: 1px solid #1113; scroll-margin-top: 2rem; }
 .sectionHeading > span { display: block; font-size: .75rem; color: #666; margin-bottom: .6rem; }
-.sectionHeading h2, .chapterSummary h2, .caseContact h2, .relatedSection h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); letter-spacing: -.03em; line-height: 1.2; font-weight: 500; }
+.sectionHeading h3, .chapterSummary h2, .chapterSummary h3, .caseContact h2, .relatedSection h2 { font-size: 1.25rem; letter-spacing: -.025em; line-height: 1.35; font-weight: 500; }
 .sectionBody { min-width: 0; }
-.sectionBody p { color: #333; line-height: 1.85; margin-bottom: 1.2rem; }
+.sectionBody p { color: #333; font-size: .9rem; line-height: 1.8; margin-bottom: 1rem; }
 .sectionBody > p:last-child { margin-bottom: 0; }
 .sectionBody ul { list-style-type: disc; padding-left: 1.25rem; margin: 1.2rem 0; }
 .sectionBody li { color: #333; line-height: 1.8; padding-left: .3rem; margin-bottom: .65rem; }
 .sectionBody .sectionSource { color: #555; font-size: .8rem; line-height: 1.65; border-left: 2px solid #1113; padding-left: .8rem; }
 .chapter { position: relative; border-top: 1px solid #1113; scroll-margin-top: 2rem; }
 .chapter:last-child { border-bottom: 1px solid #1113; }
-.chapterSummary { display: flex; align-items: baseline; gap: 1.25rem; list-style: none; padding: 1.5rem 0; min-height: 72px; cursor: pointer; }
+.chapterSummary { display: flex; align-items: baseline; gap: .75rem; list-style: none; padding: 1rem 0; min-height: 56px; cursor: pointer; }
 .chapterSummary::-webkit-details-marker { display: none; }
-.chapterSummary h2 { flex: 1; margin: 0; }
+.chapterSummary h2, .chapterSummary h3 { flex: 1; margin: 0; }
 .chapterSummary .sectionNumber { font-size: .75rem; color: #666; flex-shrink: 0; }
 .chapterToggle { font-size: 1.5rem; line-height: 1; min-width: 1.5rem; text-align: center; }
 .chapter[open] > .chapterSummary .chapterToggle { transform: rotate(45deg); }
-.chapterBody { padding: 0 0 2rem; margin-left: calc(29.4118% + 1.76rem); }
+.chapterBody { padding: 0 0 1.25rem; margin-left: calc(29.4118% + 1.06rem); }
 .anchorAlias { position: absolute; top: 0; left: 0; width: 0; height: 0; scroll-margin-top: 2rem; }
 .evidenceBody { padding-bottom: 2rem; }
 .tableBlock { margin: 1.75rem 0; }
@@ -112,18 +121,18 @@
 .tableScroll th { font-weight: 600; }
 .tableScroll tr:last-child td { border-bottom: 0; }
 .sectionBody .tableNote { font-size: .8rem; line-height: 1.7; color: #555; margin: .65rem 0 0; }
-.caseContact { margin-top: 3rem; padding: 2.5rem 0; border-top: 1px solid #1113; }
+.caseContact { margin-top: 1.5rem; padding: 1.5rem 0; border-top: 1px solid #1113; }
 .caseContact p { max-width: 40rem; color: #414141; line-height: 1.8; margin-top: 1rem; }
 .caseContact > a { display: inline-flex; min-height: 44px; align-items: center; gap: .75rem; margin-top: 1rem; text-underline-offset: .3em; font-size: .95rem; }
 .imageButton:focus-visible, .dialogClose:focus-visible, .dialogImageScroll:focus-visible, .chapterSummary:focus-visible, .tableScroll:focus-visible, .supportingNav > summary:focus-visible { outline: 2px solid #111; outline-offset: 4px; }
-.sectionHeading h2:focus { outline: 2px solid #111; outline-offset: 5px; }
+.sectionHeading h3:focus { outline: 2px solid #111; outline-offset: 5px; }
 .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-top: 1.75rem; align-items: start; }
 .gallery .videoFigure { grid-column: 1 / -1; }
 .singleMedia { margin-top: 1.75rem; }
-.claimContext { color: #555; font-size: .8rem; line-height: 1.75; max-width: 52rem; margin: -1rem 0 2.5rem; }
+.claimContext { color: #555; font-size: .8rem; line-height: 1.75; max-width: 52rem; margin: 1rem 0 1.5rem; }
 .claimContext p + p { margin-top: .5rem; }
 .claimContext .claimContextLabel { font-weight: 600; color: #333; }
-.relatedSection { margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid #1113; }
+.relatedSection { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #1113; }
 .sectionIntro { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
 .sectionIntro > a { font-size: .85rem; display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: .3em; }
 .related { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
@@ -143,7 +152,8 @@
   .companyHeader .description { padding-top: 0; }
   .workRow { grid-template-columns: 1fr; gap: 1.5rem; }
   .preview { max-width: 36rem; }
-  .storySection { grid-template-columns: 1fr; gap: 1.25rem; padding: 2rem 0; }
+  .storySection { grid-template-columns: 1fr; gap: .75rem; padding: 1.25rem 0; }
+  .fullCaseHint { display: none; }
   .sectionHeading { display: flex; gap: 1rem; align-items: baseline; }
   .sectionHeading > span { flex-shrink: 0; }
   .outcomes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
