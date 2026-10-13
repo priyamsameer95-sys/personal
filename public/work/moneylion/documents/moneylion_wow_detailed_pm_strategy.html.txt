@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MoneyLion WOW Detailed Strategy</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: #cbd5e1; }
+    
+    /* Presentation Container (16:9 Aspect Ratio) */
+    .slide-container {
+      width: 1280px;
+      height: 720px;
+      margin: 20px auto;
+      overflow: hidden;
+      box-sizing: border-box;
+      background: #ffffff;
+      color: #0f172a;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    /* Brand Colors */
+    .text-teal { color: #00E59E; }
+    .bg-teal { background: #00E59E; color: #000; }
+    .bg-dark { background: #0f172a; color: #ffffff; }
+    .bg-light { background: #f8fafc; border: 1px solid #e2e8f0; }
+    
+    /* Utility Classes */
+    .flex-col { display: flex; flex-direction: column; }
+    .flex-row { display: flex; flex-direction: row; }
+    .gap-4 { gap: 16px; } .gap-6 { gap: 24px; } .gap-8 { gap: 32px; }
+    .p-12 { padding: 48px; } .p-16 { padding: 64px; }
+    
+    /* Reference & Placeholder Badges */
+    .ref-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #e2e8f0;
+      color: #334155;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      border-left: 4px solid #3b82f6;
+      margin-bottom: 24px;
+    }
+    .placeholder-block {
+      background: #fffbeb;
+      border: 2px dashed #fbbf24;
+      border-radius: 8px;
+      padding: 16px;
+      color: #b45309;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-container bg-dark flex-col" id="slide1" style="justify-content: center; align-items: flex-start; padding: 80px 120px;">
+    <img src="image_f5fd2a.png" alt="MoneyLion Logo" style="height: 64px; object-fit: contain; margin-bottom: 64px;">
+    
+    <div class="ref-badge" style="background: rgba(255,255,255,0.1); color: #94a3b8; border-color: #00E59E;">
+      <i class="fa-solid fa-file-pdf"></i> Reference PDF: 01_WOW_Executive_Summary.pdf
+    </div>
+
+    <h1 contenteditable="true" style="font-size: 64px; font-weight: 800; line-height: 1.1; margin-bottom: 32px; color: #ffffff; max-width: 900px;">
+      MoneyLion WOW:<br>From Transactions to Subscriptions
+    </h1>
+    <p contenteditable="true" style="font-size: 24px; color: #94a3b8; max-width: 800px; font-weight: 400; line-height: 1.5;">
+      A detailed product strategy to stop user churn by giving them a membership that mathematically pays for itself.
+    </p>
+
+    <div class="placeholder-block" style="background: rgba(251, 191, 36, 0.1); margin-top: 64px; width: 100%; max-width: 800px;">
+      <strong>[Detailed Placeholder]</strong> Insert Presenter Name, Title (Principal PM candidate), and Date here. Ensure you verbalize during the meeting that this deck is meant to be an interactive discussion, not a lecture.
+    </div>
+  </div>
+
+  <div class="slide-container flex-col p-16" id="slide2">
+    <div class="ref-badge"><i class="fa-solid fa-file-pdf"></i> Reference PDF: 02_User_Churn_Analysis.pdf</div>
+    
+    <h2 contenteditable="true" style="font-size: 40px; font-weight: 800; margin-bottom: 32px;">The Problem: Why Users Leave Us Today</h2>
+    <p contenteditable="true" style="font-size: 20px; color: #475569; margin-bottom: 48px;">
+      Currently, users treat MoneyLion as a quick fix, not a permanent home. We make money on high fees, but those same fees cause users to quit.
+    </p>
+
+    <div class="flex-row gap-8" style="flex: 1 1 0;">
+      <div class="bg-light p-12 flex-col" style="flex: 1; border-radius: 12px; justify-content: center;">
+        <h3 contenteditable="true" style="font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #dc2626;">The "Fee Fatigue" Cycle</h3>
+        <ol style="font-size: 18px; color: #334155; line-height: 1.6; padding-left: 24px;">
+          <li contenteditable="true" style="margin-bottom: 12px;">User needs $100 before payday.</li>
+          <li contenteditable="true" style="margin-bottom: 12px;">User pays a $5.99 "Turbo Fee" to get it instantly.</li>
+          <li contenteditable="true" style="margin-bottom: 12px;">User does this 3 times a month (Total fees: ~$18).</li>
+          <li contenteditable="true" style="font-weight: 700;">Result: User feels punished and deletes the app after 4 months.</li>
+        </ol>
+      </div>
+
+      <div class="flex-col" style="flex: 1; justify-content: center;">
+        <div class="placeholder-block" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+          <strong>[Detailed Placeholder: Insert Churn Graph Here]</strong><br><br>
+          Add a line chart showing the average user lifecycle. The x-axis should be Months (1 to 6). The y-axis should be "Active Users". Show a steep drop-off at Month 4.<br><br>
+          <em>Talking Point:</em> "We are burning through our user base to make short-term revenue. We need a reason for them to stay."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-container flex-col p-16" id="slide3">
+    <div class="ref-badge"><i class="fa-solid fa-file-pdf"></i> Reference PDF: 03_WOW_Ecosystem_Flywheel.pdf</div>
+    
+    <div class="flex-row" style="justify-content: space-between; align-items: flex-start; margin-bottom: 32px;">
+      <h2 contenteditable="true" style="font-size: 40px; font-weight: 800;">The Solution: The WOW Subscription</h2>
+      <img src="image_f5fd4f.png" alt="MoneyLion Icon" style="height: 48px; object-fit: contain;">
+    </div>
+    
+    <p contenteditable="true" style="font-size: 20px; color: #475569; margin-bottom: 48px;">
+      We charge $9.99/month. In exchange, we give them perks that save them more than $10 a month. It's a no-brainer for the user, and creates stable revenue for us.
+    </p>
+
+    <div class="flex-row gap-8" style="align-items: center; flex: 1 1 0;">
+      
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 24px;">
+        <div class="bg-dark p-12" style="border-radius: 12px;">
+          <h4 contenteditable="true" class="text-teal" style="font-size: 18px; margin-bottom: 8px;">Step 1: The Hook</h4>
+          <p contenteditable="true" style="font-size: 16px; margin: 0;">User subscribes to avoid paying the $5.99 instant transfer fees.</p>
+        </div>
+        <div class="bg-dark p-12" style="border-radius: 12px;">
+          <h4 contenteditable="true" class="text-teal" style="font-size: 18px; margin-bottom: 8px;">Step 2: Habit Building</h4>
+          <p contenteditable="true" style="font-size: 16px; margin: 0;">Because it's free, they open the app daily. They start using our debit card for daily purchases.</p>
+        </div>
+        <div class="bg-dark p-12" style="border-radius: 12px;">
+          <h4 contenteditable="true" class="text-teal" style="font-size: 18px; margin-bottom: 8px;">Step 3: Ecosystem Profit</h4>
+          <p contenteditable="true" style="font-size: 16px; margin: 0;">We make money on the $9.99 fee PLUS the merchant fees (interchange) when they swipe our card.</p>
+        </div>
+      </div>
+
+      <div style="flex: 1;">
+         <div class="placeholder-block" style="height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+          <strong>[Detailed Placeholder: Flywheel Diagram]</strong><br><br>
+          Insert a circular graphic here.<br>
+          Top: "Subscribe for $9.99"<br>
+          Right: "Get Free Cash Advances"<br>
+          Bottom: "Spend with MoneyLion Card"<br>
+          Left: "Earn Cashback / See Value"<br><br>
+          <em>Talking Point:</em> "This loop mathematically forces users to consolidate their banking with us."
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-container flex-col p-16" id="slide_journey">
+    <div class="ref-badge"><i class="fa-solid fa-file-pdf"></i> Reference PDF: 03b_User_UX_Journey.pdf</div>
+    
+    <h2 contenteditable="true" style="font-size: 40px; font-weight: 800; margin-bottom: 24px;">How It Actually Works (The User Journey)</h2>
+    <p contenteditable="true" style="font-size: 18px; color: #475569; margin-bottom: 48px;">Think of this exactly like Amazon Prime. We give them a massive upfront benefit (free fast shipping / free fast cash) so they never shop (or bank) anywhere else.</p>
+
+    <div class="flex-row gap-6" style="flex: 1 1 0;">
+      
+      <div class="bg-light flex-col" style="flex: 1; border-radius: 12px; padding: 24px; position: relative; border-top: 6px solid #0f172a;">
+        <div style="background: #0f172a; color: #00E59E; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; position: absolute; top: -20px; left: 24px;">1</div>
+        <h3 contenteditable="true" style="font-size: 20px; font-weight: 700; margin: 24px 0 12px 0;">The Block</h3>
+        <p contenteditable="true" style="font-size: 15px; color: #475569; margin-bottom: 16px;">User tries to get $100 Instacash. They hit a screen asking for a $5.99 Turbo Fee.</p>
+        <div class="placeholder-block" style="margin-top: auto; padding: 12px; font-size: 12px;">
+          <strong>[Wireframe Placeholder]</strong> Insert mockup of the standard fee screen.
+        </div>
+      </div>
+
+      <div class="bg-light flex-col" style="flex: 1; border-radius: 12px; padding: 24px; position: relative; border-top: 6px solid #00E59E;">
+        <div style="background: #00E59E; color: #0f172a; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; position: absolute; top: -20px; left: 24px;">2</div>
+        <h3 contenteditable="true" style="font-size: 20px; font-weight: 700; margin: 24px 0 12px 0;">The Pitch</h3>
+        <p contenteditable="true" style="font-size: 15px; color: #475569; margin-bottom: 16px;">A pop-up appears: "Waive this $5.99 fee right now, and all future fees, by joining WOW for $9.99/mo." The math is obvious. They click subscribe.</p>
+        <div class="placeholder-block" style="margin-top: auto; padding: 12px; font-size: 12px;">
+          <strong>[Wireframe Placeholder]</strong> Insert mockup of the WOW Upgrade Modal.
+        </div>
+      </div>
+
+      <div class="bg-light flex-col" style="flex: 1; border-radius: 12px; padding: 24px; position: relative; border-top: 6px solid #0f172a;">
+        <div style="background: #0f172a; color: #00E59E; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; position: absolute; top: -20px; left: 24px;">3</div>
+        <h3 contenteditable="true" style="font-size: 20px; font-weight: 700; margin: 24px 0 12px 0;">The Payoff</h3>
+        <p contenteditable="true" style="font-size: 15px; color: #475569; margin-bottom: 16px;">Now a member, they see a permanent tracker on their home screen: <em>"You have saved $17.97 on fees this month."</em> They never cancel because the tracker proves the value.</p>
+        <div class="placeholder-block" style="margin-top: auto; padding: 12px; font-size: 12px;">
+          <strong>[Wireframe Placeholder]</strong> Insert mockup of the Home Screen Tracker widget.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-container flex-col p-16" id="slide4">
+    <div class="ref-badge"><i class="fa-solid fa-file-pdf"></i> Reference PDF: 04_Perk_Cost_Analysis.pdf</div>
+    
+    <h2 contenteditable="true" style="font-size: 40px; font-weight: 800; margin-bottom: 24px;">How We Chose the Right Perks</h2>
+    <p contenteditable="true" style="font-size: 18px; color: #475569; margin-bottom: 32px;">We brainstormed 5 ideas. We had to reject features that were too expensive to build or lost us too much money.</p>
+
+    <table style="width: 100%; border-collapse: collapse; text-align: left; background: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+      <thead class="bg-dark text-teal">
+        <tr>
+          <th style="padding: 16px; font-size: 16px;">Perk Idea</th>
+          <th style="padding: 16px; font-size: 16px;">Why users want it</th>
+          <th style="padding: 16px; font-size: 16px;">Why it's risky for us</th>
+          <th style="padding: 16px; font-size: 16px;">Decision</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #e2e8f0;">
+          <td contenteditable="true" style="padding: 16px; font-weight: 700;">1. Zero-Fee Cash Advances</td>
+          <td contenteditable="true" style="padding: 16px; color: #475569;">Immediate pain relief from fees.</td>
+          <td contenteditable="true" style="padding: 16px; color: #475569;">We lose short-term fee revenue.</td>
+          <td contenteditable="true" style="padding: 16px; color: #059669; font-weight: 700;">Selected (Core Bet)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e2e8f0;">
+          <td contenteditable="true" style="padding: 16px; font-weight: 700;">2. Affiliate Partner Bounties</td>
+          <td contenteditable="true" style="padding: 16px; color: #475569;">Huge discounts on loans/insurance.</td>
+          <td contenteditable="true" style="padding: 16px; color: #475569;">None. Partners fund the reward.</td>
+          <td contenteditable="true" style="padding: 16px; color: #059669; font-weight: 700;">Selected (Core Bet)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e2e8f0;">
+          <td contenteditable="true" style="padding: 16px; font-weight: 700;">3. 3% Everyday Cashback</td>
+          <td contenteditable="true" style="padding: 16px; color: #475569;">Great for everyday spending.</td>
+          <td contenteditable="true" style="padding: 16px; color: #dc2626;">Card swiping fees don't cover the 3% cost. We'd lose money.</td>
+          <td contenteditable="true" style="padding: 16px; color: #dc2626; font-weight: 700;">Rejected</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e2e8f0;">
+          <td contenteditable="true" style="padding: 16px; font-weight: 700;">4. Purchase Protection</td>
+          <td contenteditable="true" style="padding: 16px; color: #475569;">Feels like a premium credit card.</td>
+          <td contenteditable="true" style="padding: 16px; color: #475569;">Hard to file claims. Users get angry.</td>
+          <td contenteditable="true" style="padding: 16px; color: #dc2626; font-weight: 700;">Rejected</td>
+        </tr>
+        <tr>
+          <td contenteditable="true" style="padding: 16px; font-weight: 700;">5. Free Credit Builder Loans</td>
+          <td contenteditable="true" style="padding: 16px; color: #475569;">Improves their credit score.</td>
+          <td contenteditable="true" style="padding: 16px; color: #dc2626;">High default risk. Too expensive to run.</td>
+          <td contenteditable="true" style="padding: 16px; color: #dc2626; font-weight: 700;">Rejected</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="slide-container flex-col p-16" id="slide5">
+    <div class="ref-badge"><i class="fa-solid fa-file-pdf"></i> Reference PDF: 05_Unit_Economics_Model.pdf</div>
+    
+    <h2 contenteditable="true" style="font-size: 40px; font-weight: 800; margin-bottom: 32px;">The Core Bets & Unit Economics</h2>
+    
+    <div class="flex-row gap-8" style="flex: 1 1 0;">
+      
+      <!-- Bet 1 -->
+      <div class="bg-light p-12 flex-col" style="flex: 1; border-top: 6px solid #00E59E; border-radius: 8px;">
+        <h3 contenteditable="true" style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">Core Bet 1: Zero-Fee Cash</h3>
+        <p contenteditable="true" style="font-size: 16px; color: #475569; margin-bottom: 24px;">Waiving the $5.99 fee acts as the ultimate hook. It solves an immediate, painful user problem.</p>
+        
+        <div style="background: #e2e8f0; padding: 16px; border-radius: 8px; margin-top: auto;">
+          <h4 contenteditable="true" style="font-size: 14px; text-transform: uppercase; margin-bottom: 8px; color: #334155;">The Simple Math</h4>
+          <p contenteditable="true" style="font-size: 14px; margin: 0;">We lose ~$12/mo in fees.<br>We gain $9.99/mo in steady subscription.<br><strong>Net win:</strong> User stays 3x longer, increasing overall Lifetime Value (LTV).</p>
+        </div>
+      </div>
+
+      <!-- Bet 2 -->
+      <div class="bg-light p-12 flex-col" style="flex: 1; border-top: 6px solid #0f172a; border-radius: 8px;">
+        <h3 contenteditable="true" style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">Core Bet 2: Partner Bounties</h3>
+        <p contenteditable="true" style="font-size: 16px; color: #475569; margin-bottom: 24px;">We share the referral cash we get from partners (like auto insurance) directly with the user.</p>
+        
+        <div style="background: #e2e8f0; padding: 16px; border-radius: 8px; margin-top: auto;">
+          <h4 contenteditable="true" style="font-size: 14px; text-transform: uppercase; margin-bottom: 8px; color: #334155;">The Simple Math</h4>
+          <p contenteditable="true" style="font-size: 14px; margin: 0;">Partner pays us $250 for a lead.<br>We give the user $150 as a WOW perk.<br><strong>Net win:</strong> We keep $100 profit with zero internal cost.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="placeholder-block" style="margin-top: 24px;">
+      <strong>[Detailed Placeholder: CAC & Margin Breakdown]</strong> Add a small table here explicitly showing Blended CAC ($45), Target Payback Period (< 4 months), and Contribution Margin per user (+$12/mo).
+    </div>
+  </div>
+
+  <div class="slide-container flex-col p-16" id="slide_roadmap">
+    <div class="ref-badge"><i class="fa-solid fa-file-pdf"></i> Reference PDF: 05b_Iterative_Roadmap.pdf</div>
+    
+    <h2 contenteditable="true" style="font-size: 40px; font-weight: 800; margin-bottom: 24px;">The Iterative Roadmap (How We Build It)</h2>
+    <p contenteditable="true" style="font-size: 18px; color: #475569; margin-bottom: 48px;">We will not wait 6 months to build a perfect system. We will release features in 3 iterative phases to start capturing revenue immediately.</p>
+
+    <div class="flex-col gap-6" style="flex: 1;">
+      
+      <div class="bg-light flex-row" style="padding: 24px; border-radius: 8px; border-left: 6px solid #00E59E; align-items: center;">
+        <div style="width: 250px;">
+          <h3 contenteditable="true" style="font-size: 20px; font-weight: 800; margin: 0;">Phase 1: The MVP</h3>
+          <p contenteditable="true" style="color: #64748b; font-size: 14px; font-weight: 600; margin: 4px 0 0 0;">Months 1 - 2 (Crawl)</p>
+        </div>
+        <div style="flex: 1;">
+          <ul style="font-size: 16px; color: #334155; padding-left: 20px; margin: 0; line-height: 1.5;">
+            <li contenteditable="true"><strong>Feature:</strong> Manual waiver of $5.99 Instacash Turbo fees for subscribers.</li>
+            <li contenteditable="true"><strong>Feature:</strong> Static list of partner discounts (e.g., promo codes for insurance).</li>
+            <li contenteditable="true"><strong>Tech Goal:</strong> Keep engineering light. Prove people will pay $9.99 for the fee waivers.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-light flex-row" style="padding: 24px; border-radius: 8px; border-left: 6px solid #3b82f6; align-items: center;">
+        <div style="width: 250px;">
+          <h3 contenteditable="true" style="font-size: 20px; font-weight: 800; margin: 0;">Phase 2: Automation</h3>
+          <p contenteditable="true" style="color: #64748b; font-size: 14px; font-weight: 600; margin: 4px 0 0 0;">Months 3 - 5 (Walk)</p>
+        </div>
+        <div style="flex: 1;">
+           <ul style="font-size: 16px; color: #334155; padding-left: 20px; margin: 0; line-height: 1.5;">
+            <li contenteditable="true"><strong>Feature:</strong> Live UI Tracker showing users exactly how much money they have saved.</li>
+            <li contenteditable="true"><strong>Feature:</strong> Automated Cashback routing (partner bounties deposited directly into RoarMoney accounts).</li>
+            <li contenteditable="true"><strong>Tech Goal:</strong> Build the ledger infrastructure so rewards happen in real-time without manual ops work.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-light flex-row" style="padding: 24px; border-radius: 8px; border-left: 6px solid #8b5cf6; align-items: center;">
+        <div style="width: 250px;">
+          <h3 contenteditable="true" style="font-size: 20px; font-weight: 800; margin: 0;">Phase 3: Personalization</h3>
+          <p contenteditable="true" style="color: #64748b; font-size: 14px; font-weight: 600; margin: 4px 0 0 0;">Months 6+ (Run)</p>
+        </div>
+        <div style="flex: 1;">
+          <ul style="font-size: 16px; color: #334155; padding-left: 20px; margin: 0; line-height: 1.5;">
+            <li contenteditable="true"><strong>Feature:</strong> Algorithmic limits (WOW members who repay on time automatically get higher Instacash limits).</li>
+            <li contenteditable="true"><strong>Feature:</strong> Predictive partner offers (e.g., offering Auto Insurance bounties to users who spend at gas stations).</li>
+            <li contenteditable="true"><strong>Tech Goal:</strong> Maximize margin by using data to cross-sell perfectly timed products.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-container flex-col p-16" id="slide6">
+    <div class="ref-badge"><i class="fa-solid fa-file-pdf"></i> Reference PDF: 06_Risk_Compliance_Review.pdf</div>
+    
+    <h2 contenteditable="true" style="font-size: 40px; font-weight: 800; margin-bottom: 32px;">Development Hurdles & Defenses</h2>
+    <p contenteditable="true" style="font-size: 18px; color: #475569; margin-bottom: 32px;">We cannot build this in a vacuum. Here is how Product aligns with Risk, Legal, and Engineering to protect the company.</p>
+
+    <div class="flex-col gap-6" style="flex: 1;">
+      
+      <div class="bg-light flex-row" style="padding: 24px; border-radius: 8px; border-left: 6px solid #dc2626; align-items: center;">
+        <div style="width: 200px;"><h3 contenteditable="true" style="font-size: 20px; font-weight: 700;">Risk Team</h3></div>
+        <div style="flex: 1;">
+          <p contenteditable="true" style="margin: 0 0 8px 0; font-weight: 600;">Hurdle: "Free cash advances will encourage users to take the money and default."</p>
+          <p contenteditable="true" style="margin: 0; color: #059669;">Defense: We require a verified Plaid payroll connection to join WOW. Repayments are automated via micro-pulls on payday.</p>
+        </div>
+      </div>
+
+      <div class="bg-light flex-row" style="padding: 24px; border-radius: 8px; border-left: 6px solid #eab308; align-items: center;">
+        <div style="width: 200px;"><h3 contenteditable="true" style="font-size: 20px; font-weight: 700;">Compliance Team</h3></div>
+        <div style="flex: 1;">
+          <p contenteditable="true" style="margin: 0 0 8px 0; font-weight: 600;">Hurdle: "Charging a subscription for cash advances looks like a payday loan to regulators."</p>
+          <p contenteditable="true" style="margin: 0; color: #059669;">Defense: We will maintain a completely free, standard-speed tier so WOW is legally categorized as an optional premium service, not a mandated loan fee.</p>
+        </div>
+      </div>
+
+      <div class="bg-light flex-row" style="padding: 24px; border-radius: 8px; border-left: 6px solid #3b82f6; align-items: center;">
+        <div style="width: 200px;"><h3 contenteditable="true" style="font-size: 20px; font-weight: 700;">Engineering</h3></div>
+        <div style="flex: 1;">
+          <p contenteditable="true" style="margin: 0 0 8px 0; font-weight: 600;">Hurdle: "Real-time cashback requires massive ledger upgrades and causes latency."</p>
+          <p contenteditable="true" style="margin: 0; color: #059669;">Defense: Phase 1 will use manual batch processing. We will only invest in real-time ledger routing in Phase 2 once demand is proven.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-container flex-col p-16" id="slide7">
+    <div class="ref-badge"><i class="fa-solid fa-file-pdf"></i> Reference PDF: 07_User_Research_Conjoint.pdf</div>
+    
+    <h2 contenteditable="true" style="font-size: 40px; font-weight: 800; margin-bottom: 24px;">How Do We Know Users Actually Want This?</h2>
+    <p contenteditable="true" style="font-size: 18px; color: #475569; margin-bottom: 48px;">Before spending months on Engineering, we will run three low-cost tests to validate demand.</p>
+
+    <div class="flex-row gap-8" style="flex: 1 1 0;">
+      <div class="bg-light p-12 flex-col" style="flex: 1; border-radius: 8px;">
+        <h3 contenteditable="true" style="font-size: 20px; font-weight: 800; margin-bottom: 16px;">1. The "Fake Door" Test</h3>
+        <p contenteditable="true" style="font-size: 16px; color: #475569; margin-bottom: 16px;">We add a "MoneyLion WOW" upgrade button in the app. When clicked, it says "Coming Soon! Join the Waitlist."</p>
+        <p contenteditable="true" style="font-size: 14px; font-weight: 700; color: #00E59E;">Success Metric: > 5% click-through rate proves high intent.</p>
+      </div>
+
+      <div class="bg-light p-12 flex-col" style="flex: 1; border-radius: 8px;">
+        <h3 contenteditable="true" style="font-size: 20px; font-weight: 800; margin-bottom: 16px;">2. Conjoint Survey</h3>
+        <p contenteditable="true" style="font-size: 16px; color: #475569; margin-bottom: 16px;">We email 2,000 users asking them to pick between different combinations of perks and prices.</p>
+        <p contenteditable="true" style="font-size: 14px; font-weight: 700; color: #00E59E;">Success Metric: Validates the $9.99 price point is acceptable.</p>
+      </div>
+
+      <div class="bg-light p-12 flex-col" style="flex: 1; border-radius: 8px;">
+        <h3 contenteditable="true" style="font-size: 20px; font-weight: 800; margin-bottom: 16px;">3. Controlled Pilot</h3>
+        <p contenteditable="true" style="font-size: 16px; color: #475569; margin-bottom: 16px;">We manually waive fees for 1,000 beta users for 30 days to observe if they default on their cash advances.</p>
+        <p contenteditable="true" style="font-size: 14px; font-weight: 700; color: #00E59E;">Success Metric: Repayment rates must stay above 95%.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-container flex-col p-16" id="slide8">
+    <div class="ref-badge"><i class="fa-solid fa-file-pdf"></i> Reference PDF: 08_GTM_Comms_Plan.pdf</div>
+    
+    <h2 contenteditable="true" style="font-size: 40px; font-weight: 800; margin-bottom: 24px;">Rollout & Lifecycle Strategy</h2>
+    <p contenteditable="true" style="font-size: 18px; color: #475569; margin-bottom: 48px;">We will not rely on generic email blasts. We will pitch WOW to users at the exact moment they need it most.</p>
+
+    <div class="flex-col gap-6" style="flex: 1;">
+      
+      <div class="flex-row gap-8" style="align-items: center;">
+        <div class="bg-dark text-teal" style="padding: 16px 24px; border-radius: 8px; font-weight: 700; width: 250px; text-align: center;">The Acquisition Pitch</div>
+        <div class="bg-light p-12" style="flex: 1; border-radius: 8px;">
+          <p contenteditable="true" style="margin: 0;"><strong>Trigger:</strong> User tries to process a $100 instant transfer and is about to pay a $5.99 fee.</p>
+          <p contenteditable="true" style="margin: 8px 0 0 0; color: #475569;"><strong>Message:</strong> "Stop! You are about to pay $5.99. Upgrade to WOW for $9.99/mo and get this transfer, and all others, for free."</p>
+        </div>
+      </div>
+
+      <div class="flex-row gap-8" style="align-items: center;">
+        <div class="bg-dark text-teal" style="padding: 16px 24px; border-radius: 8px; font-weight: 700; width: 250px; text-align: center;">Day 7: Activation</div>
+        <div class="bg-light p-12" style="flex: 1; border-radius: 8px;">
+          <p contenteditable="true" style="margin: 0;"><strong>Trigger:</strong> User logs in one week after joining.</p>
+          <p contenteditable="true" style="margin: 8px 0 0 0; color: #475569;"><strong>Message:</strong> Display a live tracker on the home screen: "You have saved $5.99 so far this month! Claim a partner offer to save $10 more."</p>
+        </div>
+      </div>
+
+      <div class="flex-row gap-8" style="align-items: center;">
+        <div class="bg-dark text-teal" style="padding: 16px 24px; border-radius: 8px; font-weight: 700; width: 250px; text-align: center;">Day 28: Anti-Churn</div>
+        <div class="bg-light p-12" style="flex: 1; border-radius: 8px;">
+          <p contenteditable="true" style="margin: 0;"><strong>Trigger:</strong> 48 hours before their credit card is billed for renewal.</p>
+          <p contenteditable="true" style="margin: 8px 0 0 0; color: #475569;"><strong>Message:</strong> Send a push notification: "Your WOW membership saved you $24 this month. Your $9.99 renewal processes on Friday." (This proves positive ROI before they can cancel).</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-container flex-col p-16" id="slide9">
+    <div class="ref-badge"><i class="fa-solid fa-file-pdf"></i> Reference PDF: 09_KPI_Dashboard_Spec.pdf</div>
+    
+    <h2 contenteditable="true" style="font-size: 40px; font-weight: 800; margin-bottom: 48px; text-align: center;">The Metrics Framework</h2>
+    
+    <div class="bg-dark" style="margin: 0 auto 48px auto; padding: 24px 48px; border-radius: 12px; text-align: center;">
+      <p contenteditable="true" class="text-teal" style="font-size: 14px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">North Star Metric</p>
+      <h3 contenteditable="true" style="font-size: 28px; margin: 0;">Month-3 Cohort Net Margin</h3>
+      <p contenteditable="true" style="font-size: 14px; color: #94a3b8; margin-top: 8px;">(Are users staying active for 90 days, and are we profitable on them?)</p>
+    </div>
+
+    <div class="flex-row gap-16" style="flex: 1 1 0; justify-content: center;">
+      
+      <div class="flex-col gap-4" style="flex: 1; max-width: 400px;">
+        <h4 contenteditable="true" style="font-size: 18px; font-weight: 800; color: #059669; border-bottom: 2px solid #059669; padding-bottom: 8px;">Growth & Engagement Inputs</h4>
+        <div class="bg-light p-12" style="border-radius: 8px;"><p contenteditable="true" style="margin:0; font-weight: 600;">Monthly Renewal Rate (%)</p></div>
+        <div class="bg-light p-12" style="border-radius: 8px;"><p contenteditable="true" style="margin:0; font-weight: 600;">Perk Utilization Rate (Goal: >2 perks/mo)</p></div>
+        <div class="bg-light p-12" style="border-radius: 8px;"><p contenteditable="true" style="margin:0; font-weight: 600;">Average Dollar Savings per User</p></div>
+      </div>
+
+      <div class="flex-col gap-4" style="flex: 1; max-width: 400px;">
+        <h4 contenteditable="true" style="font-size: 18px; font-weight: 800; color: #dc2626; border-bottom: 2px solid #dc2626; padding-bottom: 8px;">Risk & Health Guardrails</h4>
+        <div class="bg-light p-12" style="border-radius: 8px;"><p contenteditable="true" style="margin:0; font-weight: 600;">Credit Default Rate on Advances</p></div>
+        <div class="bg-light p-12" style="border-radius: 8px;"><p contenteditable="true" style="margin:0; font-weight: 600;">Net Interchange Cannibalization</p></div>
+        <div class="bg-light p-12" style="border-radius: 8px;"><p contenteditable="true" style="margin:0; font-weight: 600;">Involuntary Churn (Failed Payments)</p></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-container bg-dark flex-col p-16" id="slide10">
+    <div class="ref-badge" style="background: rgba(255,255,255,0.1); color: #94a3b8; border-color: #00E59E;">
+      <i class="fa-solid fa-file-pdf"></i> Reference PDF: 10_Cohort_Retention_Model.pdf
+    </div>
+    
+    <h2 contenteditable="true" style="font-size: 40px; font-weight: 800; margin-bottom: 32px; color: #ffffff;">Reality Check: Did the 5k Launch Spike Prove PMF?</h2>
+    
+    <div class="flex-row gap-8" style="flex: 1 1 0; align-items: center;">
+      
+      <div style="flex: 1; border: 1px solid #334155; border-radius: 12px; padding: 24px; position: relative;">
+        <!-- Simple visual for the chart concept -->
+        <svg width="100%" height="220" viewBox="0 0 400 220">
+          <!-- Axes -->
+          <line x1="40" y1="180" x2="380" y2="180" stroke="#475569" stroke-width="2"></line>
+          <line x1="40" y1="20" x2="40" y2="180" stroke="#475569" stroke-width="2"></line>
+          
+          <!-- Successful PMF Curve (Flattens) -->
+          <path d="M 40,40 Q 120,130 380,130" fill="none" stroke="#00E59E" stroke-width="4"></path>
+          
+          <!-- Failed PMF Curve (Drops to zero) -->
+          <path d="M 40,40 Q 150,180 380,180" fill="none" stroke="#ef4444" stroke-width="4" stroke-dasharray="6,6"></path>
+        </svg>
+        <p style="color: #00E59E; font-size: 14px; font-weight: 700; position: absolute; right: 30px; top: 110px;">True PMF (Curve Flattens)</p>
+        <p style="color: #ef4444; font-size: 14px; font-weight: 700; position: absolute; right: 30px; top: 160px;">No PMF (Drops to Zero)</p>
+      </div>
+
+      <div class="flex-col gap-6" style="flex: 1;">
+        <div>
+          <h3 contenteditable="true" class="text-teal" style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">The Short Answer: No.</h3>
+          <p contenteditable="true" style="font-size: 16px; color: #cbd5e1; margin: 0;">5,000 signups in week one is a marketing win, not a product win. Early spikes are driven by novelty, promos, and "incentive hunters" who plan to cancel.</p>
+        </div>
+        <div style="width: 100%; height: 1px; background: #334155;"></div>
+        <div>
+          <h3 contenteditable="true" class="text-teal" style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">The True Test: Cohort Retention</h3>
+          <p contenteditable="true" style="font-size: 16px; color: #cbd5e1; margin: 0;">If 5,000 people sign up, but 4,000 leave by Day 60, we have a leaky bucket. True Product-Market Fit is ONLY proven when the retention curve flattens out (e.g., 40% of users stick around forever).</p>
+        </div>
+        <div class="placeholder-block" style="background: rgba(251, 191, 36, 0.1); margin-top: 16px;">
+          <strong>[Detailed Action Item]</strong> Ask stakeholders to stop looking at "Weekly New Signups" and look exclusively at "Day-90 Cohort Retention."
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

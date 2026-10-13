@@ -1,0 +1,11 @@
+Public-safe copy of the generated ULI source archive.
+
+Five captured Freshdesk marketplace JWT values, five captured CSRF values and one captured Boomerang telemetry key have been removed from six source HTML files. All screenshot, original-image, PDF, video and research document files remain unchanged. These runtime values are not needed to understand the case study. The byte-for-byte source archive is retained privately. Original checksum indices refer to original capture files; the six edited HTML files now have different hashes.
+
+Changed members:
+ulihub-portfolio/source/research-html/03f4590d0de54535.html
+ulihub-portfolio/source/research-html/0f498e9ae662280b.html
+ulihub-portfolio/source/research-html/30cce1d063452510.html
+ulihub-portfolio/source/research-html/9613f78e302d86c9.html
+ulihub-portfolio/source/research-html/cfc040ca0bc39fa0.html
+ulihub-portfolio/source/research-html/f01a2ff7852e4482.html

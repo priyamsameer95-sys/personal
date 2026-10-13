@@ -1,0 +1,3056 @@
+{
+  "archive": "ULI-Detailed-Portfolio-Archive.zip",
+  "publicSafeCopy": true,
+  "members": [
+    {
+      "member": "ulihub-portfolio/README.txt",
+      "bytes": 4061,
+      "compressedBytes": 2038,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/ULI-Portfolio-Reference.pdf",
+      "bytes": 1180665,
+      "compressedBytes": 955560,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/archive-file-index.json",
+      "bytes": 98015,
+      "compressedBytes": 16733,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/docs.rbihub.in/_next/static/media/indian-village-panorama.88d3b8ae.jpg",
+      "bytes": 362826,
+      "compressedBytes": 361247,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-0-15a006641f.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-1-900cd91fd2.svg",
+      "bytes": 312,
+      "compressedBytes": 204,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-10-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-100-a3ec990dc1.svg",
+      "bytes": 411,
+      "compressedBytes": 270,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-101-e8fae6a3c1.svg",
+      "bytes": 301,
+      "compressedBytes": 221,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-102-2ed7310dbd.svg",
+      "bytes": 504,
+      "compressedBytes": 298,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-103-bed112c87c.svg",
+      "bytes": 485,
+      "compressedBytes": 301,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-104-e8fae6a3c1.svg",
+      "bytes": 301,
+      "compressedBytes": 221,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-105-2ed7310dbd.svg",
+      "bytes": 504,
+      "compressedBytes": 298,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-106-bed112c87c.svg",
+      "bytes": 485,
+      "compressedBytes": 301,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-107-e8fae6a3c1.svg",
+      "bytes": 301,
+      "compressedBytes": 221,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-108-2ed7310dbd.svg",
+      "bytes": 504,
+      "compressedBytes": 298,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-109-e8fae6a3c1.svg",
+      "bytes": 301,
+      "compressedBytes": 221,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-11-8490da5eb7.svg",
+      "bytes": 568,
+      "compressedBytes": 332,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-110-a3ec990dc1.svg",
+      "bytes": 411,
+      "compressedBytes": 270,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-111-e8fae6a3c1.svg",
+      "bytes": 301,
+      "compressedBytes": 221,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-112-a3ec990dc1.svg",
+      "bytes": 411,
+      "compressedBytes": 270,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-113-17a77caf6c.svg",
+      "bytes": 306,
+      "compressedBytes": 217,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-114-17a77caf6c.svg",
+      "bytes": 306,
+      "compressedBytes": 217,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-115-2f4c4cd0b4.svg",
+      "bytes": 286,
+      "compressedBytes": 207,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-116-f6d105f492.svg",
+      "bytes": 287,
+      "compressedBytes": 208,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-117-a3ec990dc1.svg",
+      "bytes": 411,
+      "compressedBytes": 270,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-118-a93e7773a5.svg",
+      "bytes": 306,
+      "compressedBytes": 217,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-119-ade2f1531a.svg",
+      "bytes": 329,
+      "compressedBytes": 235,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-12-188b703938.svg",
+      "bytes": 394,
+      "compressedBytes": 238,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-120-95e1d9e191.svg",
+      "bytes": 297,
+      "compressedBytes": 195,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-121-ee3de97c6b.svg",
+      "bytes": 297,
+      "compressedBytes": 193,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-122-03619ea938.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-123-8ba1a70f3b.svg",
+      "bytes": 351,
+      "compressedBytes": 225,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-124-de4af44492.svg",
+      "bytes": 471,
+      "compressedBytes": 268,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-125-199f6acd5c.svg",
+      "bytes": 6193,
+      "compressedBytes": 2903,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-126-169205abeb.svg",
+      "bytes": 17351,
+      "compressedBytes": 3295,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-127-408e1fa5d9.svg",
+      "bytes": 2963,
+      "compressedBytes": 1056,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-128-be216b7c9f.svg",
+      "bytes": 4288,
+      "compressedBytes": 1282,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-129-462f190a0e.svg",
+      "bytes": 7123,
+      "compressedBytes": 1319,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-13-dcd1eae2d3.svg",
+      "bytes": 367,
+      "compressedBytes": 227,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-14-5b5c1ef447.svg",
+      "bytes": 393,
+      "compressedBytes": 256,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-15-2005c36842.svg",
+      "bytes": 411,
+      "compressedBytes": 237,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-16-b8ab642b2d.svg",
+      "bytes": 386,
+      "compressedBytes": 233,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-17-c9090dd1e2.svg",
+      "bytes": 335,
+      "compressedBytes": 232,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-18-bb803f8645.svg",
+      "bytes": 302,
+      "compressedBytes": 215,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-19-bb803f8645.svg",
+      "bytes": 302,
+      "compressedBytes": 215,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-2-abf8789405.svg",
+      "bytes": 453,
+      "compressedBytes": 283,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-20-bb803f8645.svg",
+      "bytes": 302,
+      "compressedBytes": 215,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-21-bb803f8645.svg",
+      "bytes": 302,
+      "compressedBytes": 215,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-22-a564758c8a.svg",
+      "bytes": 319,
+      "compressedBytes": 232,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-23-b26e0a4a1c.svg",
+      "bytes": 391,
+      "compressedBytes": 265,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-24-359bea6195.svg",
+      "bytes": 671,
+      "compressedBytes": 379,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-25-e79b749fcc.svg",
+      "bytes": 403,
+      "compressedBytes": 280,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-26-fa71da232f.svg",
+      "bytes": 796,
+      "compressedBytes": 457,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-27-5fcab7ea8f.svg",
+      "bytes": 327,
+      "compressedBytes": 238,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-28-94455e9f2c.svg",
+      "bytes": 654,
+      "compressedBytes": 425,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-29-a7993b44b5.svg",
+      "bytes": 1036,
+      "compressedBytes": 493,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-3-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-30-cef026c75e.svg",
+      "bytes": 1104,
+      "compressedBytes": 596,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-31-fde8861b02.svg",
+      "bytes": 1660,
+      "compressedBytes": 825,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-32-25dbd2dc19.svg",
+      "bytes": 432,
+      "compressedBytes": 219,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-33-223f71cefc.svg",
+      "bytes": 606,
+      "compressedBytes": 319,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-34-223f71cefc.svg",
+      "bytes": 606,
+      "compressedBytes": 319,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-35-384abb2e92.svg",
+      "bytes": 800,
+      "compressedBytes": 436,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-36-400d9782bf.svg",
+      "bytes": 474,
+      "compressedBytes": 299,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-37-384abb2e92.svg",
+      "bytes": 800,
+      "compressedBytes": 436,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-38-400d9782bf.svg",
+      "bytes": 474,
+      "compressedBytes": 299,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-39-384abb2e92.svg",
+      "bytes": 800,
+      "compressedBytes": 436,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-4-d0a75c4eec.svg",
+      "bytes": 391,
+      "compressedBytes": 234,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-40-400d9782bf.svg",
+      "bytes": 474,
+      "compressedBytes": 299,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-41-384abb2e92.svg",
+      "bytes": 800,
+      "compressedBytes": 436,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-42-400d9782bf.svg",
+      "bytes": 474,
+      "compressedBytes": 299,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-43-384abb2e92.svg",
+      "bytes": 800,
+      "compressedBytes": 436,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-44-400d9782bf.svg",
+      "bytes": 474,
+      "compressedBytes": 299,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-45-a7b707e813.svg",
+      "bytes": 329,
+      "compressedBytes": 222,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-46-384abb2e92.svg",
+      "bytes": 800,
+      "compressedBytes": 436,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-47-400d9782bf.svg",
+      "bytes": 474,
+      "compressedBytes": 299,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-48-384abb2e92.svg",
+      "bytes": 800,
+      "compressedBytes": 436,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-49-400d9782bf.svg",
+      "bytes": 474,
+      "compressedBytes": 299,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-5-ae6da64817.svg",
+      "bytes": 442,
+      "compressedBytes": 247,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-50-a7b707e813.svg",
+      "bytes": 329,
+      "compressedBytes": 222,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-51-384abb2e92.svg",
+      "bytes": 800,
+      "compressedBytes": 436,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-52-384abb2e92.svg",
+      "bytes": 800,
+      "compressedBytes": 436,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-53-400d9782bf.svg",
+      "bytes": 474,
+      "compressedBytes": 299,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-54-384abb2e92.svg",
+      "bytes": 800,
+      "compressedBytes": 436,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-55-400d9782bf.svg",
+      "bytes": 474,
+      "compressedBytes": 299,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-56-384abb2e92.svg",
+      "bytes": 800,
+      "compressedBytes": 436,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-57-400d9782bf.svg",
+      "bytes": 474,
+      "compressedBytes": 299,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-58-2c18c04eec.svg",
+      "bytes": 375,
+      "compressedBytes": 260,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-59-2c18c04eec.svg",
+      "bytes": 375,
+      "compressedBytes": 260,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-6-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-60-2c18c04eec.svg",
+      "bytes": 375,
+      "compressedBytes": 260,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-61-b329d3c1e2.svg",
+      "bytes": 374,
+      "compressedBytes": 260,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-62-c47e3ea74c.svg",
+      "bytes": 400,
+      "compressedBytes": 265,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-63-ce4a2ca400.svg",
+      "bytes": 337,
+      "compressedBytes": 239,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-64-b5c6d23be8.svg",
+      "bytes": 355,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-65-2ed26aeb07.svg",
+      "bytes": 401,
+      "compressedBytes": 268,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-66-c47e3ea74c.svg",
+      "bytes": 400,
+      "compressedBytes": 265,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-67-ce4a2ca400.svg",
+      "bytes": 337,
+      "compressedBytes": 239,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-68-223f71cefc.svg",
+      "bytes": 606,
+      "compressedBytes": 319,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-69-384abb2e92.svg",
+      "bytes": 800,
+      "compressedBytes": 436,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-7-2b564a7ef2.svg",
+      "bytes": 287,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-70-400d9782bf.svg",
+      "bytes": 474,
+      "compressedBytes": 299,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-71-2c18c04eec.svg",
+      "bytes": 375,
+      "compressedBytes": 260,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-72-2c18c04eec.svg",
+      "bytes": 375,
+      "compressedBytes": 260,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-73-b329d3c1e2.svg",
+      "bytes": 374,
+      "compressedBytes": 260,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-74-c47e3ea74c.svg",
+      "bytes": 400,
+      "compressedBytes": 265,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-75-ce4a2ca400.svg",
+      "bytes": 337,
+      "compressedBytes": 239,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-76-2ed26aeb07.svg",
+      "bytes": 401,
+      "compressedBytes": 268,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-77-c47e3ea74c.svg",
+      "bytes": 400,
+      "compressedBytes": 265,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-78-ce4a2ca400.svg",
+      "bytes": 337,
+      "compressedBytes": 239,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-79-b5c6d23be8.svg",
+      "bytes": 355,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-8-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-80-223f71cefc.svg",
+      "bytes": 606,
+      "compressedBytes": 319,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-81-477c840886.svg",
+      "bytes": 330,
+      "compressedBytes": 234,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-82-223f71cefc.svg",
+      "bytes": 606,
+      "compressedBytes": 319,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-83-477c840886.svg",
+      "bytes": 330,
+      "compressedBytes": 234,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-84-477c840886.svg",
+      "bytes": 330,
+      "compressedBytes": 234,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-85-a42a2e42cd.svg",
+      "bytes": 574,
+      "compressedBytes": 330,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-86-2f39ad3394.svg",
+      "bytes": 410,
+      "compressedBytes": 279,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-87-bb803f8645.svg",
+      "bytes": 302,
+      "compressedBytes": 215,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-88-bb803f8645.svg",
+      "bytes": 302,
+      "compressedBytes": 215,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-89-bb803f8645.svg",
+      "bytes": 302,
+      "compressedBytes": 215,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-9-8b10da9dc1.svg",
+      "bytes": 273,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-90-19f1815f66.svg",
+      "bytes": 422,
+      "compressedBytes": 281,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-91-6a3b9fa7a2.svg",
+      "bytes": 312,
+      "compressedBytes": 224,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-92-0c841d866f.svg",
+      "bytes": 315,
+      "compressedBytes": 226,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-93-ade2f1531a.svg",
+      "bytes": 329,
+      "compressedBytes": 235,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-94-a3ec990dc1.svg",
+      "bytes": 411,
+      "compressedBytes": 270,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-95-110538e7be.svg",
+      "bytes": 403,
+      "compressedBytes": 280,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-96-fa71da232f.svg",
+      "bytes": 796,
+      "compressedBytes": 457,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-97-a3ec990dc1.svg",
+      "bytes": 411,
+      "compressedBytes": 270,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-98-a3ec990dc1.svg",
+      "bytes": 411,
+      "compressedBytes": 270,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-api-reference-99-e8fae6a3c1.svg",
+      "bytes": 301,
+      "compressedBytes": 221,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-0-15a006641f.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-1-900cd91fd2.svg",
+      "bytes": 312,
+      "compressedBytes": 204,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-10-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-11-8490da5eb7.svg",
+      "bytes": 568,
+      "compressedBytes": 332,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-12-188b703938.svg",
+      "bytes": 394,
+      "compressedBytes": 238,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-13-dcd1eae2d3.svg",
+      "bytes": 367,
+      "compressedBytes": 227,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-14-5b5c1ef447.svg",
+      "bytes": 393,
+      "compressedBytes": 256,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-15-2005c36842.svg",
+      "bytes": 411,
+      "compressedBytes": 237,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-16-b8ab642b2d.svg",
+      "bytes": 386,
+      "compressedBytes": 233,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-17-95e1d9e191.svg",
+      "bytes": 297,
+      "compressedBytes": 195,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-18-ee3de97c6b.svg",
+      "bytes": 297,
+      "compressedBytes": 193,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-19-03619ea938.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-2-abf8789405.svg",
+      "bytes": 453,
+      "compressedBytes": 283,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-20-8ba1a70f3b.svg",
+      "bytes": 351,
+      "compressedBytes": 225,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-21-de4af44492.svg",
+      "bytes": 471,
+      "compressedBytes": 268,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-22-199f6acd5c.svg",
+      "bytes": 6193,
+      "compressedBytes": 2903,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-23-169205abeb.svg",
+      "bytes": 17351,
+      "compressedBytes": 3295,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-24-408e1fa5d9.svg",
+      "bytes": 2963,
+      "compressedBytes": 1056,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-25-be216b7c9f.svg",
+      "bytes": 4288,
+      "compressedBytes": 1282,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-26-462f190a0e.svg",
+      "bytes": 7123,
+      "compressedBytes": 1319,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-3-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-4-d0a75c4eec.svg",
+      "bytes": 391,
+      "compressedBytes": 234,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-5-ae6da64817.svg",
+      "bytes": 442,
+      "compressedBytes": 247,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-6-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-7-2b564a7ef2.svg",
+      "bytes": 287,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-8-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-async-pipeline-9-8b10da9dc1.svg",
+      "bytes": 273,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-0-15a006641f.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-1-900cd91fd2.svg",
+      "bytes": 312,
+      "compressedBytes": 204,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-10-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-11-8490da5eb7.svg",
+      "bytes": 568,
+      "compressedBytes": 332,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-12-188b703938.svg",
+      "bytes": 394,
+      "compressedBytes": 238,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-13-dcd1eae2d3.svg",
+      "bytes": 367,
+      "compressedBytes": 227,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-14-5b5c1ef447.svg",
+      "bytes": 393,
+      "compressedBytes": 256,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-15-2005c36842.svg",
+      "bytes": 411,
+      "compressedBytes": 237,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-16-b8ab642b2d.svg",
+      "bytes": 386,
+      "compressedBytes": 233,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-17-95e1d9e191.svg",
+      "bytes": 297,
+      "compressedBytes": 195,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-18-03619ea938.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-19-8ba1a70f3b.svg",
+      "bytes": 351,
+      "compressedBytes": 225,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-2-abf8789405.svg",
+      "bytes": 453,
+      "compressedBytes": 283,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-20-de4af44492.svg",
+      "bytes": 471,
+      "compressedBytes": 268,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-21-199f6acd5c.svg",
+      "bytes": 6193,
+      "compressedBytes": 2903,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-22-169205abeb.svg",
+      "bytes": 17351,
+      "compressedBytes": 3295,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-23-408e1fa5d9.svg",
+      "bytes": 2963,
+      "compressedBytes": 1056,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-24-be216b7c9f.svg",
+      "bytes": 4288,
+      "compressedBytes": 1282,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-25-462f190a0e.svg",
+      "bytes": 7123,
+      "compressedBytes": 1319,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-3-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-4-d0a75c4eec.svg",
+      "bytes": 391,
+      "compressedBytes": 234,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-5-ae6da64817.svg",
+      "bytes": 442,
+      "compressedBytes": 247,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-6-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-7-2b564a7ef2.svg",
+      "bytes": 287,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-8-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-error-codes-9-8b10da9dc1.svg",
+      "bytes": 273,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-0-15a006641f.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-1-900cd91fd2.svg",
+      "bytes": 312,
+      "compressedBytes": 204,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-10-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-11-8490da5eb7.svg",
+      "bytes": 568,
+      "compressedBytes": 332,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-12-188b703938.svg",
+      "bytes": 394,
+      "compressedBytes": 238,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-13-dcd1eae2d3.svg",
+      "bytes": 367,
+      "compressedBytes": 227,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-14-5b5c1ef447.svg",
+      "bytes": 393,
+      "compressedBytes": 256,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-15-2005c36842.svg",
+      "bytes": 411,
+      "compressedBytes": 237,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-16-b8ab642b2d.svg",
+      "bytes": 386,
+      "compressedBytes": 233,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-17-95e1d9e191.svg",
+      "bytes": 297,
+      "compressedBytes": 195,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-18-ee3de97c6b.svg",
+      "bytes": 297,
+      "compressedBytes": 193,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-19-03619ea938.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-2-abf8789405.svg",
+      "bytes": 453,
+      "compressedBytes": 283,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-20-8ba1a70f3b.svg",
+      "bytes": 351,
+      "compressedBytes": 225,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-21-de4af44492.svg",
+      "bytes": 471,
+      "compressedBytes": 268,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-22-199f6acd5c.svg",
+      "bytes": 6193,
+      "compressedBytes": 2903,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-23-169205abeb.svg",
+      "bytes": 17351,
+      "compressedBytes": 3295,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-24-408e1fa5d9.svg",
+      "bytes": 2963,
+      "compressedBytes": 1056,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-25-be216b7c9f.svg",
+      "bytes": 4288,
+      "compressedBytes": 1282,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-26-462f190a0e.svg",
+      "bytes": 7123,
+      "compressedBytes": 1319,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-3-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-4-d0a75c4eec.svg",
+      "bytes": 391,
+      "compressedBytes": 234,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-5-ae6da64817.svg",
+      "bytes": 442,
+      "compressedBytes": 247,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-6-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-7-2b564a7ef2.svg",
+      "bytes": 287,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-8-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-getting-started-9-8b10da9dc1.svg",
+      "bytes": 273,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-0-15a006641f.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-1-900cd91fd2.svg",
+      "bytes": 312,
+      "compressedBytes": 204,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-10-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-11-8490da5eb7.svg",
+      "bytes": 568,
+      "compressedBytes": 332,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-12-188b703938.svg",
+      "bytes": 394,
+      "compressedBytes": 238,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-13-dcd1eae2d3.svg",
+      "bytes": 367,
+      "compressedBytes": 227,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-14-5b5c1ef447.svg",
+      "bytes": 393,
+      "compressedBytes": 256,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-15-2005c36842.svg",
+      "bytes": 411,
+      "compressedBytes": 237,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-16-b8ab642b2d.svg",
+      "bytes": 386,
+      "compressedBytes": 233,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-17-95e1d9e191.svg",
+      "bytes": 297,
+      "compressedBytes": 195,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-18-ee3de97c6b.svg",
+      "bytes": 297,
+      "compressedBytes": 193,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-19-03619ea938.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-2-abf8789405.svg",
+      "bytes": 453,
+      "compressedBytes": 283,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-20-8ba1a70f3b.svg",
+      "bytes": 351,
+      "compressedBytes": 225,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-21-de4af44492.svg",
+      "bytes": 471,
+      "compressedBytes": 268,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-22-199f6acd5c.svg",
+      "bytes": 6193,
+      "compressedBytes": 2903,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-23-169205abeb.svg",
+      "bytes": 17351,
+      "compressedBytes": 3295,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-24-408e1fa5d9.svg",
+      "bytes": 2963,
+      "compressedBytes": 1056,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-25-be216b7c9f.svg",
+      "bytes": 4288,
+      "compressedBytes": 1282,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-26-462f190a0e.svg",
+      "bytes": 7123,
+      "compressedBytes": 1319,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-3-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-4-d0a75c4eec.svg",
+      "bytes": 391,
+      "compressedBytes": 234,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-5-ae6da64817.svg",
+      "bytes": 442,
+      "compressedBytes": 247,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-6-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-7-2b564a7ef2.svg",
+      "bytes": 287,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-8-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-master-data-9-8b10da9dc1.svg",
+      "bytes": 273,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-0-15a006641f.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-1-900cd91fd2.svg",
+      "bytes": 312,
+      "compressedBytes": 204,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-10-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-11-8490da5eb7.svg",
+      "bytes": 568,
+      "compressedBytes": 332,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-12-188b703938.svg",
+      "bytes": 394,
+      "compressedBytes": 238,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-13-dcd1eae2d3.svg",
+      "bytes": 367,
+      "compressedBytes": 227,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-14-5b5c1ef447.svg",
+      "bytes": 393,
+      "compressedBytes": 256,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-15-2005c36842.svg",
+      "bytes": 411,
+      "compressedBytes": 237,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-16-b8ab642b2d.svg",
+      "bytes": 386,
+      "compressedBytes": 233,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-17-ee3de97c6b.svg",
+      "bytes": 297,
+      "compressedBytes": 193,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-18-03619ea938.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-19-8ba1a70f3b.svg",
+      "bytes": 351,
+      "compressedBytes": 225,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-2-abf8789405.svg",
+      "bytes": 453,
+      "compressedBytes": 283,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-20-de4af44492.svg",
+      "bytes": 471,
+      "compressedBytes": 268,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-21-199f6acd5c.svg",
+      "bytes": 6193,
+      "compressedBytes": 2903,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-22-169205abeb.svg",
+      "bytes": 17351,
+      "compressedBytes": 3295,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-23-408e1fa5d9.svg",
+      "bytes": 2963,
+      "compressedBytes": 1056,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-24-be216b7c9f.svg",
+      "bytes": 4288,
+      "compressedBytes": 1282,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-25-462f190a0e.svg",
+      "bytes": 7123,
+      "compressedBytes": 1319,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-3-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-4-d0a75c4eec.svg",
+      "bytes": 391,
+      "compressedBytes": 234,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-5-ae6da64817.svg",
+      "bytes": 442,
+      "compressedBytes": 247,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-6-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-7-2b564a7ef2.svg",
+      "bytes": 287,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-8-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-overview-9-8b10da9dc1.svg",
+      "bytes": 273,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-0-15a006641f.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-1-900cd91fd2.svg",
+      "bytes": 312,
+      "compressedBytes": 204,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-10-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-11-8490da5eb7.svg",
+      "bytes": 568,
+      "compressedBytes": 332,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-12-188b703938.svg",
+      "bytes": 394,
+      "compressedBytes": 238,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-13-dcd1eae2d3.svg",
+      "bytes": 367,
+      "compressedBytes": 227,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-14-5b5c1ef447.svg",
+      "bytes": 393,
+      "compressedBytes": 256,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-15-2005c36842.svg",
+      "bytes": 411,
+      "compressedBytes": 237,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-16-b8ab642b2d.svg",
+      "bytes": 386,
+      "compressedBytes": 233,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-17-95e1d9e191.svg",
+      "bytes": 297,
+      "compressedBytes": 195,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-18-ee3de97c6b.svg",
+      "bytes": 297,
+      "compressedBytes": 193,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-19-03619ea938.svg",
+      "bytes": 25124,
+      "compressedBytes": 10676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-2-abf8789405.svg",
+      "bytes": 453,
+      "compressedBytes": 283,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-20-8ba1a70f3b.svg",
+      "bytes": 351,
+      "compressedBytes": 225,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-21-de4af44492.svg",
+      "bytes": 471,
+      "compressedBytes": 268,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-22-199f6acd5c.svg",
+      "bytes": 6193,
+      "compressedBytes": 2903,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-23-169205abeb.svg",
+      "bytes": 17351,
+      "compressedBytes": 3295,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-24-408e1fa5d9.svg",
+      "bytes": 2963,
+      "compressedBytes": 1056,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-25-be216b7c9f.svg",
+      "bytes": 4288,
+      "compressedBytes": 1282,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-26-462f190a0e.svg",
+      "bytes": 7123,
+      "compressedBytes": 1319,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-3-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-4-d0a75c4eec.svg",
+      "bytes": 391,
+      "compressedBytes": 234,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-5-ae6da64817.svg",
+      "bytes": 442,
+      "compressedBytes": 247,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-6-6a42aef8bd.svg",
+      "bytes": 546,
+      "compressedBytes": 296,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-7-2b564a7ef2.svg",
+      "bytes": 287,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-8-ec87d27405.svg",
+      "bytes": 413,
+      "compressedBytes": 245,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/docs-land-records-state-providers-9-8b10da9dc1.svg",
+      "bytes": 273,
+      "compressedBytes": 186,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-0-6e1d1a7a97.svg",
+      "bytes": 24020,
+      "compressedBytes": 10022,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-1-aa76e81577.svg",
+      "bytes": 1657592,
+      "compressedBytes": 452516,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-10-38a7684abe.svg",
+      "bytes": 9392,
+      "compressedBytes": 2511,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-11-b2ee6b8a31.svg",
+      "bytes": 2598775,
+      "compressedBytes": 677974,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-12-5acd472ca4.svg",
+      "bytes": 8220610,
+      "compressedBytes": 1996677,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-13-10cdd2fb03.svg",
+      "bytes": 1189448,
+      "compressedBytes": 309446,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-14-9c72237716.svg",
+      "bytes": 3420482,
+      "compressedBytes": 945202,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-15-06106c2e5f.svg",
+      "bytes": 148035,
+      "compressedBytes": 37764,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-16-7ef3faddc4.svg",
+      "bytes": 5097689,
+      "compressedBytes": 1260157,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-17-a87b46ad4c.svg",
+      "bytes": 1024809,
+      "compressedBytes": 266412,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-18-a5f0791852.svg",
+      "bytes": 3643192,
+      "compressedBytes": 994172,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-19-c3e870960f.svg",
+      "bytes": 24020,
+      "compressedBytes": 10022,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-2-aa76e81577.svg",
+      "bytes": 1657592,
+      "compressedBytes": 452516,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-20-8ba1a70f3b.svg",
+      "bytes": 351,
+      "compressedBytes": 225,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-21-de4af44492.svg",
+      "bytes": 471,
+      "compressedBytes": 268,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-3-aa76e81577.svg",
+      "bytes": 1657592,
+      "compressedBytes": 452516,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-4-aa76e81577.svg",
+      "bytes": 1657592,
+      "compressedBytes": 452516,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-5-5cb2d594c3.svg",
+      "bytes": 939694,
+      "compressedBytes": 269918,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-6-5cb2d594c3.svg",
+      "bytes": 939694,
+      "compressedBytes": 269918,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-7-5cb2d594c3.svg",
+      "bytes": 939694,
+      "compressedBytes": 269918,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-8-5cb2d594c3.svg",
+      "bytes": 939694,
+      "compressedBytes": 269918,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/uli-overview-9-1a4c6200bf.svg",
+      "bytes": 649,
+      "compressedBytes": 307,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/whats-new-0-6e1d1a7a97.svg",
+      "bytes": 24020,
+      "compressedBytes": 10022,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/whats-new-1-c3e870960f.svg",
+      "bytes": 24020,
+      "compressedBytes": 10022,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/whats-new-2-8ba1a70f3b.svg",
+      "bytes": 351,
+      "compressedBytes": 225,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/inline-svg/whats-new-3-de4af44492.svg",
+      "bytes": 471,
+      "compressedBytes": 268,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/aavin.02095489.png",
+      "bytes": 13621,
+      "compressedBytes": 13626,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/advarisk.bf7b0748.png",
+      "bytes": 23936,
+      "compressedBytes": 23733,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/bhashini.5f59db3d.png",
+      "bytes": 15010,
+      "compressedBytes": 14986,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/bureau.dedcf025.png",
+      "bytes": 7595,
+      "compressedBytes": 7574,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/camsfinserv.2d1c8fd6.png",
+      "bytes": 73970,
+      "compressedBytes": 73753,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/cersai.cb082bb2.png",
+      "bytes": 27315,
+      "compressedBytes": 27325,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/cgtmse.c543d831.png",
+      "bytes": 14307,
+      "compressedBytes": 14312,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/cibil.90872800.png",
+      "bytes": 6330,
+      "compressedBytes": 6313,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/crif.a493723f.png",
+      "bytes": 21780,
+      "compressedBytes": 21762,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/cubictree.1af1a4f9.png",
+      "bytes": 26949,
+      "compressedBytes": 26925,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/dgv.1b1d0df8.png",
+      "bytes": 14483,
+      "compressedBytes": 14350,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/digilocker.2f870303.png",
+      "bytes": 29777,
+      "compressedBytes": 29787,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/digio.cf513d3e.png",
+      "bytes": 14397,
+      "compressedBytes": 14389,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/dpip-key-image.1401e71b.png",
+      "bytes": 1037873,
+      "compressedBytes": 1038193,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/entitylocker.8a391897.png",
+      "bytes": 51511,
+      "compressedBytes": 51403,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/equifax.8c1a4fc4.png",
+      "bytes": 26755,
+      "compressedBytes": 26745,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/experian.268438df.png",
+      "bytes": 21487,
+      "compressedBytes": 21497,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/finvu.84b0b760.png",
+      "bytes": 12063,
+      "compressedBytes": 12068,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-andhra-pradesh.8b52462b.png",
+      "bytes": 42326,
+      "compressedBytes": 42276,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-assam.bf80dac9.png",
+      "bytes": 21824,
+      "compressedBytes": 21830,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-chhattisgarh.cf19bb7e.png",
+      "bytes": 35353,
+      "compressedBytes": 35352,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-gujarat.9ecb68df.png",
+      "bytes": 22288,
+      "compressedBytes": 22260,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-himachal-pradesh.e25b0e57.png",
+      "bytes": 30057,
+      "compressedBytes": 29970,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-karnataka.1433dd7b.png",
+      "bytes": 33019,
+      "compressedBytes": 33029,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-madhya-pradesh.6c84d686.png",
+      "bytes": 41309,
+      "compressedBytes": 41314,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-maharashtra.d8620e47.png",
+      "bytes": 35526,
+      "compressedBytes": 35532,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-odisha.e0269bce.png",
+      "bytes": 25381,
+      "compressedBytes": 25381,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-rajasthan.523f276a.png",
+      "bytes": 15837,
+      "compressedBytes": 15842,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-tamil-nadu.958d88c2.png",
+      "bytes": 30369,
+      "compressedBytes": 30376,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-tripura.57af3c8e.png",
+      "bytes": 18738,
+      "compressedBytes": 18711,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/government-of-uttar-pradesh.09fec90e.png",
+      "bytes": 16823,
+      "compressedBytes": 16766,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/gstn.7cbbd616.png",
+      "bytes": 16352,
+      "compressedBytes": 16357,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/ibdic.18af4749.png",
+      "bytes": 51976,
+      "compressedBytes": 51769,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/idfy.b8a9a2e1.png",
+      "bytes": 8750,
+      "compressedBytes": 8755,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/kamdhenu.d77e7171.png",
+      "bytes": 28240,
+      "compressedBytes": 23839,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/kyckart.52a910f2.png",
+      "bytes": 29520,
+      "compressedBytes": 29416,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/leegality.22653047.png",
+      "bytes": 8165,
+      "compressedBytes": 8006,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/ministry-of-rural-development.79328d04.png",
+      "bytes": 147533,
+      "compressedBytes": 144501,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/morth.0393a6d0.png",
+      "bytes": 12379,
+      "compressedBytes": 12384,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/mulehunter-key-image.2252d8d5.png",
+      "bytes": 1074072,
+      "compressedBytes": 1074399,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/nadl.2e83a4e3.png",
+      "bytes": 28708,
+      "compressedBytes": 28557,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/nesl.6f578c2e.png",
+      "bytes": 20761,
+      "compressedBytes": 20761,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/onemoney.cd6d0c76.png",
+      "bytes": 29040,
+      "compressedBytes": 29023,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/perfios.7e755be1.png",
+      "bytes": 18480,
+      "compressedBytes": 18490,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/probe42.ebe190bb.png",
+      "bytes": 10001,
+      "compressedBytes": 9978,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/protean.2d7e7300.png",
+      "bytes": 31960,
+      "compressedBytes": 31877,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/saafe.4f1a00ea.png",
+      "bytes": 16298,
+      "compressedBytes": 16277,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/satsure.e2370dd4.png",
+      "bytes": 4982,
+      "compressedBytes": 4855,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/scoreme.1cdbe263.png",
+      "bytes": 27143,
+      "compressedBytes": 26931,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/signdesk.16c833dd.png",
+      "bytes": 24449,
+      "compressedBytes": 23717,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/signzy.e0c5987a.png",
+      "bytes": 6925,
+      "compressedBytes": 6897,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/taxo.b5bf7d1a.png",
+      "bytes": 11458,
+      "compressedBytes": 11463,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/teal.479ea1be.png",
+      "bytes": 31690,
+      "compressedBytes": 31653,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/think360.6fd52325.png",
+      "bytes": 21105,
+      "compressedBytes": 21041,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/timble.c7457f6f.png",
+      "bytes": 10579,
+      "compressedBytes": 10460,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/trackwizz.cc67d852.png",
+      "bytes": 32237,
+      "compressedBytes": 32154,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/uli-key-image.cd9e76e6.png",
+      "bytes": 1126575,
+      "compressedBytes": 1126920,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/assets/rbihub.in/_next/static/media/zoop.df18b52f.png",
+      "bytes": 6376,
+      "compressedBytes": 6381,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/documents/rbih-website-assets.s3.ap-south-1.amazonaws.com/resources/annual-report-2024-2025.extracted-text.txt",
+      "bytes": 135864,
+      "compressedBytes": 39115,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/documents/rbih-website-assets.s3.ap-south-1.amazonaws.com/resources/annual-report-2024-2025.pdf",
+      "bytes": 11626572,
+      "compressedBytes": 10384878,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/documents/rbih-website-assets.s3.ap-south-1.amazonaws.com/resources/rbih-spark-issue-23.extracted-text.txt",
+      "bytes": 13608,
+      "compressedBytes": 5641,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/documents/rbih-website-assets.s3.ap-south-1.amazonaws.com/resources/rbih-spark-issue-23.pdf",
+      "bytes": 3985595,
+      "compressedBytes": 3860052,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/documents/www.bis.org/speeches/20240829-digital-public-infrastructure-and-emerging-technologies.extracted-text.txt",
+      "bytes": 21035,
+      "compressedBytes": 8540,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/documents/www.bis.org/speeches/20240829-digital-public-infrastructure-and-emerging-technologies.pdf",
+      "bytes": 20534,
+      "compressedBytes": 16360,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/index.html",
+      "bytes": 184607,
+      "compressedBytes": 25516,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/docs-land-records-api-reference.jpg",
+      "bytes": 101401,
+      "compressedBytes": 76997,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/docs-land-records-async-pipeline.jpg",
+      "bytes": 97316,
+      "compressedBytes": 79751,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/docs-land-records-error-codes.jpg",
+      "bytes": 76037,
+      "compressedBytes": 60116,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/docs-land-records-master-data.jpg",
+      "bytes": 88528,
+      "compressedBytes": 74246,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/docs-land-records-overview.jpg",
+      "bytes": 295320,
+      "compressedBytes": 233217,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/docs-land-records-state-providers.jpg",
+      "bytes": 327200,
+      "compressedBytes": 256259,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-dashboard-august-2026.jpg",
+      "bytes": 83520,
+      "compressedBytes": 62714,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-how-it-works.jpg",
+      "bytes": 76576,
+      "compressedBytes": 56744,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-overview-full.jpg",
+      "bytes": 767959,
+      "compressedBytes": 568962,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-overview-top.jpg",
+      "bytes": 70254,
+      "compressedBytes": 47536,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-services-asset.jpg",
+      "bytes": 69288,
+      "compressedBytes": 54196,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-services-credit.jpg",
+      "bytes": 52618,
+      "compressedBytes": 36071,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-services-document-full.jpg",
+      "bytes": 560567,
+      "compressedBytes": 440011,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-services-document.jpg",
+      "bytes": 69949,
+      "compressedBytes": 54831,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-services-identity.jpg",
+      "bytes": 69121,
+      "compressedBytes": 53984,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-services-income-full.jpg",
+      "bytes": 648809,
+      "compressedBytes": 496046,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-services-income.jpg",
+      "bytes": 59722,
+      "compressedBytes": 45060,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-services-value-added.jpg",
+      "bytes": 67346,
+      "compressedBytes": 51396,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-whats-new-full.jpg",
+      "bytes": 365402,
+      "compressedBytes": 329148,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-whats-new-middle.jpg",
+      "bytes": 158203,
+      "compressedBytes": 143516,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-whats-new-rural-updates.jpg",
+      "bytes": 191151,
+      "compressedBytes": 177706,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-whats-new-top.jpg",
+      "bytes": 158592,
+      "compressedBytes": 143463,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-workflow-step-2.jpg",
+      "bytes": 76572,
+      "compressedBytes": 55733,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-workflow-step-3.jpg",
+      "bytes": 68859,
+      "compressedBytes": 50401,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/screenshots/uli-workflow-step-4.jpg",
+      "bytes": 77399,
+      "compressedBytes": 59656,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/scripts/build_archive_gallery.py",
+      "bytes": 40678,
+      "compressedBytes": 14407,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/scripts/build_portfolio_reference.py",
+      "bytes": 10387,
+      "compressedBytes": 3750,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/scripts/clips.json",
+      "bytes": 5624,
+      "compressedBytes": 1357,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/scripts/fetch_research_html.py",
+      "bytes": 4500,
+      "compressedBytes": 1963,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/scripts/make_portfolio_videos.py",
+      "bytes": 10820,
+      "compressedBytes": 4135,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/scripts/scrape_assets.py",
+      "bytes": 19868,
+      "compressedBytes": 5892,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/capture-manifest.json",
+      "bytes": 399379,
+      "compressedBytes": 25547,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-api-reference-rendered-metadata.json",
+      "bytes": 171924,
+      "compressedBytes": 39969,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-api-reference-rendered-text.txt",
+      "bytes": 8333,
+      "compressedBytes": 3477,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-api-reference-rendered.html",
+      "bytes": 200380,
+      "compressedBytes": 40396,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-async-pipeline-rendered-metadata.json",
+      "bytes": 109382,
+      "compressedBytes": 31936,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-async-pipeline-rendered-text.txt",
+      "bytes": 3932,
+      "compressedBytes": 1999,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-async-pipeline-rendered.html",
+      "bytes": 141642,
+      "compressedBytes": 39774,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-error-codes-rendered-metadata.json",
+      "bytes": 109387,
+      "compressedBytes": 31958,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-error-codes-rendered-text.txt",
+      "bytes": 4293,
+      "compressedBytes": 2047,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-error-codes-rendered.html",
+      "bytes": 181479,
+      "compressedBytes": 47007,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-getting-started-rendered-metadata.json",
+      "bytes": 110474,
+      "compressedBytes": 32027,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-getting-started-rendered-text.txt",
+      "bytes": 4617,
+      "compressedBytes": 2076,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-getting-started-rendered.html",
+      "bytes": 148267,
+      "compressedBytes": 40012,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-master-data-rendered-metadata.json",
+      "bytes": 109406,
+      "compressedBytes": 31734,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-master-data-rendered-text.txt",
+      "bytes": 3912,
+      "compressedBytes": 1805,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-master-data-rendered.html",
+      "bytes": 142716,
+      "compressedBytes": 39666,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-overview-rendered-metadata.json",
+      "bytes": 107792,
+      "compressedBytes": 31609,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-overview-rendered-text.txt",
+      "bytes": 3159,
+      "compressedBytes": 1698,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-overview-rendered.html",
+      "bytes": 138135,
+      "compressedBytes": 39102,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-state-providers-rendered-metadata.json",
+      "bytes": 109140,
+      "compressedBytes": 31633,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-state-providers-rendered-text.txt",
+      "bytes": 3694,
+      "compressedBytes": 1688,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/docs-land-records-state-providers-rendered.html",
+      "bytes": 140955,
+      "compressedBytes": 39421,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/document-requests.json",
+      "bytes": 2564,
+      "compressedBytes": 929,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/download-error-responses/2cebeed8924a05c4.html",
+      "bytes": 44800,
+      "compressedBytes": 30015,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/lrs-openapi-public.json",
+      "bytes": 48118,
+      "compressedBytes": 7968,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/main-uli-script.js",
+      "bytes": 13615010,
+      "compressedBytes": 3668703,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/overview-svg-diagnostics.json",
+      "bytes": 12919,
+      "compressedBytes": 1721,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/report-content.json",
+      "bytes": 47848,
+      "compressedBytes": 13533,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/report-page-index.json",
+      "bytes": 1079,
+      "compressedBytes": 387,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-core.json",
+      "bytes": 20181,
+      "compressedBytes": 7350,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/03f4590d0de54535.html",
+      "bytes": 171062,
+      "compressedBytes": 109031,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/0f498e9ae662280b.html",
+      "bytes": 165587,
+      "compressedBytes": 107785,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/1c79560022539e26.html",
+      "bytes": 58216,
+      "compressedBytes": 11326,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/2a3229e11b4ded8f.html",
+      "bytes": 16454,
+      "compressedBytes": 2766,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/30cce1d063452510.html",
+      "bytes": 169510,
+      "compressedBytes": 108666,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/4db05b5b7ad1b637.html",
+      "bytes": 15944,
+      "compressedBytes": 2724,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/56ac803601798388.html",
+      "bytes": 182936,
+      "compressedBytes": 49358,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/5d27f8e5d2da3c88.html",
+      "bytes": 138034,
+      "compressedBytes": 18398,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/6b33808a79323770.html",
+      "bytes": 133267,
+      "compressedBytes": 29023,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/8c234396a6525385.html",
+      "bytes": 149424,
+      "compressedBytes": 21205,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/9613f78e302d86c9.html",
+      "bytes": 98149,
+      "compressedBytes": 34595,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/ab08ee6321ce3642.html",
+      "bytes": 121945,
+      "compressedBytes": 25032,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/bb8c0114f899f4bb.html",
+      "bytes": 15243,
+      "compressedBytes": 2764,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/bf0a81d756802dbd.html",
+      "bytes": 181692,
+      "compressedBytes": 48130,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/cfc040ca0bc39fa0.html",
+      "bytes": 170906,
+      "compressedBytes": 109122,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/ea67b2755a909e86.html",
+      "bytes": 15419,
+      "compressedBytes": 2699,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/f01a2ff7852e4482.html",
+      "bytes": 169687,
+      "compressedBytes": 108676,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html/fea13af93a7c3bc8.html",
+      "bytes": 113648,
+      "compressedBytes": 21773,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-html-manifest.json",
+      "bytes": 12199,
+      "compressedBytes": 2858,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/research-updates.json",
+      "bytes": 16786,
+      "compressedBytes": 5369,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/service-catalog.json",
+      "bytes": 64387,
+      "compressedBytes": 6346,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-asset-metadata.json",
+      "bytes": 95051,
+      "compressedBytes": 17613,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-asset-structure.html",
+      "bytes": 71534,
+      "compressedBytes": 13657,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-asset-text.txt",
+      "bytes": 6826,
+      "compressedBytes": 3166,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-credit-metadata.json",
+      "bytes": 81598,
+      "compressedBytes": 15822,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-credit-structure.html",
+      "bytes": 64068,
+      "compressedBytes": 12937,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-credit-text.txt",
+      "bytes": 6529,
+      "compressedBytes": 3063,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-document-metadata.json",
+      "bytes": 72535,
+      "compressedBytes": 14627,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-document-structure.html",
+      "bytes": 58502,
+      "compressedBytes": 12503,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-document-text.txt",
+      "bytes": 6089,
+      "compressedBytes": 2859,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-identity-metadata.json",
+      "bytes": 102333,
+      "compressedBytes": 18119,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-identity-structure.html",
+      "bytes": 76717,
+      "compressedBytes": 13918,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-identity-text.txt",
+      "bytes": 7296,
+      "compressedBytes": 3364,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-income-metadata.json",
+      "bytes": 85067,
+      "compressedBytes": 16307,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-income-structure.html",
+      "bytes": 66215,
+      "compressedBytes": 13248,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-income-text.txt",
+      "bytes": 6678,
+      "compressedBytes": 3097,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-value-added-metadata.json",
+      "bytes": 71754,
+      "compressedBytes": 14650,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-value-added-structure.html",
+      "bytes": 58315,
+      "compressedBytes": 12513,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/services-value-added-text.txt",
+      "bytes": 6124,
+      "compressedBytes": 2879,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/uli-overview-rendered-metadata.json",
+      "bytes": 35840861,
+      "compressedBytes": 9404228,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/uli-overview-rendered-text.txt",
+      "bytes": 7579,
+      "compressedBytes": 3476,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/uli-overview-rendered.html",
+      "bytes": 35871722,
+      "compressedBytes": 9416675,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/whats-new-metadata.json",
+      "bytes": 224,
+      "compressedBytes": 125,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/whats-new-original.html",
+      "bytes": 12385,
+      "compressedBytes": 2763,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/whats-new-rendered-metadata.json",
+      "bytes": 57489,
+      "compressedBytes": 13846,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/whats-new-rendered-text.txt",
+      "bytes": 5322,
+      "compressedBytes": 2231,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/whats-new-rendered.html",
+      "bytes": 89016,
+      "compressedBytes": 31190,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/whats-new-script.js",
+      "bytes": 47727,
+      "compressedBytes": 11637,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/source/whats-new-text.txt",
+      "bytes": 49,
+      "compressedBytes": 48,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/videos/README.txt",
+      "bytes": 758,
+      "compressedBytes": 456,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/videos/uli-data-and-services-contact-sheet.jpg",
+      "bytes": 119296,
+      "compressedBytes": 93289,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/videos/uli-data-and-services-poster.jpg",
+      "bytes": 89553,
+      "compressedBytes": 64089,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/videos/uli-data-and-services.mp4",
+      "bytes": 1519071,
+      "compressedBytes": 1503430,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/videos/uli-latest-updates-contact-sheet.jpg",
+      "bytes": 154556,
+      "compressedBytes": 127832,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/videos/uli-latest-updates-poster.jpg",
+      "bytes": 123152,
+      "compressedBytes": 100802,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/videos/uli-latest-updates.mp4",
+      "bytes": 3248790,
+      "compressedBytes": 3233297,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/videos/uli-platform-workflow-contact-sheet.jpg",
+      "bytes": 198545,
+      "compressedBytes": 146401,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/videos/uli-platform-workflow-poster.jpg",
+      "bytes": 79651,
+      "compressedBytes": 54036,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/videos/uli-platform-workflow.mp4",
+      "bytes": 1826045,
+      "compressedBytes": 1815949,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/videos/video-manifest.json",
+      "bytes": 8318,
+      "compressedBytes": 1824,
+      "directory": false
+    },
+    {
+      "member": "ulihub-portfolio/workflow-map.json",
+      "bytes": 7259,
+      "compressedBytes": 2340,
+      "directory": false
+    }
+  ],
+  "modifiedMembers": [
+    "ulihub-portfolio/source/research-html/03f4590d0de54535.html",
+    "ulihub-portfolio/source/research-html/0f498e9ae662280b.html",
+    "ulihub-portfolio/source/research-html/30cce1d063452510.html",
+    "ulihub-portfolio/source/research-html/9613f78e302d86c9.html",
+    "ulihub-portfolio/source/research-html/cfc040ca0bc39fa0.html",
+    "ulihub-portfolio/source/research-html/f01a2ff7852e4482.html"
+  ]
+}

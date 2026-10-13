@@ -1,11 +1,13 @@
 import React from 'react';
 import { publicDb as db } from '@/lib/db';
 import { contentExcerpt } from '@/lib/content';
+import { featuredWork } from '@/lib/work';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
 import PeelReveal from '@/components/PeelReveal';
+import workStyles from '@/components/work/work.module.css';
 
 interface ContentItem {
   id: string;
@@ -26,25 +28,9 @@ interface ContentItem {
 export const revalidate = 0; // Force dynamic fetching on load
 
 export default async function HomePage() {
-  const { rows: recentWorkRows } = await db`
-    SELECT
-      ci.id, ci.title, ci.slug, ci.body_markdown, ci.type, ci.created_at,
-      COALESCE(
-        json_agg(
-          json_build_object('blob_url', ma.blob_url, 'kind', ma.kind, 'alt_text', ma.alt_text) ORDER BY ma.sort_order
-        ) FILTER (WHERE ma.id IS NOT NULL),
-        '[]'::json
-      ) AS media
-    FROM content_items ci
-    LEFT JOIN media_assets ma ON ma.content_id = ci.id
-    WHERE ci.type = 'work' AND ci.status = 'published'
-    GROUP BY ci.id
-    ORDER BY ci.sort_order ASC, ci.created_at DESC
-    LIMIT 2
-  `;
-  const recentWork = recentWorkRows as ContentItem[];
+  const recentWork = await featuredWork(2);
 
-  const { rows: recentArtRows } = await db`
+  const { rows: recentArtRows } = process.env.POSTGRES_URL ? await db`
     SELECT
       ci.id, ci.title, ci.slug, ci.body_markdown, ci.type, ci.created_at,
       COALESCE(
@@ -59,17 +45,17 @@ export default async function HomePage() {
     GROUP BY ci.id
     ORDER BY ci.sort_order ASC, ci.created_at DESC
     LIMIT 2
-  `;
+  ` : { rows: [] };
   const recentArt = recentArtRows as ContentItem[];
 
-  const { rows: recentWritingRows } = await db`
+  const { rows: recentWritingRows } = process.env.POSTGRES_URL ? await db`
     SELECT
       id, title, slug, summary, type, created_at
     FROM content_items
     WHERE type = 'blog' AND status = 'published'
     ORDER BY created_at DESC
     LIMIT 2
-  `;
+  ` : { rows: [] };
   const recentWriting = recentWritingRows as ContentItem[];
 
   return (
@@ -124,17 +110,17 @@ export default async function HomePage() {
               </div>
               <div className="grid md:grid-cols-2 gap-8">
                 {recentWork.map((work) => {
-                  const firstImage = work.media?.find(media => media.kind === 'image');
                   return (
-                    <Link key={work.id} href={`/product/${work.slug || work.id}`} className="group block rounded-2xl border border-system-outline bg-white overflow-hidden hover:border-system-accent transition-colors">
-                      {firstImage && (
+                    <Link key={work.id} href={work.href} className="group block rounded-2xl border border-system-outline bg-white overflow-hidden hover:border-system-accent transition-colors">
+                      {work.image && (
                         /* eslint-disable-next-line @next/next/no-img-element */
-                        <img src={firstImage.blob_url} alt={firstImage.alt_text || work.title} className="aspect-[16/10] w-full object-cover" loading="lazy" />
+                        <img src={work.image.src} alt={work.image.alt} className={workStyles.featuredImage} loading="lazy" />
                       )}
                       <div className="p-6">
-                        <p className="text-xs text-system-tertiary mb-3">Product case study</p>
+                        <p className={workStyles.featuredLabel}>{work.company || 'Product case study'}</p>
                         <h3 className="text-xl font-medium mb-3 group-hover:text-system-accent">{work.title}</h3>
-                        <p className="text-sm leading-relaxed text-system-secondary">{contentExcerpt(work.body_markdown, 180)}</p>
+                        <p className="text-sm leading-relaxed text-system-secondary">{contentExcerpt(work.summary, 200)}</p>
+                        {work.outcome && <p className={workStyles.featuredOutcome}>{work.outcome}</p>}
                         <span className="inline-block mt-6 text-sm font-medium">Read case study <span aria-hidden="true">↗</span></span>
                       </div>
                     </Link>

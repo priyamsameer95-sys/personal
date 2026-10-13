@@ -1,10 +1,13 @@
+import type { Metadata } from 'next';
 import { publicDb as db } from '@/lib/db';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
 import MarkdownContent from '@/components/MarkdownContent';
+import CaseStudy from '@/components/work/CaseStudy';
+import { findCaseStudy, findWorkCompany } from '@/lib/work';
 
 interface ContentItem {
   id: string;
@@ -28,10 +31,36 @@ const categories = {
 
 export const revalidate = 0;
 
+export function generateMetadata({ params }: DetailPageProps): Metadata {
+  const study = params.category === 'product' ? findCaseStudy(params.id) : undefined;
+  if (!study) return {};
+  const company = findWorkCompany(study.companyId);
+  return {
+    title: `${study.title}${company ? ` — ${company.name}` : ''}`,
+    description: study.summary,
+    alternates: { canonical: `/product/${study.slug}` },
+  };
+}
+
 export default async function DetailPage({ params }: DetailPageProps) {
   const { category, id } = params;
   if (!Object.prototype.hasOwnProperty.call(categories, category)) notFound();
   const section = categories[category as keyof typeof categories];
+
+  if (category === 'product') {
+    const study = findCaseStudy(id);
+    if (study) {
+      if (id !== study.slug) permanentRedirect(`/product/${encodeURIComponent(study.slug)}`);
+      return (
+        <PublicShell>
+          <Header />
+          <main id="main-content" className="animate-fade-in-up"><CaseStudy study={study} /></main>
+          <Footer />
+        </PublicShell>
+      );
+    }
+    if (!process.env.POSTGRES_URL) notFound();
+  }
 
   const { rows } = await db`
     SELECT

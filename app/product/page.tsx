@@ -1,94 +1,96 @@
 import type { Metadata } from 'next';
-import { publicDb as db } from '@/lib/db';
-import { contentExcerpt } from '@/lib/content';
 import Link from 'next/link';
+import { contentExcerpt } from '@/lib/content';
+import { caseStudyPreview, groupCaseStudies, loadPublishedWork } from '@/lib/work';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
-
-interface ContentItem {
-  id: string;
-  title: string;
-  slug: string;
-  summary: string | null;
-  body_markdown: string | null;
-  created_at: string;
-  media: Array<{ blob_url: string; kind: string; alt_text: string | null }>;
-}
+import styles from '@/components/work/work.module.css';
 
 export const metadata: Metadata = {
-  title: 'Selected Work',
-  description: 'Product work and case studies by Priyam Sameer.',
+  title: 'My Work',
+  description: 'The products, decisions and outcomes behind Priyam Sameer’s work in lending, agriculture and trade.',
 };
 
 export const revalidate = 0;
 
 export default async function ProductWorkPage() {
-  const { rows } = await db`
-    SELECT
-      ci.id, ci.title, ci.slug, ci.summary, ci.body_markdown, ci.created_at,
-      COALESCE(
-        json_agg(
-          json_build_object('blob_url', ma.blob_url, 'kind', ma.kind, 'alt_text', ma.alt_text)
-          ORDER BY ma.sort_order
-        ) FILTER (WHERE ma.id IS NOT NULL),
-        '[]'::json
-      ) AS media
-    FROM content_items ci
-    LEFT JOIN media_assets ma ON ma.content_id = ci.id
-    WHERE ci.type = 'work' AND ci.status = 'published'
-    GROUP BY ci.id
-    ORDER BY ci.sort_order ASC, ci.created_at DESC
-  `;
-  const items = rows as ContentItem[];
+  const groups = groupCaseStudies();
+  const additionalWork = await loadPublishedWork();
 
   return (
     <PublicShell>
-        <Header />
+      <Header />
+      <main id="main-content" className="animate-fade-in-up">
+        <header className={styles.pageIntro}>
+          <p className={styles.eyebrow}>Products, people and decisions</p>
+          <h1>My work.</h1>
+          <p>The products and projects behind my work: the problems, choices and outcomes, and the context that connects them.</p>
+        </header>
 
-        <main id="main-content" className="animate-fade-in-up">
-          <div className="mb-12 max-w-2xl md:mb-16">
-            <p className="mb-4 text-xs font-medium uppercase tracking-[0.16em] text-system-accent">Product & practice</p>
-            <h1 className="mb-5 font-sans text-5xl leading-tight tracking-tight text-system-primary sm:text-6xl">Selected work.</h1>
-            <p className="max-w-xl text-lg leading-relaxed text-system-secondary">Engineering structural logic into digital products.</p>
-          </div>
+        {groups.length > 1 && (
+          <nav className={styles.companyNav} aria-label="Explore work by organisation and context">
+            {groups.map(({ company, studies }) => <a key={company.id} href={`#${company.id}`}>{company.name}<small>{studies.length} {studies.length === 1 ? 'story' : 'stories'}</small></a>)}
+          </nav>
+        )}
 
-          {items.length === 0 ? (
-            <div className="rounded-2xl border border-system-outline bg-system-surface px-6 py-14 sm:px-10">
-              <h2 className="mb-3 font-sans text-3xl text-system-primary">Case studies are on their way.</h2>
-              <p className="max-w-lg leading-relaxed text-system-secondary">There are no published case studies here yet. Get in touch to discuss my work.</p>
-              <a href="mailto:Priyam.Sameer.95@gmail.com" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-system-accent no-underline">Start a conversation <span aria-hidden="true">↗</span></a>
-            </div>
-          ) : (
-            <div className="space-y-12">
-              {items.map((item) => {
-                const firstImage = item.media?.find((media) => media.kind === 'image');
-                const href = `/product/${encodeURIComponent(item.slug || item.id)}`;
-                const excerpt = contentExcerpt(item.summary || item.body_markdown, 240);
+        {groups.map(({ company, studies }) => (
+          <section key={company.id} id={company.id} aria-labelledby={`${company.id}-title`} className={styles.companySection}>
+            <header className={styles.companyHeader}>
+              <div><p className={styles.period}>{company.period}</p><h2 id={`${company.id}-title`}>{company.name}</h2><p className={styles.role}>{company.role}</p></div>
+              <p className={styles.description}>{company.summary}</p>
+            </header>
+            <div>
+              {studies.map((study) => {
+                const image = caseStudyPreview(study);
+                const href = `/product/${encodeURIComponent(study.slug)}`;
+                const outcome = study.outcomes[0];
+                const download = study.downloads.find((file) => file.mime === 'application/pdf') || study.downloads[0];
                 return (
-                  <article key={item.id} className="grid gap-6 border-t border-system-outline pt-8 md:grid-cols-12 md:gap-10">
-                    <div className={firstImage ? 'md:col-span-7' : 'md:col-span-10'}>
-                      <p className="mb-3 text-xs uppercase tracking-[0.12em] text-system-tertiary">Case study · {new Date(item.created_at).getUTCFullYear()}</p>
-                      <Link href={href} className="no-underline">
-                        <h2 className="mb-4 font-sans text-3xl leading-tight text-system-primary transition-colors hover:text-system-accent sm:text-4xl">{item.title}</h2>
-                      </Link>
-                      {excerpt && <p className="max-w-xl leading-relaxed text-system-secondary">{excerpt}</p>}
-                      <Link href={href} className="mt-5 inline-flex min-h-11 items-center gap-3 text-sm font-medium text-system-accent no-underline">Read case study <span aria-hidden="true">→</span></Link>
+                  <article key={study.id} className={`${styles.workRow}${image ? '' : ` ${styles.textOnly}`}`}>
+                    <div>
+                      <p className={styles.eyebrow}>{study.period}</p>
+                      <h3><Link href={href}>{study.title}</Link></h3>
+                      <p className={styles.rowSummary}>{study.summary}</p>
+                      {outcome && <p className={styles.rowOutcome}>{outcome.value && <><strong>{outcome.value}</strong> · </>}{outcome.label}</p>}
+                      <div className={styles.rowActions}>
+                        <Link href={href}>Read the story <span aria-hidden="true">→</span></Link>
+                        {download && <a href={download.url} download={download.filename}>{download.label} <span aria-hidden="true">↓</span></a>}
+                      </div>
                     </div>
-                    {firstImage && (
-                      <Link href={href} aria-label={`View ${item.title}`} className="block overflow-hidden rounded-xl border border-system-outline bg-system-surface md:col-span-5">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={firstImage.blob_url} alt={firstImage.alt_text || item.title} loading="lazy" className="aspect-[4/3] w-full object-cover" />
-                      </Link>
-                    )}
+                    {image && <Link href={href} className={styles.preview} aria-label={`Read ${study.title}`}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={image.src} alt={image.alt} loading="lazy" />
+                    </Link>}
                   </article>
                 );
               })}
             </div>
-          )}
-        </main>
+          </section>
+        ))}
 
-        <Footer />
+        {additionalWork.length > 0 && (
+          <section className={styles.additionalSection} aria-labelledby="additional-work-title">
+            <h2 id="additional-work-title">More product work</h2>
+            {additionalWork.map((item) => {
+              const image = item.media.find((media) => media.kind === 'image');
+              const href = `/product/${encodeURIComponent(item.slug || item.id)}`;
+              return (
+                <article key={item.id} className={`${styles.workRow}${image ? '' : ` ${styles.textOnly}`}`}>
+                  <div><h3><Link href={href}>{item.title}</Link></h3><p className={styles.rowSummary}>{contentExcerpt(item.summary || item.body_markdown, 240)}</p><div className={styles.rowActions}><Link href={href}>Read the story <span aria-hidden="true">→</span></Link></div></div>
+                  {image && <Link href={href} className={styles.preview} aria-label={`Read ${item.title}`}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={image.blob_url} alt={image.alt_text || item.title} loading="lazy" />
+                  </Link>}
+                </article>
+              );
+            })}
+          </section>
+        )}
+
+        {groups.length === 0 && additionalWork.length === 0 && <div className={styles.empty}><p>There are no published case studies here yet.</p><a href="mailto:Priyam.Sameer.95@gmail.com" className={styles.readLink}>Start a conversation <span aria-hidden="true">↗</span></a></div>}
+      </main>
+      <Footer />
     </PublicShell>
   );
 }

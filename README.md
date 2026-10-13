@@ -12,11 +12,11 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open [localhost:3000](http://localhost:3000). No database or storage credentials are needed to preview the public site in development. Published collections will be empty, while the homepage and the existing CV remain available. Individual content links return a 404 until content is published.
+Open [localhost:3000](http://localhost:3000). No database or storage credentials are needed to preview the authored homepage, My Work collection, case studies, media downloads, or source CV. Database-backed art and writing collections remain empty in local preview. Existing database content URLs remain supported when that content is published.
 
 If database credentials are already configured and you want to preview without accessing that database, set `LOCAL_PREVIEW=true` in `.env.local`. This flag only applies when `NODE_ENV` is unset or `development`; it cannot bypass database access in a production build or deployment. Public preview reads never write data, and admin routes always use the real database.
 
-If any database URL is configured, automatic preview is disabled. A connection failure is reported as an error rather than treated as an empty collection. Remove unused database variables or explicitly enable local preview to work offline.
+If any database URL is configured, automatic database preview is disabled. Database-backed pages report connection failures. My Work keeps its authored studies available if additional database entries cannot be loaded. Remove unused database variables or explicitly enable local preview to work offline.
 
 ## Connected content and admin setup
 
@@ -24,7 +24,7 @@ The Next.js application uses PostgreSQL through `@vercel/postgres` and Vercel Bl
 
 | Variable | Purpose |
 | --- | --- |
-| `POSTGRES_URL` | Pooled connection URL for a compatible Vercel/Neon PostgreSQL database. Required for content reads and writes outside local preview. |
+| `POSTGRES_URL` | Pooled connection URL for a compatible Vercel/Neon PostgreSQL database. Required for database content reads and writes outside local preview; authored case studies are independent. |
 | `ADMIN_PASSWORD` | Required strong, unique password for admin sign-in and session signing. There is no default password; missing configuration disables sign-in. |
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob token for media uploads and deletion. |
 | `LOCAL_PREVIEW` | Optional `true` to keep public pages in empty preview mode during development. |
@@ -33,7 +33,19 @@ The Next.js application uses PostgreSQL through `@vercel/postgres` and Vercel Bl
 
 For a new, dedicated database, sign in at `/minforyam/login`, then send an authenticated `POST` request to `/api/admin/migrate`. The route creates the `content_items` and `media_assets` schema and refuses to run if `content_items` already exists. It also renames older `content` and `content_images` tables when present; review the route and use a backup before running it against an existing database. Do not use the separate backend's Prisma schema for this application.
 
-Create entries in the admin panel and mark them published to show them on the public site. Drafts remain private. CV PDF uploads extract text automatically when no body text is supplied. The CV page includes the existing text CV and offers a PDF download when a published CV upload permits it.
+Create entries in the admin panel and mark them published to show them on the public site. Drafts remain private. CV PDF uploads extract text automatically when no body text is supplied. The public CV page uses the designated source text and downloads the unchanged supplied PDF.
+
+## Authored My Work collection
+
+`content/work/case-studies.json` is the public source of truth for company groups, narrative sections, scoped outcomes, media captions, and real downloads. The typed export in `case-studies.ts` feeds `/product`, `/product/<slug>`, and homepage highlights. Published database work is appended without duplicating reserved case-study slugs. A registered alias redirects to its canonical case-study URL.
+
+Assets live in `public/work/`. Captured public pages and their generated walkthroughs are labelled as dated product references; they are not evidence of ownership of every current feature. Each authored case has a PDF containing the complete public narrative. Rebuild those PDFs after changing the JSON with Python and ReportLab:
+
+```bash
+python3 scripts/build-work-pdfs.py
+```
+
+The source archive coverage and publication exclusions are documented in [`WORK-COVERAGE.md`](WORK-COVERAGE.md). Private research notes, credentials, applicant records, and farmer identifiers are not included in the published registry. The admin uploader continues to support images/PDFs; these curated video and ZIP assets are source-controlled independently.
 
 ## Validation and production
 
@@ -45,7 +57,7 @@ npm run build
 npm start
 ```
 
-The production server requires a configured database for public content pages. `LOCAL_PREVIEW=true` does not provide a production fallback. The public error screen allows retrying a failed load without exposing connection details to visitors.
+The authored homepage, My Work, registered case studies, and source CV work in production without database credentials. Database-backed art, writing, and legacy detail pages require a configured database. `LOCAL_PREVIEW=true` does not bypass that production requirement. The public error screen allows retrying a failed load without exposing connection details to visitors.
 
 ## Repository structure
 

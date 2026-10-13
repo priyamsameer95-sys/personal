@@ -1,0 +1,799 @@
+{
+  "archive": "Upaj-Portfolio-Archive.zip",
+  "publicSafeCopy": false,
+  "members": [
+    {
+      "member": "upaj-portfolio/README.txt",
+      "bytes": 4523,
+      "compressedBytes": 2172,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/Upaj-Portfolio-Reference.pdf",
+      "bytes": 5309097,
+      "compressedBytes": 4315883,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/logo.svg",
+      "bytes": 13957,
+      "compressedBytes": 6304,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/mobile/facebook-icon.svg",
+      "bytes": 532,
+      "compressedBytes": 292,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/mobile/instagram-icon.svg",
+      "bytes": 1903,
+      "compressedBytes": 751,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/mobile/linkedin-icon.svg",
+      "bytes": 751,
+      "compressedBytes": 379,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/mobile/youtube-icon.svg",
+      "bytes": 691,
+      "compressedBytes": 318,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/upaj_logo_black.svg",
+      "bytes": 15943,
+      "compressedBytes": 7250,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/d_how_it_work1.png",
+      "bytes": 177037,
+      "compressedBytes": 177092,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/d_how_it_work2.png",
+      "bytes": 183823,
+      "compressedBytes": 183883,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/d_how_it_work3.png",
+      "bytes": 175230,
+      "compressedBytes": 175285,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/d_how_it_work4.png",
+      "bytes": 274838,
+      "compressedBytes": 274923,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/d_our_offering1.png",
+      "bytes": 138088,
+      "compressedBytes": 138002,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/d_our_offering2.png",
+      "bytes": 155995,
+      "compressedBytes": 156045,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/d_our_offering3.png",
+      "bytes": 128836,
+      "compressedBytes": 128876,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/d_our_offering4.png",
+      "bytes": 185325,
+      "compressedBytes": 185385,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/finstac_d_how_it_work1.png",
+      "bytes": 197167,
+      "compressedBytes": 197232,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/finstac_d_how_it_work2.png",
+      "bytes": 144694,
+      "compressedBytes": 144739,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/finstac_d_how_it_work3.png",
+      "bytes": 294604,
+      "compressedBytes": 294694,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/finstac_d_how_it_work4.png",
+      "bytes": 184542,
+      "compressedBytes": 184602,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/finstac_d_our_offering1.png",
+      "bytes": 67282,
+      "compressedBytes": 67307,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/finstac_d_our_offering2.png",
+      "bytes": 65229,
+      "compressedBytes": 65249,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/finstac_d_our_offering3.png",
+      "bytes": 122983,
+      "compressedBytes": 123023,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/finstac_d_our_offering4.png",
+      "bytes": 150389,
+      "compressedBytes": 150439,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/header_solution-1.png",
+      "bytes": 91681,
+      "compressedBytes": 91711,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/left-arrow.svg",
+      "bytes": 716,
+      "compressedBytes": 316,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/right-arrow.svg",
+      "bytes": 702,
+      "compressedBytes": 311,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/riskstac_d_how_it_work1.png",
+      "bytes": 256308,
+      "compressedBytes": 256388,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/riskstac_d_how_it_work2.png",
+      "bytes": 164333,
+      "compressedBytes": 164388,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/riskstac_d_how_it_work3.png",
+      "bytes": 203896,
+      "compressedBytes": 203961,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/riskstac_d_how_it_work4.png",
+      "bytes": 125376,
+      "compressedBytes": 125380,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/riskstac_d_our_offering1.png",
+      "bytes": 107630,
+      "compressedBytes": 107665,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/riskstac_d_our_offering2.png",
+      "bytes": 133565,
+      "compressedBytes": 133602,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/riskstac_d_our_offering3.png",
+      "bytes": 135988,
+      "compressedBytes": 136033,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/story-1.png",
+      "bytes": 263730,
+      "compressedBytes": 263815,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/story-2.jpg",
+      "bytes": 59929,
+      "compressedBytes": 59860,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/story-3.jpg",
+      "bytes": 19031,
+      "compressedBytes": 18925,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/story-4.jpg",
+      "bytes": 37922,
+      "compressedBytes": 37847,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/story-5.jpg",
+      "bytes": 26743,
+      "compressedBytes": 26628,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/testimonial-1.png",
+      "bytes": 203527,
+      "compressedBytes": 203368,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/testimonial-2.png",
+      "bytes": 160393,
+      "compressedBytes": 160427,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/assets/images/web/testimonial-3.png",
+      "bytes": 155395,
+      "compressedBytes": 155284,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/finstac-banner-1.d412ec975ffab2b0.png",
+      "bytes": 469127,
+      "compressedBytes": 469272,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/finstac-banner-2.b1364dd789aab5ac.png",
+      "bytes": 235803,
+      "compressedBytes": 235878,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/footer-bg.75818db1da13aacd.webp",
+      "bytes": 41100,
+      "compressedBytes": 41115,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/growstac-banner-1.df5eb8012366d57c.png",
+      "bytes": 437502,
+      "compressedBytes": 437395,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/growstac-banner-2.3982b91c4b53aee2.png",
+      "bytes": 222282,
+      "compressedBytes": 222222,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/login-bg.16850883199374e1.png",
+      "bytes": 72436,
+      "compressedBytes": 72461,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/popup-left.0738eda577eada6c.jpg",
+      "bytes": 91585,
+      "compressedBytes": 90960,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/riskstac-banner-1.8e0979145dc0c53a.png",
+      "bytes": 338647,
+      "compressedBytes": 338752,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/riskstac-banner-2.8b264706ed08ced2.png",
+      "bytes": 166088,
+      "compressedBytes": 166129,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/assets/www.upaj.org/static_sprite.6e2007d74eb1e84b.svg",
+      "bytes": 164061,
+      "compressedBytes": 42611,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/index.html",
+      "bytes": 24841,
+      "compressedBytes": 5106,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/finstac-climate-resilience.jpg",
+      "bytes": 130284,
+      "compressedBytes": 116377,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/finstac-diy-platform.jpg",
+      "bytes": 137830,
+      "compressedBytes": 125183,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/finstac-hero.jpg",
+      "bytes": 175552,
+      "compressedBytes": 169403,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/finstac-insurance-products.jpg",
+      "bytes": 124824,
+      "compressedBytes": 110656,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/finstac-phygital.jpg",
+      "bytes": 126164,
+      "compressedBytes": 113459,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/growstac-advisory.jpg",
+      "bytes": 106694,
+      "compressedBytes": 94049,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/growstac-demo-inquiry.jpg",
+      "bytes": 106954,
+      "compressedBytes": 96093,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/growstac-hero.jpg",
+      "bytes": 173515,
+      "compressedBytes": 167137,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/growstac-inquiry-interests.jpg",
+      "bytes": 110657,
+      "compressedBytes": 100280,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/growstac-personalised.jpg",
+      "bytes": 134640,
+      "compressedBytes": 120797,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/growstac-research.jpg",
+      "bytes": 125050,
+      "compressedBytes": 112669,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/growstac-technology.jpg",
+      "bytes": 105155,
+      "compressedBytes": 92352,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/riskstac-data-inputs.jpg",
+      "bytes": 131607,
+      "compressedBytes": 119316,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/riskstac-hero.jpg",
+      "bytes": 161026,
+      "compressedBytes": 153931,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/riskstac-monitoring.jpg",
+      "bytes": 109139,
+      "compressedBytes": 98803,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/riskstac-repayment-risk.jpg",
+      "bytes": 111071,
+      "compressedBytes": 101393,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/screenshots/riskstac-why-and-data.jpg",
+      "bytes": 121912,
+      "compressedBytes": 111138,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/scripts/__pycache__/scrape_assets.cpython-312.pyc",
+      "bytes": 18160,
+      "compressedBytes": 9670,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/scripts/build_archive_index.py",
+      "bytes": 4638,
+      "compressedBytes": 2116,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/scripts/build_portfolio_reference.py",
+      "bytes": 9571,
+      "compressedBytes": 3967,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/scripts/make_portfolio_videos.py",
+      "bytes": 8716,
+      "compressedBytes": 3534,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/scripts/scrape_assets.py",
+      "bytes": 10985,
+      "compressedBytes": 3935,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/capture-manifest.json",
+      "bytes": 58423,
+      "compressedBytes": 6438,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-metadata.json",
+      "bytes": 185,
+      "compressedBytes": 117,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-original.html",
+      "bytes": 22314,
+      "compressedBytes": 4532,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-rendered-metadata.json",
+      "bytes": 6900,
+      "compressedBytes": 1949,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-rendered-text.txt",
+      "bytes": 1920,
+      "compressedBytes": 1127,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-rendered.html",
+      "bytes": 200013,
+      "compressedBytes": 27856,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-state-climate.html",
+      "bytes": 200013,
+      "compressedBytes": 27815,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-state-climate.txt",
+      "bytes": 1910,
+      "compressedBytes": 1133,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-state-diy.html",
+      "bytes": 200013,
+      "compressedBytes": 27863,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-state-diy.txt",
+      "bytes": 1929,
+      "compressedBytes": 1126,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-state-insurance-products.html",
+      "bytes": 200013,
+      "compressedBytes": 27802,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-state-insurance-products.txt",
+      "bytes": 1919,
+      "compressedBytes": 1108,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-state-phygital.html",
+      "bytes": 200013,
+      "compressedBytes": 27782,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-state-phygital.txt",
+      "bytes": 1960,
+      "compressedBytes": 1153,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/finstac-text.txt",
+      "bytes": 15,
+      "compressedBytes": 17,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-metadata.json",
+      "bytes": 187,
+      "compressedBytes": 119,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-original.html",
+      "bytes": 22314,
+      "compressedBytes": 4532,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-rendered-metadata.json",
+      "bytes": 7065,
+      "compressedBytes": 2048,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-rendered-text.txt",
+      "bytes": 2140,
+      "compressedBytes": 1227,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-rendered.html",
+      "bytes": 200013,
+      "compressedBytes": 28019,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-state-advisory.html",
+      "bytes": 200013,
+      "compressedBytes": 27906,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-state-advisory.txt",
+      "bytes": 2046,
+      "compressedBytes": 1184,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-state-demo-inquiry.html",
+      "bytes": 200013,
+      "compressedBytes": 28019,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-state-demo-inquiry.txt",
+      "bytes": 2140,
+      "compressedBytes": 1227,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-state-inquiry-options-inspected.html",
+      "bytes": 200013,
+      "compressedBytes": 28047,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-state-inquiry-options-inspected.txt",
+      "bytes": 2220,
+      "compressedBytes": 1267,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-state-personalised.html",
+      "bytes": 200013,
+      "compressedBytes": 27969,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-state-personalised.txt",
+      "bytes": 2148,
+      "compressedBytes": 1215,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-state-research.html",
+      "bytes": 200013,
+      "compressedBytes": 27951,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-state-research.txt",
+      "bytes": 1868,
+      "compressedBytes": 1079,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-state-technology.html",
+      "bytes": 200013,
+      "compressedBytes": 27936,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-state-technology.txt",
+      "bytes": 1765,
+      "compressedBytes": 1045,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/growstac-text.txt",
+      "bytes": 15,
+      "compressedBytes": 17,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/portfolio-reference-content.json",
+      "bytes": 6105,
+      "compressedBytes": 2219,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/riskstac-metadata.json",
+      "bytes": 187,
+      "compressedBytes": 119,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/riskstac-original.html",
+      "bytes": 22314,
+      "compressedBytes": 4532,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/riskstac-rendered-metadata.json",
+      "bytes": 7751,
+      "compressedBytes": 2403,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/riskstac-rendered-text.txt",
+      "bytes": 2974,
+      "compressedBytes": 1598,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/riskstac-rendered.html",
+      "bytes": 200015,
+      "compressedBytes": 27964,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/riskstac-state-monitoring.html",
+      "bytes": 200015,
+      "compressedBytes": 27947,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/riskstac-state-monitoring.txt",
+      "bytes": 2970,
+      "compressedBytes": 1590,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/riskstac-state-repayment.html",
+      "bytes": 200015,
+      "compressedBytes": 27938,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/riskstac-state-repayment.txt",
+      "bytes": 3009,
+      "compressedBytes": 1620,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/riskstac-text.txt",
+      "bytes": 15,
+      "compressedBytes": 17,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/source/video-storyboards.json",
+      "bytes": 3875,
+      "compressedBytes": 942,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/videos/README.txt",
+      "bytes": 382,
+      "compressedBytes": 257,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/videos/Upaj-01-Riskstac-poster.jpg",
+      "bytes": 57857,
+      "compressedBytes": 52505,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/videos/Upaj-01-Riskstac-preview.jpg",
+      "bytes": 157119,
+      "compressedBytes": 136026,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/videos/Upaj-01-Riskstac.mp4",
+      "bytes": 2624003,
+      "compressedBytes": 2614966,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/videos/Upaj-02-Finstac-poster.jpg",
+      "bytes": 64557,
+      "compressedBytes": 59238,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/videos/Upaj-02-Finstac-preview.jpg",
+      "bytes": 170476,
+      "compressedBytes": 145388,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/videos/Upaj-02-Finstac.mp4",
+      "bytes": 2389608,
+      "compressedBytes": 2379627,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/videos/Upaj-03-Growstac-poster.jpg",
+      "bytes": 56809,
+      "compressedBytes": 51268,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/videos/Upaj-03-Growstac-preview.jpg",
+      "bytes": 151588,
+      "compressedBytes": 124079,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/videos/Upaj-03-Growstac.mp4",
+      "bytes": 2084097,
+      "compressedBytes": 2073828,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/videos/video-manifest.json",
+      "bytes": 2891,
+      "compressedBytes": 633,
+      "directory": false
+    },
+    {
+      "member": "upaj-portfolio/workflow.json",
+      "bytes": 3060,
+      "compressedBytes": 1161,
+      "directory": false
+    }
+  ],
+  "modifiedMembers": []
+}
