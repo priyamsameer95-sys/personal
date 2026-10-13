@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { isAdminAuthenticated } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
 import { del } from '@vercel/blob';
 import db from '@/lib/db';
+import { extractPdfText } from '@/lib/pdf';
 import { slugify, deduplicateSlug } from '@/lib/slugify';
 import {
   isValidType,
@@ -17,7 +19,11 @@ interface RouteParams {
 
 // GET /api/admin/content/[id]
 // Returns a single content_item with its media_assets.
-export async function GET(_request: NextRequest, { params }: RouteParams) {
+export async function GET(request: NextRequest, { params }: RouteParams) {
+  if (!(await isAdminAuthenticated(request))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const { id } = params;
 
@@ -65,6 +71,10 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
 // Media items with existing IDs are kept. New items (no id) are inserted.
 // Old items not in the new array are deleted (blob + row).
 export async function PUT(request: NextRequest, { params }: RouteParams) {
+  if (!(await isAdminAuthenticated(request))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   let newBlobUrls: string[] = [];
 
   try {
@@ -130,15 +140,11 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       const pdfMedia = media.find(m => m.kind === 'pdf' || m.blob_url.endsWith('.pdf'));
       if (pdfMedia) {
         try {
-          const pdfParseModule = await import('pdf-parse');
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const pdfParse = (pdfParseModule as any).default || pdfParseModule;
           const res = await fetch(pdfMedia.blob_url);
           if (res.ok) {
             const arrayBuffer = await res.arrayBuffer();
             const buffer = Buffer.from(arrayBuffer);
-            const data = await pdfParse(buffer);
-            body_markdown = data.text;
+            body_markdown = await extractPdfText(buffer);
           }
         } catch (parseErr) {
           console.error('PDF parsing failed:', parseErr);
@@ -246,7 +252,11 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 
 // DELETE /api/admin/content/[id]
 // Deletes the content_item, cascades media_assets, and removes all blobs.
-export async function DELETE(_request: NextRequest, { params }: RouteParams) {
+export async function DELETE(request: NextRequest, { params }: RouteParams) {
+  if (!(await isAdminAuthenticated(request))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const { id } = params;
 

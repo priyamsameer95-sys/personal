@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850" role="img" aria-labelledby="title desc">
+<title id="title">Proposed lending MCP architecture with a human policy-change boundary</title>
+<desc id="desc">Product interfaces request a shared evaluation capability through one proposed MCP server. Two business rule engines evaluate versioned policy. Results return to the interface. Rejections and overrides become review evidence; a person must approve a policy change. This is a proposed design, not deployed infrastructure.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 10 5 0 10" fill="none" stroke="#625e56" stroke-width="1.5"/></marker></defs>
+<rect width="1200" height="850" rx="12" fill="#faf7f0"/>
+<g font-family="Arial, sans-serif" fill="#191714">
+<rect x="46" y="42" width="136" height="32" rx="16" fill="#eadfc8"/><text x="114" y="64" text-anchor="middle" font-size="17" letter-spacing="1">PROPOSAL</text>
+<text x="46" y="120" font-size="35" font-weight="600">One policy capability. Multiple journeys.</text>
+<text x="46" y="158" font-size="22" fill="#625e56">Separate calling a rule from changing a rule.</text>
+<rect x="46" y="218" width="272" height="205" rx="8" fill="#f1ede4" stroke="#ddd7cb"/>
+<text x="70" y="256" font-size="23" font-weight="600">Product interfaces</text>
+<text x="70" y="302" font-size="22">Student intake</text><text x="70" y="342" font-size="22">Partner workflow</text><text x="70" y="382" font-size="22">Reviewer tools</text>
+<path d="M325 278 H402" stroke="#625e56" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="362" y="253" text-anchor="middle" font-size="16" fill="#625e56">Request</text>
+<path d="M402 374 H325" stroke="#625e56" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="362" y="405" text-anchor="middle" font-size="16" fill="#625e56">Result</text>
+<rect x="412" y="202" width="346" height="237" rx="8" fill="#edf0fa" stroke="#2357e8" stroke-width="1.5"/>
+<text x="438" y="245" font-size="25" font-weight="600">One MCP server</text>
+<text x="438" y="285" font-size="22">Shared policy evaluation</text>
+<path d="M438 306 H732" stroke="#c7cde4"/>
+<text x="438" y="340" font-size="20">Explicit inputs &amp; tool contract</text>
+<text x="438" y="378" font-size="20">Inspectable result &amp; reasons</text>
+<text x="438" y="413" font-size="17" fill="#625e56">Design boundary to validate</text>
+<path d="M765 275 H839 M765 370 H839" stroke="#625e56" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="838" y="198" width="330" height="250" rx="10" fill="#e9eedc"/>
+<text x="852" y="186" font-size="18" fill="#625e56">Versioned policy</text>
+<rect x="852" y="212" width="302" height="96" rx="8" fill="#fff" stroke="#ddd7cb"/>
+<text x="877" y="252" font-size="24" font-weight="600">Rule engine 1</text><text x="877" y="284" font-size="20" fill="#625e56">Deterministic policy</text>
+<rect x="852" y="338" width="302" height="96" rx="8" fill="#fff" stroke="#ddd7cb"/>
+<text x="877" y="377" font-size="24" font-weight="600">Rule engine 2</text><text x="877" y="411" font-size="20" fill="#625e56">Deterministic policy</text>
+<path d="M180 435 V558" stroke="#625e56" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="201" y="505" font-size="18" fill="#625e56">Outcome feedback</text>
+<rect x="46" y="574" width="306" height="122" rx="8" fill="#f3e8ed" stroke="#ddd7cb"/>
+<text x="70" y="615" font-size="22" font-weight="600">Rejections &amp; overrides</text><text x="70" y="651" font-size="20">Evidence for policy review</text><text x="70" y="678" font-size="17" fill="#625e56">No automatic rule rewriting</text>
+<path d="M362 635 H422" stroke="#625e56" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="438" y="574" width="268" height="122" rx="8" fill="#f1ede4" stroke="#ddd7cb"/>
+<text x="462" y="615" font-size="23" font-weight="600">Review the change</text><text x="462" y="651" font-size="20">Reason, rule and evidence</text>
+<path d="M720 635 H780" stroke="#625e56" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="794" y="558" width="360" height="154" rx="8" fill="#fff0a6" stroke="#bca537"/>
+<text x="820" y="601" font-size="24" font-weight="600">Human approval boundary</text><text x="820" y="640" font-size="21">Approve a versioned change</text><text x="820" y="678" font-size="18" fill="#625e56">before updating policy</text>
+<path d="M1000 547 V448" stroke="#625e56" stroke-width="2" stroke-dasharray="7 6" fill="none" marker-end="url(#arrow)"/>
+<text x="1018" y="492" font-size="17" fill="#625e56">Approved</text><text x="1018" y="515" font-size="17" fill="#625e56">change only</text>
+<path d="M46 762 H1154" stroke="#ddd7cb"/>
+<text x="46" y="800" font-size="19" fill="#625e56">Authored system design • Two BREs behind one MCP server are described, not verified as deployed.</text>
+</g></svg>

@@ -1,6 +1,9 @@
-import removeImports from 'next-remove-imports';
-
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  // PDF.js resolves its worker and native support relative to the package.
+  experimental: {
+    serverComponentsExternalPackages: ['pdf-parse', 'pdfjs-dist', '@napi-rs/canvas'],
+  },
+};
 
-export default removeImports()(nextConfig);
+export default nextConfig;

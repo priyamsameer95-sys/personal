@@ -198,14 +198,7 @@ export default function ArtForm({ editItem, onSuccess, onDirtyChange }: ArtFormP
         </div>
 
         <div className="pt-4 space-y-2 opacity-70">
-          <label className="flex items-center gap-2">
-            <input type="checkbox" checked disabled className="w-4 h-4 text-[#1A1A1A] rounded" />
-            <span className="text-sm font-medium text-[#525252]">Protected Image Viewer (Forced)</span>
-          </label>
-          <label className="flex items-center gap-2">
-            <input type="checkbox" checked={false} disabled className="w-4 h-4 text-[#1A1A1A] rounded" />
-            <span className="text-sm font-medium text-[#525252]">Downloadable (Disabled)</span>
-          </label>
+          <p className="text-sm leading-relaxed text-[#525252]">Artwork is viewed in the website gallery.</p>
         </div>
       </div>
 

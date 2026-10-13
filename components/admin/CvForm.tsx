@@ -13,7 +13,6 @@ interface CvFormProps {
 
 export default function CvForm({ editItem, onSuccess, onDirtyChange }: CvFormProps) {
   const [title, setTitle] = useState(editItem?.title || 'CV Document');
-  const [downloadable, setDownloadable] = useState(editItem?.downloadable ?? true);
   
   // Meta fields
   const [meta, setMeta] = useState<any>(editItem?.meta || {
@@ -32,7 +31,7 @@ export default function CvForm({ editItem, onSuccess, onDirtyChange }: CvFormPro
   // Track dirty state
   useEffect(() => {
     onDirtyChange(true);
-  }, [title, downloadable, meta, pdfFile, onDirtyChange]);
+  }, [title, meta, pdfFile, onDirtyChange]);
 
   const handleSubmit = async (status: 'draft' | 'published') => {
     try {
@@ -67,7 +66,7 @@ export default function CvForm({ editItem, onSuccess, onDirtyChange }: CvFormPro
         type: 'cv',
         title,
         status,
-        downloadable,
+        downloadable: false,
         meta,
         media: mediaPayload
       };
@@ -163,15 +162,7 @@ export default function CvForm({ editItem, onSuccess, onDirtyChange }: CvFormPro
           )}
         </div>
 
-        <label className="flex items-center gap-2 cursor-pointer">
-          <input 
-            type="checkbox" 
-            checked={downloadable} 
-            onChange={e => setDownloadable(e.target.checked)}
-            className="w-4 h-4 text-[#1A1A1A] bg-[#FAFAFA] border-[#E5E5E5] rounded"
-          />
-          <span className="text-sm font-medium text-[#525252]">Allow visitors to download PDF</span>
-        </label>
+        <p className="text-sm leading-relaxed text-[#525252]">Visitors read experience on the website. This source document is not offered as a download.</p>
       </div>
 
       <div className="space-y-4 pt-6 border-t border-[#E5E5E5]">

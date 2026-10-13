@@ -1,85 +1,42 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+import CvDownload from './CvDownload';
+import ContactChooser from './ContactChooser';
+import styles from './site-chrome.module.css';
+
+const navItems = [
+  { label: 'Home', path: '/' }, { label: 'Work', path: '/product' },
+  { label: 'Experience', path: '/cv' }, { label: 'Writing', path: '/blog' }, { label: 'Art', path: '/art' },
+];
 
 export default function Header() {
   const pathname = usePathname();
-
-  const navItems = [
-    { label: 'Index', path: '/' },
-    { label: 'Work', path: '/product' },
-    { label: 'Art', path: '/art' },
-    { label: 'Writing', path: '/blog' },
-    { label: 'CV', path: '/cv' },
-  ];
-
-  return (
-    <header className="mb-24 relative z-10">
-      <nav id="nav-header" className="flex flex-col md:flex-row md:items-baseline justify-between gap-8 mb-6">
-        <Link href="/" className="no-underline">
-          <h1 className="font-mono text-[16px] md:text-[18px] font-bold tracking-[0.15em] uppercase text-system-primary m-0">
-            Priyam Sameer
-          </h1>
-        </Link>
-        <div className="flex gap-6 overflow-x-auto pb-2 md:pb-0 scrollbar-hide w-full md:w-auto">
-          {navItems.map((item) => {
-            // Checks if path matches, or if it is a detail page of that section (e.g. /product/123)
-            const isActive =
-              item.path === '/'
-                ? pathname === '/'
-                : pathname === item.path || pathname.startsWith(item.path + '/');
-            return (
-              <Link
-                key={item.path}
-                href={item.path}
-                className={`pb-1 border-b-2 font-mono text-[11px] font-bold tracking-[0.12em] uppercase transition-colors duration-200 no-underline whitespace-nowrap ${
-                  isActive
-                    ? 'border-system-primary text-system-primary'
-                    : 'border-transparent text-system-tertiary hover:text-system-primary'
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
-
-      {/* Pristine Contact CTA Bar */}
-      <div className="flex flex-wrap gap-x-6 gap-y-3 items-center border-t border-system-outline/40 pt-4">
-        <a
-          href="tel:+918238452277"
-          className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.08em] uppercase text-system-tertiary hover:text-system-primary transition-colors duration-200 no-underline"
-        >
-          <span className="material-symbols-rounded text-sm">call</span>
-          <span>Call Now</span>
-        </a>
-        <a
-          href="https://wa.me/918238452277"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.08em] uppercase text-system-tertiary hover:text-system-primary transition-colors duration-200 no-underline"
-        >
-          <span className="material-symbols-rounded text-sm font-bold">chat</span>
-          <span>WhatsApp</span>
-        </a>
-        <a
-          href="mailto:Priyam.Sameer.95@gmail.com"
-          className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.08em] uppercase text-system-tertiary hover:text-system-primary transition-colors duration-200 no-underline"
-        >
-          <span className="material-symbols-rounded text-sm">mail</span>
-          <span>Email</span>
-        </a>
-        <a
-          href="sms:+918238452277"
-          className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.08em] uppercase text-system-tertiary hover:text-system-primary transition-colors duration-200 no-underline"
-        >
-          <span className="material-symbols-rounded text-sm">sms</span>
-          <span>Drop a Message</span>
-        </a>
-      </div>
-    </header>
-  );
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => setMenuOpen(false), [pathname]);
+  function closeMenu(destination: string) {
+    setMenuOpen(false);
+    if (menuOpen && destination === pathname) menuButton.current?.focus();
+  }
+  return <header className={`${styles.header} no-print`} id="nav-header" onKeyDown={event => {
+    if (event.key === 'Escape' && menuOpen) { setMenuOpen(false); menuButton.current?.focus(); }
+  }}>
+    <Link href="/" aria-label="Priyam Sameer — home" className={styles.identity} onClick={() => closeMenu('/')}>
+      <span className={styles.monogram} aria-hidden="true">ps.</span><span>Priyam Sameer</span>
+    </Link>
+    <button ref={menuButton} type="button" className={styles.menuButton} aria-expanded={menuOpen} aria-controls="public-navigation" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? 'Close' : 'Menu'} <span aria-hidden="true">{menuOpen ? '−' : '+'}</span></button>
+    <nav id="public-navigation" aria-label="Main navigation" className={styles.navigation} data-open={menuOpen}>
+      {navItems.map(item => {
+        const active = item.path === '/' ? pathname === '/' : pathname === item.path || pathname.startsWith(`${item.path}/`);
+        return <Link key={item.path} href={item.path} aria-current={active ? 'page' : undefined} onClick={() => closeMenu(item.path)}>{item.label}</Link>;
+      })}
+    </nav>
+    <div className={styles.headerActions}>
+      <CvDownload className={styles.cvButton} />
+      <ContactChooser className={styles.contactButton}><span className={styles.contactLong}>Contact Priyam</span><span className={styles.contactShort}>Contact</span> <span aria-hidden="true">↗</span></ContactChooser>
+    </div>
+  </header>;
 }

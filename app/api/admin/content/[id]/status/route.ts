@@ -1,3 +1,4 @@
+import { isAdminAuthenticated } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/db';
 
@@ -8,6 +9,10 @@ interface RouteParams {
 // PUT /api/admin/content/[id]/status
 // Toggles publish/unpublish. Handles the one-published-CV constraint.
 export async function PUT(request: NextRequest, { params }: RouteParams) {
+  if (!(await isAdminAuthenticated(request))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const { id } = params;
     const { status } = await request.json();

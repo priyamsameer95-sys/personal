@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export const SESSION_COOKIE_NAME = 'admin_session';
 const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours
@@ -49,66 +49,68 @@ async function getHMACKey(password: string): Promise<CryptoKey> {
   );
 }
 
-// Generate session cookie value
-export async function createSessionToken(): Promise<string> {
-  const password = process.env.ADMIN_PASSWORD || 'SAMEER@11';
+// Admin access is disabled until the deployment supplies its own password.
+export function getAdminPassword(): string | undefined {
+  const password = process.env.ADMIN_PASSWORD;
+  return password && password.trim() ? password : undefined;
+}
 
-  
+// Generate a session with the same 24-hour lifetime and signed-cookie format.
+export async function createSessionToken(): Promise<string> {
+  const password = getAdminPassword();
+  if (!password) {
+    throw new Error('Admin access is not configured.');
+  }
+
   const expiry = Date.now() + SESSION_DURATION;
-  const payload = JSON.stringify({ expiry });
-  const encoder = new TextEncoder();
-  
+  const payloadBase64 = Buffer.from(JSON.stringify({ expiry })).toString('base64url');
   const key = await getHMACKey(password);
-  const payloadBase64 = Buffer.from(payload).toString('base64url');
-  
   const signatureBuffer = await crypto.subtle.sign(
     'HMAC',
     key,
-    encoder.encode(payloadBase64)
+    new TextEncoder().encode(payloadBase64)
   );
-  
-  const signatureArray = Array.from(new Uint8Array(signatureBuffer));
-  const signatureHex = signatureArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  
+  const signatureHex = Buffer.from(signatureBuffer).toString('hex');
+
   return `${payloadBase64}.${signatureHex}`;
 }
 
-// Verify session token
 export async function verifySessionToken(token: string | undefined): Promise<boolean> {
-  if (!token) return false;
-  
-  const password = process.env.ADMIN_PASSWORD || 'SAMEER@11';
+  const password = getAdminPassword();
+  if (!password || !token || token.length > 1024) return false;
 
-  
   const parts = token.split('.');
   if (parts.length !== 2) return false;
-  
+
   const [payloadBase64, signatureHex] = parts;
-  
+  if (!/^[A-Za-z0-9_-]+$/.test(payloadBase64) || !/^[a-fA-F0-9]{64}$/.test(signatureHex)) {
+    return false;
+  }
+
   try {
-    const payloadJson = Buffer.from(payloadBase64, 'base64url').toString('utf8');
-    const { expiry } = JSON.parse(payloadJson);
-    
-    if (Date.now() > expiry) {
-      return false; // Expired
+    const payload = JSON.parse(Buffer.from(payloadBase64, 'base64url').toString('utf8'));
+    if (
+      !payload ||
+      typeof payload !== 'object' ||
+      !Number.isSafeInteger(payload.expiry) ||
+      payload.expiry <= Date.now()
+    ) {
+      return false;
     }
-    
-    // Verify signature
+
     const key = await getHMACKey(password);
-    const encoder = new TextEncoder();
-    
-    // Convert hex signature back to Uint8Array
-    const sigBytes = new Uint8Array(signatureHex.match(/.{1,2}/g)!.map(byte => parseInt(byte, 16)));
-    
-    const isValid = await crypto.subtle.verify(
+    return await crypto.subtle.verify(
       'HMAC',
       key,
-      sigBytes,
-      encoder.encode(payloadBase64)
+      Uint8Array.from(Buffer.from(signatureHex, 'hex')),
+      new TextEncoder().encode(payloadBase64)
     );
-    
-    return isValid;
   } catch {
     return false;
   }
+}
+
+// Check again inside API handlers so authorization does not rely only on middleware.
+export async function isAdminAuthenticated(request: NextRequest): Promise<boolean> {
+  return verifySessionToken(request.cookies.get(SESSION_COOKIE_NAME)?.value);
 }

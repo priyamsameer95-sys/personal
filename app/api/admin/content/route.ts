@@ -1,6 +1,8 @@
+import { isAdminAuthenticated } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
 import { del } from '@vercel/blob';
 import db from '@/lib/db';
+import { extractPdfText } from '@/lib/pdf';
 import { slugify, deduplicateSlug } from '@/lib/slugify';
 import {
   isValidType,
@@ -12,6 +14,10 @@ import {
 // GET /api/admin/content?type=cv|art|work|blog
 // Returns content_items with joined media_assets for the given type.
 export async function GET(request: NextRequest) {
+  if (!(await isAdminAuthenticated(request))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const type = request.nextUrl.searchParams.get('type');
 
@@ -72,6 +78,10 @@ async function deleteBlobs(urls: string[]) {
 // Creates a new content_item with media_assets.
 // Expects JSON body (no file bytes). Blob URLs come from prior client upload.
 export async function POST(request: NextRequest) {
+  if (!(await isAdminAuthenticated(request))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   let uploadedBlobUrls: string[] = [];
 
   try {
@@ -109,15 +119,11 @@ export async function POST(request: NextRequest) {
       const pdfMedia = body.media.find(m => m.kind === 'pdf' || m.blob_url.endsWith('.pdf'));
       if (pdfMedia) {
         try {
-          const pdfParseModule = await import('pdf-parse');
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const pdfParse = (pdfParseModule as any).default || pdfParseModule;
           const res = await fetch(pdfMedia.blob_url);
           if (res.ok) {
             const arrayBuffer = await res.arrayBuffer();
             const buffer = Buffer.from(arrayBuffer);
-            const data = await pdfParse(buffer);
-            body_markdown = data.text;
+            body_markdown = await extractPdfText(buffer);
           }
         } catch (parseErr) {
           console.error('PDF parsing failed:', parseErr);

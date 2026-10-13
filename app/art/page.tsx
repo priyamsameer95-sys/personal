@@ -1,102 +1,112 @@
-import React from 'react';
-import db from '@/lib/db';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import { publicDb as db } from '@/lib/db';
+import { contentExcerpt } from '@/lib/content';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PublicShell from '@/components/PublicShell';
+import ArtGallery from '@/components/art/ArtGallery';
+import Media from '@/components/work/Media';
+import { artCollections, artworks, portfolioCover } from '@/content/art/works';
+import styles from './art.module.css';
 
 interface ContentItem {
   id: string;
   title: string;
   slug: string;
   body_markdown: string | null;
-  type: 'art';
-  status: 'draft' | 'published';
-  created_at: string;
-  media: Array<{
-    blob_url: string;
-    kind: string;
-  }>;
+  media: Array<{ blob_url: string; kind: string; alt_text: string | null; width: number | null; height: number | null }>;
 }
+
+const description = 'Paintings by Priyam Sameer in oil, acrylic and charcoal. Explore six works, their details and the artist’s original notes.';
+
+export const metadata: Metadata = {
+  title: 'Art', description,
+  openGraph: {
+    title: 'Art — Priyam Sameer', description,
+    images: [{ url: '/art/priyam/public-compass-preview.webp', width: 1000, height: 879, alt: 'Public Compass by Priyam Sameer' }],
+  },
+  twitter: { title: 'Art — Priyam Sameer', description, images: ['/art/priyam/public-compass-preview.webp'] },
+};
 
 export const revalidate = 0;
 
+// The supplied portfolio remains available independently of later admin uploads.
+async function loadAdditionalArt(): Promise<ContentItem[]> {
+  if (!process.env.POSTGRES_URL) return [];
+  try {
+    const { rows } = await db`
+      SELECT ci.id, ci.title, ci.slug, ci.body_markdown,
+        COALESCE(json_agg(
+          json_build_object('blob_url', ma.blob_url, 'kind', ma.kind, 'alt_text', ma.alt_text, 'width', ma.width, 'height', ma.height)
+          ORDER BY ma.sort_order
+        ) FILTER (WHERE ma.id IS NOT NULL), '[]'::json) AS media
+      FROM content_items ci
+      LEFT JOIN media_assets ma ON ma.content_id = ci.id
+      WHERE ci.type = 'art' AND ci.status = 'published'
+      GROUP BY ci.id
+      ORDER BY ci.sort_order ASC, ci.created_at DESC
+    `;
+    return rows as ContentItem[];
+  } catch {
+    console.error('Additional art could not be loaded. The supplied painting portfolio remains available.');
+    return [];
+  }
+}
+
 export default async function ArtGalleryPage() {
-  const { rows } = await db`
-    SELECT
-      ci.id, ci.title, ci.slug, ci.body_markdown, ci.type, ci.status, ci.created_at,
-      COALESCE(
-        json_agg(
-          json_build_object(
-            'blob_url', ma.blob_url,
-            'kind', ma.kind
-          ) ORDER BY ma.sort_order
-        ) FILTER (WHERE ma.id IS NOT NULL),
-        '[]'::json
-      ) AS media
-    FROM content_items ci
-    LEFT JOIN media_assets ma ON ma.content_id = ci.id
-    WHERE ci.type = 'art' AND ci.status = 'published'
-    GROUP BY ci.id
-    ORDER BY ci.sort_order ASC, ci.created_at DESC
-  `;
-  const items = rows as ContentItem[];
+  const items = await loadAdditionalArt();
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <div className="max-w-[56rem] mx-auto px-6 py-20 pb-24">
-        <Header />
-
-        <main className="animate-fade-in-up">
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-system-primary mb-3">Art</h2>
-            <p className="text-system-secondary text-lg font-serif">
-              Fluid expression as a counterbalance to rigid constraints.
-            </p>
+    <PublicShell>
+      <Header />
+      <main id="main-content">
+        <header className={styles.intro}>
+          <div>
+            <p className={styles.eyebrow}>Priyam Sameer · Paintings</p>
+            <h1>Art.</h1>
           </div>
-
-          {items.length === 0 ? (
-            <div className="py-20 text-center font-mono text-xs text-system-tertiary border border-dashed border-system-outline/40 rounded-2xl bg-white">
-              NO PAINTINGS PUBLISHED YET
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {items.map((art, index) => {
-                const aspectClass = index % 2 === 0 ? 'aspect-square' : 'aspect-[4/5]';
-                const firstImage = art.media?.find(m => m.kind === 'image');
-                
-                return (
-                  <Link
-                    key={art.id}
-                    href={`/art/${art.slug || art.id}`}
-                    className="group no-underline block bg-system-surface border border-system-outline p-4 flex flex-col justify-end shadow-material-soft rounded-xl transition duration-200 hover:-translate-y-0.5 hover:shadow-material-hover"
-                  >
-                    <div className={`${aspectClass} overflow-hidden mb-4 rounded-lg bg-[#F0EAE1] relative flex items-center justify-center`}>
-                      {firstImage ? (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img
-                          src={firstImage.blob_url}
-                          alt={art.title}
-                          className="w-full h-full object-cover transition duration-300 group-hover:scale-[1.02]"
-                        />
-                      ) : (
-                        <span className="font-serif italic text-sm text-[#1A1A1A]/40">{art.title}</span>
-                      )}
-                    </div>
-                    <h4 className="font-mono text-[10px] text-system-tertiary uppercase tracking-widest m-0">
-                      {art.title}
-                    </h4>
-                    {art.body_markdown && (
-                      <p className="text-xs text-system-secondary m-0 mt-2 line-clamp-2">{art.body_markdown}</p>
-                    )}
-                  </Link>
-                );
-              })}
-            </div>
-          )}
-        </main>
-
-        <Footer />
-      </div>
-    </div>
+          <div className={styles.introNote}>
+            <p>Communicating with one’s soul.</p>
+            <span>Oil, acrylic and charcoal. Six paintings, my notes and their original close-ups.</span>
+          </div>
+        </header>
+        <ArtGallery collections={artCollections} works={artworks} />
+        <section id="artist-note" className={styles.artistNote} aria-labelledby="artist-note-title">
+          <div className={styles.noteText}>
+            <p className={styles.eyebrow}>Artist’s note</p>
+            <h2 id="artist-note-title">Art is expression.</h2>
+            <p className={styles.statement}>Art is emotion. Art is love. Art is life.<br />Art is fear. Art is wisdom. Art is courage.</p>
+            <a className={styles.contact} href="mailto:Priyam.Sameer.95@gmail.com?subject=About%20your%20paintings">Talk about a painting <span aria-hidden="true">↗</span></a>
+          </div>
+          <div className={styles.cover}>
+            <Media media={{ id: 'art-portfolio-cover', kind: 'image', ...portfolioCover.image, caption: '' }} previewSrc={portfolioCover.image.previewSrc} />
+            <p>From the portfolio cover · Labelled “ANNA”</p>
+          </div>
+        </section>
+        {items.length > 0 && <section className={styles.additional} aria-labelledby="additional-art-title">
+          <h2 id="additional-art-title">More from the studio</h2>
+          <div className={styles.additionalGrid}>
+            {items.map((art) => {
+              const firstImage = art.media?.find((media) => media.kind === 'image');
+              const excerpt = contentExcerpt(art.body_markdown, 160);
+              return (
+                <Link key={art.id} href={`/art/${encodeURIComponent(art.slug || art.id)}`} className={styles.additionalWork}>
+                  {firstImage && (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img src={firstImage.blob_url} alt={firstImage.alt_text || art.title} width={firstImage.width || undefined} height={firstImage.height || undefined} loading="lazy" decoding="async" />
+                  )}
+                  <h3>{art.title}</h3>
+                  {excerpt && <p>{excerpt}</p>}
+                  <span>View artwork <span aria-hidden="true">↗</span></span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>}
+        <p className={styles.sourceNote}>Paintings and artist’s notes from my original art portfolio. Close-ups retain the detail views used in that portfolio.</p>
+      </main>
+      <Footer />
+    </PublicShell>
   );
 }

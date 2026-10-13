@@ -1,0 +1,45 @@
+# Original brand artwork
+
+Verified 13 October 2026. These are original image bytes from official brand websites or an official incubator page; no logos are reconstructed, cropped or recoloured. The portfolio caches them locally and preserves their proportions. White artwork is placed on a dark background. College.Money provides a smile icon with a separate HTML brand name, so the website retains that distinction.
+
+| Brand | Hosted original | Dimensions / viewBox | Source | SHA-256 |
+| --- | --- | --- | --- | --- |
+| CashKaro | /brands/cashkaro.svg | 100 × 25 | [Website](https://cashkaro.com/) · [Original asset](https://asset22.ckassets.com/wp/wp-content/themes/CashKaro_WP_V1/img/cashkaro_logo_v1.svg) | `fb88689f0c476f9bd1cfb7854ef0a4b74841805a3100fc3a7cb3a7dfb5e68ecc` |
+| CredFlow | /brands/credflow.png | 462 × 462 | [Website](https://credflow.in/) · [Original asset](https://credflow.in/credflow-logo.png) | `df8ce60b9042eb681444c4bb89322302b876770e5473fe774ff983a50bc9e6a5` |
+| Absolute | /brands/absolute.svg | 316 × 68 | [Website](https://www.absolute.bio/) · [Original asset](https://www.absolute.bio/assets/absolute-logo-png-1-vectorized-sad-fbpj.svg) | `13d3ad774b870b5ed72bee5c7855a42dc8829182f297add586ebec47f57b9d67` |
+| CEPT University | /brands/cept.svg | 243 × 77 | [Website](https://cept.ac.in/) · [Original asset](https://cept.ac.in/img/icons/logos/cept-logo.svg) | `7628ef41639ac0d9c34fa814ad3d04fc1be800a9cdab81298974d499dd9a4125` |
+| BankKaro | /brands/bankkaro.png | 728 × 75 | [Website](https://bankkaro.com/) · [Original asset](https://d2sriifpjiqv0p.cloudfront.net/bankkaro/bankkaro_logo4.png) | `43d01524aeedd903ac30e7282ffa69ea08cca13d1c8299698d229662a4c51482` |
+| Upaj | /brands/upaj-black.svg | 136 × 46 | [Website](https://www.upaj.org/riskstac) · [Original asset](https://www.upaj.org/assets/images/upaj_logo_black.svg) | `b5de33c319979244ceaaecbcf58efa660e0eec5206ab1f37b3b714744212630f` |
+| UrbanKhet | /brands/urbankhet.png | 500 × 500 | [Website](https://gusec.edu.in/tide/) · [Original asset](https://gusec.edu.in/wp-content/uploads/2022/01/5.png) | `991e10667d5efb183584ff073c373110c614dcfadd481c763ba2897b2644f1d5` |
+| IIMA Ventures | /brands/iima-ventures.png | 505 × 250 | [Website](https://iimaventures.com/) · [Original asset](https://iimaventures.com/wp-content/uploads/2024/01/IIMA-Logo.png) | `eed3aeecd1fba73a45100d45e8c2700884aaf15bca594fc638c8d33146136afc` |
+| GUSEC | /brands/gusec.png | 1759 × 539 | [Website](https://gusec.edu.in/) · [Original asset](https://gusec.edu.in/wp-content/uploads/2019/02/GUSEC-Board-Meeting-20th-SEP-2025.png) | `905b94e391e26a0eefaa4c1ea24f92dd59fc0236bd8df3e0f76c90697b7dbff2` |
+| College.Money | /brands/college-money-icon.svg | 28 × 28 | [Website](https://college.money/abroad) · [Original asset](https://college.money/assets/icons/logo-college-money.svg) | `1a4e1f6d3409cca22ac6f2dae95c0c574cad27a345be231616b58b4b7ff9450b` |
+| Water Farmers | /brands/water-farmers.png | 1000 × 448 | [Website](https://waterfarmers.com/) · [Original asset](https://waterfarmers.com/wp-content/uploads/2018/03/PNG.png) | `537f72b6a48ec89c2c12e9812d5182d3098d68d44d7f9538d55cb298fd584dc0` |
+| Udemy | /brands/udemy.svg | 102 × 38 | [Website](https://about.udemy.com/) · [Original asset](https://about.udemy.com/wp-content/themes/wp-about-v4/assets/images/udemy-logo.svg) | `85c1e4c6ffd533bfa5b375e9a0d0ad87e86943257a3568f4490c83eb51c6e1f1` |
+| Pendo | /brands/pendo.svg | 216 × 50 | [Official brand guide](https://www.pendo.io/brand-guide/logo/) · [Original primary dark asset](https://cdn.builder.io/api/v1/image/assets%2F6a96e08774184353b3aa88032e406411%2Fbd51e370ecda496498d96c17e3a31034) | `8c68df26a63207757537da3e6cc879d22fae1ca1e0b40c2e2d2c87d0e3a888e5` |
+
+Upaj uses the unchanged original asset from the supplied dated public-product archive, whose capture manifest records the URL above. UrbanKhet’s original is published by GUSEC and links to the venture website. IIMA Ventures is the current identity of the organisation previously known as IIMA-CIIE; the historical incubation relationship remains explicit.
+
+Water Farmers is shown with the joint Water Farmers / Madhavi Farms internship account. A standalone Madhavi Farms logo and a Gujarat Action Group logo could not be verified, so those names retain text rather than a reconstructed mark.
+
+## Certification references
+
+The titles, issue months and credential IDs come from the certification screenshot supplied for Priyam’s portfolio on 13 October 2026. The following exact credential URLs were checked on that date and returned HTTP 200:
+
+- [Cryptocurrency Fundamentals: Coins, Wallets, Exchanges, ICOs — Udemy](https://www.udemy.com/certificate/UC-af162e16-4a41-41c8-8484-f5448321b551/): the official page metadata confirms the course title. The supplied screenshot records March 2026 and credential ID `UC-af162e16-4a41-41c8-8484-f5448321b551`.
+- [AI for Product Management — Pendo](https://www.credly.com/badges/13dde14c-704f-4348-80bb-d2185173e0c0/public_url): the credential page metadata confirms the title, Pendo as issuer and Priyam Sameer as recipient. The supplied screenshot records August 2026 and credential ID `13dde14c-704f-4348-80bb-d2185173e0c0`.
+
+Issuer artwork appears only beside the corresponding certification, separate from employment. No badge image, additional skill claim or update to the original downloadable CV is implied.
+
+## Company context — reviewed 14 October 2026
+
+Company context appears before personal responsibility on Work and Experience, with a shorter account on Home. The original logos are larger; the repeated company-name headings are smaller. The source registry is `lib/company-context.ts`.
+
+| Company | Supported context | Primary sources and time boundary |
+| --- | --- | --- |
+| CashKaro / BankKaro | Cashback shopping and financial-product marketplaces; 1,500+ shopping sites; 20M user milestone; named investors | [CashKaro overview](https://cashkaro.com/about-us) and [BankKaro overview](https://bankkaro.com/about-us). The user milestone is from the 2023 timeline. These are company facts, separate from lending outcomes. |
+| CredFlow | MSME finance software and lending infrastructure; 200K+ CredFloat businesses; 50+ partners across CredFund/CashFloat | [Current ecosystem](https://credflow.in/) and [company overview](https://credflow.in/about/). Current company figures postdate Priyam’s December 2024–March 2025 role. |
+| Absolute / Upaj | Bioscience, farm advisory and agricultural risk information; 3M+ farmers in the current farm business; 2023 Deloitte Fast 50 recognition | [Absolute](https://www.absolute.bio/) and [Upaj](https://www.upaj.org/). Farm-business reach is distinct from Upaj active users and Priyam’s historical delivery. |
+| UrbanKhet | Historical farm-to-customer venture; approximately 100 daily customers in June 2020; GUSEC Rise Award to Priyam in 2021 | [GUSEC venture history](https://gusec.edu.in/2020/06/03/urbankhet/) and [2021 awards](https://gusec.edu.in/2021/03/10/gusec-annual-awards-2021/). No venture website action is shown, as requested. |
+
+UrbanKhet’s [original LinkedIn company page](https://www.linkedin.com/company/khet-inc/) identifies the same KhetAgri venture. Its reviewed photographs and historical company graphics are attributed individually in the work registry, with original-source links. Public source provenance does not imply an identified photographer or a newly measured operating result.

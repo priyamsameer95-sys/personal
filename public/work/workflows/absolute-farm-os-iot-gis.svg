@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 780" role="img">
+<title>Farm OS: IoT, GIS and GrowStac product context — explanatory workflow</title>
+<rect width="1400" height="780" fill="#fff"/>
+<text x="64" y="68" font-family="Arial,sans-serif" font-size="19" letter-spacing="2" fill="#555">DOCUMENTED FLOW / AUTHORED ILLUSTRATION</text>
+<text x="64" y="126" font-family="Arial,sans-serif" font-size="34" fill="#111">Farm OS: IoT, GIS and GrowStac product context</text>
+<rect x="64" y="236" width="380" height="176" rx="4" fill="#fff" stroke="#111" stroke-width="1.5"/>
+<rect x="64" y="236" width="380" height="9" fill="#fa772c"/>
+<text x="88" y="282" font-family="Arial,sans-serif" font-size="19" fill="#666">01</text>
+<text x="88" y="321" font-family="Arial,sans-serif" font-size="24" fill="#111">Indoor sensors / outdoor</text>
+<text x="88" y="351" font-family="Arial,sans-serif" font-size="24" fill="#111">parcels</text>
+<path d="M455 324h22m-6-6 6 6-6 6" fill="none" stroke="#111" stroke-width="2"/>
+<rect x="488" y="236" width="380" height="176" rx="4" fill="#fff" stroke="#111" stroke-width="1.5"/>
+<rect x="488" y="236" width="380" height="9" fill="#2357e8"/>
+<text x="512" y="282" font-family="Arial,sans-serif" font-size="19" fill="#666">02</text>
+<text x="512" y="321" font-family="Arial,sans-serif" font-size="24" fill="#111">IoT readings and GIS</text>
+<text x="512" y="351" font-family="Arial,sans-serif" font-size="24" fill="#111">signals</text>
+<path d="M879 324h22m-6-6 6 6-6 6" fill="none" stroke="#111" stroke-width="2"/>
+<rect x="912" y="236" width="380" height="176" rx="4" fill="#fff" stroke="#111" stroke-width="1.5"/>
+<rect x="912" y="236" width="380" height="9" fill="#f0cce1"/>
+<text x="936" y="282" font-family="Arial,sans-serif" font-size="19" fill="#666">03</text>
+<text x="936" y="321" font-family="Arial,sans-serif" font-size="24" fill="#111">Farm monitoring view</text>
+<rect x="64" y="480" width="380" height="176" rx="4" fill="#fff" stroke="#111" stroke-width="1.5"/>
+<rect x="64" y="480" width="380" height="9" fill="#c6e982"/>
+<text x="88" y="526" font-family="Arial,sans-serif" font-size="19" fill="#666">04</text>
+<text x="88" y="565" font-family="Arial,sans-serif" font-size="24" fill="#111">Conditions and crop</text>
+<text x="88" y="595" font-family="Arial,sans-serif" font-size="24" fill="#111">context</text>
+<path d="M455 568h22m-6-6 6 6-6 6" fill="none" stroke="#111" stroke-width="2"/>
+<rect x="488" y="480" width="380" height="176" rx="4" fill="#fff" stroke="#111" stroke-width="1.5"/>
+<rect x="488" y="480" width="380" height="9" fill="#ffe558"/>
+<text x="512" y="526" font-family="Arial,sans-serif" font-size="19" fill="#666">05</text>
+<text x="512" y="565" font-family="Arial,sans-serif" font-size="24" fill="#111">Operational next actions</text>
+<text x="912" y="527" font-family="Arial,sans-serif" font-size="22" fill="#111">Read alongside the case study.</text>
+<text x="912" y="563" font-family="Arial,sans-serif" font-size="18" fill="#555">This is a product explanation,</text><text x="912" y="591" font-family="Arial,sans-serif" font-size="18" fill="#555">rather than a captured interface.</text>
+<line x1="64" x2="1336" y1="715" y2="715" stroke="#ddd"/><text x="64" y="753" font-family="Arial,sans-serif" font-size="17" fill="#666">PRIYAM SAMEER / MY WORK</text></svg>

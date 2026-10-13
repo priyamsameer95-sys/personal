@@ -1,0 +1,32 @@
+.intro { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 3rem; padding: 1.5rem 0 2.5rem; }
+.eyebrow { font-size: .875rem; line-height: 1.65; color: var(--ink-muted, #625e56); }
+.intro h1 { margin-top: .6rem; color: var(--ink, #191714); font-family: var(--font-editorial, Georgia, serif); font-size: clamp(3.25rem, 7vw, 5.5rem); font-weight: 400; letter-spacing: -.035em; line-height: 1.05; }
+.introNote { padding-bottom: .25rem; }
+.introNote > p { font-size: clamp(1.3rem, 2.4vw, 1.8rem); line-height: 1.35; letter-spacing: -.025em; }
+.introNote > span { display: block; max-width: 42ch; margin-top: .85rem; font-size: .95rem; line-height: 1.7; color: var(--ink-muted, #625e56); }
+.artistNote { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 3rem; padding: 3rem 0; border-top: 1px solid var(--rule, #ddd7cb); scroll-margin-top: 2rem; }
+.noteText h2 { margin-top: .8rem; color: var(--ink, #191714); font-family: var(--font-editorial, Georgia, serif); font-size: clamp(2rem, 3vw, 2.75rem); font-weight: 400; letter-spacing: -.025em; line-height: 1.2; }
+.statement { margin-top: 1rem; font-size: 1rem; line-height: 1.8; color: var(--ink-muted, #625e56); }
+.contact { display: inline-flex; align-items: center; gap: .75rem; min-height: 44px; margin-top: 1.25rem; font-size: .9rem; color: var(--ink, #191714); text-decoration: underline; text-underline-offset: .3em; }
+.contact:hover { text-decoration-thickness: 2px; }
+.contact:focus-visible, .additionalWork:focus-visible { outline: 2px solid var(--ink, #191714); outline-offset: 4px; }
+.cover { min-width: 0; max-width: 26rem; justify-self: end; }
+.cover button[aria-haspopup='dialog'] { border: 0; border-radius: 0; background: transparent; }
+.cover button[aria-haspopup='dialog'] > img { width: 100%; height: auto; max-height: none; object-fit: contain; }
+.cover > p, .sourceNote { margin-top: .75rem; font-size: .875rem; line-height: 1.7; color: var(--ink-muted, #625e56); }
+.sourceNote { max-width: 60ch; }
+.additional { padding: 2.5rem 0; border-top: 1px solid var(--rule, #ddd7cb); }
+.additional h2 { font-size: 2rem; font-weight: 500; letter-spacing: -.025em; }
+.additionalGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; margin-top: 1.5rem; }
+.additionalWork { display: block; min-width: 0; color: var(--ink, #191714); text-decoration: none; }
+.additionalWork img { width: 100%; height: auto; }
+.additionalWork h3 { margin-top: 1rem; font-family: var(--font-editorial, Georgia, serif); font-size: 1.75rem; font-weight: 400; line-height: 1.25; text-wrap: balance; }
+.additionalWork p { margin-top: .5rem; font-size: 1rem; line-height: 1.7; color: var(--ink-muted, #625e56); }
+.additionalWork > span { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; margin-top: .5rem; font-size: .9rem; text-decoration: underline; text-underline-offset: .3em; }
+.additionalWork:hover > span { text-decoration-thickness: 2px; }
+@media (max-width: 767px) {
+  .intro { grid-template-columns: 1fr; gap: 1.25rem; padding: 1rem 0 1.5rem; }
+  .artistNote { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 0; }
+  .cover { justify-self: start; max-width: 100%; }
+  .additionalGrid { grid-template-columns: 1fr; gap: 2rem; }
+}

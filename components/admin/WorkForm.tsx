@@ -6,7 +6,6 @@ import { upload } from '@vercel/blob/client';
 import { WordCounter, ProgressBar, Toast } from './shared';
 import dynamic from 'next/dynamic';
 import '@uiw/react-md-editor/markdown-editor.css';
-import '@uiw/react-markdown-preview/markdown.css';
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
 
@@ -33,7 +32,6 @@ interface ImageItem {
 export default function WorkForm({ editItem, onSuccess, onDirtyChange }: WorkFormProps) {
   const [title, setTitle] = useState(editItem?.title || '');
   const [bodyMarkdown, setBodyMarkdown] = useState(editItem?.body_markdown || '');
-  const [downloadable, setDownloadable] = useState(editItem?.downloadable ?? true);
   
   // Transform existing media or initialize empty
   const [images, setImages] = useState<ImageItem[]>(
@@ -58,7 +56,7 @@ export default function WorkForm({ editItem, onSuccess, onDirtyChange }: WorkFor
   // Track dirty state
   useEffect(() => {
     onDirtyChange(true);
-  }, [title, bodyMarkdown, downloadable, images, onDirtyChange]);
+  }, [title, bodyMarkdown, images, onDirtyChange]);
 
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -183,7 +181,7 @@ export default function WorkForm({ editItem, onSuccess, onDirtyChange }: WorkFor
         title,
         body_markdown: bodyMarkdown,
         status,
-        downloadable,
+        downloadable: false,
         media: mediaPayload
       };
 
@@ -309,15 +307,7 @@ export default function WorkForm({ editItem, onSuccess, onDirtyChange }: WorkFor
           <WordCounter text={bodyMarkdown} limit={1500} />
         </div>
 
-        <label className="flex items-center gap-2 cursor-pointer pt-2">
-          <input 
-            type="checkbox" 
-            checked={downloadable} 
-            onChange={e => setDownloadable(e.target.checked)}
-            className="w-4 h-4 text-[#1A1A1A] bg-[#FAFAFA] border-[#E5E5E5] rounded"
-          />
-          <span className="text-sm font-medium text-[#525252]">Allow visitors to save images</span>
-        </label>
+        <p className="pt-2 text-sm leading-relaxed text-[#525252]">Visitors read the case study and view its images on the website.</p>
       </div>
 
       {isUploading && <ProgressBar progress={uploadProgress} message="Saving Work..." />}

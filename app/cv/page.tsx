@@ -1,139 +1,208 @@
-import React from 'react';
-import db from '@/lib/db';
+import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
+import Link from 'next/link';
+import { findCaseStudy } from '@/lib/work';
+import { getCompanyContext } from '@/lib/company-context';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import PrintButton from '@/components/PrintButton';
+import PublicShell from '@/components/PublicShell';
+import CvDownload from '@/components/CvDownload';
+import BrandMarks from '@/components/BrandMarks';
+import content from './content.json';
+import styles from './cv.module.css';
 
-interface ContentItem {
-  id: string;
-  title: string;
-  downloadable: boolean;
-  media: Array<{
-    blob_url: string;
-  }>;
+export const metadata: Metadata = {
+  title: 'Experience & CV',
+  description: 'Priyam Sameer’s CV: roles, promotions, product responsibilities and reported results at CashKaro / BankKaro, CredFlow, Absolute / Upaj and UrbanKhet, plus education and certifications.',
+  openGraph: { title: 'Experience & CV — Priyam Sameer', description: 'Career chronology, responsibilities, product work and the original CV.' },
+  twitter: { title: 'Experience & CV — Priyam Sameer', description: 'Career chronology, responsibilities, product work and the original CV.' },
+};
+
+function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
+  return <section id={id} className={styles.section} aria-labelledby={`${id}-title`}>
+    <h2 id={`${id}-title`} className={styles.sectionTitle}>{title}</h2>
+    {children}
+  </section>;
 }
 
-export const revalidate = 0; // Prevent stale caching
+function ExternalLink({ href, children }: { href: string; children: ReactNode }) {
+  return <a href={href} target="_blank" rel="noopener noreferrer" className={styles.externalLink}>{children} <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>;
+}
 
-export default async function CvPage() {
-  // Query the latest published CV upload
-  const { rows } = await db`
-    SELECT 
-      ci.id, ci.title, ci.downloadable,
-      COALESCE(
-        json_agg(
-          json_build_object('blob_url', ma.blob_url)
-        ) FILTER (WHERE ma.id IS NOT NULL),
-        '[]'::json
-      ) AS media
-    FROM content_items ci
-    LEFT JOIN media_assets ma ON ma.content_id = ci.id
-    WHERE ci.type = 'cv' AND ci.status = 'published'
-    GROUP BY ci.id
-    ORDER BY ci.created_at DESC LIMIT 1
-  `;
-  const cvItem = rows[0] as ContentItem | undefined;
+function CaseLink({ slug, label }: { slug: string; label?: string }) {
+  const study = findCaseStudy(slug);
+  return study ? <Link href={`/product/${encodeURIComponent(study.slug)}`} className={styles.caseLink}>{label || study.title}<span className="sr-only"> — proof of work</span></Link> : null;
+}
 
-  // Check if downloading is allowed and PDF exists
-  const isDownloadable = cvItem && cvItem.downloadable && cvItem.media?.[0]?.blob_url;
+function ProofLinks({ slugs }: { slugs: readonly string[] }) {
+  return <span className={styles.proofLinks}> ({slugs.map((slug, index) => <span key={slug}>{index > 0 && '; '}<CaseLink slug={slug} label={projectLabels[slug]} /></span>)})</span>;
+}
 
-  return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <div className="max-w-[56rem] mx-auto px-6 py-20 pb-24">
-        <Header />
+// One line identifies each business. Company-wide scale is not a CV result.
+const companyDescription: Record<string, string> = {
+  cashkaro: 'Cashback, savings and financial-products marketplaces.',
+  credflow: 'Finance software, working capital and payments for MSMEs.',
+  absolute: 'Bioscience, agricultural data and farmer products.',
+  urbankhet: 'Farm-to-customer produce venture for households and business buyers.',
+};
 
-        <main className="animate-fade-in-up bg-white p-6 md:p-12 shadow-material-soft border border-system-outline rounded-xl">
-          <div className="flex justify-between items-end border-b-2 border-black pb-4 mb-8">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-1 font-sans">
-                Priyam Sameer
-              </h2>
-              <p className="font-mono text-xs md:text-sm tracking-widest uppercase text-gray-600 m-0">
-                Product Manager · Builder · Gurugram, India
-              </p>
-            </div>
-            <div className="text-right text-xs md:text-sm text-gray-600 space-y-1">
-              <p className="m-0">priyam.sameer.95@gmail.com</p>
-              <p className="m-0">linkedin.com/in/priyamsameer</p>
-            </div>
+// Source-supported delivery responsibilities not already stated in project rows.
+const deliveryScope: Record<string, string> = {
+  cashkaro: 'Discovery, prioritisation and release follow-through; distribution and partner onboarding; recruitment across product, sales and operations; coordination with engineering, growth and lender teams; weekly funnel, MIS and service-level reviews.',
+  credflow: 'Launch planning and onboarding; product economics, P&L and acquisition-cost analysis; partnership with engineering and go-to-market teams, using product analytics and MoEngage.',
+  absolute: 'Roadmaps, payment-failure analysis and shared delivery priorities across product, engineering, data, agronomy, finance, operations and regional teams, with Jira and daily scrum.',
+  urbankhet: 'P&L, early manual customer and farmer outreach, operating-team and SOP design, farmer and delivery coordination, and incubation and funding conversations.',
+};
+
+const projectLabels: Record<string, string> = {
+  'cashkaro-personal-loan-marketplace': 'Personal loans',
+  'cashkaro-college-money-education-loans': 'Education loans',
+  'cashkaro-lender-integration-operations': 'Lender integrations',
+  'cashkaro-eduloans-policy-workflow': 'EduLoans prototype',
+  'cashkaro-lending-mcp-feedback': 'MCP proposal',
+  'credflow-kuberx-launch': 'KuberX',
+  'credflow-pay-via-credit-card': 'Pay via Credit Card',
+  'absolute-silkroute-marketplace': 'SilkRoute',
+  'absolute-trade-payments-erp': 'Trade payments & ERP',
+  'absolute-upaj-farmer-experience': 'Upaj',
+  'absolute-farm-os-iot-gis': 'Farm OS',
+  'absolute-rural-credit-uli': 'Agricultural credit risk & ULI',
+  'absolute-ondc-credit-infrastructure': 'ONDC proposal',
+  'absolute-crop-health-ai': 'Crop-health AI',
+  'absolute-rainfall-grid-insurance': 'Rainfall-grid insurance',
+  'absolute-upaj-international': 'International adaptation',
+  'absolute-agri-input-institutional-commerce': 'Agri-input & institutional commerce',
+  'absolute-supporting-portfolio': 'Supporting portfolio & proposals',
+  'urbankhet-farm-to-fork': 'UrbanKhet product & operations',
+  'urbankhet-covid-pivot': 'COVID delivery pivot',
+};
+
+function cvText(text: string) {
+  const sentence = text.replace(/^I /, '');
+  return sentence.charAt(0).toUpperCase() + sentence.slice(1);
+}
+
+export default function ExperiencePage() {
+  return <PublicShell className={styles.shell}>
+    <Header />
+    <main id="main-content" className={styles.document}>
+      <header className={styles.identity}>
+        <div>
+          <p className={styles.documentLabel}>Experience & CV</p>
+          <h1>{content.name}</h1>
+          <p className={styles.profession}>Product Management & Business Growth</p>
+          <p className={styles.location}>{content.location}</p>
+          <div className={styles.contactLinks}>
+            <a href="mailto:Priyam.Sameer.95@gmail.com" className={styles.externalLink}>Priyam.Sameer.95@gmail.com</a>
+            <ExternalLink href="https://www.linkedin.com/in/priyam-sameer">LinkedIn</ExternalLink>
           </div>
+        </div>
+        <CvDownload className="ink-button" />
+      </header>
 
-          <div className="space-y-8">
-            {/* Experience Section */}
-            <section>
-              <h3 className="font-bold text-base md:text-lg border-b border-gray-300 pb-1 mb-4 uppercase tracking-wider text-black">
-                Experience
-              </h3>
-              
-              <div className="mb-6">
-                <div className="flex justify-between font-bold mb-1 text-sm md:text-base text-black flex-wrap gap-2">
-                  <span>CashKaro</span>
-                  <span className="font-mono text-xs md:text-sm font-normal text-gray-600">2024 - Present</span>
-                </div>
-                <div className="italic text-xs md:text-sm text-gray-700 mb-2">Senior Product Manager (Education Loans)</div>
-                <ul className="list-disc pl-5 text-xs md:text-sm space-y-1 text-gray-800">
-                  <li>End-to-end P&amp;L ownership of the Education Loans vertical.</li>
-                  <li>Building &apos;Antigravity&apos;, a 0-1 education loan platform with proprietary rules engine.</li>
-                </ul>
-              </div>
+      <nav className={styles.pageNav} aria-label="On this page">
+        <a href="#career">Career</a><a href="#internship">Internship</a><a href="#other-contexts">Other experience</a><a href="#education">Education</a><a href="#recognition">Recognition</a><a href="#certifications">Certifications</a><a href="#skills">Skills</a>
+      </nav>
 
-              <div className="mb-6">
-                <div className="flex justify-between font-bold mb-1 text-sm md:text-base text-black flex-wrap gap-2">
-                  <span>Absolute.ag</span>
-                  <span className="font-mono text-xs md:text-sm font-normal text-gray-600">2021 - 2024</span>
-                </div>
-                <div className="italic text-xs md:text-sm text-gray-700 mb-2">Principal Product Manager</div>
-                <ul className="list-disc pl-5 text-xs md:text-sm space-y-1 text-gray-800">
-                  <li>Architected satellite-data rural credit engine for RBI&apos;s Unified Lending Interface.</li>
-                  <li>Managed iTrade cross-border platform scaling to $100M+ GMV across 25 countries.</li>
-                </ul>
+      <Section id="career" title="Career">
+        <ol className={styles.career}>
+          {content.experience.map((job, index) => {
+            const company = getCompanyContext(job.companyId);
+            return <li key={job.companyId} id={job.companyId} className={styles.careerEntry}>
+              <div className={styles.tenure}>
+                {index === 0 && <p className={styles.current}>Current</p>}
+                <p className={styles.dates}>{job.dates}</p>
+                <p className={styles.relationship}>{job.relationship}</p>
               </div>
+              <article className={styles.job} aria-labelledby={`${job.companyId}-title`}>
+                <header className={styles.companyHeader}>
+                  <BrandMarks companyId={job.companyId} className={styles.companyMarks} />
+                  <h3 id={`${job.companyId}-title`} className={styles.companyName}>{job.company}</h3>
+                  <p className={styles.companyDescription}>{companyDescription[job.companyId]}</p>
+                  {company && company.websites.length > 0 && <div className={styles.websiteLinks}>{company.websites.map(website => <ExternalLink key={website.href} href={website.href}>{website.label}</ExternalLink>)}</div>}
+                </header>
 
-              <div className="mb-6">
-                <div className="flex justify-between font-bold mb-1 text-sm md:text-base text-black flex-wrap gap-2">
-                  <span>UrbanKhet</span>
-                  <span className="font-mono text-xs md:text-sm font-normal text-gray-600">2019 - 2021</span>
-                </div>
-                <div className="italic text-xs md:text-sm text-gray-700 mb-2">Founder (Incubated at IIM-A Ventures)</div>
-                <ul className="list-disc pl-5 text-xs md:text-sm space-y-1 text-gray-800">
-                  <li>Built D2C Agritech platform scaling to 3,400 users and 28 employees.</li>
-                  <li>Raised ₹1.5Cr seed grant. Wound down operations with 100% payout to all creditors.</li>
-                </ul>
-              </div>
-            </section>
+                {job.progression.length > 1 ? <ol className={styles.roles} aria-label={`Dated roles at ${job.company}`}>
+                  {[...job.progression].reverse().map((role, roleIndex) => <li key={role.title}>
+                    <div><p className={styles.roleTitle}>{roleIndex === 0 ? job.title : role.title}</p>{!(roleIndex === 0 ? job.title : role.title).includes(role.detail) && <p className={styles.roleDetail}>{role.detail}</p>}</div>
+                    <p className={styles.roleDates}>{role.dates}</p>
+                  </li>)}
+                </ol> : <p className={styles.singleRole}>{job.title}</p>}
 
-            {/* Education Section */}
-            <section>
-              <h3 className="font-bold text-base md:text-lg border-b border-gray-300 pb-1 mb-4 uppercase tracking-wider text-black">
-                Education
-              </h3>
-              <div className="flex justify-between font-bold text-sm md:text-base text-black">
-                <span>CEPT University</span>
-                <span className="font-mono text-xs md:text-sm font-normal text-gray-600">2014 - 2018</span>
-              </div>
-              <div className="text-xs md:text-sm text-gray-800 mt-1">
-                B.Tech, Construction Technology (Selected independently over IIT)
-              </div>
-            </section>
+                <section id={`${job.companyId}-responsibilities`} className={styles.workAccount} aria-labelledby={`${job.companyId}-work-title`}>
+                  <h4 id={`${job.companyId}-work-title`} className="sr-only">Responsibilities and results</h4>
+                  <ul className={styles.responsibilities}>
+                    {job.responsibilities.map(responsibility => <li key={responsibility.text}>
+                      <p>{cvText(responsibility.text)}<ProofLinks slugs={responsibility.cases} /></p>
+                      {('result' in responsibility || 'note' in responsibility) && <p className={styles.resultLine}>{'result' in responsibility && <strong>{responsibility.result}</strong>}{'note' in responsibility && <span className={styles.qualification}>{'result' in responsibility && ' '}{responsibility.note}</span>}</p>}
+                    </li>)}
+                    <li><p>{deliveryScope[job.companyId]}</p></li>
+                  </ul>
+                  <p className={styles.sourceNote}>{job.leadershipNote}</p>
+                </section>
+              </article>
+            </li>;
+          })}
+        </ol>
+      </Section>
+
+      <Section id="internship" title="Internship">
+        <article className={styles.cvEntry}>
+          <div className={styles.tenure}><p className={styles.dates}>{content.internship.dates}</p><p className={styles.relationship}>Internship</p></div>
+          <div>
+            <BrandMarks companyId="water-farmers" />
+            <h3 className={styles.companyName}>{content.internship.company}</h3>
+            <p className={styles.companyDescription}>Aquaponics farm design and operations.</p>
+            <ExternalLink href="https://waterfarmers.com/">Water Farmers website</ExternalLink>
+            <p className={styles.singleRole}>{content.internship.title}</p>
+            <p>{cvText(content.internship.description)} <span className={styles.proofLinks}>(<CaseLink slug={content.internship.caseSlug} label="Aquaponics operations" />)</span></p>
+            <p className={styles.sourceNote}>{content.internship.scope}</p>
           </div>
+        </article>
+      </Section>
 
-          <div className="mt-12 flex justify-center gap-4 no-print flex-wrap">
-            <PrintButton />
-            {isDownloadable && cvItem && cvItem.media[0] && (
-              <a
-                href={cvItem.media[0].blob_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white text-black border border-[#CCCCCC] px-6 py-2.5 rounded-lg font-mono text-[11px] font-bold uppercase tracking-widest hover:bg-gray-100 transition-colors shadow-material-soft no-underline flex items-center gap-1.5"
-              >
-                <span className="material-symbols-rounded text-sm">download</span> Download PDF
-              </a>
-            )}
+      <Section id="other-contexts" title="Other experience">
+        <div className={styles.otherEntries}>{content.otherContexts.map(context => <article key={context.caseSlug} id={findCaseStudy(context.caseSlug)?.companyId} className={styles.cvEntry}>
+          <div className={styles.tenure}><p className={styles.dates}>{context.dates}</p><p className={styles.relationship}>{context.title}</p></div>
+          <div>
+            <BrandMarks companyId={findCaseStudy(context.caseSlug)?.companyId} small />
+            <h3 className={styles.entryTitle}>{context.organisation}</h3>
+            {findCaseStudy(context.caseSlug)?.companyId === 'founder-programmes' && <div className={styles.websiteLinks}><ExternalLink href="https://iimaventures.com/">IIMA Ventures website</ExternalLink><ExternalLink href="https://gusec.edu.in/">GUSEC website</ExternalLink></div>}
+            <p className={styles.entryCopy}>{context.description} <span className={styles.proofLinks}>(<CaseLink slug={context.caseSlug} label="Related work" />)</span></p>
           </div>
-        </main>
+        </article>)}</div>
+      </Section>
 
-        <Footer />
+      <div className={styles.foundationGrid}>
+        <Section id="education" title="Education">
+          <BrandMarks companyId="cept" />
+          <h3 className={styles.companyName}>{content.education.institution}</h3>
+          <ExternalLink href="https://cept.ac.in/">CEPT University website</ExternalLink>
+          <p className={styles.degree}>{content.education.degree}</p>
+          <p className={styles.dates}>{content.education.dates}</p>
+          <p className={styles.entryCopy}>{content.education.description} <span className={styles.proofLinks}>(<CaseLink slug={content.education.caseSlug} label="Football & creative practice" />)</span></p>
+        </Section>
+        <Section id="recognition" title="Recognition">
+          <ul className={styles.recognition}>{content.recognitionDetails.map(item => <li key={item.title}><h3 className={styles.entryTitle}>{item.title}</h3><p className={styles.relationship}>{item.context}</p></li>)}</ul>
+        </Section>
       </div>
-    </div>
-  );
+
+      <Section id="certifications" title="Certifications">
+        <ul className={styles.certifications}>{content.certifications.map(certification => <li key={certification.credentialId}>
+          <BrandMarks brandIds={[certification.brandId]} small className={styles.certificationBrand} />
+          <div>
+            <h3 className={styles.entryTitle}>{certification.title}</h3>
+            <p className={styles.certificationMeta}>{certification.issuer} · Issued <time dateTime={certification.issuedDate}>{certification.issued}</time></p>
+            <p className={styles.credentialId}>Credential ID {certification.credentialId}</p>
+            <ExternalLink href={certification.credentialUrl}>View credential<span className="sr-only"> for {certification.title}</span></ExternalLink>
+          </div>
+        </li>)}</ul>
+      </Section>
+
+      <Section id="skills" title="Skills">
+        <dl className={styles.skills}>{content.skills.map(skill => <div key={skill.area}><dt>{skill.area}</dt><dd>{skill.description}</dd></div>)}</dl>
+      </Section>
+    </main>
+    <Footer />
+  </PublicShell>;
 }
