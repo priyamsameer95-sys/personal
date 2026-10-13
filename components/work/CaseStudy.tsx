@@ -6,6 +6,8 @@ import styles from './work.module.css';
 import Media from './Media';
 import CaseStudyNavigation, { CaseStudyJump } from './CaseStudyNavigation';
 import VisualStory from './VisualStory';
+import BrandMarks from '@/components/BrandMarks';
+import { caseBrandIds } from '@/lib/brands';
 
 function SectionBody({ section, study }: { section: CaseStudySection; study: CaseStudyData }) {
   const media = getCaseStudyMedia(study, section.mediaIds || []);
@@ -73,6 +75,7 @@ export default function CaseStudy({ study }: { study: CaseStudyData }) {
     <Link href={company ? `/product#${company.id}` : '/product'} className={styles.backLink}><span aria-hidden="true">←</span> All work{company ? ` / ${company.name}` : ''}</Link>
     <article id={rootId} className={styles.caseStudy}>
       <header className={styles.caseHeader}>
+        <BrandMarks brandIds={caseBrandIds(study.companyId, study.slug)} small />
         <p className={styles.eyebrow}>{company?.name || 'Product work'} · {study.period} · {workTypeLabels[study.workType] || 'Case study'}</p>
         <h1>{visual.title}</h1>
         <p className={styles.caseSummary}>{visual.summary}</p>

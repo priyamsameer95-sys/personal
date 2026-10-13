@@ -43,6 +43,8 @@ Images, inline videos and authored diagrams live in `public/work/`. Captured pub
 
 Download CV is available in the navigation, homepage and Experience page. It serves the unchanged user-supplied PDF from `public/cv/`. Other source documents, archives and separate media download actions remain retired; public Markdown rejects attachment links. Original project documents are retained as local reference material, with their supported information represented as website diagrams, charts, text, tables and reviewed images.
 
+Original company, product and university logos are served locally from `public/brands/` through the shared `BrandMarks` component. Colours and proportions are preserved, with dark backing for original white artwork. Source URLs and checksums are recorded in [`BRAND-SOURCES.md`](BRAND-SOURCES.md); relationship labels remain separate from the branding.
+
 Coverage and publication exclusions are documented in [`WORK-COVERAGE.md`](WORK-COVERAGE.md). The document-to-chapter mapping is in [`CONTENT-COVERAGE.md`](CONTENT-COVERAGE.md). Private research notes, credentials, applicant records, and farmer identifiers are not included in the public registry. The admin importer continues to accept source PDFs; this does not make them visitor downloads.
 
 ## Validation and production

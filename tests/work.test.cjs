@@ -64,9 +64,12 @@ function caseRenderer(registry = fixture) {
     './work.module.css': css, './anchors': load('components/work/anchors.ts'),
   });
   const visual = load('components/work/VisualStory.tsx', { './visual-story.module.css': css });
+  const brands = load('lib/brands.ts');
+  const brandMarks = load('components/BrandMarks.tsx', { '@/lib/brands': brands, './brand-marks.module.css': css }).default;
   return load('components/work/CaseStudy.tsx', {
     '@/lib/work': workModule({ registry }), '@/lib/work-types': load('lib/work-types.ts'),
     './work.module.css': css, './Media': media, './CaseStudyNavigation': navigation, './VisualStory': visual,
+    '@/components/BrandMarks': brandMarks, '@/lib/brands': brands,
   }).default;
 }
 

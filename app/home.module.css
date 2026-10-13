@@ -37,6 +37,7 @@
 .career li:nth-child(4) .careerDot { background: #2657ef; }
 .career li > p { font-size: .75rem; color: #555; line-height: 1.65; }
 .career h3 { font-size: 1rem; font-weight: 500; margin: .5rem 0; }
+.careerBrands { min-height: 48px; margin-top: .5rem; }
 .careerRole { min-height: 2.7rem; }
 .personal { display: grid; grid-template-columns: 1fr 200px; align-items: center; gap: 3rem; }
 .personal h2 { max-width: 24ch; }

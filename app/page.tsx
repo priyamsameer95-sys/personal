@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
 import PeelReveal from '@/components/PeelReveal';
 import CvDownload from '@/components/CvDownload';
+import BrandMarks from '@/components/BrandMarks';
 import { Chart } from '@/components/work/VisualStory';
 import styles from './home.module.css';
 
@@ -67,6 +68,7 @@ export default function HomePage() {
           const href = `/product/${encodeURIComponent(study.slug)}`;
           return <article key={study.id} className={styles.workItem}>
             <div className={styles.workCopy}>
+              <BrandMarks companyId={study.companyId} small />
               <p className={styles.label}>{study.companyId === 'cashkaro' ? 'CashKaro / BankKaro' : 'Absolute / Upaj'}</p>
               <h3>{visual?.title || study.title}</h3>
               <p>{visual?.summary || study.summary}</p>
@@ -80,12 +82,12 @@ export default function HomePage() {
       <section className={styles.section} aria-labelledby="career-title">
         <div className={styles.sectionHeader}><div><p className={styles.label}>Experience</p><h2 id="career-title">Founder roots. Growing responsibility.</h2></div><Link href="/cv">Full experience <span aria-hidden="true">→</span></Link></div>
         <ol className={styles.career}>{career.map(item => <li key={item.id}>
-          <span className={styles.careerDot} aria-hidden="true" /><p>{item.period}</p><h3>{item.name}</h3><p className={styles.careerRole}>{item.role}</p><Link href={`/cv#${item.id}`}>Explore role <span aria-hidden="true">↗</span></Link>
+          <span className={styles.careerDot} aria-hidden="true" /><p>{item.period}</p><BrandMarks companyId={item.id} small className={styles.careerBrands} /><h3>{item.name}</h3><p className={styles.careerRole}>{item.role}</p><Link href={`/cv#${item.id}`}>Explore role <span aria-hidden="true">↗</span></Link>
         </li>)}</ol>
       </section>
 
       <section className={`${styles.section} ${styles.personal}`} aria-labelledby="interests-title">
-        <div><p className={styles.label}>Outside work</p><h2 id="interests-title">A little colour. A wider perspective.</h2><p>CEPT graduate. FC Sparta captain. A continuing painting practice.</p><div className={styles.personalLinks}><Link href="/art">Art <span aria-hidden="true">↗</span></Link><Link href="/blog">Writing <span aria-hidden="true">↗</span></Link></div></div>
+        <div><p className={styles.label}>Outside work</p><BrandMarks companyId="cept" small /><h2 id="interests-title">A little colour. A wider perspective.</h2><p>CEPT graduate. FC Sparta captain. A continuing painting practice.</p><div className={styles.personalLinks}><Link href="/art">Art <span aria-hidden="true">↗</span></Link><Link href="/blog">Writing <span aria-hidden="true">↗</span></Link></div></div>
         <PeelReveal />
       </section>
     </main>

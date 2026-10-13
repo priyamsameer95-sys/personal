@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
 import CvDownload from '@/components/CvDownload';
+import BrandMarks from '@/components/BrandMarks';
 import content from './content.json';
 import styles from './cv.module.css';
 
@@ -56,6 +57,7 @@ export default function ExperiencePage() {
               <div className={styles.timelineDate}><span className={styles.timelineDot} aria-hidden="true" /><p>{job.dates}</p><span>{job.relationship}</span></div>
               <article className={styles.job} aria-labelledby={`${job.companyId}-title`}>
                 <header className={styles.company}>
+                  <BrandMarks companyId={job.companyId} />
                   <h3 id={`${job.companyId}-title`}>{job.company}</h3>
                   <p className={styles.roleTitle}>{job.title}</p>
                   <p className={styles.context}>{job.context}</p>
@@ -93,7 +95,7 @@ export default function ExperiencePage() {
 
         <Section id="internship" title="An early grounding in operations" eyebrow={`Internship · ${content.internship.dates}`}>
           <article className={styles.internship}>
-            <div><h3>{content.internship.company}</h3><p className={styles.roleTitle}>{content.internship.title}</p></div>
+            <div><BrandMarks companyId="water-farmers" /><h3>{content.internship.company}</h3><p className={styles.roleTitle}>{content.internship.title}</p></div>
             <div>
               <ul className={styles.highlights}>{content.internship.highlights.map(highlight => <li key={highlight}>{highlight}</li>)}</ul>
               <details className={styles.disclosure}><summary>Internship scope and case study<span aria-hidden="true" className={styles.toggle} /></summary><div className={styles.disclosureBody}>
@@ -106,6 +108,7 @@ export default function ExperiencePage() {
         <Section id="other-contexts" title="Beyond employment" eyebrow="Incubation, community and independent work">
           <p className={styles.sectionIntro}>Distinct relationships, separate from my employment chronology.</p>
           <div className={styles.contextGrid}>{content.otherContexts.map(context => <article key={context.caseSlug} className={styles.contextCard}>
+            <BrandMarks companyId={findCaseStudy(context.caseSlug)?.companyId} />
             <p className={styles.eyebrow}>{context.title}</p>
             <h3>{context.organisation}</h3><p className={styles.dates}>{context.dates}</p>
             <details className={styles.disclosure}><summary>Scope and case study<span aria-hidden="true" className={styles.toggle} /></summary><div className={styles.disclosureBody}>
@@ -116,6 +119,7 @@ export default function ExperiencePage() {
 
         <div className={styles.foundationGrid}>
           <Section id="education" title="Education" eyebrow="Academic background">
+            <BrandMarks companyId="cept" />
             <h3 className={styles.foundationTitle}>{content.education.institution}</h3>
             <p className={styles.roleTitle}>{content.education.degree}</p><p className={styles.dates}>{content.education.dates}</p>
             <p className={styles.educationCopy}>{content.education.description}</p><CaseLink slug={content.education.caseSlug} />

@@ -20,8 +20,10 @@ function load(relativePath, stubs = {}) {
 const registry = JSON.parse(readFileSync(path.join(root, 'content/work/case-studies.json'), 'utf8'));
 const groups = registry.companies.map(company => ({ company, studies: registry.caseStudies.filter(study => study.companyId === company.id) }));
 const visuals = load('components/work/VisualStory.tsx', { './visual-story.module.css': css });
+const brandMarks = load('components/BrandMarks.tsx', { '@/lib/brands': load('lib/brands.ts'), './brand-marks.module.css': css }).default;
 const explorer = load('components/work/WorkExplorer.tsx', {
   '@/lib/work-types': load('lib/work-types.ts'), './VisualStory': visuals, './work-explorer.module.css': css,
+  '@/components/BrandMarks': brandMarks,
 });
 
 test('Work Explorer renders five initial studies, clear company controls and every reachable case route', () => {

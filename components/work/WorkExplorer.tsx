@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { CaseStudy, WorkCompany } from '@/lib/work-types';
 import { workTypeLabels } from '@/lib/work-types';
 import VisualStory from './VisualStory';
+import BrandMarks from '@/components/BrandMarks';
 import styles from './work-explorer.module.css';
 
 export interface WorkExplorerGroup {
@@ -39,6 +40,7 @@ function CompanyWork({ group, hidden }: { group: WorkExplorerGroup; hidden: bool
     <section id={company.id} tabIndex={-1} aria-labelledby={`${company.id}-title`} className={styles.companySection} hidden={hidden}>
       <header className={styles.companyHeader}>
         <div>
+          <BrandMarks companyId={company.id} />
           <p className={styles.companyMeta}>{company.period} · {company.relationship || contextLabels[company.id] || 'Employment'}</p>
           <h2 id={`${company.id}-title`}>{company.name}</h2>
         </div>
