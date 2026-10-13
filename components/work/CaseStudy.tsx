@@ -31,17 +31,44 @@ function Tables({ sections }: { sections: CaseStudySection[] }) {
   </div>)}</>;
 }
 
-interface PresentedGroup { group: CaseStudyChapterGroup; sections: CaseStudySection[]; paragraphs: string[]; bullets: string[]; sources: string[]; media: CaseStudyMedia[] }
+interface SourceReference { label: string; href: string }
+interface PresentedGroup { group: CaseStudyChapterGroup; sections: CaseStudySection[]; paragraphs: string[]; bullets: string[]; sources: string[]; sourceLinks: SourceReference[]; media: CaseStudyMedia[] }
+
+function sourceReferences(sections: CaseStudySection[]): SourceReference[] {
+  const seen = new Set<string>();
+  return sections.flatMap(section => section.source?.links || []).flatMap(reference => {
+    if (!reference || typeof reference.label !== 'string' || typeof reference.href !== 'string') return [];
+    const label = reference.label.trim();
+    if (!label) return [];
+    try {
+      const url = new URL(reference.href);
+      if (url.protocol !== 'https:' || url.username || url.password || seen.has(url.href)) return [];
+      seen.add(url.href);
+      return [{ label, href: url.href }];
+    } catch {
+      return [];
+    }
+  });
+}
+
+function SourceContext({ sources, sourceLinks }: Pick<PresentedGroup, 'sources' | 'sourceLinks'>) {
+  if (!sources.length && !sourceLinks.length) return null;
+  return <div className={styles.sectionSource}>
+    {!!sources.length && <p className={styles.sourceText}>{sources.join(' · ')}</p>}
+    {!!sourceLinks.length && <ul className={styles.sourceLinks} aria-label="External source references">{sourceLinks.map(reference => <li key={reference.href}><a href={reference.href} target="_blank" rel="noopener noreferrer">{reference.label} <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a></li>)}</ul>}
+  </div>;
+}
+
 function Chapter({ item, number }: { item: PresentedGroup; number?: number }) {
   return <section id={`chapter-${item.group.id}`} className={number ? styles.decisionBeat : styles.sourceFamily} data-case-section>
     {item.sections.map(section => <SectionAnchors key={section.id} section={section} />)}
     <header className={styles.chapterHeader}>{number && <span className={styles.beatNumber} aria-hidden="true">0{number}</span>}<h3 data-case-heading tabIndex={-1}>{item.group.title}</h3></header>
+    <Gallery media={item.media} />
     <div className={styles.chapterText}>{item.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
       {!!item.bullets.length && <ul>{item.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul>}
     </div>
     <Tables sections={item.sections} />
-    <Gallery media={item.media} />
-    {!!item.sources.length && <p className={styles.sectionSource}>{item.sources.join(' · ')}</p>}
+    <SourceContext sources={item.sources} sourceLinks={item.sourceLinks} />
   </section>;
 }
 
@@ -67,7 +94,7 @@ export default function CaseStudy({ study }: { study: CaseStudyData }) {
       usedMedia.add(asset.src); return [asset];
     });
     const sources = Array.from(new Set(sections.flatMap(section => section.source ? [[section.source.label, section.source.range, section.source.date, section.source.version].filter(Boolean).join(' · ')] : [])));
-    return { group, sections, paragraphs, bullets, media, sources };
+    return { group, sections, paragraphs, bullets, media, sources, sourceLinks: sourceReferences(sections) };
   }
   const situation = present({ id: 'situation', title: 'The situation', sectionIds: ['problem'] });
   const beats = presentation.decisionBeats.map(present).filter(item => item.sections.length);
@@ -109,7 +136,7 @@ export default function CaseStudy({ study }: { study: CaseStudyData }) {
         <div className={styles.storyIntro}><h2 id="story-title" data-case-heading tabIndex={-1}>{proposal ? 'The proposed product approach' : 'The decisions behind the work'}</h2></div>
         <span id="brief-title" className={styles.anchorAlias} aria-hidden="true" />
         {situation.sections.map(section => <SectionAnchors key={section.id} section={section} />)}
-        <div className={styles.situation}>{responsibility && <p>{responsibility}</p>}{situation.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div><Gallery media={situation.media} />
+        <div className={styles.situation}>{responsibility && <p>{responsibility}</p>}{situation.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div><Gallery media={situation.media} /><SourceContext sources={situation.sources} sourceLinks={situation.sourceLinks} />
         <span id="decision-chapters" className={styles.anchorAlias} aria-hidden="true" /><span id="decision-chapters-title" className={styles.anchorAlias} aria-hidden="true" />
         {beats.map((item, index) => <Chapter key={item.group.id} item={item} number={index + 1} />)}
         <span id="product-workflow" className={styles.anchorAlias} aria-hidden="true" />
@@ -121,7 +148,7 @@ export default function CaseStudy({ study }: { study: CaseStudyData }) {
         <div className={styles.chapterText}>{results.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div>
         {!!study.visualSummary?.charts?.length && <div className={styles.caseCharts}>{study.visualSummary.charts.map(chart => <Chart key={chart.id} chart={chart} />)}</div>}
         {!!study.outcomes.length && <dl className={styles.outcomes}>{study.outcomes.map((outcome, index) => <div key={`${outcome.label}-${index}`}><dt>{outcome.label}</dt>{outcome.value && !outcomeValueCovered(outcome.value) && <dd className={styles.outcomeValue}>{outcome.value}</dd>}{outcome.detail && <dd className={styles.outcomeDetail}>{outcome.detail}</dd>}</div>)}</dl>}
-        <Tables sections={results.sections} /><Gallery media={results.media} />
+        <Tables sections={results.sections} /><Gallery media={results.media} /><SourceContext sources={results.sources} sourceLinks={results.sourceLinks} />
       </section>
       {!!sources.length && <section id="reference-chapters" className={styles.supportingSection} aria-labelledby="supporting-title" data-case-section><span id="reference-chapters-title" className={styles.anchorAlias} aria-hidden="true" /><h2 id="supporting-title" data-case-heading tabIndex={-1}>Supporting context and visual evidence</h2>{sources.map(item => <Chapter key={item.group.id} item={item} />)}</section>}
       <section id="evidence" className={styles.evidenceSection} aria-labelledby="materials-title" data-case-section>

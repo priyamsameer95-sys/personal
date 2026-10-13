@@ -33,6 +33,10 @@
 .sourceFamily .gallery { grid-template-columns: repeat(3,minmax(0,1fr)); }
 .sourceFamily .gallery.singleMedia { grid-template-columns: minmax(0,1fr); }
 .sectionSource { max-width: 90ch; margin-top: 1.25rem; font-size: .9rem; line-height: 1.75; color: var(--muted); }
+.sourceText { margin: 0; }
+.sourceLinks { display: flex; flex-wrap: wrap; gap: .2rem 1.4rem; list-style: none; padding: 0; margin: .35rem 0 0; }
+.sourceLinks a { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; max-width: 100%; text-underline-offset: .25em; overflow-wrap: anywhere; }
+.sourceLinks a:focus-visible { outline: 3px solid #2657ef; outline-offset: 4px; }
 .resultsSection, .supportingSection, .evidenceSection { padding: 2.8rem 0; border-top: 1px solid var(--rule); }
 .caseCharts { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.6rem; margin: 1.8rem 0; }
 .caseCharts > :only-child { max-width: 48rem; }

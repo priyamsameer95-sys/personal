@@ -4,9 +4,8 @@ import { findCaseStudy } from '@/lib/work';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
-import Media from '@/components/work/Media';
 import WorkPreview from '@/components/work/WorkPreview';
-import { getPrimaryMedia } from '@/lib/work-presentation';
+import HomeMotion from '@/components/HomeMotion';
 import CvDownload from '@/components/CvDownload';
 import BrandMarks from '@/components/BrandMarks';
 import { getCompanyContext } from '@/lib/company-context';
@@ -14,7 +13,7 @@ import styles from './home.module.css';
 
 export const metadata: Metadata = {
   title: { absolute: 'Priyam Sameer — AI + Business Leadership' },
-  description: 'AI product thinking and business ownership. Explore original prototypes, crop-health AI, lending MCP architecture and commercial outcomes from Priyam Sameer’s work.',
+  description: 'AI product thinking and business ownership. Selected work across education lending, lender integrations, MCP architecture, agricultural data and commodity marketplaces. View Priyam Sameer’s CV and product evidence.',
   openGraph: { title: 'Priyam Sameer — AI + Business Leadership', description: 'AI product thinking. Business ownership. Interfaces, decisions and evidence from my work.' },
   twitter: { title: 'Priyam Sameer — AI + Business Leadership', description: 'AI product thinking. Business ownership. Interfaces, decisions and evidence from my work.' },
 };
@@ -32,49 +31,40 @@ const career = [
 ];
 
 export default function HomePage() {
-  const prototype = findCaseStudy('cashkaro-eduloans-policy-workflow');
-  const heroMedia = prototype ? getPrimaryMedia(prototype)[0] : undefined;
-  const previews = ['absolute-crop-health-ai', 'cashkaro-lending-mcp-feedback', 'cashkaro-college-money-education-loans'];
+  const previews = ['cashkaro-college-money-education-loans', 'cashkaro-lending-mcp-feedback', 'absolute-crop-health-ai'];
   return <PublicShell>
     <Header />
     <main id="main-content">
+      <HomeMotion>
       <section className={styles.hero} aria-labelledby="intro-title">
-        <div className={styles.heroCopy}>
+        <div className={styles.heroCopy} data-entry="first">
           <p className={styles.label}>Priyam Sameer · AI + business leadership</p>
           <h1 id="intro-title">AI product thinking.<br /><em>Business ownership.</em></h1>
           <p className={styles.intro}>I build lending, marketplace and agritech products—with AI-assisted workflows, deliberate decision systems and clear business ownership.</p>
-        </div>
-        {heroMedia && <div className={styles.heroEvidence}>
-          <div className={styles.prototypeHeading}><span>EduLoans</span><span>Working interaction prototype</span></div>
-          <Media media={heroMedia} priority compact />
-          <p className={styles.heroDecision}>AI-assisted delivery. Deterministic lender rules. Human verification before policy matching.</p>
-          <Link href="/product/cashkaro-eduloans-policy-workflow" className="ink-link">Full case study <span aria-hidden="true">↗</span></Link>
-        </div>}
-        <div className={styles.heroFollow}>
           <div className={styles.actions}>
             <Link href="/product" className="ink-button">Explore my work <span aria-hidden="true">↗</span></Link>
             <CvDownload className={styles.download} />
           </div>
-          <div className={styles.current}>
+        </div>
+          <div className={styles.current} data-entry="second">
             <p className={styles.currentLabel}>Current role</p>
             <p className={styles.currentTitle}>General Manager</p>
             <p>Product Management &amp; Business Growth</p>
             <Link href="/cv#cashkaro">CashKaro / BankKaro <span aria-hidden="true">↗</span></Link>
           </div>
-        </div>
       </section>
 
       <section className={styles.section} aria-labelledby="work-title">
-        <div className={styles.sectionHeader}><div><p className={styles.label}>The work, up close</p><h2 id="work-title">AI judgment. Real-world stakes.</h2></div><Link href="/product" className="ink-link">All 25 projects <span aria-hidden="true">↗</span></Link></div>
-        {previews.map(slug => { const study = findCaseStudy(slug); return study ? <WorkPreview key={study.id} study={study} /> : null; })}
+        <div className={styles.sectionHeader} data-reveal=""><div><p className={styles.label}>Selected work</p><h2 id="work-title">Decisions worth looking at.</h2></div><Link href="/product" className="ink-link">Explore selected work <span aria-hidden="true">↗</span></Link></div>
+        {previews.map(slug => { const study = findCaseStudy(slug); return study ? <WorkPreview key={study.id} study={study} reveal /> : null; })}
       </section>
 
       <section className={styles.section} aria-labelledby="impact-title">
-        <div className={styles.sectionHeader}><div><p className={styles.label}>Commercial ownership</p><h2 id="impact-title">The business behind the product.</h2></div></div>
+        <div className={styles.sectionHeader} data-reveal=""><div><p className={styles.label}>Commercial ownership</p><h2 id="impact-title">The business behind the product.</h2></div></div>
         <div className={styles.selectedWork}>{selected.map(proof => {
           const study = findCaseStudy(proof.slug);
           if (!study) return null;
-          return <article key={study.id} className={styles.workItem}>
+          return <article key={study.id} className={styles.workItem} data-reveal="">
             <p className={styles.domain}>{proof.domain}</p>
             <p className={styles.proofValue}>{proof.value}</p>
             <p className={styles.proofMeasure}>{proof.measure}</p>
@@ -85,11 +75,11 @@ export default function HomePage() {
       </section>
 
       <section className={styles.section} aria-labelledby="career-title">
-        <div className={styles.sectionHeader}><div><p className={styles.label}>From founder to product leader</p><h2 id="career-title">A growing scope.</h2></div><Link href="/cv" className="ink-link">View experience <span aria-hidden="true">→</span></Link></div>
+        <div className={styles.sectionHeader} data-reveal=""><div><p className={styles.label}>Career at a glance</p><h2 id="career-title">From founder to product leader.</h2></div><Link href="/cv" className="ink-link">View CV <span aria-hidden="true">→</span></Link></div>
         <ol className={styles.career}>{career.map(item => {
           const company = getCompanyContext(item.id);
           const source = company?.sources.find(source => source.id === item.sourceId);
-          return <li key={item.id}>
+          return <li key={item.id} data-reveal="">
             <p className={styles.careerDate}>{item.period}</p>
             <BrandMarks companyId={item.id} className={styles.careerBrands} />
             <h3>{item.name}</h3>
@@ -103,7 +93,7 @@ export default function HomePage() {
       </section>
 
       <section className={`${styles.section} ${styles.personal}`} aria-labelledby="interests-title">
-        <div>
+        <div data-reveal="">
           <p className={styles.label}>Beyond product</p>
           <h2 id="interests-title">A little colour.<br /><em>A wider perspective.</em></h2>
           <p>I paint alongside my product work. At CEPT, I studied construction technology and captained FC Sparta.</p>
@@ -116,6 +106,7 @@ export default function HomePage() {
           <span>Public Compass · Oil on canvas <span aria-hidden="true">↗</span></span>
         </Link>
       </section>
+      </HomeMotion>
     </main>
     <Footer />
   </PublicShell>;

@@ -45,7 +45,7 @@
 .peel-study-caption { display: flex; justify-content: space-between; gap: .75rem; align-items: center; font-size: .875rem; color: var(--muted); }
 .peel-toggle { display: inline-flex; justify-content: center; align-items: center; gap: .65rem; min-height: 44px; padding: .5rem .9rem; border: 1px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); font-size: .875rem; white-space: nowrap; transition: background-color 160ms ease, color 160ms ease; }
 .peel-toggle:hover { background: var(--ink); color: var(--paper); }
-/* Public information is legible immediately; motion belongs to the intentional peel. */
+/* Legacy page-wide animations remain disabled; Home uses scoped, accessible entry motion. */
 .animate-fade-in-up { animation: none; opacity: 1; transform: none; }
 @media (max-width: 767px) {
   .peel-canvas { padding: 8px; }

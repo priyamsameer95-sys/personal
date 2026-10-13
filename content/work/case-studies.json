@@ -480,6 +480,193 @@
             "college-money-abroad-comparison-verified",
             "college-money-abroad-faq-expanded-verified"
           ]
+        },
+        {
+          "id": "lending-revenue-and-pnl",
+          "title": "How the business earns and where the costs sit",
+          "body": [
+            "My responsibility combined the product roadmap with lender commercials and P&L ownership. The reviewed account describes pricing, payout structure, KYC handoffs and service-level negotiations. That connects the borrower experience to how a completed case becomes a commercial outcome.",
+            "The framework below makes those economics inspectable. It is a reconstruction of the questions within that remit, not a published financial statement: partner rates, earned revenue, acquisition spend, staff costs, payout adjustments and cash receipts are not supplied. Loan principal belongs to the lending flow and must not be treated as platform revenue."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Reviewed career records and existing source reconciliation",
+            "date": "14 October 2026",
+            "version": "Documented remit; authored operating explanation; financial inputs not supplied"
+          },
+          "tables": [
+            {
+              "caption": "Revenue-to-bottom-line bridge — amounts are unavailable",
+              "headers": [
+                "Layer",
+                "Operating model",
+                "What the source establishes"
+              ],
+              "rows": [
+                [
+                  "Loan principal",
+                  "Funds disbursed by a lender; track separately from marketplace earnings.",
+                  "₹5.5 crore monthly disbursement is reported, with conflicting education-only versus broader lending scope. It is not revenue or profit."
+                ],
+                [
+                  "Partner revenue",
+                  "Recognise an agreed fee or commission only when its contractual earning condition is met.",
+                  "Commercial pricing and payout negotiations are documented; exact rates, earning triggers and recognition policy are not."
+                ],
+                [
+                  "Adjustments",
+                  "Reconcile eligible cases, reversals, disputes, partner deductions and receipts before accepting a revenue total.",
+                  "Partner reporting and reconciliation are documented across the lending programme; this statement is an authored accounting-control model."
+                ],
+                [
+                  "Acquisition and incentives",
+                  "Attribute paid distribution, communication and any incentives to the same borrower cohort.",
+                  "CashKaro distribution and a low-CAC direction are described; education-specific spend and incentive terms are unavailable."
+                ],
+                [
+                  "Case-processing cost",
+                  "Include reviewer time, document checks, third-party services and support per completed case.",
+                  "Origination and operations sit in the remit; the education-business cost ledger is not attached."
+                ],
+                [
+                  "Contribution",
+                  "Recognised partner revenue minus attributable variable costs.",
+                  "A reference formula. No contribution amount or margin is calculated without its inputs."
+                ],
+                [
+                  "Bottom line and cash",
+                  "Deduct fixed product/team/operating costs; separately compare billed revenue with money received.",
+                  "Positive unit economics is self-reported with conflicting timing. An audited profit, cash balance or break-even date is not established."
+                ]
+              ],
+              "note": "Loan amount, commission revenue, contribution, operating profit and cash collection answer different questions. The available material cannot be used to calculate a complete P&L."
+            }
+          ],
+          "mediaIds": [
+            "college-money-economics"
+          ]
+        },
+        {
+          "id": "acquisition-to-revenue-funnel",
+          "title": "The funnel I needed to connect to the commercial result",
+          "body": [
+            "A student’s enquiry is the start of the journey, while a completed lender handoff is a different event. I used MoEngage and internal dashboards for stage visibility and worked with engineering, growth and operations around abandonment and delay. The table specifies an authored measurement model for that journey; the original event dictionary and full cohort data are unavailable."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Reviewed career records and existing source reconciliation",
+            "date": "14 October 2026",
+            "version": "Documented remit; authored operating explanation; financial inputs not supplied"
+          },
+          "tables": [
+            {
+              "caption": "From student intent to an earned partner outcome",
+              "headers": [
+                "Stage",
+                "Question to measure",
+                "Decision it informs"
+              ],
+              "rows": [
+                [
+                  "Acquire an enquiry",
+                  "Which source and student segment produced a unique enquiry, at what attributable cost?",
+                  "Compare useful demand by channel; do not call all CashKaro traffic free or education-loan demand."
+                ],
+                [
+                  "Prepare an application",
+                  "Which enquiries become completed applications, and which requested evidence is missing?",
+                  "The account reports 40% enquiry-to-application conversion; cohort, event definitions and comparison period are not supplied."
+                ],
+                [
+                  "Submit to a lender",
+                  "Was an authorised, sufficiently complete case accepted for review, returned for information or rejected?",
+                  "Improve information capture and route fit; a pre-check is not a sanction."
+                ],
+                [
+                  "Receive a decision",
+                  "What is the lender outcome, reason and time spent at each pending stage?",
+                  "Distinguish underwriting from document or operational delay; preserve lender decision ownership."
+                ],
+                [
+                  "Disburse",
+                  "Which approved cases actually receive funds, and when?",
+                  "Measure application-to-disbursement separately; do not reuse the 40% application figure as a disbursement rate."
+                ],
+                [
+                  "Earn and collect",
+                  "Which cases satisfy the agreed payout condition and reconcile with the partner statement and receipt?",
+                  "Connect journey improvement to contribution and cash, rather than stop at the volume of applications."
+                ]
+              ],
+              "note": "A proposed cohort view would join channel, application, lender outcome, disbursement and payout events with stable case identifiers. It is not an assertion that this exact schema was deployed."
+            }
+          ]
+        },
+        {
+          "id": "commercial-decision-checks",
+          "title": "The commercial trade-offs behind a useful borrower journey",
+          "body": [
+            "A shorter application can reduce effort but still leave the receiving lender without enough evidence. More follow-up can improve readiness while increasing processing cost. A larger lender panel can increase coverage while multiplying policy differences, service queues and reconciliation work. Those trade-offs explain why I treated product and operations as one business responsibility.",
+            "For a fresh review, I would compare channels and lender routes using completed-case contribution, borrower fit and service quality together. I would test any asserted profitability against matched-period revenue and cost records. The source does not justify filling those gaps with an assumed commission percentage or projected profit."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Authored product operating framework",
+            "date": "14 October 2026",
+            "version": "Reference design to explain documented responsibilities; not an observed implementation or measured result"
+          },
+          "tables": [
+            {
+              "caption": "Questions for the next business review — proposed",
+              "headers": [
+                "Decision",
+                "Evidence needed"
+              ],
+              "rows": [
+                [
+                  "Scale an acquisition channel",
+                  "Deduplicated enquiry cohorts, attributed spend, application readiness and downstream disbursement/payout outcomes."
+                ],
+                [
+                  "Add or prioritise a lender",
+                  "Eligible borrower coverage, customer-facing terms, service time, rejection reasons and agreed commercial obligations."
+                ],
+                [
+                  "Automate a manual step",
+                  "Time and error baseline, human-review needs, exception rate and the cost of incorrect or incomplete handoffs."
+                ],
+                [
+                  "Claim a profitable product",
+                  "A reconciled revenue ledger, variable and fixed cost allocation, recognised-versus-collected amounts and an explicit period."
+                ]
+              ],
+              "note": "Proposed validation questions, not findings from an executed experiment."
+            }
+          ]
+        },
+        {
+          "id": "borrower-protection-reference",
+          "title": "A current design review, distinct from historical delivery",
+          "body": [
+            "The May 2025 RBI digital-lending directions provide historical reference points for lender/LSP responsibilities: comparable matched offers and documented matching, lender-paid LSP charges, direct loan fund flows subject to stated exceptions, and purpose-specific borrower consent. These shape a contemporary product review; they do not certify this implementation.",
+            "By October 2026 the commercial-bank rules are presented in consolidated credit-facility directions. Any release review must use the applicable lender-class rules and current version, and inspect actual agreements, screens and data handling. The observed College.money public pages do not establish its protected application flow or regulatory controls."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Official RBI reference and public-capture limits",
+            "date": "14 October 2026",
+            "version": "May 2025 historical directions; current commercial-bank consolidation title checked 14 October 2026; no compliance audit",
+            "links": [
+              {
+                "label": "Historical digital-lending directions",
+                "href": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12848&Mode=0"
+              },
+              {
+                "label": "Current commercial-bank credit directions",
+                "href": "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=13156"
+              }
+            ]
+          }
         }
       ],
       "media": [
@@ -716,6 +903,21 @@
             "date": "13 October 2026"
           },
           "category": "walkthrough"
+        },
+        {
+          "id": "college-money-economics",
+          "kind": "image",
+          "src": "/work/architecture/college-money-economics.svg",
+          "alt": "An education-loan funnel connected to platform economics, with lender principal separate from partner revenue and costs.",
+          "caption": "Authored business-model explanation: the 40% application conversion is source-reported; P&L inputs and the exact payout model are not supplied.",
+          "width": 1440,
+          "height": 760,
+          "category": "diagram",
+          "provenance": {
+            "kind": "authored",
+            "label": "Authored explanatory reference; not a verified production system",
+            "date": "14 October 2026"
+          }
         }
       ],
       "sourceNotes": [
@@ -744,7 +946,7 @@
         "title": "College.money education loans",
         "summary": "Turn student intent and documents into a lender-ready case.",
         "challenge": "Fragmented requirements create repeat work and uncertain next steps.",
-        "role": "Education-loan journey, partner commercials and operations.",
+        "role": "Education-loan journey, partner commercials, operations and P&L.",
         "decision": "Unify capture, evidence and lender routing.",
         "impact": "Reported 40% enquiry-to-application conversion; launch-year cohort definition not supplied.",
         "workflow": {
@@ -839,6 +1041,22 @@
               "public-discovery-reference",
               "published-application-reference",
               "college-money-walkthroughs"
+            ]
+          },
+          {
+            "id": "education-lending-business",
+            "title": "The education-lending business: funnel, revenue and costs",
+            "sectionIds": [
+              "lending-revenue-and-pnl",
+              "acquisition-to-revenue-funnel",
+              "commercial-decision-checks"
+            ]
+          },
+          {
+            "id": "lending-borrower-boundaries",
+            "title": "Borrower protection and the lender boundary",
+            "sectionIds": [
+              "borrower-protection-reference"
             ]
           }
         ]
@@ -1592,6 +1810,267 @@
             "The daily MIS joined lender-wise funnel performance, partner service-level tracking, disputes and payout reconciliation. An application’s outcome had to be reflected in the business record, and an unresolved dispute needed visibility. The review cadence brought those questions back to lender conversations and product priorities, instead of ending ownership when a request was handed off."
           ],
           "group": "detail"
+        },
+        {
+          "id": "integration-metadata-contract",
+          "title": "What belongs in a reusable integration contract",
+          "body": [
+            "The documented architecture normalises eligibility, KYC, status and payout information so a partner can connect without a separate borrower interface. My product responsibility was to join engineering requirements with lender agreements, service levels and operations. The table makes that common contract concrete without attributing undocumented fields to a delivered API.",
+            "The trade-off is standardisation with enough partner-specific configuration to preserve policy. A common case status must retain the lender’s original reason and reference; a normalised eligibility result must identify which policy version produced it. Otherwise reuse makes the user interface simpler while making operational disagreements harder to explain."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Reviewed career records and existing source reconciliation",
+            "date": "14 October 2026",
+            "version": "Documented remit; authored operating explanation; financial inputs not supplied"
+          },
+          "tables": [
+            {
+              "caption": "Authored contract model — field names are illustrative",
+              "headers": [
+                "Contract area",
+                "Illustrative information",
+                "Why it matters"
+              ],
+              "rows": [
+                [
+                  "Partner metadata",
+                  "Partner/product identifier, permitted environment, agreed endpoints and supported schema version.",
+                  "Make capability, ownership and sandbox-versus-production status explicit before routing a case."
+                ],
+                [
+                  "Case identity",
+                  "Opaque case reference, correlation ID and submission idempotency key.",
+                  "Join logs and partner responses; avoid treating a retry as a new borrower application."
+                ],
+                [
+                  "Authorised information",
+                  "Consent reference, purpose, lender destination and the permitted evidence references.",
+                  "A login or integration credential alone does not establish permission to share a borrower’s information."
+                ],
+                [
+                  "Eligibility and evidence",
+                  "Versioned applicant inputs, document completeness and reason-coded pre-check result.",
+                  "Separate a missing input, a failed policy condition and a lender’s final credit decision."
+                ],
+                [
+                  "Status mapping",
+                  "Original lender status/reason, normalised stage, event timestamp and lender case reference.",
+                  "A receiving partner’s acceptance of a file is different from a sanction or disbursement."
+                ],
+                [
+                  "Payout and reconciliation",
+                  "Commercial agreement version, qualifying event, statement reference and adjustment/dispute status.",
+                  "A successful API response is not proof of earned or collected marketplace revenue."
+                ]
+              ],
+              "note": "No actual endpoint URL, bank secret, borrower record or lender-specific contract is published. This is a product specification example."
+            }
+          ]
+        },
+        {
+          "id": "integration-auth-handshake",
+          "title": "A reference handshake from onboarding to audited response",
+          "body": [
+            "A reusable partner connection still needs an explicit trust boundary. The sequence below is a proposed reference implementation for reviewing an API-first lending service. It is not evidence of the deployed authentication scheme, hosting provider, encryption settings or webhook protocol.",
+            "For an OAuth-based design, I would review token audience and expiry, narrow scopes and a suitable client-authentication method using RFC 9700. Exact client authentication depends on the lender contract; mutual TLS or signed client assertions are reference options, not claims about the delivered stack. HTTPS and credentials protect a connection; case-level authorisation protects whose information can be accessed."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Authored API reference and IETF security guidance",
+            "date": "14 October 2026",
+            "version": "RFC 9700, January 2025; deployment choices unverified",
+            "links": [
+              {
+                "label": "OAuth security best current practice",
+                "href": "https://www.rfc-editor.org/rfc/rfc9700.html"
+              }
+            ]
+          },
+          "tables": [
+            {
+              "caption": "Reference integration handshake — proposed controls",
+              "headers": [
+                "Step",
+                "Acceptance boundary",
+                "Failure response to design"
+              ],
+              "rows": [
+                [
+                  "Agree and configure",
+                  "Approved partner, product, environment, API version, service levels and ownership are recorded.",
+                  "Reject an unknown partner or unsupported version; do not silently select a different product."
+                ],
+                [
+                  "Authenticate",
+                  "Establish the caller identity and validate credentials for the intended API.",
+                  "Deny invalid, expired or misdirected credentials without returning case data."
+                ],
+                [
+                  "Authorise",
+                  "Check the caller’s role, lender/case scope and applicable consent before access.",
+                  "Deny another partner’s case or an out-of-purpose request even when the caller is authenticated."
+                ],
+                [
+                  "Validate and route",
+                  "Validate required inputs and documents; use a stable submission key and configured adapter.",
+                  "Return a specific missing-field or policy error; do not convert an incomplete file into an approval."
+                ],
+                [
+                  "Receive status",
+                  "Match the partner reference and preserve original status, reason and timestamp.",
+                  "Reconcile stale, duplicate or out-of-order updates; verify any callback before accepting it."
+                ],
+                [
+                  "Reconcile and audit",
+                  "Join submission, lender response, service queue and commercial record by case reference.",
+                  "Route an unresolved mismatch to an accountable owner; never infer money received from an API acknowledgement."
+                ]
+              ],
+              "note": "Callback signatures, token format, retry limits, credential rotation and storage controls require partner-specific evidence before they can be presented as implemented."
+            }
+          ],
+          "mediaIds": [
+            "lender-integration-handshake"
+          ]
+        },
+        {
+          "id": "integration-api-example",
+          "title": "A concrete call without inventing a production endpoint",
+          "body": [
+            "This illustrative submission contract shows how one case could move through a partner adapter. All names and values below are invented specification examples with opaque placeholders, not live API documentation or sample borrower data. Its purpose is to show the separation between an accepted request, a pre-check and a lender decision."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Authored product operating framework",
+            "date": "14 October 2026",
+            "version": "Reference design to explain documented responsibilities; not an observed implementation or measured result"
+          },
+          "tables": [
+            {
+              "caption": "Illustrative API call and result contract",
+              "headers": [
+                "Part",
+                "Example shape",
+                "Meaning"
+              ],
+              "rows": [
+                [
+                  "Request",
+                  "POST /reference/v1/cases/submit · caseRef: case-example · partnerProductRef: product-example · consentRef: consent-example · policyVersion: version-example",
+                  "The service must resolve authorised evidence and validate the target partner contract; this path is not an actual endpoint."
+                ],
+                [
+                  "Request metadata",
+                  "correlationId: request-example · idempotencyKey: submission-example · schemaVersion: schema-example",
+                  "Trace one request across the adapter and safely identify repeated submissions."
+                ],
+                [
+                  "Accepted response",
+                  "stage: received_for_review · partnerCaseRef: partner-case-example · decisionStatus: pending",
+                  "Received for review describes a handoff; it cannot be displayed as sanctioned or disbursed."
+                ],
+                [
+                  "Incomplete response",
+                  "stage: needs_information · missingEvidence: [required-document-reference] · retryable: true",
+                  "Return an actionable reason and retain the current case instead of asking the borrower to start again."
+                ],
+                [
+                  "Operational record",
+                  "callerRef · permittedCaseRef · contractVersion · statusTransition · eventTime",
+                  "An authored minimal audit model; exclude credentials and avoid raw personal data in routine logs."
+                ]
+              ],
+              "note": "Example values and payload names are illustrative. No production schema, authentication handshake or API-test result is supplied."
+            }
+          ]
+        },
+        {
+          "id": "integration-operating-controls",
+          "title": "Failures, service levels and commercial exceptions",
+          "body": [
+            "The career record describes MIS, funnel reviews, partner reporting, reconciliation and dispute handling as ongoing product work. A connection is therefore operated through recurring queues and decisions, not finished when an endpoint first responds. The control map below is authored guidance for explaining those responsibilities.",
+            "OWASP’s API risk categories make object-level access, resource consumption, API inventory and unsafe upstream responses useful review topics. I would test those concerns alongside the borrower journey and partner service agreement; no penetration-test or performance report is attached to this case."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Documented operations and authored security review",
+            "date": "14 October 2026",
+            "version": "OWASP API Security Top 10, 2023; proposed tests, not an executed security assessment",
+            "links": [
+              {
+                "label": "OWASP API security risks",
+                "href": "https://api-security.owasp.org/editions/2023/en/0x11-t10/"
+              }
+            ]
+          },
+          "tables": [
+            {
+              "caption": "Operational controls and proposed release checks",
+              "headers": [
+                "Risk or queue",
+                "Proposed behaviour",
+                "Evidence to request"
+              ],
+              "rows": [
+                [
+                  "Unavailable partner",
+                  "Bound retries and show the case as pending; distinguish dependency failure from ineligibility.",
+                  "Timeout fixtures, retry/dead-letter behaviour and an operations owner."
+                ],
+                [
+                  "Status disagreement",
+                  "Preserve partner truth, map it transparently and flag conflicting or late events.",
+                  "Contract examples and reordered/duplicate callback checks."
+                ],
+                [
+                  "Data exposure",
+                  "Check case ownership on every access; minimise response fields and redact routine logs.",
+                  "Role/partner access tests, retention policy and reviewed log examples."
+                ],
+                [
+                  "Service-level breach",
+                  "Measure the agreed stage clock and surface cases waiting for the lender or operations.",
+                  "Defined start/stop events, pending-age dashboard and escalation policy."
+                ],
+                [
+                  "Payout dispute",
+                  "Join the qualifying case with the agreement, statement and disputed adjustment.",
+                  "Reconciled statement examples and resolution history; rates are not supplied."
+                ],
+                [
+                  "New integration version",
+                  "Record active contract versions and test old cases before changing an adapter.",
+                  "API inventory, schema compatibility fixtures and rollback plan."
+                ]
+              ],
+              "note": "Documented recurring concerns are distinguished from these proposed control implementations; no onboarding-speed or reliability benchmark is invented."
+            }
+          ]
+        },
+        {
+          "id": "integration-regulatory-boundary",
+          "title": "Where the lender agreement and customer protection meet",
+          "body": [
+            "RBI’s commercial-bank digital-lending chapter keeps responsibility with the bank even when an LSP performs part of the journey. Its verified July 2026 text covers documented multi-lender matching and unbiased comparable offers, lender-paid LSP fees, purpose-specific consent and minimal LSP data retention. These are reference review criteria, not verified controls of this integration.",
+            "The current RBI page is titled updated 1 October 2026; the full July version is linked as the text reviewed here. Applicability and later changes must be checked for each lender class. The source material does not establish this business’s precise RE–LSP classification, data-retention arrangement or completed compliance audit."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Official RBI commercial-bank reference",
+            "date": "14 October 2026",
+            "version": "Full July 15, 2026 text reviewed; current page title checked October 14, 2026; lender-specific applicability not established",
+            "links": [
+              {
+                "label": "Reviewed July credit directions",
+                "href": "https://www.rbi.org.in/Scripts/NotificationPreVersion.aspx?Histid=271&id=13156"
+              },
+              {
+                "label": "Current commercial-bank credit directions",
+                "href": "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=13156"
+              }
+            ]
+          }
         }
       ],
       "media": [
@@ -1608,6 +2087,21 @@
             "label": "Portfolio diagram explaining the historical account"
           },
           "category": "diagram"
+        },
+        {
+          "id": "lender-integration-handshake",
+          "kind": "image",
+          "src": "/work/architecture/lender-integration-handshake.svg",
+          "alt": "A reference lending API handshake, from agreed partner metadata and caller identity through case permission, routing, lender status and reconciliation.",
+          "caption": "Authored integration reference: authentication, idempotency and callback controls illustrate review requirements; the exact delivered mechanisms are not established.",
+          "width": 1440,
+          "height": 760,
+          "category": "diagram",
+          "provenance": {
+            "kind": "authored",
+            "label": "Authored explanatory reference; not a verified production system",
+            "date": "14 October 2026"
+          }
         }
       ],
       "sourceNotes": [
@@ -1633,7 +2127,7 @@
       },
       "visualSummary": {
         "title": "Lender integrations",
-        "summary": "Reusable connections with daily operating accountability.",
+        "summary": "Reusable lender contracts for eligibility, KYC, application status and payout reconciliation.",
         "challenge": "Partner differences can fragment application and payout follow-through.",
         "role": "Integration requirements, lender operations and team building.",
         "decision": "Normalise shared steps and retain lender-specific policy.",
@@ -1690,7 +2184,25 @@
             ]
           }
         ],
-        "supportingGroups": []
+        "supportingGroups": [
+          {
+            "id": "integration-contract-and-handshake",
+            "title": "The integration contract: common data, partner-specific policy",
+            "sectionIds": [
+              "integration-metadata-contract",
+              "integration-auth-handshake",
+              "integration-api-example"
+            ]
+          },
+          {
+            "id": "integration-operations-and-controls",
+            "title": "Operating the connection after launch",
+            "sectionIds": [
+              "integration-operating-controls",
+              "integration-regulatory-boundary"
+            ]
+          }
+        ]
       }
     },
     {
@@ -1844,6 +2356,119 @@
               "note": "The test sets, baselines and release thresholds must be agreed before execution. This table records proposed validation work."
             }
           ]
+        },
+        {
+          "id": "mcp-tool-contract-reference",
+          "title": "The proposed tool is an evaluator, not an approval authority",
+          "body": [
+            "A callable service needs a narrow operation that a product team can inspect. The authored tool model below extends the documented one-server/two-BRE direction: select the agreed policy context, evaluate verified facts against a versioned rule set, and return reasons or missing information. Tool names and fields are specification examples; no such production tool is claimed.",
+            "The released MCP 2026-07-28 specification supplies input and output schema conventions and explicit tool-error handling. This is an October 2026 reference review added to the portfolio; it does not date the earlier architecture work or prove that the prototype uses that protocol revision."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Authored policy contract and official MCP tools specification",
+            "date": "14 October 2026",
+            "version": "Released MCP 2026-07-28; new reference design, no live MCP release established",
+            "links": [
+              {
+                "label": "MCP tool schemas and results",
+                "href": "https://modelcontextprotocol.io/specification/2026-07-28/server/tools"
+              },
+              {
+                "label": "July 2026 release announcement",
+                "href": "https://blog.modelcontextprotocol.io/posts/2026-07-28/"
+              }
+            ]
+          },
+          "tables": [
+            {
+              "caption": "Illustrative tool contract — proposed, not deployed",
+              "headers": [
+                "Operation",
+                "Required boundary",
+                "Returned information"
+              ],
+              "rows": [
+                [
+                  "evaluate_lender_policy",
+                  "Authorised case reference, selected product/engine, verified input snapshot and explicit rule version.",
+                  "Pre-check result, reason codes, missing inputs and evaluated version; never a lender sanction or disbursement claim."
+                ],
+                [
+                  "inspect_policy_version",
+                  "Read access to the relevant product/lender policy, without applicant-wide or administrative access.",
+                  "Policy provenance, active version and effective conditions; no secret or raw borrower document."
+                ],
+                [
+                  "record_outcome_feedback",
+                  "Separately permitted case outcome and lender/reviewer reason, attached to the originating evaluation.",
+                  "A review item with its evidence; this operation does not change active policy."
+                ],
+                [
+                  "approve_policy_change",
+                  "An explicitly authorised human owner and reviewed change record; exclude it from an ordinary applicant tool set.",
+                  "A versioned approval/audit event and rollback reference, if implemented and validated."
+                ]
+              ],
+              "note": "These operation names are authored examples. The source does not supply actual tool manifests, method names, production permissions or execution traces."
+            }
+          ]
+        },
+        {
+          "id": "mcp-authorisation-and-state",
+          "title": "Authorisation must survive every call",
+          "body": [
+            "The 2026-07-28 MCP core is stateless. A case reference carried between requests would identify application state; it would not grant permission. In this proposed design, each call checks the caller against that case and the requested operation, and each result records the rule version rather than depending on implicit connection state.",
+            "For a protected HTTP deployment, the official authorisation model requires tokens intended for the MCP server. A downstream lender API needs its own trust boundary: a token must not be passed through unchanged as if it were a universal credential. The reference design would use narrow scopes, independent downstream credentials and auditable caller/case checks. The source does not establish its actual transport or credential mechanism."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Official MCP authorisation and security references",
+            "date": "14 October 2026",
+            "version": "Released 2026-07-28 HTTP authorisation; authored application of controls, not a deployed security assertion",
+            "links": [
+              {
+                "label": "MCP authorisation",
+                "href": "https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization"
+              },
+              {
+                "label": "MCP security best practices",
+                "href": "https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices"
+              }
+            ]
+          },
+          "tables": [
+            {
+              "caption": "Boundary that must be explicit before release",
+              "headers": [
+                "Boundary",
+                "Proposed check"
+              ],
+              "rows": [
+                [
+                  "Caller → MCP service",
+                  "Validate intended token audience, expiry and required operation scope for a protected HTTP service."
+                ],
+                [
+                  "Caller → case",
+                  "Verify the caller is allowed to inspect or evaluate the specified case on every request; an opaque handle is not permission."
+                ],
+                [
+                  "MCP service → policy engine",
+                  "Resolve only the authorised product and policy version; validate schema and fail explicitly on missing or unknown inputs."
+                ],
+                [
+                  "MCP service → lender API",
+                  "Use the separately approved partner connection; do not blindly forward the caller’s token or undocumented borrower data."
+                ],
+                [
+                  "Feedback → policy change",
+                  "Separate observation from mutation; require review, recorded approval, versioning and rollback evidence."
+                ]
+              ],
+              "note": "Controls are proposed reference design. No live transport, credentials, production permission tests or automated retuning result is supplied."
+            }
+          ]
         }
       ],
       "media": [
@@ -1974,6 +2599,14 @@
             "title": "Evaluation and release validation — proposed",
             "sectionIds": [
               "evaluation-plan"
+            ]
+          },
+          {
+            "id": "mcp-contract-reference",
+            "title": "Callable policy: a concrete tool contract and trust boundary",
+            "sectionIds": [
+              "mcp-tool-contract-reference",
+              "mcp-authorisation-and-state"
             ]
           }
         ]
@@ -2435,6 +3068,120 @@
             "I supported regional rollout across India, Southeast Asia and the Middle East. The reported scope includes structured execution workshops with regional leadership to connect local business requirements with the common platform. The wider programme reached the reported $100 million transaction value in nine months; that scale belongs to the connected trading system, not a single catalogue or workshop intervention."
           ],
           "group": "detail"
+        },
+        {
+          "id": "silkroute-trade-lifecycle",
+          "title": "The transaction record across product, finance and operations",
+          "body": [
+            "A commodity trade needs the buyer and seller to agree the commercial terms, but execution also depends on payment, documentation and physical operations. The documented work connected catalogue, negotiation/matching, a payment gateway and an in-house ERP. The map below explains the information each handoff needs; exact screen states and database entities are not supplied.",
+            "My role joined trader research and live payment failures to product requirements and cross-functional delivery. The connected payments/ERP study names IDFC and its own operating results. Those details belong to the broader payment programme and should not be silently recast as a result of the marketplace catalogue alone."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Reviewed career records and existing source reconciliation",
+            "date": "14 October 2026",
+            "version": "Documented remit; authored operating explanation; financial inputs not supplied"
+          },
+          "tables": [
+            {
+              "caption": "From a discovered counterparty to a completed trade",
+              "headers": [
+                "Handoff",
+                "Information that must survive",
+                "Decision or exception"
+              ],
+              "rows": [
+                [
+                  "Discover and qualify",
+                  "Commodity/counterparty requirements and catalogue information.",
+                  "Does the offered trade meet the buyer’s requirements? The source does not supply catalogue-quality acceptance thresholds."
+                ],
+                [
+                  "Negotiate and match",
+                  "Agreed quantity, quality, price and commercial terms.",
+                  "Direct negotiation fits large-ticket B2B trade; the exact matching algorithm is not disclosed."
+                ],
+                [
+                  "Create the trade record",
+                  "Agreed terms and a common reference for the customer and internal trade legs.",
+                  "Avoid contradictory records between the product, finance and operations. This is an authored control requirement."
+                ],
+                [
+                  "Check payment and documentation",
+                  "Payment status, reconciliation references, regulatory/customs requirements and CHA/challan documents where applicable.",
+                  "Investigate failed or unresolved payment/document handoffs before treating the transaction as complete."
+                ],
+                [
+                  "Execute and settle",
+                  "Operational fulfilment, settlement and unresolved disputes linked to the trade.",
+                  "The source documents linked workflows; exact end-to-end completion and exception clocks are unavailable."
+                ],
+                [
+                  "Learn and prioritise",
+                  "Root causes from live failures and regional operating requirements.",
+                  "Feed product, engineering, finance and operations priorities through Jira and delivery coordination."
+                ]
+              ],
+              "note": "Workflow interpretation of documented scope. It does not establish a particular ledger schema, automated compliance engine or settlement guarantee."
+            }
+          ]
+        },
+        {
+          "id": "silkroute-marketplace-economics",
+          "title": "GMV, revenue and trading quality are different measures",
+          "body": [
+            "The reported $100 million in nine-month transaction value describes programme GMV. It shows the scale of trades on the connected platform, not marketplace revenue, gross margin, cash collected or an isolated feature’s contribution. Buyer, seller and average-order counts vary across career-record versions.",
+            "A business review would connect transaction completion to the actual commercial agreement and operating cost. The table is an authored framework for that review. I have not applied an assumed take rate to GMV: no verified rate, recognised-revenue ledger, cost allocation or profit statement is supplied."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Authored product operating framework",
+            "date": "14 October 2026",
+            "version": "Reference design to explain documented responsibilities; not an observed implementation or measured result"
+          },
+          "tables": [
+            {
+              "caption": "A marketplace business review without assumed financials",
+              "headers": [
+                "Measure",
+                "What it answers",
+                "Evidence needed"
+              ],
+              "rows": [
+                [
+                  "GMV",
+                  "What value of trades is included in the programme’s stated period?",
+                  "A definition of completed/included trades and cancellations; the available headline is $100M over nine months."
+                ],
+                [
+                  "Platform revenue",
+                  "What fee, spread or other contractual earning is actually recognised?",
+                  "Agreements, eligible trade records and accounting treatment; commercial terms are not consolidated here."
+                ],
+                [
+                  "Contribution",
+                  "What remains after attributable payment, service and fulfilment costs?",
+                  "Matched-period revenue and variable-cost records, not GMV multiplied by a guessed percentage."
+                ],
+                [
+                  "Working capital and settlement",
+                  "When does money move, and which amounts remain pending or disputed?",
+                  "Trade-leg reconciliation, settlement clocks and cash records; five-to-one-day reporting belongs to the linked payments study."
+                ],
+                [
+                  "Liquidity and repeat use",
+                  "Can a relevant buyer find a suitable counterparty and complete another trade?",
+                  "Defined cohorts for match, acceptance, completion and repeat trading; no invented liquidity score."
+                ],
+                [
+                  "Operational quality",
+                  "Where do payment, documents or regional handoffs fail?",
+                  "Consistent exception categories, service clocks and root-cause history."
+                ]
+              ],
+              "note": "This framework explains business decisions; it is not a measured P&L, take-rate claim or new transaction-performance result."
+            }
+          ]
         }
       ],
       "media": [
@@ -2560,7 +3307,16 @@
             ]
           }
         ],
-        "supportingGroups": []
+        "supportingGroups": [
+          {
+            "id": "trade-lifecycle-and-economics",
+            "title": "Trading as a connected operating system",
+            "sectionIds": [
+              "silkroute-trade-lifecycle",
+              "silkroute-marketplace-economics"
+            ]
+          }
+        ]
       }
     },
     {
@@ -3333,6 +4089,118 @@
             "upaj-riskstac-repayment-risk",
             "upaj-riskstac-monitoring"
           ]
+        },
+        {
+          "id": "risk-information-layer-contract",
+          "title": "What the risk output needs to carry",
+          "body": [
+            "My documented product work connected agricultural assessment with an institutional appraisal workflow. Weather, soil moisture, vegetation, historical yield and parcel signals need an interpretable handoff, not just a longer list of inputs. The 167 reported satellite indices describe input breadth; they do not establish calibrated credit risk or model accuracy.",
+            "The following is an authored contract model for explaining that handoff. It proposes how an institution could inspect data freshness, missing information and assessment provenance before using the output. It is not a published RiskStac API schema, an actual scorecard or evidence that each control was delivered."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Authored product operating framework",
+            "date": "14 October 2026",
+            "version": "Reference design to explain documented responsibilities; not an observed implementation or measured result"
+          },
+          "tables": [
+            {
+              "caption": "Farm information → lender-facing assessment",
+              "headers": [
+                "Layer",
+                "Information to preserve",
+                "Limit or owner"
+              ],
+              "rows": [
+                [
+                  "Farm and parcel context",
+                  "Permitted farmer/case reference, parcel boundary and the observation period.",
+                  "A parcel match is not proof of ownership, title or repayment capacity; lender evidence requirements remain separate."
+                ],
+                [
+                  "Observation data",
+                  "Weather, moisture, vegetation, historical yield and land-use inputs with source and timestamp.",
+                  "Coverage and freshness can vary; missing observations must remain visible."
+                ],
+                [
+                  "Assessment output",
+                  "Versioned derived signals, explanation, confidence/coverage flags and unavailable inputs.",
+                  "This is the reference output contract; exact delivered score and calibration are not supplied."
+                ],
+                [
+                  "Institutional access",
+                  "Authorised request purpose, consent where applicable, request/status reference and returned evidence.",
+                  "Standard API/ULI integration is documented; actual endpoint fields and transport configuration are not."
+                ],
+                [
+                  "Lender workflow",
+                  "Review agricultural evidence alongside the lender’s other appraisal information.",
+                  "The lender owns underwriting, sanction and disbursement; an agricultural signal is not an automatic loan approval."
+                ],
+                [
+                  "Monitoring and review",
+                  "Compare later observed outcomes with the version and information used at appraisal.",
+                  "Current RiskStac monitoring is post-tenure product context; historical live monitoring and outcome evaluation need separate evidence."
+                ]
+              ],
+              "note": "Reference contract, not a model-quality benchmark or representation of a verified production response."
+            }
+          ],
+          "mediaIds": [
+            "riskstac-uli-layers"
+          ]
+        },
+        {
+          "id": "risk-evaluation-and-institutional-value",
+          "title": "How to test useful information without overstating credit impact",
+          "body": [
+            "The institutional value is a more usable route from farm information to appraisal. I would validate both the handoff and the assessment: a report can arrive quickly and still be incomplete, stale or unsuitable for one crop or geography. Those are separate product questions from whether the lender ultimately approves a loan.",
+            "The reported 500K+ programme reach and under-thirty-minute lending time remain qualified in the main account. No denominator, exact start/stop clock, matched borrower cohort or independent NPA evaluation is supplied. The plan below explains what would be required to make stronger statements."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Authored risk-product validation plan",
+            "date": "14 October 2026",
+            "version": "Proposed institutional acceptance and evaluation; no executed model-quality results"
+          },
+          "tables": [
+            {
+              "caption": "Validation plan — proposed, not measured",
+              "headers": [
+                "Question",
+                "Evidence required",
+                "Claim it could support"
+              ],
+              "rows": [
+                [
+                  "Does the right parcel reach the lender?",
+                  "Authorised test cases, parcel matching review, source coverage and missing/stale-data behaviour.",
+                  "Reliable information matching; not title verification or creditworthiness by itself."
+                ],
+                [
+                  "Is the report usable in appraisal?",
+                  "Lender acceptance criteria, example outputs, reason interpretation and reviewer decisions.",
+                  "Workflow suitability and fewer unresolved information handoffs, if measured."
+                ],
+                [
+                  "Is the assessment predictive?",
+                  "Held-out outcome data, crop/geography/time splits, calibrated scores and error analysis.",
+                  "A bounded predictive-quality statement; 167 indices alone cannot support it."
+                ],
+                [
+                  "Has the integration reduced time?",
+                  "Consistent start/stop events, baseline workflow and comparable cases including failures.",
+                  "A defined service or appraisal time improvement, separate from the programme’s reported lending clock."
+                ],
+                [
+                  "Has lender risk improved?",
+                  "Matched portfolio/repayment periods, underwriting controls and attribution design.",
+                  "A carefully bounded credit-performance result; no NPA improvement is asserted here."
+                ]
+              ],
+              "note": "No invented accuracy, default rate, cost-saving or risk-reduction figure is introduced."
+            }
+          ]
         }
       ],
       "media": [
@@ -3857,6 +4725,21 @@
             "date": "13 October 2026"
           },
           "category": "walkthrough"
+        },
+        {
+          "id": "riskstac-uli-layers",
+          "kind": "image",
+          "src": "/work/architecture/riskstac-uli-layers.svg",
+          "alt": "An agricultural assessment handoff to lender appraisal through a permissioned API or ULI access layer, with the assessment team, RBIH and lender responsibilities distinguished.",
+          "caption": "Authored layer map: Priyam’s documented contribution is the assessment product and lender handoff; RBIH infrastructure and lender credit decisions are separate responsibilities.",
+          "width": 1440,
+          "height": 760,
+          "category": "diagram",
+          "provenance": {
+            "kind": "authored",
+            "label": "Authored explanatory reference; not a verified production system",
+            "date": "14 October 2026"
+          }
         }
       ],
       "sourceNotes": [
@@ -3968,6 +4851,14 @@
               "uli-history-and-scale",
               "uli-institutional-forward-plan",
               "uli-walkthroughs"
+            ]
+          },
+          {
+            "id": "assessment-to-lender-contract",
+            "title": "The assessment product: input quality, output and lender use",
+            "sectionIds": [
+              "risk-information-layer-contract",
+              "risk-evaluation-and-institutional-value"
             ]
           }
         ]
@@ -4248,6 +5139,125 @@
             "The notification structure also moved closer to farming context, with later material describing crop-cycle triggers. Design and engineering work therefore sat alongside content and lifecycle communication. I owned platform monetisation as part of the remit, while the engagement metrics report the programme’s performance rather than a standalone revenue result for any one feature."
           ],
           "group": "detail"
+        },
+        {
+          "id": "upaj-product-and-data-layers",
+          "title": "How the farmer experience connects the capabilities",
+          "body": [
+            "Upaj’s engagement work sat alongside Farm OS monitoring and crop-health advisory. The connection is a product journey: a farmer observes a condition, interprets it and acts or returns for useful information. It is not evidence that every capability shared one deployed database, cloud service or model pipeline.",
+            "The layer map draws on the historical Farm OS, crop-health and Upaj records. It preserves the distinction between indoor sensors, outdoor parcel monitoring and image-based help. Current GrowStac/RiskStac branding remains a post-tenure reference, while the stack below explains the earlier documented product responsibilities."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Reviewed Upaj, Farm OS and crop-health source families",
+            "date": "14 October 2026",
+            "version": "Historical capability map; backend services and cross-product deployment not established"
+          },
+          "tables": [
+            {
+              "caption": "Connected product layers and their evidence boundaries",
+              "headers": [
+                "Layer",
+                "Documented capability",
+                "Connection to the farmer journey"
+              ],
+              "rows": [
+                [
+                  "Capture and field context",
+                  "Offline leaf-image capture; indoor IoT inputs; parcel-level GIS information for open fields.",
+                  "Different sources answer different questions. Offline image capture does not imply every sensor stream or map works offline."
+                ],
+                [
+                  "Observation and monitoring",
+                  "Indoor growing conditions and open-field crop monitoring.",
+                  "Give the farmer a view of conditions; monitoring is distinct from autonomous physical control."
+                ],
+                [
+                  "Diagnosis and domain knowledge",
+                  "500K+ reported images across 14 crops, curation/labels and agronomist review; crop-specific playbooks.",
+                  "Connect captured evidence to an understandable next step; dataset size is not diagnostic accuracy."
+                ],
+                [
+                  "Conversational guidance",
+                  "An OpenAI API conversational layer is described in the crop-health account.",
+                  "Explain crop-specific guidance; the exact model version, prompts and production safety controls are not supplied."
+                ],
+                [
+                  "Market and content utility",
+                  "Mandi prices, rural creators, YouTube for content over a minute and a custom CDN for shorter material.",
+                  "Support recurring decisions and format-appropriate distribution; current market freshness and provider APIs need separate evidence."
+                ],
+                [
+                  "Lifecycle and device experience",
+                  "Notification redesign; later source details on crop-cycle triggers, 11-to-3-step entry, app size and cold starts.",
+                  "Reach a relevant action on constrained phones; source versions do not isolate these changes’ effect."
+                ],
+                [
+                  "Measurement and business",
+                  "D14/D30 engagement, active users, CAC and session duration; platform monetisation remit.",
+                  "Review usefulness and economics separately. No revenue ledger or isolated feature-attribution result is supplied."
+                ]
+              ],
+              "note": "This is a sourced product-capability map, not a vendor architecture or claim that Priyam personally built each model, sensor or service."
+            }
+          ]
+        },
+        {
+          "id": "upaj-engagement-measurement",
+          "title": "The measurement loop behind recurring utility",
+          "body": [
+            "The source reports a thirteen-month retention plateau before the revamp and improvement over the first three months. The programme combined useful information, creator content, onboarding, notifications and device constraints. I would read its measures together rather than use session length or installation growth as a substitute for a retained farmer completing a useful task.",
+            "A fresh evaluation would define activation and repeat-use cohorts before comparing channels or features. It would also distinguish advisory usefulness from diagnostic quality, and separate monetisation from engagement. These are proposed follow-up measurements; the source does not provide the raw cohort table or feature experiment results."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Authored engagement and stack validation plan",
+            "date": "14 October 2026",
+            "version": "Historical programme measures retained; proposed cohort and technical acceptance model"
+          },
+          "tables": [
+            {
+              "caption": "Product question and proposed acceptance evidence",
+              "headers": [
+                "Question",
+                "Proposed evidence",
+                "Existing result boundary"
+              ],
+              "rows": [
+                [
+                  "Does entry reach useful work?",
+                  "Completion and abandonment through the simplified entry flow, segmented by phone/network and new-versus-returning users.",
+                  "11-to-3 steps is later-reported scope; no isolated conversion effect is supplied."
+                ],
+                [
+                  "Does information stay useful?",
+                  "Timestamp/availability checks for farm and market information, plus observed next actions.",
+                  "A monitoring or mandi feature is documented; real-time freshness guarantees are not."
+                ],
+                [
+                  "Do notifications help?",
+                  "Defined crop-stage cohorts, delivery/opt-out data and downstream useful-task completion.",
+                  "Notification redesign is part of the programme; a notification-only retention lift is not established."
+                ],
+                [
+                  "Does capture recover safely?",
+                  "Low-end phone trials, interrupted connections, image retry behaviour and expert-reviewed guidance.",
+                  "Offline image/reconnection scope is documented; recovery rates and device benchmarks are unavailable."
+                ],
+                [
+                  "Is acquisition economical?",
+                  "Channel cost and matched activation/retention cohorts with an explicit time window.",
+                  "66% lower CAC is source-reported without its cost baseline or channel mix."
+                ],
+                [
+                  "Is recurring use growing?",
+                  "A specified active-user unit and D14/D30 denominator, cohort and relative-versus-point definition.",
+                  "100K→600K users, 50%/20% retention improvements and 11→15-minute sessions are separate programme reports."
+                ]
+              ],
+              "note": "Proposed measurement design; no new measured outcome, proprietary backend vendor or isolated causal effect is claimed."
+            }
+          ]
         }
       ],
       "media": [
@@ -4397,7 +5407,16 @@
             ]
           }
         ],
-        "supportingGroups": []
+        "supportingGroups": [
+          {
+            "id": "upaj-platform-layers",
+            "title": "The Upaj stack: from farm evidence to a recurring useful action",
+            "sectionIds": [
+              "upaj-product-and-data-layers",
+              "upaj-engagement-measurement"
+            ]
+          }
+        ]
       }
     },
     {
@@ -6509,6 +7528,118 @@
             "urbankhet-studio--urbankhet-farmer-market",
             "urbankhet-studio--urbankhet-superhero-market"
           ]
+        },
+        {
+          "id": "urbankhet-customer-model",
+          "title": "Household subscriptions and business supply share a physical system",
+          "body": [
+            "I owned the customer proposition and the operating business, from early demand and farmer relationships through product, sourcing, delivery and economics. Household subscriptions and business buyers could use shared supply while placing different demands on order size, consistency, delivery and service.",
+            "The original Sorted-Packs and Khet Direct posts are historical evidence of how the proposition was communicated. They support the description of product packaging and the direct-supply promise, not independent retention, margin or delivery performance. The operating map is an authored explanation of the trade-offs in that business."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Historical venture account and original public campaign evidence",
+            "date": "14 October 2026",
+            "version": "Source-backed offer descriptions; authored operating model; no new outcome claim"
+          },
+          "tables": [
+            {
+              "caption": "Two customer jobs, one perishables operation",
+              "headers": [
+                "Customer or system",
+                "Value and operating requirement",
+                "Trade-off to manage"
+              ],
+              "rows": [
+                [
+                  "Households and subscriptions",
+                  "Fresh produce, a useful pack and a predictable delivery plan.",
+                  "Convenience and recurring demand must fit available produce, order changes and delivery density."
+                ],
+                [
+                  "Business buyers",
+                  "Appropriate volume, specification and a dependable supply relationship.",
+                  "Larger orders can anchor demand while requiring different coordination and commercial terms."
+                ],
+                [
+                  "Farmer supply",
+                  "Sourcing and procurement linked to expected customer demand.",
+                  "Availability and quality vary; farmer reach is not the number of active suppliers in one period."
+                ],
+                [
+                  "Packing and distribution",
+                  "Convert available produce into the promised packs/orders and route them to recipients.",
+                  "Late changes, handling, waste and last-mile effort connect product choices with operating cost."
+                ],
+                [
+                  "Customer service",
+                  "Resolve substitutions, missed or disputed deliveries and communicate the next action.",
+                  "The specific software controls and complaint baseline are not supplied; this is a reference operating requirement."
+                ]
+              ],
+              "note": "The original customer counts and financial labels vary across source versions; they are not added together or turned into a common measured cohort."
+            }
+          ],
+          "mediaIds": [
+            "urbankhet-linkedin-sorted-packs"
+          ]
+        },
+        {
+          "id": "urbankhet-unit-economics-and-controls",
+          "title": "Unit economics live in the route, pack and wastage",
+          "body": [
+            "A fresh-food promise has to cover the cost of making and keeping it. The founder account documents P&L responsibility, subscriptions, distribution and later viability decisions. It does not include the SKU margins, purchase ledger, delivery-route costs or monthly operating statement needed to calculate a verified bottom line.",
+            "The framework below separates customer demand, product margin and fulfilment costs. The source’s later six-hour delivery description and the October 2020 Khet Direct eight-hour promise are different historical versions. The 10% waste statement and 35% asserted industry benchmark are not a measured before-and-after series."
+          ],
+          "group": "reference",
+          "source": {
+            "label": "Authored product operating framework",
+            "date": "14 October 2026",
+            "version": "Reference design to explain documented responsibilities; not an observed implementation or measured result"
+          },
+          "tables": [
+            {
+              "caption": "Authored perishables unit-economics bridge — no amounts assumed",
+              "headers": [
+                "Layer",
+                "Calculation or operating question",
+                "Evidence needed"
+              ],
+              "rows": [
+                [
+                  "Net sales",
+                  "Customer billing minus refunds/credits for the same delivery period.",
+                  "Reconciled order and receipt records; ₹1.2 crore has conflicting P&L/ARR wording in the source family."
+                ],
+                [
+                  "Produce and handling",
+                  "Deduct procurement, packing, handling and attributable wastage.",
+                  "Purchase quantities/prices, rejected or spoiled quantities and pack-level allocation."
+                ],
+                [
+                  "Delivery contribution",
+                  "Deduct attributable delivery and service cost from the order/route margin.",
+                  "Route density, completed deliveries, time/distance and resolved service exceptions."
+                ],
+                [
+                  "Repeat demand",
+                  "Track renewed subscriptions and recurring business orders as distinct cohorts.",
+                  "Explicit customer units and dates; no retention rate is supplied."
+                ],
+                [
+                  "Working capital",
+                  "Compare customer receipts with supplier payments, inventory loss and operating commitments.",
+                  "Period cash records; order growth alone does not establish a healthy cash position."
+                ],
+                [
+                  "Bottom line",
+                  "Subtract fixed team, product and operating costs after variable contribution.",
+                  "A defined financial period and full cost ledger; a measured profit is not reconstructed from the available material."
+                ]
+              ],
+              "note": "Proposed operating/accounting framework. It does not publish a pricing model, inferred gross margin, profitability date or causal waste reduction."
+            }
+          ]
         }
       ],
       "media": [
@@ -6892,6 +8023,14 @@
             "title": "Historical campaign and creative credits",
             "sectionIds": [
               "campaign-credit-reference"
+            ]
+          },
+          {
+            "id": "subscription-business-and-fulfilment",
+            "title": "The business model behind the fresh-food promise",
+            "sectionIds": [
+              "urbankhet-customer-model",
+              "urbankhet-unit-economics-and-controls"
             ]
           }
         ]

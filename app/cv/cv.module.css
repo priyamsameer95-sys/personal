@@ -1,165 +1,105 @@
 .shell { min-width: 0; }
-.document { width: 100%; margin: 0 auto; color: var(--ink, #191714); font-size: 1rem; line-height: 1.65; }
+.document { width: 100%; margin: 0 auto; color: var(--ink, #191714); font-size: 1rem; line-height: 1.6; }
 .document > *, .document li, .document article, .document dl, .document dd { min-width: 0; }
-.identity { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: end; padding: 1.5rem 0 2rem; }
-.eyebrow { margin: 0 0 .75rem; color: var(--muted, #625e56); font-size: .875rem; font-weight: 500; line-height: 1.5; }
-.identity h1 { margin: 0; font-size: clamp(3.25rem, 6vw, 5.1rem); font-weight: 500; letter-spacing: -.06em; line-height: 1.05; }
-.intro { max-width: 35rem; margin-top: 1rem; color: var(--muted, #625e56); font-size: 1.125rem; line-height: 1.55; }
-.identityAction { max-width: 14rem; padding-bottom: .2rem; }
-.identityAction p { margin-top: .8rem; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.5; }
-.textAction { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; font-size: 1rem; text-decoration: underline; text-underline-offset: .3em; }
-.textAction:hover, .caseLink:hover { text-decoration-thickness: 2px; }
-.pageNav { display: flex; flex-wrap: wrap; gap: .2rem 1.6rem; margin-bottom: 3rem; padding: .6rem 0; border-top: 1px solid var(--rule, #ddd7cb); border-bottom: 1px solid var(--rule, #ddd7cb); }
+.identity { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 1.2rem 0 1.75rem; }
+.documentLabel { margin-bottom: .7rem; color: var(--muted, #625e56); font-size: .9375rem; }
+.identity h1 { margin: 0; font-size: clamp(2.75rem, 5vw, 4.25rem); font-weight: 550; letter-spacing: -.055em; line-height: 1.1; }
+.profession { margin-top: .8rem; font-size: 1.125rem; font-weight: 500; }
+.location { margin-top: .2rem; color: var(--muted, #625e56); font-size: .9375rem; }
+.contactLinks { display: flex; flex-wrap: wrap; gap: .35rem 1.5rem; margin-top: .6rem; }
+.externalLink { display: inline-flex; align-items: center; flex-wrap: wrap; gap: .3rem; min-height: 44px; max-width: 100%; font-size: .9375rem; text-decoration: underline; text-underline-offset: .23em; overflow-wrap: anywhere; }
+.externalLink:hover, .caseLink:hover { text-decoration-thickness: 2px; }
+.pageNav { display: flex; flex-wrap: wrap; gap: .2rem 1.5rem; margin-bottom: 2.1rem; padding: .45rem 0; border-top: 1px solid var(--rule, #ddd7cb); border-bottom: 1px solid var(--rule, #ddd7cb); }
 .pageNav a { display: inline-flex; align-items: center; min-height: 44px; font-size: .9375rem; text-underline-offset: .25em; }
 .pageNav a:hover { text-decoration: underline; }
 .section { scroll-margin-top: 6rem; }
-.section + .section, .foundationGrid, .foundationGrid + .section { margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid var(--rule, #ddd7cb); }
-.sectionHeading { margin-bottom: 2rem; }
-.sectionTitle { margin: 0; font-size: clamp(1.9rem, 3.2vw, 2.8rem); font-weight: 500; letter-spacing: -.04em; line-height: 1.2; }
-.timeline { margin: 0; padding: 0; list-style: none; }
-.timelineItem { position: relative; display: grid; grid-template-columns: 11.5rem minmax(0, 1fr); gap: 2.5rem; padding: 0 0 3rem; scroll-margin-top: 6rem; }
-.timelineItem::before { position: absolute; top: .65rem; bottom: -.65rem; left: .35rem; width: 1px; background: var(--rule, #ddd7cb); content: ''; }
-.timelineItem:last-child { padding-bottom: 0; }
-.timelineItem:last-child::before { bottom: 0; }
-.timelineDate { position: relative; padding-left: 1.6rem; }
-.timelineDate p { padding-top: .05rem; font-size: .9375rem; font-weight: 500; line-height: 1.6; font-variant-numeric: tabular-nums; }
-.relationship { display: block; margin-top: .45rem; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.5; }
-.currentLabel { display: block; width: fit-content; margin: -.1rem 0 .6rem; color: var(--ink, #191714); font-size: .875rem; line-height: 1.5; font-weight: 550; }
-.currentLabel::after { display: block; margin-top: .25rem; width: 2rem; height: 3px; background: #ff7628; content: ''; }
-.timelineDot { position: absolute; top: .5rem; left: 0; width: .75rem; height: .75rem; border: 1px solid var(--ink, #191714); border-radius: 50%; background: #ff7628; }
-.timelineItem:nth-child(2) .timelineDot { background: #f59dc6; }
-.timelineItem:nth-child(3) .timelineDot { background: #c5e875; }
-.timelineItem:nth-child(4) .timelineDot { background: #ffe348; }
-.job { padding-bottom: 2rem; border-bottom: 1px solid var(--rule, #ddd7cb); }
-.timelineItem:last-child .job { padding-bottom: 0; border-bottom: 0; }
-.internship h3, .contextEntry h3, .foundationTitle { font-size: clamp(1.45rem, 2.2vw, 2rem); font-weight: 550; letter-spacing: -.035em; line-height: 1.25; }
-.roleHeader { margin-top: 1.75rem; padding-top: 1.2rem; border-top: 1px solid var(--rule, #ddd7cb); }
-.roleHeader .detailTitle { margin-bottom: .3rem; }
-.roleHeader .roleTitle { margin-top: 0; font-size: 1.125rem; line-height: 1.5; }
-.roleTitle { margin-top: .5rem; font-size: 1.0625rem; font-weight: 500; line-height: 1.5; }
-.context { margin-top: .4rem; color: var(--muted, #625e56); font-size: .9375rem; line-height: 1.6; }
-.ownership { max-width: 66ch; margin-top: 1.15rem; font-size: 1.0625rem; line-height: 1.65; }
-.progressionChapter { margin-top: 1.75rem; }
-.detailTitle { margin: 0 0 .8rem; color: var(--muted, #625e56); font-size: .875rem; font-weight: 500; line-height: 1.5; }
-.progression { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin: 0; padding: 0; list-style: none; }
-.progression:has(li:nth-child(2):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.progression li { position: relative; padding: .8rem 0 0; border-top: 1px solid var(--rule, #ddd7cb); }
-.progression li::before { position: absolute; top: -2px; left: 0; width: 1.6rem; height: 3px; background: var(--ink, #191714); content: ''; }
-.progression li:last-child::before { background: #ff7628; }
-.progressionRole { font-size: .9375rem; font-weight: 550; line-height: 1.5; }
-.progressionDate { margin-top: .25rem; font-size: .875rem; line-height: 1.5; font-variant-numeric: tabular-nums; }
-.progressionDetail { margin-top: .25rem; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.5; }
-.workAccount { margin-top: 1.75rem; scroll-margin-top: 6rem; }
-.deliveryScope { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--rule, #ddd7cb); }
-.deliveryScope .detailTitle { margin-bottom: .4rem; }
-.deliveryScope > p { max-width: 76ch; color: var(--muted, #625e56); font-size: .9375rem; line-height: 1.7; }
-.sourceNote { max-width: 75ch; margin-top: 1.2rem; padding-left: .9rem; border-left: 2px solid var(--rule, #ddd7cb); color: var(--muted, #625e56); font-size: .875rem; line-height: 1.6; }
-.responsibilities { margin: 0; padding: 0; list-style: none; }
-.responsibilities > li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(13rem, .7fr); gap: 1rem 2rem; padding: 1rem 0; border-top: 1px solid var(--rule, #ddd7cb); }
-.accountCopy:only-child { grid-column: 1 / -1; }
-.accountCopy > .caseLink { min-height: 44px; margin: -.35rem 0 .25rem; font-size: 1.0625rem; font-weight: 500; }
-.accountCopy > p { max-width: 68ch; font-size: .9375rem; line-height: 1.7; }
-.accountResult { align-self: start; padding-top: .3rem; }
-.result { font-size: 1rem; font-weight: 500; line-height: 1.55; font-variant-numeric: tabular-nums; }
-.note { margin-top: .45rem; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.6; }
-.caseLinks { display: flex; flex-wrap: wrap; gap: .2rem 1.5rem; margin-top: .45rem; }
-.caseLink { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; max-width: 100%; margin-top: .3rem; font-size: .9375rem; line-height: 1.55; text-decoration: underline; text-underline-offset: .25em; overflow-wrap: anywhere; }
-.internship { display: grid; grid-template-columns: 18rem minmax(0, 1fr); gap: 3rem; }
-.internship h3 { font-size: 1.5rem; }
-.internship > div:last-child { max-width: 66ch; }
-.contextGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
-.contextEntry { padding-top: 1.2rem; border-top: 1px solid var(--rule, #ddd7cb); }
-.contextEntry h3 { font-size: 1.3rem; line-height: 1.35; }
-.contextEntry .eyebrow { margin-top: .2rem; }
-.dates { margin-top: .5rem; color: var(--muted, #625e56); font-size: .875rem; font-variant-numeric: tabular-nums; }
-.contextDescription { margin-top: 1rem; font-size: 1rem; line-height: 1.65; }
-.foundationGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4rem; }
+.section + .section, .foundationGrid, .foundationGrid + .section { margin-top: 2.7rem; padding-top: 1.75rem; border-top: 1px solid var(--rule, #ddd7cb); }
+.sectionTitle { margin: 0 0 1.5rem; font-size: clamp(1.65rem, 2.6vw, 2.2rem); font-weight: 550; letter-spacing: -.035em; line-height: 1.25; }
+.career { margin: 0; padding: 0; list-style: none; }
+.careerEntry, .cvEntry { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 2.25rem; scroll-margin-top: 6rem; }
+.careerEntry + .careerEntry { margin-top: 2.3rem; padding-top: 1.9rem; border-top: 1px solid var(--rule, #ddd7cb); }
+.tenure { padding-top: .15rem; }
+.dates { color: var(--ink, #191714); font-size: .9375rem; font-weight: 500; line-height: 1.55; font-variant-numeric: tabular-nums; }
+.relationship { margin-top: .25rem; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.55; }
+.current { width: fit-content; margin-bottom: .55rem; padding-left: .7rem; border-left: 3px solid #ff7628; font-size: .875rem; font-weight: 550; }
+.companyMarks { margin-bottom: .7rem; }
+.companyName { margin: 0; font-size: 1.0625rem; font-weight: 550; line-height: 1.45; }
+.companyDescription { margin-top: .25rem; color: var(--muted, #625e56); font-size: .9375rem; line-height: 1.55; }
+.websiteLinks { display: flex; flex-wrap: wrap; gap: .15rem 1.2rem; }
+.roles { display: grid; gap: .65rem; margin: 1rem 0 1.2rem; padding: .9rem 0; border-top: 1px solid var(--rule, #ddd7cb); border-bottom: 1px solid var(--rule, #ddd7cb); list-style: none; }
+.roles li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem 1.25rem; }
+.roleTitle, .singleRole { font-size: 1.125rem; font-weight: 550; line-height: 1.5; }
+.roleDetail { color: var(--muted, #625e56); font-size: .875rem; line-height: 1.55; }
+.roleDates { align-self: start; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.7; font-variant-numeric: tabular-nums; }
+.singleRole { margin: .9rem 0 .7rem; }
+.workAccount { scroll-margin-top: 6rem; }
+.responsibilities { margin: 0; padding: 0 0 0 1.1rem; }
+.responsibilities > li { padding-left: .15rem; }
+.responsibilities > li + li { margin-top: .7rem; }
+.responsibilities > li::marker { color: var(--muted, #625e56); font-size: .75em; }
+.responsibilities p { max-width: 90ch; }
+.proofLinks { font-size: .9375rem; }
+.caseLink { color: var(--ink, #191714); text-decoration: underline; text-underline-offset: .2em; overflow-wrap: anywhere; }
+.resultLine { margin-top: .25rem; font-size: .9375rem; line-height: 1.6; }
+.resultLine strong { font-weight: 550; }
+.qualification { color: var(--muted, #625e56); }
+.sourceNote { max-width: 95ch; margin-top: .85rem; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.6; }
+.otherEntries { display: grid; gap: 1.75rem; }
+.otherEntries .cvEntry + .cvEntry { padding-top: 1.25rem; border-top: 1px solid var(--rule, #ddd7cb); }
+.entryTitle { font-size: 1.0625rem; font-weight: 550; line-height: 1.5; }
+.entryCopy { margin-top: .5rem; }
+.foundationGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3.25rem; }
 .foundationGrid .section + .section { margin: 0; padding: 0; border: 0; }
-.foundationTitle { font-size: 1.4rem; }
-.educationCopy { max-width: 40ch; margin-top: 1rem; color: var(--muted, #625e56); font-size: 1rem; }
-.recognition { display: grid; gap: 1.25rem; margin: 0; padding: 0; list-style: none; }
-.recognition li { padding-left: 1rem; border-left: 2px solid #e5bb40; }
-.recognition h3 { font-size: 1.0625rem; font-weight: 500; line-height: 1.5; }
-.recognition p { margin-top: .25rem; color: var(--muted, #625e56); font-size: .9375rem; line-height: 1.5; }
+.degree { margin-top: .35rem; font-weight: 500; }
+.foundationGrid .dates { margin-top: .2rem; }
+.recognition { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; }
 .certifications { margin: 0; padding: 0; list-style: none; }
-.certifications > li { display: grid; grid-template-columns: 11.5rem minmax(0, 1fr); gap: 2.5rem; padding: 1.4rem 0; border-bottom: 1px solid var(--rule, #ddd7cb); }
-.certifications > li:first-child { padding-top: 0; }
-.certifications > li:last-child { padding-bottom: 0; border-bottom: 0; }
-.certificationBrand { align-self: start; margin-top: .3rem; }
-.certificationTitle { max-width: 45rem; font-size: 1.25rem; font-weight: 500; line-height: 1.4; letter-spacing: -.02em; }
-.certificationMeta { margin-top: .5rem; color: var(--muted, #625e56); font-size: .9375rem; }
-.certificationMeta > span { margin: 0 .25rem; }
-.certificationActions { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem 1.8rem; margin-top: .4rem; }
-.certificationActions .caseLink { margin: 0; }
-.certificationCredential { flex-basis: 100%; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.65; overflow-wrap: anywhere; }
-.certificationCredential > span { color: var(--ink, #191714); }
-.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.8rem 3rem; }
-.skills > div { padding-top: 1rem; border-top: 1px solid var(--rule, #ddd7cb); }
-.skills dt { font-size: 1.125rem; }
-.skills dd { max-width: 50ch; margin: .5rem 0 0; color: var(--muted, #625e56); font-size: 1rem; line-height: 1.65; }
-.lifecycle { margin-top: 2.25rem; }
-.lifecycleSteps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.5rem; margin: 0; padding: 0; list-style: none; }
-.lifecycleSteps li { padding-top: .75rem; border-top: 1px solid var(--rule, #ddd7cb); }
-.lifecycleSteps h4 { font-size: 1rem; font-weight: 500; }
-.lifecycleSteps p { margin-top: .4rem; color: var(--muted, #625e56); font-size: .9375rem; line-height: 1.6; }
-.closingActions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 2rem; }
+.certifications > li { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 2.25rem; }
+.certifications > li + li { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--rule, #ddd7cb); }
+.certificationBrand { align-self: start; margin-top: .25rem; }
+.certificationMeta { margin-top: .3rem; color: var(--muted, #625e56); font-size: .9375rem; }
+.credentialId { margin-top: .2rem; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.55; overflow-wrap: anywhere; }
+.skills { display: grid; gap: .6rem; }
+.skills > div { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 2.25rem; }
+.skills dt { font-size: .9375rem; font-weight: 550; }
+.skills dd { margin: 0; font-size: .9375rem; line-height: 1.6; }
 
 @media (max-width: 1000px) {
-  .timelineItem { grid-template-columns: 10rem minmax(0, 1fr); gap: 1.75rem; }
-  .responsibilities > li { grid-template-columns: minmax(0, 1fr); gap: .4rem; }
-  .accountResult { padding-top: 0; }
-  .contextGrid { gap: 1.5rem; }
-  .internship { grid-template-columns: 15rem minmax(0, 1fr); gap: 2rem; }
-  .lifecycleSteps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .careerEntry, .cvEntry, .certifications > li, .skills > div { grid-template-columns: 9rem minmax(0, 1fr); gap: 1.5rem; }
+  .roles li { grid-template-columns: minmax(0, 1fr); gap: .15rem; }
 }
 @media (max-width: 700px) {
-  .identity { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; padding-top: .75rem; }
-  .identityAction { max-width: none; }
-  .identityAction p { max-width: 28rem; }
-  .pageNav { gap: .25rem 1.3rem; margin-bottom: 2.5rem; }
-  .timelineItem { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; padding-left: 1.5rem; padding-bottom: 2.5rem; }
-  .timelineDate { padding-left: 0; }
-  .timelineDot { left: -1.5rem; }
-  .timelineItem::before { left: .35rem; }
-  .currentLabel { margin-bottom: .45rem; }
-  .timelineDate p { font-size: .9375rem; }
-  .relationship { margin-top: .1rem; }
-  .ownership { font-size: 1rem; }
-  .progression, .progression:has(li:nth-child(2):last-child) { grid-template-columns: minmax(0, 1fr); gap: .9rem; }
-  .progression li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .15rem 1rem; }
-  .progressionRole { grid-column: 1 / -1; }
-  .progressionDate, .progressionDetail { margin: 0; }
-  .job { padding-bottom: 1.5rem; }
-  .section + .section, .foundationGrid, .foundationGrid + .section { margin-top: 3rem; padding-top: 2rem; }
-  .internship, .contextGrid, .foundationGrid, .skills { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
-  .foundationGrid .section + .section { padding-top: 2rem; border-top: 1px solid var(--rule, #ddd7cb); }
-  .certifications > li { grid-template-columns: minmax(0, 1fr); gap: .6rem; }
-  .certificationBrand { margin: 0; }
-  .lifecycleSteps { grid-template-columns: minmax(0, 1fr); gap: .9rem; }
-  .lifecycleSteps li { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 1rem; }
-  .lifecycleSteps p { margin: 0; }
-}
-@media (max-width: 380px) {
-  .timelineItem { padding-left: 1.2rem; }
-  .timelineDot { left: -1.2rem; }
-  .progression li { grid-template-columns: minmax(0, 1fr); }
-  .progressionRole { grid-column: auto; }
-  .identity h1 { font-size: 2.75rem; }
+  .identity { align-items: flex-start; flex-direction: column; gap: 1.25rem; padding-top: .75rem; }
+  .identity h1 { font-size: clamp(2.45rem, 10vw, 3.2rem); }
+  .profession { font-size: 1.0625rem; }
+  .contactLinks { gap: .2rem 1rem; }
+  .pageNav { gap: .1rem 1.15rem; }
+  .careerEntry, .cvEntry, .certifications > li { grid-template-columns: minmax(0, 1fr); gap: .85rem; }
+  .tenure { padding: 0; }
+  .tenure .relationship { margin-top: .1rem; }
+  .current { margin-bottom: .35rem; }
+  .careerEntry + .careerEntry { margin-top: 2rem; padding-top: 1.6rem; }
+  .roles { margin-top: .7rem; }
+  .responsibilities { padding-left: 1rem; }
+  .responsibilities > li { padding-left: .05rem; }
+  .section + .section, .foundationGrid, .foundationGrid + .section { margin-top: 2.25rem; padding-top: 1.5rem; }
+  .foundationGrid { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+  .foundationGrid .section + .section { padding-top: 1.5rem; border-top: 1px solid var(--rule, #ddd7cb); }
+  .skills > div { grid-template-columns: minmax(0, 1fr); gap: .1rem; }
+  .skills { gap: .85rem; }
 }
 @media print {
   .document { max-width: none; margin: 0; font-size: 10pt; line-height: 1.4; }
   .identity { display: block; padding: 0 0 12pt; }
   .identity h1 { font-size: 25pt; }
-  .intro { font-size: 11pt; }
-  .identityAction, .closingActions, .pageNav { display: none; }
-  .timelineItem { grid-template-columns: 85pt minmax(0, 1fr); gap: 15pt; padding-bottom: 18pt; }
-  .timelineDot, .timelineItem::before, .currentLabel::after { display: none; }
-  .timelineDate { padding: 0; }
-  .progression { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .section + .section, .foundationGrid, .foundationGrid + .section { margin-top: 18pt; padding-top: 12pt; }
-  .sectionTitle { font-size: 17pt; break-after: avoid; }
-  .roleHeader, .sectionHeading, .roleTitle, .detailTitle { break-after: avoid; }
-  .responsibilities > li, .contextEntry, .recognition li, .certifications > li { break-inside: avoid; }
-  .caseLink { min-height: 0; }
+  .identity > a, .pageNav { display: none; }
+  .profession { font-size: 11pt; }
+  .careerEntry, .cvEntry, .certifications > li, .skills > div { grid-template-columns: 85pt minmax(0, 1fr); gap: 15pt; }
+  .roles li { grid-template-columns: minmax(0, 1fr) auto; }
+  .section + .section, .foundationGrid, .foundationGrid + .section, .careerEntry + .careerEntry { margin-top: 15pt; padding-top: 10pt; }
+  .sectionTitle { font-size: 16pt; break-after: avoid; }
+  .companyHeader, .roleTitle, .singleRole { break-after: avoid; }
+  .responsibilities > li, .recognition li, .certifications > li { break-inside: avoid; }
+  .externalLink { min-height: 0; }
   .section p { orphans: 2; widows: 2; }
 }

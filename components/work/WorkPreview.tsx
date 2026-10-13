@@ -8,7 +8,7 @@ import styles from './work-preview.module.css';
 
 export type WorkPreviewStudy = Pick<CaseStudy, 'id' | 'slug' | 'companyId' | 'title' | 'summary' | 'role' | 'workType' | 'visualSummary' | 'media' | 'heroMediaId' | 'primaryMediaIds' | 'featuredOrder' | 'outcomes'>;
 
-export default function WorkPreview({ study, priority = false }: { study: WorkPreviewStudy; priority?: boolean }) {
+export default function WorkPreview({ study, priority = false, reveal = false }: { study: WorkPreviewStudy; priority?: boolean; reveal?: boolean }) {
   const media = getPrimaryMedia(study)[0];
   const visual = study.visualSummary;
   return <article className={styles.preview} aria-labelledby={`preview-${study.id}`}>
@@ -16,7 +16,7 @@ export default function WorkPreview({ study, priority = false }: { study: WorkPr
       <p className={styles.mediaLabel}>{mediaGroupTitle(media)}</p>
       <Media media={media} priority={priority} compact />
     </div>}
-    <div className={styles.account}>
+    <div className={styles.account} data-reveal={reveal ? '' : undefined}>
       <div className={styles.brand}><BrandMarks companyId={study.companyId} small /><p>{workTypeLabels[study.workType]}</p></div>
       <h3 id={`preview-${study.id}`}>{visual?.title || study.title}</h3>
       <p className={styles.summary}>{visual?.summary || study.summary}</p>

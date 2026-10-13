@@ -4,7 +4,9 @@
 
 The previous presentation asked readers to navigate before they had seen enough to care. Company filters hid most of the work initially; disclosure controls hid images, role details and source chapters; generic summaries repeated the explanations below them. The approved correction is a visible, evidence-led account of AI product judgment and business ownership.
 
-## Implemented journey
+## Initial media-first journey — historical baseline
+
+This table records the first media-first revision. The current journey and checklist corrections are recorded in the selected-work follow-up below.
 
 | Surface | Correction |
 | --- | --- |
@@ -67,7 +69,7 @@ This follow-up addresses the annotated feedback on identity, company context, ca
 
 Company scale is sourced context, rather than personal causal impact. CashKaro’s user milestone is explicitly dated 2023; CredFlow’s current CredFloat onboarding and lending-partner figures remain separate; Absolute’s current farm-biosolutions reach is distinct from Upaj active users and the 2021–2024 role. UrbanKhet’s daily-customer snapshot and GUSEC award keep their 2020/2021 dates. The shared data retains official and institutional source links, reviewed on 14 October 2026.
 
-### Current verification
+### Screenshot-feedback verification — historical baseline
 
 - **UI-01–UI-08 reviewed in the local production build.** Desktop review used 1440 × 1000; phone review used 390 × 844 and the narrower 320 × 720. Home, company context on Work/Experience, the career overview and UrbanKhet’s original media were inspected. No page-width overflow was found at those reviewed sizes.
 - **62 automated tests passed**, including company-context ordering, dated scope boundaries, original logo/credential retention, native contact markup, source-link safety and the prior content/route contracts. Type checking, production build and whitespace checks passed. The four existing private-admin image advisories and unavailable remote private-admin font warning remain.
@@ -78,6 +80,32 @@ Company scale is sourced context, rather than personal causal impact. CashKaro�
 - The installed accessibility scanner was used as a supporting check. Its component-level report treats partial components as pages and flags missing landmarks in each; those findings are not a substitute for the assembled-page keyboard and layout review. This is not a WCAG certification.
 
 Fresh captures are saved outside the repository in Downloads: `priyam-feedback-home-desktop.png`, `priyam-feedback-home-phone.png`, `priyam-company-context-desktop.png`, `priyam-company-context-phone.png`, `priyam-career-context-desktop.png`, `priyam-contact-options-desktop.png`, `priyam-contact-options-phone.png` and `priyam-urbankhet-originals-desktop.png`. Private UrbanKhet post/date/asset provenance is preserved in the local source archive’s `research/urbankhet-linkedin/` directory.
+
+## Selected-work and CV checklist follow-up — 14 October 2026
+
+This revision supersedes the earlier prototype-in-hero and complete-index presentation. Home now has a typographic introduction, work/CV actions and a quiet current-role note; College.money, MCP and crop-health previews follow below. Work is a curated portfolio, while Experience is the complete CV with inline proof links.
+
+| ID | Checklist correction | Implementation and evidence |
+| --- | --- | --- |
+| **UI-09** | Remove the crossed-out homepage prototype panel. | Home contains no hero image. The essential reading and keyboard order is introduction → Work/CV actions → current role → selected evidence. The original prototype images remain visible in EduLoans. |
+| **UI-10** | Enlarge the main, UrbanKhet and Water Farmers logos; keep company headings smaller. | The main monogram is 64px on desktop and 48px on phones. UrbanKhet uses a 128px image box on desktop and 112px on phones, with the original padded artwork preserved. Water Farmers uses 100px/92px heights and its original aspect ratio. Company headings remain restrained; a more-specific Work heading rule was corrected so it no longer overrides this hierarchy. |
+| **UI-11** | Add landing entry and scroll motion. | Scoped CSS reveals use opacity/translation and a one-shot IntersectionObserver. Above-fold content remains visible; screenshots and videos are never revealed by hiding them. SSR/no-JavaScript and unsupported-observer content remains visible. Keyboard focus reveals its containing text, and reduced-motion preferences bypass the motion and clear pending states. No looping or autoplay animation was added. |
+| **UI-12** | Make Work exclusively selected, high-impact work. | Eight projects appear openly: College.money, lending MCP, lender integrations, EduLoans, RiskStac/ULI, SilkRoute, crop-health AI and UrbanKhet. Three company sections start with sourced business, scale and milestone context before the personal account. The Upaj capability strip links the farmer product, farm operations, crop AI and assessment work. All nine historical company anchors resolve; the other six point readers to corresponding CV background. |
+| **UI-13** | Make Experience a factual CV, with proof inside it. | Dates, original logos, smaller company headings, compact promotions, factual responsibilities and qualified outcomes are open. Direct proof links preserve access to all 25 case routes. Company context is a concise description and official website, with no marketing panels or repeated case narrative. Education, internship, distinct non-employment contexts, skills, recognition, both certifications and the original CV download remain. UrbanKhet has no company-website action. |
+| **UI-14** | Add substantive technical and commercial explanations. | Seven selected cases gain 19 open sections, 17 tables and three authored diagrams. Topics include the lender metadata contract, illustrative handshake and API payload, MCP tool/access/approval boundaries, education-lending funnel/P&L, RiskStac versus national ULI, Upaj capability/data flows, SilkRoute trade/economics and UrbanKhet operating/unit economics. Full mapping and reference versions are in `content/work/SELECTED-WORK-COVERAGE.md`. |
+| **UI-15** | Keep supporting evidence ahead of prose and sources usable. | Chapter media now immediately follows its heading, before prose and tables. Supporting media remains open and de-duplicated. Labelled HTTPS source references reject credential-bearing URLs, retain version/provenance and distinguish original evidence from current references. Existing case URLs, aliases, section anchors and media are preserved. |
+
+The new commercial and technical material explains the documented remit; it does not manufacture partner rate cards, profit, production credentials, deployed authentication choices or successful AI evaluations. Contemporary MCP references use the released 28 July 2026 specification. RBI historical/full-text references and the current October title check have separate qualifications. National infrastructure ownership, programme GMV, company reach, dataset scale and personal contribution remain distinct.
+
+### Final verification
+
+- **65 automated tests passed**, with zero failures. Standalone TypeScript checking and the production build passed. Whitespace checks passed. Existing private-admin image/font advisories remain nonfatal.
+- **3,089 production HTTP/content checks passed**, with zero failures. All 25 canonical studies, 20 aliases, nine contexts, 198 original/221 current source sections and 492 current section fragments resolve. All 157 hosted asset URLs and 121 registry media entries are covered. The ten videos/posters and MP4 range responses pass; six artworks remain. Retired/private routes stay unavailable.
+- The registry retains **113 unique media files: 103 images and ten videos**, and **34 tables**. Authored SVG material comprises 17 workflow illustrations, the original MCP diagram and three new diagrams; the five UrbanKhet LinkedIn assets remain, including two historical company diagrams.
+- Final production native review covered Home, selected Work, CV and the new technical/commercial chapters at **1440 × 1000**, **390 × 844** and **320px** phone widths. There was no page-width overflow on the inspected pages. The phone technical tables retain independent horizontal scrolling, with their captions and page reading width intact.
+- Native keyboard review confirmed direct chapter navigation, Enter activation of image enlargement, actual-size viewing, Escape dismissal and focus restoration to the original image button. The narrow-phone menu closes on Escape and restores its trigger focus. Primary media has no hidden/disclosure ancestor; supporting diagrams precede the explanatory prose.
+- The original CV downloaded through its visible page action. Its content hash is unchanged: `01978cf50d61878a4e55ad390a3c83e115779d430ddd2679f0eca0fced079176`.
+- Desktop and phone review captures are saved outside the repository in Downloads: `priyam-selected-home-desktop.png`, `priyam-selected-home-phone.png`, `priyam-selected-work-desktop.png`, `priyam-selected-work-phone.png`, `priyam-cv-layout-desktop.png`, `priyam-cv-layout-phone.png`, `priyam-integration-reference-phone.png` and `priyam-education-economics-desktop.png`. The local production checker report is `/private/tmp/portfolio-route-check-report.json`.
 
 ## Boundaries
 

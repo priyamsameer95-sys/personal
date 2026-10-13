@@ -49,42 +49,72 @@ function experienceHtml() {
   const Page = load('app/cv/page.tsx', {
     ...shared, './content.json': career, './cv.module.css': css,
     '@/lib/work': { findCaseStudy: slug => registry.caseStudies.find(study => study.slug === slug) },
+    '@/lib/company-context': companyContext,
     '@/components/CvDownload': load('components/CvDownload.tsx').default,
   }).default;
   return renderToStaticMarkup(createElement(Page));
 }
 
-test('the open Experience account preserves chronology, qualifications and related work without repeating responsibilities', () => {
+test('the CV preserves career facts and inline proof without company scale panels or repeated responsibility chapters', () => {
   const html = experienceHtml();
   assert.doesNotMatch(html, /<details\b|<summary\b/);
+  assert.match(html, /<h1>Priyam Sameer<\/h1>/);
+  assert.ok(html.includes('href="mailto:Priyam.Sameer.95@gmail.com"'));
+  assert.ok(html.includes('href="https://www.linkedin.com/in/priyam-sameer"'));
   assert.match(html, /href="\/cv\/Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf" download="Priyam_Sameer_CV.pdf"/);
+  assert.doesNotMatch(html, /Across the product lifecycle|What I bring|<figure\b|<video\b/);
   for (const job of career.experience) {
     assert.ok(html.includes(`id="${job.companyId}"`));
     assert.ok(html.includes(`id="${job.companyId}-responsibilities"`));
+    assert.ok(html.includes(`id="${job.companyId}-work-title"`));
     assert.ok(html.includes(escapeHtml(job.dates)));
-    for (const role of job.progression) assert.ok(html.includes(escapeHtml(role.title)), role.title);
-    for (const responsibility of job.responsibilities) {
-      const text = escapeHtml(responsibility.text);
-      assert.equal(html.split(text).length - 1, 1, `State responsibility once: ${responsibility.text}`);
-      for (const slug of responsibility.cases) assert.ok(html.includes(`href="/product/${slug}"`), slug);
-      for (const field of ['result', 'note']) if (responsibility[field]) assert.ok(html.includes(escapeHtml(responsibility[field])), responsibility[field]);
+    assert.ok(html.includes(escapeHtml(job.title)), job.title);
+    for (const role of job.progression) {
+      assert.ok(html.includes(escapeHtml(role.title)), role.title);
+      assert.ok(html.includes(escapeHtml(role.dates)), role.dates);
+      if (job.progression.length > 1) assert.ok(html.includes(escapeHtml(role.detail)), role.detail);
     }
-    assert.ok(html.includes(escapeHtml(job.leadershipNote)), job.leadershipNote);
-    const company = companyContext.getCompanyContext(job.companyId);
     const jobStart = html.indexOf(`id="${job.companyId}"`);
     const jobEnd = html.indexOf('</article>', jobStart);
     const account = html.slice(jobStart, jobEnd);
-    const contextAt = account.indexOf(escapeHtml(company.about));
-    const remitAt = account.indexOf(escapeHtml(job.title));
-    assert.ok(contextAt >= 0 && contextAt < remitAt, `Company context precedes personal role: ${job.company}`);
-    assert.ok(account.includes(escapeHtml(company.scopeNote)), `Company scale boundary: ${job.company}`);
+    const responsibilityRows = Array.from(account.matchAll(/<li>([\s\S]*?)<\/li>/g), match => match[1]);
+    for (const responsibility of job.responsibilities) {
+      // CV sentences omit the opening pronoun while retaining the factual account.
+      const text = escapeHtml(responsibility.text.replace(/^I /, '')).toLowerCase();
+      assert.equal(account.toLowerCase().split(text).length - 1, 1, `State responsibility once: ${responsibility.text}`);
+      const row = responsibilityRows.find(row => row.toLowerCase().includes(text));
+      assert.ok(row, responsibility.text);
+      for (const slug of responsibility.cases) assert.ok(row.includes(`href="/product/${slug}"`), `Inline proof beside the responsibility: ${slug}`);
+      for (const field of ['result', 'note']) if (responsibility[field]) assert.ok(row.includes(escapeHtml(responsibility[field])), `Qualification stays beside its claim: ${responsibility[field]}`);
+    }
+    assert.ok(html.includes(escapeHtml(job.leadershipNote)), job.leadershipNote);
+    const company = companyContext.getCompanyContext(job.companyId);
+    for (const website of company.websites) assert.ok(account.includes(`href="${website.href}" target="_blank" rel="noopener noreferrer"`), website.label);
+    if (job.companyId === 'urbankhet') assert.doesNotMatch(account, /href="https?:/);
+    for (const fact of company.facts) assert.ok(!account.includes(escapeHtml(fact.value)), `Company-wide scale is omitted from the CV: ${fact.value}`);
     assert.equal((account.match(new RegExp(`id="${job.companyId}-title"`, 'g')) || []).length, 1, `One company identity: ${job.company}`);
     for (const brandId of company.brandIds) assert.equal(account.split(`src="${brands.brandAssets[brandId].src}"`).length - 1, 1, `One original logo: ${brandId}`);
   }
   for (const fact of ['MoEngage', 'MIS', 'recruitment', 'payment-failure analysis', 'SOP', 'Jira', 'Brazil and Malaysia']) assert.ok(html.includes(fact), fact);
   assert.ok(html.includes(escapeHtml(career.internship.dates)));
+  assert.ok(html.includes('href="https://waterfarmers.com/" target="_blank" rel="noopener noreferrer"'));
+  for (const href of ['https://iimaventures.com/', 'https://gusec.edu.in/', 'https://cept.ac.in/']) assert.ok(html.includes(`href="${href}" target="_blank" rel="noopener noreferrer"`), href);
+  assert.ok(html.includes('Aquaponics farm design and operations.'));
+  assert.ok(html.includes(escapeHtml(career.internship.scope)));
   assert.ok(html.includes(escapeHtml(career.education.degree)));
+  assert.ok(html.includes(escapeHtml(career.education.dates)));
+  for (const context of career.otherContexts) {
+    assert.ok(html.includes(escapeHtml(context.title)), context.title);
+    assert.ok(html.includes(escapeHtml(context.dates)), context.dates);
+    assert.ok(html.includes(escapeHtml(context.description)), context.description);
+  }
+  for (const recognition of career.recognitionDetails) {
+    assert.ok(html.includes(escapeHtml(recognition.title)), recognition.title);
+    assert.ok(html.includes(escapeHtml(recognition.context)), recognition.context);
+  }
   for (const skill of career.skills) assert.ok(html.includes(escapeHtml(skill.description)));
+  const ids = Array.from(html.matchAll(/\bid="([^"]+)"/g), match => match[1]);
+  assert.equal(ids.length, new Set(ids).size, 'Every CV section anchor remains unique');
 });
 
 test('both certifications expose their credential IDs, original issuer logos and verification links', () => {

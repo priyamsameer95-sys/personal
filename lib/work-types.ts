@@ -71,10 +71,12 @@ export interface CaseStudySection {
   bullets?: string[];
   mediaIds?: string[];
   group?: 'story' | 'detail' | 'reference';
-  source?: { label: string; range?: string; date?: string; version?: string };
+  source?: { label: string; range?: string; date?: string; version?: string; links?: { label: string; href: string }[] };
   tables?: CaseStudyTable[];
   anchorAliases?: string[];
 }
+
+export type CaseStudySectionSource = NonNullable<CaseStudySection['source']>;
 
 export interface WorkMediaBase {
   id: string;

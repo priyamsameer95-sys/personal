@@ -71,7 +71,7 @@ function caseRenderer(registry = fixture) {
     '@/lib/work-presentation': load('lib/work-presentation.ts'),
     './work.module.css': css, './Media': media, './CaseStudyNavigation': navigation, './VisualStory': visual,
     '@/components/BrandMarks': brandMarks, '@/lib/brands': brands,
-  }).default;
+  }, {}, { URL }).default;
 }
 
 test('curated work excludes drafts, resolves aliases and groups stories in author order', () => {
@@ -124,6 +124,82 @@ test('case study shows original media first, three open decisions and consolidat
   assert.doesNotMatch(html, /<a[^>]+(?:download=|href="\/work\/)/);
   assert.doesNotMatch(html, /Downloads|Download this case study|Read more|Reference context/);
   assert.equal((html.match(/<h1>/g) || []).length, 1);
+});
+
+test('source references remain readable, deduplicated HTTPS links beside original context', () => {
+  const linkedStudy = {
+    ...study,
+    presentation: {
+      decisionBeats: [{ id: 'operation', title: 'Operating decisions', sectionIds: ['operating-model'] }],
+      supportingGroups: [{ id: 'references', title: 'Official reference context', sectionIds: ['record', 'additional-record'] }],
+    },
+    sections: [
+      ...study.sections.map(section => section.id === 'record' ? {
+        ...section,
+        source: { ...section.source, links: [{ label: ' RBI lending framework ', href: 'https://www.rbi.org.in/example' }] },
+      } : section),
+      { id: 'additional-record', title: 'Protocol reference', body: ['A separate protocol boundary remains visible.'], source: { label: 'Protocol documentation', links: [
+        { label: 'Duplicate RBI reference', href: ' https://www.rbi.org.in/example ' },
+        { label: 'MCP tool documentation', href: 'https://modelcontextprotocol.io/specification/tools' },
+      ] } },
+    ],
+  };
+  const Component = caseRenderer();
+  const html = renderToStaticMarkup(createElement(Component, { study: linkedStudy }));
+  assert.match(html, /Project note · Pages 2–3 · 2024 · Initial proposal/);
+  assert.match(html, /Protocol documentation/);
+  assert.match(html, /<ul[^>]+aria-label="External source references"/);
+  assert.match(html, /<a href="https:\/\/www\.rbi\.org\.in\/example" target="_blank" rel="noopener noreferrer">RBI lending framework/);
+  assert.match(html, /<a href="https:\/\/modelcontextprotocol\.io\/specification\/tools" target="_blank" rel="noopener noreferrer">MCP tool documentation/);
+  assert.match(html, /<span class="sr-only"> \(opens in a new tab\)<\/span>/);
+  assert.equal((html.match(/href="https:\/\/www\.rbi\.org\.in\/example"/g) || []).length, 1);
+  assert.doesNotMatch(html, /Duplicate RBI reference|<p[^>]*>https:\/\//);
+  for (const id of ['story-record', 'heading-record', 'story-additional-record', 'heading-additional-record', 'story-build']) assert.ok(html.includes(`id="${id}"`));
+  const work = workModule({ registry: { companies: [company], caseStudies: [linkedStudy] } });
+  assert.equal(work.findCaseStudy(linkedStudy.slug).sections[2].source.links, linkedStudy.sections[2].source.links);
+});
+
+test('unsafe or unlabelled source URLs are omitted while situation and result references stay accessible', () => {
+  const linkedStudy = {
+    ...study,
+    sections: [
+      { ...study.sections[0], source: { label: 'Situation reference', links: [{ label: 'Official situation context', href: 'https://example.org/situation' }] } },
+      ...study.sections.slice(1),
+      { id: 'results', title: 'Results', body: ['An independently qualified result.'], source: { label: 'Results record', links: [
+        { label: 'Official measurement context', href: 'https://example.org/results' },
+        { label: 'Unsafe javascript reference', href: 'javascript:alert(1)' },
+        { label: 'Insecure HTTP reference', href: 'http://example.org/insecure' },
+        { label: 'Relative protocol reference', href: '//example.org/relative' },
+        { label: 'Malformed reference', href: 'not a URL' },
+        { label: 'Credential-bearing reference', href: 'https://user:secret@example.org/private' },
+        { label: 'Unsafe data reference', href: 'data:text/html,example' },
+        { label: '   ', href: 'https://example.org/unlabelled' },
+        null,
+      ] } },
+    ],
+  };
+  const html = renderToStaticMarkup(createElement(caseRenderer(), { study: linkedStudy }));
+  assert.match(html, /Situation reference/);
+  assert.match(html, /Results record/);
+  assert.match(html, /href="https:\/\/example\.org\/situation"/);
+  assert.match(html, /href="https:\/\/example\.org\/results"/);
+  assert.doesNotMatch(html, /Unsafe javascript|Insecure HTTP|Relative protocol|Malformed reference|Credential-bearing|Unsafe data|https:\/\/example\.org\/unlabelled|javascript:|data:text\/html|user:secret/);
+  assert.ok(html.includes('An independently qualified result.'));
+  assert.ok(html.includes('id="story-results"'));
+});
+
+test('supporting diagrams lead their open chapter before prose and technical tables', () => {
+  const Component = caseRenderer();
+  const reference = { id: 'contract-diagram', kind: 'image', category: 'diagram', src: '/work/contract-diagram.svg', alt: 'Illustrative contract boundary', width: 1440, height: 760, caption: 'Authored reference design; implementation unverified.', provenance: { kind: 'authored', label: 'Reference explanation' } };
+  const withReference = { ...study, primaryMediaIds: ['screen'], media: [...study.media, reference], sections: study.sections.map(section => section.id === 'record' ? { ...section, mediaIds: ['contract-diagram'] } : section) };
+  const html = renderToStaticMarkup(createElement(Component, { study: withReference }));
+  const chapter = html.slice(html.indexOf('id="chapter-record"'));
+  const diagramAt = chapter.indexOf('src="/work/contract-diagram.svg"');
+  const paragraphAt = chapter.indexOf('<p>This record describes the original scope.</p>');
+  const tableAt = chapter.indexOf('<table>');
+  assert.ok(diagramAt >= 0 && diagramAt < paragraphAt && paragraphAt < tableAt);
+  assert.match(chapter, /Authored reference design; implementation unverified\./);
+  assert.doesNotMatch(html, /<details\b|<summary\b/);
 });
 
 test('media stays inline with accessible image enlargement, provenance and no separate video action', () => {

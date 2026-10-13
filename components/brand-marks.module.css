@@ -12,6 +12,10 @@
 .small .dark { padding: .45rem .6rem; }
 .small .dark img { height: 24px; max-width: 150px; }
 .small .withLabel img { width: 24px; height: 24px; }
+.urban img { height: 128px; width: 128px; }
+.waterFarmers img { height: 100px; width: auto; max-width: 240px; }
+.small .urban img { height: 88px; width: 88px; }
+.small .waterFarmers img { height: 72px; width: auto; max-width: 170px; }
 @media (max-width: 600px) {
   .marks { gap: .8rem; }
   .mark img { height: 38px; max-width: 190px; }
@@ -22,4 +26,8 @@
   .small .square img { height: 52px; width: 52px; }
   .small .dark img { height: 22px; max-width: 145px; }
   .small .withLabel img { width: 24px; height: 24px; }
+  .urban img { height: 112px; width: 112px; }
+  .waterFarmers img { height: 92px; width: auto; max-width: 210px; }
+  .small .urban img { height: 80px; width: 80px; }
+  .small .waterFarmers img { height: 68px; width: auto; max-width: 160px; }
 }

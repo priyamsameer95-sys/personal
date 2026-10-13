@@ -1,19 +1,23 @@
 # Media-first portfolio coverage — 14 October 2026
 
-The current presentation retains 25 studies, nine contexts and 45 canonical/alias routes. All 198 original source sections remain mapped; four additive software-validation/evaluation sections bring the total to 202. There are 17 source tables and 110 unique media files: 100 images and ten videos, represented by 118 registry entries. The original nine generated reference videos and 17 workflow SVGs remain, alongside four original prototype captures, one MCP architecture SVG, one historical storefront excerpt and five original UrbanKhet LinkedIn images.
+The current presentation retains **25 studies, nine contexts, 25 canonical routes and 20 aliases**. All **198 original source sections** remain mapped; four existing software-validation/evaluation additions and 19 selected-depth additions bring the total to **221 sections**. The previous 17 tables remain alongside 17 new tables, for **34 total**. There are **113 unique media files: 103 images and ten videos**, represented by **121 registry entries**. The original nine generated reference videos and 17 workflow SVGs remain, alongside four original prototype captures, one MCP architecture SVG, three new authored SVGs, one historical storefront excerpt and five original UrbanKhet LinkedIn images.
 
-All public case content is open. Every selected primary asset appears before the main story, and each asset appears once within its case. Source families consolidate context without nested disclosures or nested scrolling galleries. The table below is the exact registry-to-presentation mapping. The original `story-*`, `heading-*` and `anchorAliases` targets remain beside their owning open groups.
+All public case content is open. Every selected primary asset appears before the main story, and each asset appears once within its case. Source families consolidate context without nested disclosures or nested scrolling galleries. The original `story-*`, `heading-*` and `anchorAliases` targets remain beside their owning open groups. The original source-family mapping below is preserved as a baseline; [SELECTED-WORK-COVERAGE.md](SELECTED-WORK-COVERAGE.md) maps all 19 new depth chapters, their tables, official references and three diagrams.
 
-## Featured evidence
+Home keeps positioning, current role and Work/CV actions in the hero, with three inline previews below it: College.money, MCP and crop-health AI. The prototype preview and paper-peel illustration are removed from the hero. Work presents only the eight selected projects below, grouped under sourced company context. Experience remains the clean CV and full chronology, with inline proof links to all 25 case studies; related-case links and aliases preserve access to the wider registry. All nine legacy Work company/context fragments resolve to a selected group or an explicit Experience link. Absolute also exposes the connected Upaj farmer-app, Farm OS, crop-health AI and institutional risk-information proof.
+
+## Selected Work evidence — current ordering
 
 | Rank | Study | First visible evidence | Scope |
 | ---: | --- | --- | --- |
-| 1 | `cashkaro-eduloans-policy-workflow` | `eduloans-prototype-inspector` | Original interaction prototype — sample data; scripted responses. |
-| 2 | `absolute-crop-health-ai` | `upaj-growstac-advisory` | GrowStac public advisory and agronomy proposition. |
-| 3 | `cashkaro-lending-mcp-feedback` | `lending-mcp-proposal` | Proposed system design: shared policy evaluation, with human approval before policy changes. Live MCP wiring is not established. |
-| 4 | `cashkaro-college-money-education-loans` | `college-money-College-Money-02-Loan-Discovery` | A silent, authored overview using the captured public pages and source illustrations; it does not show an authenticated application. |
-| 5 | `absolute-silkroute-marketplace` | `workflow-diagram` | Workflow explanation: Catalogue and discovery → Negotiation and price matching → Trade and compliance checks → Payment and operations → Shipment and transaction completion. |
-| 6 | `urbankhet-farm-to-fork` | `urbankhet-linkedin-company-farm-cover`, then `urbankhet-storefront-excerpt` | Original company farm cover, with photograph date/location/photographer unspecified; historical storefront walkthrough — a 20-second silent excerpt. |
+| 1 | `cashkaro-college-money-education-loans` | `college-money-College-Money-02-Loan-Discovery` | A silent, authored overview using the captured public pages and source illustrations; it does not show an authenticated application. |
+| 2 | `cashkaro-lending-mcp-feedback` | `lending-mcp-proposal` | Proposed system design: shared policy evaluation, with human approval before policy changes. Live MCP wiring is not established. |
+| 3 | `cashkaro-lender-integration-operations` | `workflow-diagram` | Authored workflow covering partner contract, eligibility/KYC, application status, payouts/reconciliation and partner review; not a captured lender console. |
+| 4 | `cashkaro-eduloans-policy-workflow` | `eduloans-prototype-inspector` | Original interaction prototype — sample data; scripted responses. |
+| 5 | `absolute-rural-credit-uli` | `upaj-Upaj-01-Riskstac` | A silent, authored overview of captured public reference pages and source illustrations; not an authenticated lender assessment or evidence of national ULI ownership. |
+| 6 | `absolute-silkroute-marketplace` | `workflow-diagram` | Workflow explanation: Catalogue and discovery → Negotiation and price matching → Trade and compliance checks → Payment and operations → Shipment and transaction completion. |
+| 7 | `absolute-crop-health-ai` | `upaj-growstac-advisory` | GrowStac public advisory and agronomy proposition; current reference, not a measured model evaluation. |
+| 8 | `urbankhet-farm-to-fork` | `urbankhet-linkedin-company-farm-cover`, then `urbankhet-storefront-excerpt` | Original company farm cover, with photograph date/location/photographer unspecified; historical storefront walkthrough — a 20-second silent excerpt. |
 
 ## Original UrbanKhet LinkedIn evidence
 
@@ -29,7 +33,9 @@ Five unchanged source images are hosted with natural dimensions and individual o
 
 Files are under `/work/urbankhet/linkedin/`. The registry retains the exact post URLs and publication dates. The supplied source sections and their existing anchors are unchanged; no new employment or operating-result claims are introduced.
 
-## Source-section mapping
+## Retained source-section mapping — original baseline
+
+This table preserves the original section-to-group crosswalk. The additive selected-depth source groups do not replace those records; their exact section IDs and evidence limits are in [SELECTED-WORK-COVERAGE.md](SELECTED-WORK-COVERAGE.md).
 
 | Study | Open decision groups | Open supporting families |
 | --- | --- | --- |
@@ -59,7 +65,7 @@ Files are under `/work/urbankhet/linkedin/`. The registry retains the exact post
 | `independent-founder-advisory` | `decision` ← `build`; `delivery` ← `delivery`; `judgment` ← `takeaway` | None |
 | `cept-football-creative-practice` | `decision` ← `build`; `delivery` ← `delivery`; `judgment` ← `takeaway` | None |
 
-`problem` maps to the open situation, `results` to the open results section. Full responsibility is presented once at the start of the account. All source bullets and tables remain rendered; primary media is de-duplicated from supporting galleries. Six featured accounts have curated decision prose that consolidates repeated source paragraphs while retaining their unique facts. The complete substance crosswalk, source boundaries and measured/proposed distinction are in [CONTENT-COVERAGE.md](../../CONTENT-COVERAGE.md).
+`problem` maps to the open situation, `results` to the open results section. Full responsibility is presented once at the start of the account. All source bullets and tables remain rendered; primary media is de-duplicated from supporting galleries. The six accounts edited at the earlier narrative baseline retain their curated decision prose, consolidating repeated source paragraphs while preserving unique facts; that baseline does not define the current eight-project Work selection. The complete original substance crosswalk, source boundaries and measured/proposed distinction are in [CONTENT-COVERAGE.md](../../CONTENT-COVERAGE.md); the current additive depth is mapped in [SELECTED-WORK-COVERAGE.md](SELECTED-WORK-COVERAGE.md).
 
 ## Added source evidence and limits
 
@@ -67,6 +73,7 @@ Files are under `/work/urbankhet/linkedin/`. The registry retains the exact post
 - The March 2026 software-validation record is archived evidence, not a fresh run. Its report records 145 assertions passing in ten files; local BRE test helpers and mocked Supabase/auth/UI do not establish deployed behaviour or model quality.
 - Three evaluation plans have four columns: scenario, expected behaviour, available evidence and status. Available evidence separates existing source material and missing results from the proposed checks. Every row is marked **Proposed — not executed**.
 - The MCP system diagram is a proposal, including one server/two BREs and a human-approval boundary; live wiring and production deployment remain unverified.
+- Three additional diagrams explain College.money economics, the lender-integration handshake and RiskStac/ULI responsibilities. They are authored review models, not production UI captures or proof of deployed controls. The selected-depth crosswalk records every added chapter and distinguishes official reference requirements from established delivery and missing measurements.
 - UrbanKhet publishes only a 20-second silent excerpt of the 72.56-second original; checkout, contact and B2B account details remain private. Recording date was not supplied. Duplicate input videos are byte-identical. Campaign artwork is credited to Studio Sorted.
 
 Original case-source download actions remain retired. The original CV download remains available. No PDF viewer or media download button replaces on-site reading.

@@ -19,7 +19,6 @@ function load(relativePath, stubs = {}) {
 }
 const registry = JSON.parse(readFileSync(path.join(root, 'content/work/case-studies.json'), 'utf8'));
 const groups = registry.companies.map(company => ({ company, studies: registry.caseStudies.filter(study => study.companyId === company.id) }));
-const visuals = load('components/work/VisualStory.tsx', { './visual-story.module.css': css });
 const brandMarks = load('components/BrandMarks.tsx', { '@/lib/brands': load('lib/brands.ts'), './brand-marks.module.css': css }).default;
 const companyContextData = load('lib/company-context.ts');
 const companyContext = load('components/CompanyContext.tsx', { './BrandMarks': brandMarks, '@/lib/company-context': companyContextData, './company-context.module.css': css }).default;
@@ -28,112 +27,88 @@ const media = load('components/work/Media.tsx', { './work.module.css': css }).de
 const preview = load('components/work/WorkPreview.tsx', { 'next/link': ({ children, ...props }) => createElement('a', props, children), '@/lib/work-types': load('lib/work-types.ts'), '@/lib/work-presentation': presentation, './Media': media, '@/components/BrandMarks': brandMarks, './work-preview.module.css': css }).default;
 const explorer = load('components/work/WorkExplorer.tsx', {
   'next/link': ({ children, ...props }) => createElement('a', props, children),
-  './WorkPreview': preview, '@/lib/work-presentation': presentation,
-  '@/lib/work-types': load('lib/work-types.ts'), './VisualStory': visuals, './work-explorer.module.css': css,
-  '@/components/BrandMarks': brandMarks,
-  '@/components/CompanyContext': companyContext, '@/lib/company-context': companyContextData,
+  './WorkPreview': preview, './work-explorer.module.css': css,
+  '@/components/CompanyContext': companyContext,
 });
+const expected = ['cashkaro-college-money-education-loans','cashkaro-lending-mcp-feedback','cashkaro-lender-integration-operations','cashkaro-eduloans-policy-workflow','absolute-rural-credit-uli','absolute-silkroute-marketplace','absolute-crop-health-ai','urbankhet-farm-to-fork'];
 
-test('Work starts with six media previews and exposes the entire company index initially', () => {
+const escaped = text => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+
+test('Work exclusively spotlights the eight selected projects in the agreed priority', () => {
   const html = renderToStaticMarkup(createElement(explorer.default, { groups }));
-  assert.match(html, /aria-label="Filter work by company"/);
-  assert.match(html, /aria-pressed="true">All work/);
-  assert.equal((html.match(/aria-pressed="true"/g) || []).length, 1);
-  assert.match(html, /All work <span>25<\/span>/);
-  assert.match(html, /All work · 25 studies/);
-  assert.match(html, /aria-live="polite"/);
-  assert.match(html, /<label for="other-work-context">/);
-  const sectionStart = id => html.match(new RegExp(`<section id="${id}"[^>]*>`))?.[0];
-  for (const company of registry.companies) {
-    assert.ok(sectionStart(company.id));
-    assert.doesNotMatch(sectionStart(company.id), /hidden=/);
-  }
-  assert.doesNotMatch(sectionStart('other-contexts'), /hidden=/);
-  const featured = registry.caseStudies.filter(study => study.featuredOrder).sort((a,b) => a.featuredOrder-b.featuredOrder);
-  assert.equal(featured.length, 6);
-  const featureArea = html.slice(html.indexOf('id="featured-title"'), html.indexOf('id="company-index"'));
+  assert.deepEqual(Array.from(explorer.selectedWorkSlugs), expected);
+  const shown = Array.from(explorer.selectWorkGroups(groups)).flatMap(group => Array.from(group.studies));
+  assert.deepEqual(shown.map(study => study.slug), expected);
+  assert.equal((html.match(/class="preview"/g) || []).length, 8);
   let preceding = -1;
-  for (const study of featured) {
-    const at = featureArea.indexOf(`id="preview-${study.id}"`);
-    assert.ok(at > preceding, `${study.slug}: featured in configured order`);
+  for (const study of shown) {
+    const at = html.indexOf(`id="preview-${study.id}"`);
+    assert.ok(at > preceding, `${study.slug}: selected priority`);
     preceding = at;
     const primary = presentation.getPrimaryMedia(study)[0];
-    assert.ok(featureArea.includes(primary.src), `${study.slug}: primary evidence visible`);
+    assert.ok(primary, `${study.slug}: primary evidence`);
+    assert.ok(html.includes(`src="${primary.src}"`), `${study.slug}: visible original/labelled media`);
+    assert.ok(html.includes(escaped(study.visualSummary.role)), `${study.slug}: personal ownership`);
+    assert.ok(html.includes(escaped(study.visualSummary.decision)), `${study.slug}: decision`);
+    assert.ok(html.includes(escaped(study.visualSummary.impact)), `${study.slug}: qualified impact/status`);
   }
-  assert.match(featureArea, /<video[^>]+controls=""/);
-  assert.match(featureArea, /aria-haspopup="dialog"/);
-  assert.match(featureArea, /Validation status/);
-  assert.match(featureArea, /Proposal/);
-  for (const study of registry.caseStudies) {
-    assert.equal((html.match(new RegExp(`href="/product/${study.slug}"`, 'g')) || []).length, study.featuredOrder ? 2 : 1, `${study.slug}: one index action plus optional feature action`);
-    assert.ok(html.includes(study.visualSummary.title), `${study.slug}: short title missing`);
-  }
-  for (const sentence of registry.companies[0].summary.split(/(?<=\.)\s+/)) assert.ok(html.includes(sentence));
-  assert.doesNotMatch(html, /<details|<summary|Read more|Company context/);
+  for (const study of registry.caseStudies.filter(study => !expected.includes(study.slug))) assert.doesNotMatch(html, new RegExp(`id="preview-${study.id}"`), `${study.slug}: excluded from selected page`);
+  assert.match(html, /<video[^>]+controls=""/);
+  assert.match(html, /aria-haspopup="dialog"/);
+  assert.match(html, /Validation status/);
+  assert.doesNotMatch(html, /<details|<summary|<select|aria-pressed|Filter work|All work|Full project index|Read more|What I bring/);
   assert.doesNotMatch(html, /autoPlay|autoplay|<a[^>]+download=/);
 });
 
-test('Production filter logic exposes all25, each company and honest additional contexts without omissions', () => {
-  const ids = selected => Array.from(explorer.filterWorkGroups(groups, selected), group => group.company.id);
-  assert.deepEqual(ids('cashkaro'), ['cashkaro']);
-  assert.deepEqual(ids('absolute'), ['absolute']);
-  assert.deepEqual(ids('all'), registry.companies.map(company => company.id));
-  assert.equal(explorer.filterWorkGroups(groups, 'all').reduce((count, group) => count + group.studies.length, 0), 25);
-  assert.deepEqual(ids('other'), ['founder-programmes', 'water-farmers', 'gujarat-action-group', 'advisory', 'cept']);
-  assert.deepEqual(ids('advisory'), ['advisory']);
-  assert.deepEqual(ids('unrecognised'), []);
-});
-
-test('Company deep links resolve the filter while malformed or unrelated fragments do not change it', () => {
-  for (const company of registry.companies) {
-    const match = explorer.resolveWorkFragment(`#${company.id}`, groups);
-    assert.equal(match.selection, company.id);
-    assert.equal(match.fragment, company.id);
-    assert.equal(explorer.filterWorkGroups(groups, match.selection)[0].company.id, company.id);
-  }
-  assert.equal(explorer.resolveWorkFragment('#%63ashkaro', groups).selection, 'cashkaro');
-  assert.equal(explorer.resolveWorkFragment('#other-contexts', groups).selection, 'other');
-  for (const hash of ['', '#', '#%E0%A4', '#missing-company', '#story-build']) assert.equal(explorer.resolveWorkFragment(hash, groups), null);
-});
-
-test('All visual summaries retain real processes and explicit chart scope without mutating the full story', () => {
+test('selected projects are stable without mutating or filtering away the complete source registry', () => {
+  const before = JSON.stringify(groups);
+  const selected = explorer.selectWorkGroups(groups);
+  assert.deepEqual(Array.from(selected, group => group.company.id), ['cashkaro','absolute','urbankhet']);
+  assert.deepEqual(Array.from(selected, group => group.studies.length), [4,3,1]);
+  assert.equal(JSON.stringify(groups), before);
   assert.equal(registry.caseStudies.length, 25);
-  assert.ok(registry.caseStudies.reduce((count, study) => count + study.sections.length, 0) >= 198, 'original source sections preserved alongside validation material');
-  for (const study of registry.caseStudies) {
-    const visual = study.visualSummary;
-    for (const field of ['title', 'summary', 'challenge', 'role', 'decision', 'impact']) assert.ok(visual[field]?.trim(), `${study.slug}: ${field}`);
-    assert.ok(visual.workflow.steps.length >= 3 && visual.workflow.steps.length <= 5);
-    assert.ok(visual.workflow.note.trim());
-    for (const chart of visual.charts || []) {
-      assert.ok(chart.note.trim() && chart.values.length);
-      assert.ok(chart.values.every(item => Number.isFinite(item.value) && item.value >= 0));
-      if (chart.kind === 'donut') {
-        assert.equal(chart.unit, '%');
-        assert.equal(chart.values.reduce((total, item) => total + item.value, 0), 100);
-        assert.match(chart.note, /computed|implied/i);
-      }
-    }
-  }
+  assert.deepEqual(Array.from(explorer.selectWorkGroups([])), []);
+  const partial = groups.map(group => ({ ...group, studies: group.studies.filter(study => study.slug !== expected[0]) }));
+  assert.equal(explorer.selectWorkGroups(partial).reduce((count, group) => count + group.studies.length, 0), 7);
 });
 
-test('company business, scale and official links appear before Priyam responsibility', () => {
+test('all nine company/context anchors retain clear selected-work or Experience destinations', () => {
   const html = renderToStaticMarkup(createElement(explorer.default, { groups }));
-  for (const id of ['cashkaro','credflow','absolute','urbankhet']) {
+  for (const company of registry.companies) {
+    assert.ok(html.includes(`id="${company.id}"`), `${company.id}: old anchor retained`);
+    assert.equal(explorer.resolveWorkFragment(`#${company.id}`, groups), company.id);
+  }
+  const destinations = { credflow:'/cv#credflow', 'founder-programmes':'/cv#other-contexts', 'water-farmers':'/cv#internship', 'gujarat-action-group':'/cv#other-contexts', advisory:'/cv#other-contexts', cept:'/cv#education' };
+  for (const [id, href] of Object.entries(destinations)) assert.match(html, new RegExp(`<a[^>]+id="${id}"[^>]+href="${href}"`));
+  assert.equal(explorer.resolveWorkFragment('#%63ashkaro', groups), 'cashkaro');
+  assert.equal(explorer.resolveWorkFragment('#other-contexts', groups), 'other-contexts');
+  assert.equal(explorer.resolveWorkFragment('#company-index', groups), 'company-index');
+  for (const hash of ['', '#', '#%E0%A4', '#missing-company', '#story-build']) assert.equal(explorer.resolveWorkFragment(hash, groups), null);
+  assert.match(html, /view my experience/);
+});
+
+test('business context precedes project ownership and Upaj stack proof remains readily accessible', () => {
+  const html = renderToStaticMarkup(createElement(explorer.default, { groups }));
+  for (const id of ['cashkaro','absolute','urbankhet']) {
     const company = companyContextData.getCompanyContext(id);
     const start = html.indexOf(`<section id="${id}"`);
-    const section = html.slice(start, html.indexOf('<div class="indexList"', start));
-    assert.ok(section.includes(company.about));
-    assert.ok(section.indexOf(company.about) < section.indexOf('My responsibility'));
-    for (const fact of company.facts) assert.ok(section.includes(fact.value));
-    for (const website of company.websites) assert.ok(section.includes(`href="${website.href}"`));
-    assert.ok(section.includes(company.scopeNote));
-    assert.doesNotMatch(section, /<details|<summary/);
+    const next = html.indexOf('<div class="selectedProjects"', start);
+    const context = html.slice(start, next);
+    assert.ok(context.includes(escaped(company.about)));
+    for (const fact of company.facts) assert.ok(context.includes(escaped(fact.value)));
+    for (const website of company.websites) assert.ok(context.includes(`href="${website.href}"`));
+    assert.ok(context.includes(escaped(company.scopeNote)));
+    assert.ok(next < html.indexOf('My ownership', start));
   }
+  const stack = html.slice(html.indexOf('id="upaj-stack-title"'), html.indexOf('id="preview-rural-credit-uli"'));
+  for (const slug of ['absolute-upaj-farmer-experience','absolute-farm-os-iot-gis','absolute-crop-health-ai','absolute-rural-credit-uli']) assert.ok(stack.includes(`href="/product/${slug}"`), `${slug}: direct Upaj-stack proof`);
+  assert.match(stack, /Farmer app|Farm monitoring|Crop-health AI|RiskStac for institutions/);
   assert.equal(companyContextData.getCompanyContext('urbankhet').websites.length, 0);
-  for (const company of Object.values(companyContextData.companyContexts)) {
-    assert.ok(company.sources.length > 0);
-    for (const fact of company.facts) assert.ok(company.sources.some(source => source.id === fact.sourceId));
-    assert.ok(company.websites.every(website => website.href.startsWith('https://')));
-  }
-  assert.equal(companyContextData.getCompanyContext('missing-company'), undefined);
+});
+
+test('Work route presents the selected set and does not append uncurated published records', () => {
+  const source = readFileSync(path.join(root, 'app/product/page.tsx'), 'utf8');
+  assert.match(source, /Selected work\./);
+  assert.match(source, /Eight selected projects/);
+  assert.doesNotMatch(source, /loadPublishedWork|additionalWork|Additional product work|complete company index/);
 });
