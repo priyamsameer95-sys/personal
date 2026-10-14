@@ -21,8 +21,13 @@ export interface CompanyContextData {
 /** Company context is distinct from Priyam's role, tenure and personal project outcomes. */
 export const companyContexts: Readonly<Record<string, CompanyContextData>> = {
   cashkaro: {
-    id: 'cashkaro', name: 'CashKaro / BankKaro', brandIds: ['cashkaro'],
+    id: 'cashkaro', name: 'CashKaro', brandIds: ['cashkaro'],
     about: 'CashKaro connects online shoppers with retailers through cashback and savings. BankKaro is its financial-products marketplace, helping customers compare credit cards and loans from partner lenders.',
+    abstract: [
+      { text: 'CashKaro helps people earn cashback while shopping. It reported ' },
+      { text: '20 million users in 2023', sourceId: 'cashkaro-about' },
+      { text: ' and is backed by Ratan Tata, Kalaari Capital and Affle. BankKaro is the group’s loan and credit-card marketplace.' },
+    ],
     facts: [
       { label: 'Shopping network', value: '1,500+ sites', detail: 'Listed on CashKaro’s official about page.', sourceId: 'cashkaro-about' },
       { label: 'Company milestone', value: '20M users', detail: 'User milestone reported in its 2023 timeline.', sourceId: 'cashkaro-about' },
@@ -38,6 +43,11 @@ export const companyContexts: Readonly<Record<string, CompanyContextData>> = {
   credflow: {
     id: 'credflow', name: 'CredFlow', brandIds: ['credflow'],
     about: 'CredFlow builds finance software and lending infrastructure for MSMEs. The group combines cash-flow tools, partner distribution and access to working capital.',
+    abstract: [
+      { text: 'Finance software and lending infrastructure for MSMEs. Its current ecosystem reports ' },
+      { text: '200K+ businesses onboarded and 50+ lending partners', sourceId: 'credflow-home' },
+      { text: '; those figures postdate my December 2024–March 2025 role.' },
+    ],
     facts: [
       { label: 'CredFloat SaaS', value: '200K+ businesses', detail: 'Current homepage reports businesses onboarded.', sourceId: 'credflow-home' },
       { label: 'Lending ecosystem', value: '50+ partners', detail: 'Reported for CredFund and CashFloat.', sourceId: 'credflow-home' },
@@ -50,10 +60,10 @@ export const companyContexts: Readonly<Record<string, CompanyContextData>> = {
     scopeNote: 'Current company-reported scope, after my December 2024–March 2025 role.', reviewedAt: '14 October 2026',
   },
   absolute: {
-    id: 'absolute', name: 'Absolute / Upaj', brandIds: ['absolute'],
+    id: 'absolute', name: 'Absolute', brandIds: ['absolute'],
     about: 'Absolute is a bioscience business applying biology and technology across agriculture, food and other industries. Its Upaj platform connects agricultural data with farm advisory, risk information and insurance.',
     abstract: [
-      { text: 'A bioscience company whose farm business reports ' },
+      { text: 'A bioscience company applying biology and technology to agriculture. Its farm business currently reports ' },
       { text: '3M+ farmers', sourceId: 'absolute-home' },
       { text: '. ' },
       { text: '$100 million in funding', sourceId: 'absolute-funding' },
@@ -87,7 +97,7 @@ export const companyContexts: Readonly<Record<string, CompanyContextData>> = {
     ],
     websites: [],
     sources: [
-      { id: 'urbankhet-customers', label: 'UrbanKhet customer record', href: '/product/urbankhet-farm-to-fork#results' },
+      { id: 'urbankhet-customers', label: 'UrbanKhet customer record', href: '/product/urbankhet-farm-to-fork#responsibility-and-results' },
       { id: 'urbankhet-funding', label: 'IIMA Ventures investment portfolio', href: 'https://iimaventures.com/portfolio/' },
       { id: 'gusec-story', label: 'GUSEC venture history', href: 'https://gusec.edu.in/2020/06/03/urbankhet/', date: '3 June 2020' },
       { id: 'gusec-award', label: 'GUSEC 2021 awards', href: 'https://gusec.edu.in/2021/03/10/gusec-annual-awards-2021/', date: '10 March 2021' },

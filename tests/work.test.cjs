@@ -202,6 +202,22 @@ test('supporting diagrams lead their open chapter before prose and technical tab
   assert.doesNotMatch(html, /<details\b|<summary\b/);
 });
 
+test('case hierarchy separates responsibility from the title and consolidates repeated source records openly', () => {
+  const source = { label: 'Original product record', date: 'March 2026', version: 'V1.03', links: [{ label: 'Protocol reference', href: 'https://example.org/contract' }] };
+  const contextualStudy = { ...study, sections: study.sections.map(section => ['operating-model', 'record'].includes(section.id) ? { ...section, source } : section) };
+  const html = renderToStaticMarkup(createElement(caseRenderer(), { study: contextualStudy }));
+  assert.match(html, /class="caseTitle"><h1>A simpler lending journey/);
+  assert.match(html, /class="caseRemit"><p class="visualRole"><strong>My role<\/strong> Journey and partner operations\./);
+  assert.equal((html.match(/Original product record · March 2026 · V1\.03/g) || []).length, 1);
+  assert.equal((html.match(/href="https:\/\/example\.org\/contract"/g) || []).length, 1);
+  assert.equal((html.match(/href="#source-1"/g) || []).length, 2);
+  assert.match(html, /<li id="source-1"[^>]+tabindex="-1"/);
+  assert.ok(html.indexOf('id="source-1"') > html.indexOf('id="materials-title"'));
+  assert.match(html, /The fuller operating detail\./);
+  assert.match(html, /This record describes the original scope\./);
+  assert.doesNotMatch(html, /<details|<summary/);
+});
+
 test('media stays inline with accessible image enlargement, provenance and no separate video action', () => {
   const Component = caseRenderer();
   const html = renderToStaticMarkup(createElement(Component, { study }));

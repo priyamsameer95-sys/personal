@@ -1,15 +1,8 @@
 .root { display: contents; }
 @media (prefers-reduced-motion: no-preference) {
-  .root [data-entry] { animation: ink-entry 500ms ease-out both; }
-  .root [data-entry='second'] { animation-delay: 90ms; }
-  .root [data-entry='third'] { animation-delay: 170ms; }
-  .root [data-reveal] { transition: opacity 420ms ease-out, transform 420ms ease-out; }
-  .root [data-reveal-state='pending'] { opacity: 0; transform: translateY(12px); }
-  .root [data-reveal-state='visible'], .root [data-reveal]:focus-within { opacity: 1; transform: none; }
-  .root [data-reveal]:focus-within, .root [data-entry]:focus-within { animation: none; transition: none; opacity: 1; transform: none; }
+  .root [data-entry] { animation: ink-entry 180ms ease-out; }
 }
-@keyframes ink-entry { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) {
-  .root [data-entry], .root [data-reveal] { animation: none; opacity: 1; transform: none; transition: none; }
+@keyframes ink-entry { from { opacity: .65; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce), print {
+  .root [data-entry] { animation: none; opacity: 1; transform: none; }
 }
-@media print { .root [data-entry], .root [data-reveal] { animation: none; opacity: 1; transform: none; transition: none; } }
