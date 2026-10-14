@@ -94,16 +94,23 @@ test('business context precedes project ownership and Upaj stack proof remains r
     const start = html.indexOf(`<section id="${id}"`);
     const next = html.indexOf('<div class="selectedProjects"', start);
     const context = html.slice(start, next);
-    assert.ok(context.includes(escaped(company.about)));
-    for (const fact of company.facts) assert.ok(context.includes(escaped(fact.value)));
+    if (company.abstract) {
+      for (const part of company.abstract) assert.ok(context.includes(escaped(part.text)));
+      assert.doesNotMatch(context, /Sources ·|Reviewed 14 October|June 2020 snapshot|Venture recognition/);
+    } else {
+      assert.ok(context.includes(escaped(company.about)));
+      for (const fact of company.facts) assert.ok(context.includes(escaped(fact.value)));
+      assert.ok(context.includes(escaped(company.scopeNote)));
+    }
     for (const website of company.websites) assert.ok(context.includes(`href="${website.href}"`));
-    assert.ok(context.includes(escaped(company.scopeNote)));
     assert.ok(next < html.indexOf('My ownership', start));
   }
   const stack = html.slice(html.indexOf('id="upaj-stack-title"'), html.indexOf('id="preview-rural-credit-uli"'));
   for (const slug of ['absolute-upaj-farmer-experience','absolute-farm-os-iot-gis','absolute-crop-health-ai','absolute-rural-credit-uli']) assert.ok(stack.includes(`href="/product/${slug}"`), `${slug}: direct Upaj-stack proof`);
   assert.match(stack, /Farmer app|Farm monitoring|Crop-health AI|RiskStac for institutions/);
   assert.equal(companyContextData.getCompanyContext('urbankhet').websites.length, 0);
+  assert.match(html, /\$100 million in funding/);
+  assert.doesNotMatch(html, /\$1,000 million|\$1000 million|src="\/brands\/bankkaro\.png"|src="\/brands\/upaj-black\.svg"/);
 });
 
 test('Work route presents the selected set and does not append uncurated published records', () => {

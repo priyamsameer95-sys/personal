@@ -61,7 +61,7 @@ function CompanyWork({ group, priority }: { group: WorkExplorerGroup; priority?:
   return <section id={company.id} tabIndex={-1} aria-labelledby={`${company.id}-title`} className={styles.companySection}>
     <header className={styles.companyHeader}>
       <CompanyContext companyId={company.id} headingId={`${company.id}-title`} headingLevel={2} compact />
-      <p className={styles.companyMeta}>{company.period} · {company.relationship || 'Employment'} · {studies.length} selected projects</p>
+      <p className={styles.companyMeta}>{company.period} · {company.relationship || 'Employment'} · {studies.length} selected {studies.length === 1 ? 'project' : 'projects'}</p>
     </header>
     {company.id === 'absolute' && <section className={styles.productStack} aria-labelledby="upaj-stack-title">
       <h3 id="upaj-stack-title">Upaj’s connected product stack</h3>

@@ -70,9 +70,9 @@ export const brandAssets: Record<string, BrandAsset> = {
 };
 
 export const companyBrandIds: Record<string, readonly string[]> = {
-  cashkaro: ['cashkaro', 'bankkaro'],
+  cashkaro: ['cashkaro'],
   credflow: ['credflow'],
-  absolute: ['absolute', 'upaj'],
+  absolute: ['absolute'],
   urbankhet: ['urbankhet'],
   'founder-programmes': ['iima-ventures', 'gusec'],
   'water-farmers': ['water-farmers'],

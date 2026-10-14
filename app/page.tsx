@@ -8,6 +8,7 @@ import WorkPreview from '@/components/work/WorkPreview';
 import HomeMotion from '@/components/HomeMotion';
 import CvDownload from '@/components/CvDownload';
 import BrandMarks from '@/components/BrandMarks';
+import { CompanyDescription } from '@/components/CompanyContext';
 import { getCompanyContext } from '@/lib/company-context';
 import styles from './home.module.css';
 
@@ -24,10 +25,9 @@ const selected = [
   { slug: 'absolute-upaj-farmer-experience', domain: 'Farmer products', value: '100K → 600K', measure: 'Reported active users', note: 'Programme report; cohort definition and comparison period unavailable.' },
 ];
 const career = [
-  { name: 'UrbanKhet', period: '2019–2021', role: 'Founder & Director', id: 'urbankhet', about: 'A farm-to-customer venture serving households and business buyers.', scale: '~100 daily customers in a June 2020 snapshot.', recognition: 'GUSEC Rise Award, 2021.', sourceId: 'gusec-story' },
-  { name: 'Absolute / Upaj', period: '2021–2024', role: 'Product Manager → Principal PM', id: 'absolute', about: 'Bioscience, agricultural data, farm advisory and risk products.', scale: '3M+ farmers: current farm-biosolutions reach.', recognition: 'Deloitte Fast 50, 2023.', sourceId: 'absolute-home' },
-  { name: 'CredFlow', period: '2024–2025', role: 'Senior Product Manager', id: 'credflow', about: 'Finance software and lending infrastructure for MSMEs.', scale: '200K+ businesses onboarded to CredFloat; current company report.', recognition: '50+ lending partners across CredFund and CashFloat.', sourceId: 'credflow-home' },
-  { name: 'CashKaro / BankKaro', period: '2025–Present', role: 'Senior Manager → General Manager', id: 'cashkaro', about: 'Cashback shopping and financial-product marketplaces.', scale: '20M users: CashKaro’s reported 2023 milestone.', recognition: 'Backed by Ratan Tata, Kalaari and Affle.', sourceId: 'cashkaro-about' },
+  { name: 'UrbanKhet', period: '2019–2021', role: 'Founder & Director', id: 'urbankhet' },
+  { name: 'Absolute / Upaj', period: '2021–2024', role: 'Product Manager → Principal PM', id: 'absolute' },
+  { name: 'CashKaro / BankKaro', period: '2025–Present', role: 'Senior Manager → General Manager', id: 'cashkaro' },
 ];
 
 export default function HomePage() {
@@ -78,14 +78,12 @@ export default function HomePage() {
         <div className={styles.sectionHeader} data-reveal=""><div><p className={styles.label}>Career at a glance</p><h2 id="career-title">From founder to product leader.</h2></div><Link href="/cv" className="ink-link">View CV <span aria-hidden="true">→</span></Link></div>
         <ol className={styles.career}>{career.map(item => {
           const company = getCompanyContext(item.id);
-          const source = company?.sources.find(source => source.id === item.sourceId);
           return <li key={item.id} data-reveal="">
             <p className={styles.careerDate}>{item.period}</p>
             <BrandMarks companyId={item.id} className={styles.careerBrands} />
             <h3>{item.name}</h3>
-            <p className={styles.careerAbout}>{item.about}</p>
-            <p className={styles.careerScale}>{source ? <a href={source.href} target="_blank" rel="noopener noreferrer">{item.scale}<span className="sr-only"> (opens in a new tab)</span></a> : item.scale}</p>
-            <p className={styles.careerRecognition}>{item.recognition}</p>
+            {company && <CompanyDescription company={company} className={styles.careerAbout} />}
+            {company && !company.abstract && <p className={styles.careerScale}>20M users reported in 2023. Backed by Ratan Tata, Kalaari and Affle.</p>}
             <div className={styles.careerWebsites}>{company?.websites.map(website => <a key={website.href} href={website.href} target="_blank" rel="noopener noreferrer">{website.label} <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>)}</div>
             <p className={styles.careerRole}><span>My role</span>{item.role}</p>
           </li>;

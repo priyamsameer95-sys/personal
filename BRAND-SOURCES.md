@@ -43,3 +43,7 @@ Company context appears before personal responsibility on Work and Experience, w
 | UrbanKhet | Historical farm-to-customer venture; approximately 100 daily customers in June 2020; GUSEC Rise Award to Priyam in 2021 | [GUSEC venture history](https://gusec.edu.in/2020/06/03/urbankhet/) and [2021 awards](https://gusec.edu.in/2021/03/10/gusec-annual-awards-2021/). No venture website action is shown, as requested. |
 
 UrbanKhet’s [original LinkedIn company page](https://www.linkedin.com/company/khet-inc/) identifies the same KhetAgri venture. Its reviewed photographs and historical company graphics are attributed individually in the work registry, with original-source links. Public source provenance does not imply an identified photographer or a newly measured operating result.
+
+## Current display choice — 14 October 2026
+
+At the owner's request, CashKaro and Absolute are the sole identity marks for their company groups. BankKaro and Upaj logo files retain their original bytes and provenance but are no longer displayed by company or case identities. Original source screenshots/videos remain unchanged. CredFlow's mark and career record remain on Experience and its case pages; the homepage career overview omits it.
