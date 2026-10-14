@@ -1,31 +1,37 @@
 .pageIntro { max-width: 54rem; margin-bottom: 1rem; }
-.pageIntro h1 { font-size: clamp(2.8rem, 4.3vw, 3.4rem); line-height: 1.08; letter-spacing: -.05em; font-weight: 550; margin: 0 0 .75rem; color: var(--ink, #191714); }
+.pageIntro h1 { font-size: clamp(2.6rem, 4.3vw, 3.4rem); line-height: 1.08; letter-spacing: -.05em; font-weight: 550; margin: 0 0 .75rem; color: var(--ink, #191714); }
 .pageIntro > p:last-child { font-size: 1rem; line-height: 1.65; color: var(--muted, #625e56); max-width: 70ch; }
 .explorer { min-width: 0; }
-.companyNavigation { display: flex; flex-wrap: wrap; gap: .5rem 2rem; padding: .6rem 0 1rem; border-bottom: 1px solid var(--rule); margin-bottom: 1.5rem; scroll-margin-top: 5rem; }
-.companyNavigation a { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; font-size: .95rem; text-underline-offset: .3em; }
-.companySection { margin-bottom: 4rem; scroll-margin-top: 5rem; min-width: 0; }
+.companyNavigation { display: flex; flex-wrap: wrap; gap: .3rem 2rem; padding: .4rem 0 .75rem; border-bottom: 1px solid var(--rule); margin-bottom: 2rem; scroll-margin-top: 2rem; }
+.companyNavigation a { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; font-size: .95rem; text-underline-offset: .25em; }
+.companyNavigation a:hover { text-decoration: underline; }
+.companySection { margin-bottom: 4rem; scroll-margin-top: 2rem; min-width: 0; }
 .companySection:focus, .experienceBridge:focus, .companyNavigation:focus { outline: none; }
-.companyHeader { max-width: 70rem; margin-bottom: 1.3rem; }
-.companyHeader h2 { margin: 0; color: var(--ink, #191714); font-size: clamp(1.25rem, 1.5vw, 1.5rem); line-height: 1.25; letter-spacing: -.025em; font-weight: 550; }
-.companyMeta { margin-top: .65rem; color: var(--muted, #625e56); font-size: .9rem; line-height: 1.6; }
+.companyHeader { margin-bottom: 1.5rem; }
+.companyHeader h2 { margin: 0; color: var(--ink, #191714); font-size: clamp(1.15rem, 1.35vw, 1.35rem); line-height: 1.3; letter-spacing: -.025em; font-weight: 550; }
 .selectedProjects { border-bottom: 1px solid var(--rule); }
-.productStack { padding: 1.5rem 0 2rem; border-top: 1px solid var(--rule); margin-bottom: 1rem; }
-.productStack h3 { font-size: 1.25rem; font-weight: 550; letter-spacing: -.025em; line-height: 1.4; margin-bottom: .6rem; }
-.productStack > p { max-width: 72ch; font-size: 1rem; line-height: 1.65; color: var(--muted); }
-.productStack ul { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1.5rem; list-style: none; padding: 0; margin: 1.4rem 0 0; }
-.productStack li { border-top: 2px solid var(--rule); min-width: 0; }
-.productStack a { display: block; text-decoration: none; padding-top: .9rem; }
-.productStack strong { display: block; font-size: 1rem; font-weight: 550; line-height: 1.5; }
-.productStack a > span { display: block; margin-top: .45rem; font-size: .9rem; line-height: 1.6; color: var(--muted); }
-.productStack a:hover strong { text-decoration: underline; text-underline-offset: .3em; }
+.selectedProjects > article:first-child { border-top: 1px solid var(--rule); padding-top: 1.5rem; }
+.productStack { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.6fr); gap: 2.5rem; padding: 1.5rem 0; border-bottom: 1px solid var(--rule); }
+.productStack h3 { font-size: 1.1rem; font-weight: 550; letter-spacing: -.025em; line-height: 1.5; margin: 0; }
+.productStack p { max-width: 64ch; font-size: .95rem; line-height: 1.65; color: var(--muted); margin: 0; }
+.productStack ul { display: flex; flex-wrap: wrap; gap: .15rem 1.3rem; list-style: none; padding: 0; margin: .6rem 0 0; }
+.productStack li { min-width: 0; }
+.productStack a { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; font-size: .9rem; text-underline-offset: .25em; }
+.productStack a:hover { text-decoration-thickness: 2px; }
 .productStack a:focus-visible, .companyNavigation a:focus-visible, .experienceBridge a:focus-visible { outline: 3px solid #2657ef; outline-offset: 4px; }
-.experienceBridge { border-top: 1px solid var(--rule); padding-top: 2rem; margin-top: 1rem; scroll-margin-top: 5rem; }
-.experienceBridge h2 { font-size: 1.5rem; font-weight: 550; line-height: 1.3; letter-spacing: -.025em; margin-bottom: .8rem; }
-.experienceBridge > p { max-width: 66ch; font-size: 1rem; line-height: 1.7; color: var(--muted); }
-.experienceBridge > p a { color: var(--ink); text-underline-offset: .3em; }
-.experienceBridge nav { display: flex; flex-wrap: wrap; gap: .4rem 1.75rem; margin-top: 1rem; }
-.experienceBridge nav a { display: inline-flex; align-items: center; min-height: 44px; gap: .4rem; color: var(--muted); font-size: .9rem; text-underline-offset: .3em; scroll-margin-top: 5rem; }
-@media (max-width: 760px) { .productStack ul { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; } .companyNavigation { gap: .5rem 1.25rem; margin-bottom: 2rem; } .companyHeader { margin-bottom: 1.5rem; } .companySection { margin-bottom: 3rem; } }
-@media (max-width: 420px) { .productStack ul { grid-template-columns: 1fr; } }
+.experienceBridge { border-top: 1px solid var(--rule); padding-top: 1.5rem; margin-top: 1rem; scroll-margin-top: 2rem; }
+.experienceBridge h2 { font-size: 1.35rem; font-weight: 550; line-height: 1.35; letter-spacing: -.025em; margin-bottom: .65rem; }
+.experienceBridge > p { max-width: 66ch; font-size: .95rem; line-height: 1.7; color: var(--muted); }
+.experienceBridge > p a { color: var(--ink); text-underline-offset: .25em; }
+.experienceBridge nav { display: flex; flex-wrap: wrap; gap: .2rem 1.5rem; margin-top: .65rem; }
+.experienceBridge nav a { display: inline-flex; align-items: center; min-height: 44px; gap: .4rem; color: var(--muted); font-size: .85rem; text-underline-offset: .25em; scroll-margin-top: 2rem; }
+@media (max-width: 899px) {
+  .productStack { grid-template-columns: 1fr; gap: .7rem; }
+}
+@media (max-width: 760px) {
+  .pageIntro h1 { font-size: clamp(2.1rem, 7vw, 2.7rem); }
+  .companyNavigation { gap: .3rem 1.25rem; margin-bottom: 1.5rem; }
+  .companyHeader { margin-bottom: 1.25rem; }
+  .companySection { margin-bottom: 3rem; }
+}
 @media print { .companyNavigation { display: none; } .selectedProjects > article { break-inside: avoid; } }

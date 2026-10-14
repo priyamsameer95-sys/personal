@@ -1,17 +1,23 @@
-.preview { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; padding: 2.75rem 0; border-top: 1px solid var(--rule); }
+.preview { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; padding: 2.5rem 0; border-top: 1px solid var(--rule); }
 .preview:first-child { border-top: 0; padding-top: 0; }
 .evidence, .account { min-width: 0; }
-.evidence { padding: 1rem; background: var(--paper-soft); border-radius: .5rem; }
-.mediaLabel { font-size: .875rem; color: var(--muted); margin: 0 0 .8rem; }
+.evidence { background: transparent; }
 .evidence figure { margin: 0; }
-.evidence figure > button > img { width: 100%; height: auto; max-height: 26rem; object-fit: contain; }
-.evidence video { width: 100%; height: auto; max-height: 26rem; }
-.evidence figcaption { font-size: .875rem; line-height: 1.55; }
-.brand { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; margin-bottom: .9rem; }
-.brand > p { font-size: .875rem; color: var(--muted); }
-.account h3 { font-size: clamp(1.65rem, 2.5vw, 2.4rem); font-weight: 500; line-height: 1.12; letter-spacing: -.04em; margin-bottom: .85rem; }
-.summary { font-size: 1.05rem; line-height: 1.65; }
-.decisions { margin: 1.25rem 0 1rem; display: grid; gap: .9rem; }
-.decisions dt { font-size: .875rem; font-weight: 550; color: var(--ink); margin-bottom: .2rem; }
-.decisions dd { font-size: .925rem; color: var(--muted); line-height: 1.6; }
-@media (max-width: 760px) { .preview { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem 0; } .evidence { padding: .7rem; } .account h3 { font-size: 1.85rem; } }
+.evidence figure > button > img { width: 100%; height: auto; max-height: 28rem; object-fit: contain; }
+.evidence video { width: 100%; height: auto; max-height: 28rem; }
+.evidence figcaption { font-size: .8rem; line-height: 1.55; }
+.brand { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; margin-bottom: .65rem; }
+.brand > p { font-size: .8rem; line-height: 1.6; color: var(--muted); }
+.account { max-width: 52ch; padding-top: .1rem; }
+.account h3 { font-size: clamp(1.5rem, 2.35vw, 2.15rem); font-weight: 550; line-height: 1.18; letter-spacing: -.04em; margin-bottom: .85rem; text-wrap: balance; }
+.summary { font-size: 1.05rem; line-height: 1.65; margin: 0; text-wrap: pretty; }
+.ownership { font-size: .95rem; color: var(--muted); line-height: 1.65; margin: 1rem 0; text-wrap: pretty; }
+.ownership strong, .result strong { font-weight: 550; color: var(--ink); }
+.result { border-top: 1px solid var(--rule); padding-top: .85rem; margin: 1rem 0 .65rem; font-size: .95rem; line-height: 1.65; text-wrap: pretty; }
+@media (max-width: 760px) {
+  .preview { grid-template-columns: 1fr; gap: 1.2rem; padding: 2rem 0; }
+  .account { max-width: 60ch; }
+  .account h3 { font-size: 1.75rem; }
+  .evidence figure > button > img, .evidence video { max-height: 30rem; }
+}
+@media print { .preview { break-inside: avoid; } }

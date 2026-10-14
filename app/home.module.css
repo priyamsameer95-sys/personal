@@ -1,72 +1,74 @@
-.hero { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, .6fr); align-items: end; gap: 3rem; padding: .5rem 0 3.5rem; }
-.heroCopy { min-width: 0; }
-.label { color: var(--muted); font-size: .9rem; line-height: 1.6; margin-bottom: .9rem; }
-.hero h1 { font-size: clamp(3rem, 5.9vw, 5.7rem); line-height: 1.06; letter-spacing: -.055em; font-weight: 500; margin: 0 0 1.5rem; text-wrap: balance; }
-.hero h1 em { font-family: var(--font-editorial); font-weight: 400; letter-spacing: -.045em; }
-.intro { max-width: 54ch; color: var(--muted); line-height: 1.75; font-size: 1.1rem; text-wrap: pretty; }
-.actions { display: flex; flex-wrap: wrap; align-items: center; gap: .85rem; margin-top: 1.75rem; }
-.download { display: inline-flex; align-items: center; justify-content: center; gap: .65rem; padding: .8rem 1.1rem; min-height: 48px; border: 1px solid var(--ink); border-radius: .65rem; font-size: .9rem; text-decoration: none; transition: border-radius 220ms ease; }
-.download:active, .download:focus-visible { border-radius: 2rem; }
-.download:hover { background: var(--paper-soft); }
-.current { max-width: 28ch; margin-bottom: .25rem; padding-left: 1rem; border-left: 2px solid var(--ink); font-size: .875rem; color: var(--muted); line-height: 1.65; }
-.currentLabel { font-size: .8rem; margin-bottom: .35rem; }
-.currentTitle { color: var(--ink); font-size: 1rem; font-weight: 550; }
-.current a { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; color: var(--ink); text-underline-offset: .25em; }
-.section { border-top: 1px solid var(--rule); padding: 3.25rem 0; }
-.sectionHeader { display: flex; align-items: end; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
-.section h2 { font-size: clamp(2rem, 3vw, 2.8rem); line-height: 1.15; font-weight: 500; letter-spacing: -.045em; }
-.section h2 em { font-family: var(--font-editorial); font-weight: 400; }
-.selectedWork { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 2rem; row-gap: 0; }
-.workItem { display: grid; grid-template-rows: subgrid; grid-row: span 5; min-width: 0; align-items: start; border-top: 2px solid var(--ink); padding-top: 1.25rem; }
-.domain { font-size: .875rem; color: var(--muted); margin-bottom: 1.1rem; }
-.workBrands { min-height: 44px; }
-.workItem h3 { font-size: 1.55rem; font-weight: 500; line-height: 1.2; letter-spacing: -.035em; margin: .75rem 0; }
-.workSummary { font-size: .95rem; line-height: 1.75; color: var(--muted); }
-.proof { margin-top: 1.75rem; }
-.proofValue { font-size: clamp(2.1rem, 3.2vw, 3rem); line-height: 1.15; font-weight: 500; font-variant-numeric: tabular-nums; letter-spacing: -.055em; }
-.proofMeasure { margin-top: .5rem; font-size: .95rem; line-height: 1.6; }
-.proofNote { margin-top: .6rem; font-size: .875rem; line-height: 1.65; color: var(--muted); }
-.workItem > a { margin-top: 1.1rem; }
-.career { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem 3rem; }
-.career li { border-top: 1px solid var(--rule); padding-top: 1rem; }
-.careerDate { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.careerBrands { min-height: 128px; margin: .9rem 0 .7rem; }
-.career h3 { font-size: 1.1rem; font-weight: 550; line-height: 1.4; margin: .6rem 0; }
-.careerAbout { max-width: 46ch; font-size: .95rem; line-height: 1.6; margin: .7rem 0; }
-.careerScale, .careerRecognition { font-size: .875rem; color: var(--muted); line-height: 1.65; }
-.careerScale a { text-underline-offset: .25em; }
-.careerWebsites { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: .5rem 0; }
-.careerWebsites a { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; font-size: .875rem; text-underline-offset: .25em; }
-.careerRole { margin-top: .9rem; padding-top: .8rem; border-top: 1px solid var(--rule); font-size: .95rem; line-height: 1.65; }
-.careerRole > span { display: block; color: var(--muted); font-size: .8rem; margin-bottom: .2rem; }
-.personal { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 4rem; }
-.personal > div > p:not(.label) { max-width: 45ch; margin: 1.25rem 0; font-size: 1rem; line-height: 1.8; color: var(--muted); }
-.personalLinks { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; }
-.painting { width: 100%; max-width: 25rem; justify-self: end; text-decoration: none; }
+.introduction { display: grid; grid-template-columns: 1.15fr 1fr; gap: 4rem; align-items: start; padding: .5rem 0 2.5rem; }
+.byline { margin: 0 0 1rem; font-size: .875rem; color: var(--muted); }
+.introduction h1 { max-width: 17ch; margin: 0; font-size: clamp(2.3rem, 3.7vw, 3.6rem); font-weight: 550; line-height: 1.1; letter-spacing: -.045em; text-wrap: pretty; }
+.introCopy { padding-top: .1rem; }
+.introCopy > p:first-child { max-width: 49ch; font-size: 1.0625rem; line-height: 1.65; }
+.currentRole { margin-top: .9rem; color: var(--muted); font-size: .875rem; line-height: 1.5; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-top: 1.25rem; }
+.download { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .5rem .15rem; font-size: .9rem; text-decoration: underline; text-underline-offset: .3em; }
+.download:hover { text-decoration-thickness: 2px; }
+.sectionHeading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem 2rem; margin-bottom: 1.5rem; }
+.sectionHeading h2 { font-size: 1.3rem; font-weight: 550; letter-spacing: -.025em; }
+.sectionHeading > p { color: var(--muted); font-size: .875rem; max-width: 48ch; line-height: 1.6; }
+.selected, .experiments, .results, .careerSection { padding: 2rem 0 2.5rem; border-top: 1px solid var(--rule); }
+.leadWork { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 2.5rem; align-items: start; }
+.leadMedia, .leadAccount { min-width: 0; }
+.leadAccount h3 { font-size: clamp(1.7rem, 2.3vw, 2.35rem); line-height: 1.2; font-weight: 550; letter-spacing: -.035em; margin: .9rem 0 1rem; max-width: 23ch; }
+.leadAccount > p:not(.qualification) { max-width: 43ch; font-size: 1rem; line-height: 1.7; }
+.result { display: flex; align-items: center; gap: 1.2rem; margin-top: 1.5rem; }
+.result strong { font-size: 3rem; font-variant-numeric: tabular-nums; font-weight: 550; letter-spacing: -.06em; line-height: 1.1; }
+.result > span { font-size: .9rem; line-height: 1.5; max-width: 22ch; }
+.qualification { font-size: .8125rem; line-height: 1.65; color: var(--muted); margin-top: .8rem; max-width: 55ch; }
+.leadAccount > a { margin-top: .9rem; }
+.workPair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: start; gap: 2.5rem; margin-top: 2.5rem; }
+.workPair > article { min-width: 0; }
+.pairAccount { margin-top: 1rem; }
+.workContext { font-size: .8125rem; color: var(--muted); line-height: 1.5; }
+.pairAccount h3 { font-size: 1.55rem; font-weight: 550; line-height: 1.25; letter-spacing: -.025em; margin: .5rem 0 .7rem; max-width: 29ch; }
+.pairAccount > p:not(.qualification):not(.workContext) { font-size: .95rem; line-height: 1.7; max-width: 55ch; }
+.pairAccount > a { margin-top: .65rem; }
+.experimentPair { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.experimentPair > article { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 1.25rem; min-width: 0; }
+.experimentAccount h3 { font-size: 1.05rem; font-weight: 550; line-height: 1.35; margin-bottom: .5rem; }
+.experimentAccount p { font-size: .875rem; line-height: 1.7; color: var(--muted); }
+.experimentAccount > a { margin-top: .5rem; }
+.resultLedger > div { display: grid; grid-template-columns: 1fr .8fr 1.6fr; align-items: start; gap: 1.5rem; border-top: 1px solid var(--rule); padding: 1.3rem 0; }
+.resultLedger dt a { display: inline-flex; gap: .4rem; min-height: 44px; align-items: start; text-underline-offset: .3em; font-size: .95rem; }
+.resultValue { margin: 0; font-size: 1.5rem; font-weight: 550; line-height: 1.2; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.resultMeaning { margin: 0; font-size: .9rem; line-height: 1.5; }
+.resultMeaning small { display: block; margin-top: .3rem; font-size: .8125rem; line-height: 1.65; color: var(--muted); }
+.career { list-style: none; }
+.career li { display: grid; grid-template-columns: .6fr .9fr 1.6fr; align-items: center; gap: 1.5rem; padding: 1.2rem 0; border-top: 1px solid var(--rule); }
+.careerDate { font-size: .875rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.careerBrand { display: flex; align-items: center; gap: .8rem; min-width: 0; }
+.careerBrand > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+.careerRemit h3 { font-size: 1rem; font-weight: 550; line-height: 1.5; }
+.careerRemit p { color: var(--muted); font-size: .875rem; line-height: 1.65; margin-top: .15rem; }
+.paintingSection { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center; padding: 2.5rem 0 .5rem; border-top: 1px solid var(--rule); }
+.paintingSection h2 { font-size: clamp(1.8rem, 2.7vw, 2.6rem); font-weight: 550; line-height: 1.15; letter-spacing: -.04em; max-width: 18ch; }
+.paintingSection p { max-width: 42ch; color: var(--muted); font-size: 1rem; line-height: 1.7; margin: 1rem 0; }
+.painting { width: 100%; max-width: 31rem; justify-self: end; text-decoration: none; }
 .painting img { display: block; width: 100%; height: auto; }
-.painting > span { display: flex; align-items: center; justify-content: space-between; gap: .5rem; min-height: 44px; margin-top: .35rem; font-size: .875rem; color: var(--muted); }
+.painting > span { display: flex; align-items: center; min-height: 44px; font-size: .8125rem; color: var(--muted); }
 .painting:hover > span { text-decoration: underline; text-underline-offset: .3em; }
-@media (max-width: 1100px) {
-  .hero { gap: 1.5rem; }
-  .hero h1 { font-size: clamp(3rem, 5.5vw, 4.5rem); }
-  .selectedWork { column-gap: 1.5rem; }
-  .workItem h3 { font-size: 1.35rem; }
-  .proofValue { font-size: 2.1rem; }
-  .career { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; }
-}
+@media (max-width: 1100px) { .introduction { gap: 2rem; } .leadWork, .workPair, .experimentPair { gap: 1.75rem; } .experimentPair > article { grid-template-columns: 1fr; } }
 @media (max-width: 767px) {
-  .hero { grid-template-columns: 1fr; gap: 1.75rem; padding: .5rem 0 2.5rem; }
-  .hero h1 { font-size: clamp(2.5rem, 8vw, 3.6rem); }
-  .intro { font-size: 1rem; }
-  .current { max-width: none; }
-  .section { padding: 2.5rem 0; }
-  .selectedWork { grid-template-columns: 1fr; gap: 2rem; }
-  .workItem { display: flex; flex-direction: column; grid-row: auto; }
-  .workItem h3 { font-size: 1.6rem; }
-  .proof { margin-top: 1rem; }
-  .proofValue { font-size: 2.75rem; }
-  .career { grid-template-columns: 1fr; gap: 1.5rem; }
-  .careerRole { min-height: 0; }
-  .personal { grid-template-columns: 1fr; gap: 2rem; }
-  .painting { justify-self: start; max-width: 100%; }
+  .introduction { grid-template-columns: 1fr; gap: 1.25rem; padding-bottom: 2rem; }
+  .introduction h1 { max-width: 19ch; font-size: clamp(2.1rem, 7.5vw, 2.7rem); }
+  .introCopy > p:first-child { font-size: 1rem; }
+  .byline { font-size: .8125rem; }
+  .sectionHeading { margin-bottom: 1.25rem; }
+  .leadWork, .workPair, .experimentPair, .paintingSection { grid-template-columns: 1fr; gap: 1.5rem; }
+  .leadAccount h3 { font-size: 1.8rem; }
+  .workPair { margin-top: 2rem; gap: 2rem; }
+  .experimentPair { gap: 2rem; }
+  .experimentPair > article { grid-template-columns: 1fr; }
+  .resultLedger > div { grid-template-columns: 1fr 1fr; gap: .5rem 1rem; }
+  .resultMeaning { grid-column: 1 / -1; }
+  .resultValue { text-align: right; }
+  .career li { grid-template-columns: 1fr 1fr; gap: .75rem 1rem; align-items: center; }
+  .careerRemit { grid-column: 1 / -1; }
+  .careerBrand { justify-content: end; }
+  .paintingSection { padding-top: 2rem; }
+  .painting { max-width: 100%; justify-self: start; }
 }

@@ -1,109 +1,138 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { findCaseStudy } from '@/lib/work';
+import type { CaseStudyMedia } from '@/lib/work-types';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
-import WorkPreview from '@/components/work/WorkPreview';
+import Media from '@/components/work/Media';
 import HomeMotion from '@/components/HomeMotion';
 import CvDownload from '@/components/CvDownload';
 import BrandMarks from '@/components/BrandMarks';
-import { CompanyDescription } from '@/components/CompanyContext';
-import { getCompanyContext } from '@/lib/company-context';
 import styles from './home.module.css';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Priyam Sameer — AI + Business Leadership' },
-  description: 'AI product thinking and business ownership. Selected work across education lending, lender integrations, MCP architecture, agricultural data and commodity marketplaces. View Priyam Sameer’s CV and product evidence.',
-  openGraph: { title: 'Priyam Sameer — AI + Business Leadership', description: 'AI product thinking. Business ownership. Interfaces, decisions and evidence from my work.' },
-  twitter: { title: 'Priyam Sameer — AI + Business Leadership', description: 'AI product thinking. Business ownership. Interfaces, decisions and evidence from my work.' },
+  title: { absolute: 'Priyam Sameer — Product Leader & Former Founder' },
+  description: 'I lead lending products, lender partnerships and P&L at CashKaro. Explore my work across education loans, agricultural technology, marketplaces and UrbanKhet.',
+  openGraph: { title: 'Priyam Sameer — Product Leader & Former Founder', description: 'Lending products, agricultural technology and a farm-to-customer business. The products, decisions and evidence behind my work.' },
+  twitter: { title: 'Priyam Sameer — Product Leader & Former Founder', description: 'Lending products, agricultural technology and a farm-to-customer business. The products, decisions and evidence behind my work.' },
 };
 
-const selected = [
-  { slug: 'cashkaro-personal-loan-marketplace', domain: 'Lending', value: '16% → 45%', measure: 'Reported funnel conversion', note: 'Programme report; funnel events and comparison cohorts unavailable.' },
-  { slug: 'absolute-silkroute-marketplace', domain: 'Commodity trading', value: '$100M', measure: 'Reported GMV in nine months', note: 'Transaction value, not revenue. Source cohorts vary.' },
-  { slug: 'absolute-upaj-farmer-experience', domain: 'Farmer products', value: '100K → 600K', measure: 'Reported active users', note: 'Programme report; cohort definition and comparison period unavailable.' },
+function asset(slug: string, id: string): CaseStudyMedia | undefined {
+  return findCaseStudy(slug)?.media.find(media => media.id === id);
+}
+
+const programmeResults = [
+  { slug: 'cashkaro-personal-loan-marketplace', name: 'Personal lending', value: '16% → 45%', measure: 'Reported funnel conversion', note: 'Programme-level result; funnel events and comparison cohorts were not supplied.' },
+  { slug: 'absolute-silkroute-marketplace', name: 'SilkRoute trade', value: '$100M', measure: 'Reported GMV over nine months', note: 'Transaction value, not revenue or the effect of one feature.' },
+  { slug: 'absolute-upaj-farmer-experience', name: 'Upaj farmer product', value: '100K → 600K', measure: 'Reported active users', note: 'Programme-level result; the cohort definition and comparison period were not supplied.' },
 ];
 const career = [
-  { name: 'UrbanKhet', period: '2019–2021', role: 'Founder & Director', id: 'urbankhet' },
-  { name: 'Absolute / Upaj', period: '2021–2024', role: 'Product Manager → Principal PM', id: 'absolute' },
-  { name: 'CashKaro / BankKaro', period: '2025–Present', role: 'Senior Manager → General Manager', id: 'cashkaro' },
+  { name: 'UrbanKhet', period: '2019–2021', role: 'Founder & Director', id: 'urbankhet', scope: 'Product, sourcing, fulfilment and the operating business.' },
+  { name: 'Absolute', period: '2021–2024', role: 'Product Manager → Principal PM', id: 'absolute', scope: 'Commodity trading, farmer products and agricultural risk.' },
+  { name: 'CashKaro', period: '2025–Present', role: 'Senior Manager → General Manager', id: 'cashkaro', scope: 'Consumer and education lending, lender partnerships and P&L.' },
 ];
 
 export default function HomePage() {
-  const previews = ['cashkaro-college-money-education-loans', 'cashkaro-lending-mcp-feedback', 'absolute-crop-health-ai'];
+  const college = asset('cashkaro-college-money-education-loans', 'college-money-abroad-country-selector');
+  const crop = asset('absolute-crop-health-ai', 'upaj-growstac-advisory');
+  const farm = asset('urbankhet-farm-to-fork', 'urbankhet-linkedin-company-farm-cover');
+  const prototype = asset('cashkaro-eduloans-policy-workflow', 'eduloans-prototype-inspector');
+  const mcp = asset('cashkaro-lending-mcp-feedback', 'lending-mcp-proposal');
   return <PublicShell>
     <Header />
     <main id="main-content">
       <HomeMotion>
-      <section className={styles.hero} aria-labelledby="intro-title">
-        <div className={styles.heroCopy} data-entry="first">
-          <p className={styles.label}>Priyam Sameer · AI + business leadership</p>
-          <h1 id="intro-title">AI product thinking.<br /><em>Business ownership.</em></h1>
-          <p className={styles.intro}>I build lending, marketplace and agritech products—with AI-assisted workflows, deliberate decision systems and clear business ownership.</p>
-          <div className={styles.actions}>
-            <Link href="/product" className="ink-button">Explore my work <span aria-hidden="true">↗</span></Link>
-            <CvDownload className={styles.download} />
+        <section className={styles.introduction} aria-labelledby="intro-title" data-entry="first">
+          <div>
+            <p className={styles.byline}>Priyam Sameer / Product leader &amp; former founder</p>
+            <h1 id="intro-title">I build products and the business around them.</h1>
           </div>
-        </div>
-          <div className={styles.current} data-entry="second">
-            <p className={styles.currentLabel}>Current role</p>
-            <p className={styles.currentTitle}>General Manager</p>
-            <p>Product Management &amp; Business Growth</p>
-            <Link href="/cv#cashkaro">CashKaro / BankKaro <span aria-hidden="true">↗</span></Link>
+          <div className={styles.introCopy}>
+            <p>I lead lending products, lender partnerships and P&amp;L at CashKaro as General Manager. Before that: agricultural products at Absolute, and UrbanKhet, the farm-to-customer business I founded.</p>
+            <div className={styles.actions}>
+              <Link href="/product" className="ink-button">Explore my work <span aria-hidden="true">↗</span></Link>
+              <CvDownload className={styles.download} />
+            </div>
           </div>
-      </section>
+        </section>
 
-      <section className={styles.section} aria-labelledby="work-title">
-        <div className={styles.sectionHeader} data-reveal=""><div><p className={styles.label}>Selected work</p><h2 id="work-title">Decisions worth looking at.</h2></div><Link href="/product" className="ink-link">Explore selected work <span aria-hidden="true">↗</span></Link></div>
-        {previews.map(slug => { const study = findCaseStudy(slug); return study ? <WorkPreview key={study.id} study={study} reveal /> : null; })}
-      </section>
+        <section className={styles.selected} aria-labelledby="selected-work-title">
+          <header className={styles.sectionHeading}><h2 id="selected-work-title">Selected work</h2><Link href="/product" className="ink-link">All selected work <span aria-hidden="true">↗</span></Link></header>
+          <article className={styles.leadWork} aria-labelledby="college-title">
+            <div className={styles.leadMedia}>{college && <Media media={college} priority compact />}</div>
+            <div className={styles.leadAccount}>
+              <BrandMarks companyId="cashkaro" small />
+              <h3 id="college-title">College.money education loans</h3>
+              <p>I owned the education-loan journey, lender commercials and operations. The product connects student intent, document preparation and a case a lender can assess.</p>
+              <div className={styles.result}><strong>40%</strong><span>Reported enquiry-to-application conversion</span></div>
+              <p className={styles.qualification}>Launch-year report; the enquiry cohort definition was not supplied.</p>
+              <Link href="/product/cashkaro-college-money-education-loans" className="ink-link">Full case study <span aria-hidden="true">↗</span></Link>
+            </div>
+          </article>
+          <div className={styles.workPair}>
+            <article className={styles.cropWork} aria-labelledby="crop-title">
+              {crop && <Media media={crop} compact />}
+              <div className={styles.pairAccount}>
+                <p className={styles.workContext}>Absolute / Historical product delivery</p>
+                <h3 id="crop-title">Crop-health AI, from capture to advice</h3>
+                <p>I brought engineering, modelling and agronomy together around image capture and useful farmer guidance.</p>
+                <p className={styles.qualification}>The reported dataset spans 500K+ images and 14 crops. Model accuracy was not supplied; the visual is a current public reference.</p>
+                <Link href="/product/absolute-crop-health-ai" className="ink-link">Full case study <span aria-hidden="true">↗</span></Link>
+              </div>
+            </article>
+            <article className={styles.founderWork} aria-labelledby="urban-title">
+              {farm && <Media media={farm} compact />}
+              <div className={styles.pairAccount}>
+                <p className={styles.workContext}>UrbanKhet / Founder, 2019–2021</p>
+                <h3 id="urban-title">The storefront and the farm behind it</h3>
+                <p>I built a farm-to-customer venture: the web product, farmer sourcing, subscriptions, delivery and the team operating them.</p>
+                <p className={styles.qualification}>3,600+ customers reported in the career record. Earlier snapshots use different customer counts.</p>
+                <Link href="/product/urbankhet-farm-to-fork" className="ink-link">Full case study <span aria-hidden="true">↗</span></Link>
+              </div>
+            </article>
+          </div>
+        </section>
 
-      <section className={styles.section} aria-labelledby="impact-title">
-        <div className={styles.sectionHeader} data-reveal=""><div><p className={styles.label}>Commercial ownership</p><h2 id="impact-title">The business behind the product.</h2></div></div>
-        <div className={styles.selectedWork}>{selected.map(proof => {
-          const study = findCaseStudy(proof.slug);
-          if (!study) return null;
-          return <article key={study.id} className={styles.workItem} data-reveal="">
-            <p className={styles.domain}>{proof.domain}</p>
-            <p className={styles.proofValue}>{proof.value}</p>
-            <p className={styles.proofMeasure}>{proof.measure}</p>
-            <p className={styles.proofNote}>{proof.note}</p>
-            <Link href={`/product/${encodeURIComponent(study.slug)}`} className="ink-link">{study.visualSummary?.title || study.title} <span aria-hidden="true">↗</span></Link>
-          </article>;
-        })}</div>
-      </section>
+        <section className={styles.experiments} aria-labelledby="experiments-title">
+          <header className={styles.sectionHeading}><h2 id="experiments-title">Prototypes &amp; system design</h2><p>Interaction prototypes and proposed lending architecture.</p></header>
+          <div className={styles.experimentPair}>
+            <article aria-labelledby="eduloans-title">
+              {prototype && <Media media={prototype} compact />}
+              <div className={styles.experimentAccount}><h3 id="eduloans-title">EduLoans interaction prototype</h3><p>AI-assisted delivery, deterministic lender rules and human verification. Original interface with synthetic records and scripted responses.</p><Link href="/product/cashkaro-eduloans-policy-workflow" className="ink-link">Full case study <span aria-hidden="true">↗</span></Link></div>
+            </article>
+            <article aria-labelledby="mcp-title">
+              {mcp && <Media media={mcp} compact />}
+              <div className={styles.experimentAccount}><h3 id="mcp-title">MCP for lending policy</h3><p>A proposed shared evaluation service for two policy engines. Human approval stays separate from evaluating a case; live deployment is unconfirmed.</p><Link href="/product/cashkaro-lending-mcp-feedback" className="ink-link">Full case study <span aria-hidden="true">↗</span></Link></div>
+            </article>
+          </div>
+        </section>
 
-      <section className={styles.section} aria-labelledby="career-title">
-        <div className={styles.sectionHeader} data-reveal=""><div><p className={styles.label}>Career at a glance</p><h2 id="career-title">From founder to product leader.</h2></div><Link href="/cv" className="ink-link">View CV <span aria-hidden="true">→</span></Link></div>
-        <ol className={styles.career}>{career.map(item => {
-          const company = getCompanyContext(item.id);
-          return <li key={item.id} data-reveal="">
-            <p className={styles.careerDate}>{item.period}</p>
-            <BrandMarks companyId={item.id} className={styles.careerBrands} />
-            <h3>{item.name}</h3>
-            {company && <CompanyDescription company={company} className={styles.careerAbout} />}
-            {company && !company.abstract && <p className={styles.careerScale}>20M users reported in 2023. Backed by Ratan Tata, Kalaari and Affle.</p>}
-            <div className={styles.careerWebsites}>{company?.websites.map(website => <a key={website.href} href={website.href} target="_blank" rel="noopener noreferrer">{website.label} <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>)}</div>
-            <p className={styles.careerRole}><span>My role</span>{item.role}</p>
-          </li>;
-        })}</ol>
-      </section>
+        <section className={styles.results} aria-labelledby="results-title">
+          <header className={styles.sectionHeading}><h2 id="results-title">Results in context</h2><p>Programme outcomes, with the scope kept beside each figure.</p></header>
+          <dl className={styles.resultLedger}>{programmeResults.map(result => <div key={result.slug}>
+            <dt><Link href={`/product/${result.slug}`}>{result.name}<span aria-hidden="true"> ↗</span></Link></dt>
+            <dd className={styles.resultValue}>{result.value}</dd>
+            <dd className={styles.resultMeaning}><span>{result.measure}</span><small>{result.note}</small></dd>
+          </div>)}</dl>
+        </section>
 
-      <section className={`${styles.section} ${styles.personal}`} aria-labelledby="interests-title">
-        <div data-reveal="">
-          <p className={styles.label}>Beyond product</p>
-          <h2 id="interests-title">A little colour.<br /><em>A wider perspective.</em></h2>
-          <p>I paint alongside my product work. At CEPT, I studied construction technology and captained FC Sparta.</p>
-          <BrandMarks companyId="cept" small />
-          <div className={styles.personalLinks}><Link href="/art" className="ink-link">Explore my paintings <span aria-hidden="true">↗</span></Link><Link href="/blog" className="ink-link">Writing <span aria-hidden="true">↗</span></Link></div>
-        </div>
-        <Link href="/art#public-compass" className={styles.painting}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/art/priyam/public-compass-preview.webp" alt="Public Compass, my oil painting in red, green and gold" width={1000} height={879} loading="lazy" />
-          <span>Public Compass · Oil on canvas <span aria-hidden="true">↗</span></span>
-        </Link>
-      </section>
+        <section className={styles.careerSection} aria-labelledby="career-title">
+          <header className={styles.sectionHeading}><h2 id="career-title">Career highlights</h2><Link href="/cv" className="ink-link">View experience <span aria-hidden="true">↗</span></Link></header>
+          <ol className={styles.career}>{career.map(item => <li key={item.id}>
+            <p className={styles.careerDate}>{item.period}</p><div className={styles.careerBrand}><BrandMarks companyId={item.id} small /><span>{item.name}</span></div>
+            <div className={styles.careerRemit}><h3>{item.role}</h3><p>{item.scope}</p></div>
+          </li>)}</ol>
+        </section>
+
+        <section className={styles.paintingSection} aria-labelledby="painting-title">
+          <div><h2 id="painting-title">Away from product, I paint.</h2><p>Oil, colour and a different kind of attention. My paintings and artist notes are collected here.</p><Link href="/art" className="ink-link">Explore my paintings <span aria-hidden="true">↗</span></Link></div>
+          <Link href="/art#public-compass" className={styles.painting}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/art/priyam/public-compass-preview.webp" alt="Public Compass, my oil painting in red, green and gold" width={1000} height={879} loading="lazy" />
+            <span>Public Compass / Oil on canvas</span>
+          </Link>
+        </section>
       </HomeMotion>
     </main>
     <Footer />

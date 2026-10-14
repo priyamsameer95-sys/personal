@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import type { CaseStudy, WorkCompany } from '@/lib/work-types';
 import CompanyContext from '@/components/CompanyContext';
+import { getCompanyContext } from '@/lib/company-context';
 import styles from './work-explorer.module.css';
 import WorkPreview, { type WorkPreviewStudy } from './WorkPreview';
 
@@ -60,15 +61,14 @@ function CompanyWork({ group, priority }: { group: WorkExplorerGroup; priority?:
   const { company, studies } = group;
   return <section id={company.id} tabIndex={-1} aria-labelledby={`${company.id}-title`} className={styles.companySection}>
     <header className={styles.companyHeader}>
-      <CompanyContext companyId={company.id} headingId={`${company.id}-title`} headingLevel={2} compact />
-      <p className={styles.companyMeta}>{company.period} · {company.relationship || 'Employment'} · {studies.length} selected {studies.length === 1 ? 'project' : 'projects'}</p>
+      <CompanyContext companyId={company.id} headingId={`${company.id}-title`} headingLevel={2} period={company.period} compact />
     </header>
+    <div className={styles.selectedProjects}>{studies.map((study, index) => <WorkPreview key={study.id} study={study} priority={priority && index === 0} showBrand={false} />)}</div>
     {company.id === 'absolute' && <section className={styles.productStack} aria-labelledby="upaj-stack-title">
-      <h3 id="upaj-stack-title">Upaj’s connected product stack</h3>
-      <p>My work connected recurring farmer needs, field monitoring and advice with the information institutions need to assess agricultural risk.</p>
-      <ul>{upajStack.map(product => <li key={product.slug}><Link href={`/product/${product.slug}`}><strong>{product.title}<span aria-hidden="true"> ↗</span></strong><span>{product.description}</span></Link></li>)}</ul>
+      <h3 id="upaj-stack-title">The wider Upaj stack</h3>
+      <div><p>Connected farmer information, monitoring, advisory and institutional risk.</p>
+      <ul>{upajStack.map(product => <li key={product.slug}><Link href={`/product/${product.slug}`} title={product.description}>{product.title}<span aria-hidden="true"> ↗</span></Link></li>)}</ul></div>
     </section>}
-    <div className={styles.selectedProjects}>{studies.map((study, index) => <WorkPreview key={study.id} study={study} priority={priority && index === 0} />)}</div>
   </section>;
 }
 
@@ -76,22 +76,24 @@ export default function WorkExplorer({ groups }: { groups: WorkExplorerGroup[] }
   const selected = selectWorkGroups(groups);
   const career = groups.filter(group => !selectedCompanyIds.includes(group.company.id));
   useEffect(() => {
+    let frame = 0;
     const followFragment = () => {
       const fragment = resolveWorkFragment(window.location.hash, groups);
       if (!fragment) return;
-      requestAnimationFrame(() => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
         const target = document.getElementById(fragment);
-        target?.scrollIntoView({ block: 'start' });
         target?.focus({ preventScroll: true });
+        target?.scrollIntoView({ block: 'start', behavior: 'instant' });
       });
     };
     followFragment();
     window.addEventListener('hashchange', followFragment);
-    return () => window.removeEventListener('hashchange', followFragment);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener('hashchange', followFragment); };
   }, [groups]);
 
   return <div className={styles.explorer}>
-    <nav id="company-index" className={styles.companyNavigation} aria-label="Selected company work" tabIndex={-1}>{selected.map(({ company }) => <a key={company.id} href={`#${company.id}`}>{company.name}<span aria-hidden="true"> ↓</span></a>)}</nav>
+    <nav id="company-index" className={styles.companyNavigation} aria-label="Selected company work" tabIndex={-1}>{selected.map(({ company }) => <a key={company.id} href={`#${company.id}`}>{getCompanyContext(company.id)?.name || company.name}<span aria-hidden="true"> ↓</span></a>)}</nav>
     {selected.map((group, index) => <CompanyWork key={group.company.id} group={group} priority={index === 0} />)}
     <section id="other-contexts" className={styles.experienceBridge} aria-labelledby="experience-bridge-title" tabIndex={-1}>
       <h2 id="experience-bridge-title">Career &amp; background</h2>
