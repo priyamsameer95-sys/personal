@@ -3,6 +3,7 @@
 .brands { margin-bottom: .75rem; }
 .name { font-size: clamp(1.25rem, 1.5vw, 1.5rem); font-weight: 550; line-height: 1.25; letter-spacing: -.025em; margin: 0; }
 .about { max-width: 66ch; font-size: 1rem; line-height: 1.7; margin: 0 0 1.25rem; }
+.about a { text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: .25em; }
 .facts { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin: 0; }
 .facts > div { flex: 1 1 11rem; min-width: 0; }
 .facts dt { font-size: .875rem; line-height: 1.5; color: var(--muted, #625e56); margin-bottom: .3rem; }
@@ -27,5 +28,7 @@
   .compact .facts { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
   .compact .websites, .compact .scope, .compact .sources { grid-column: 1 / -1; margin: 0; }
   .compact .reviewed { display: inline; margin-left: .75rem; }
+  .compact.abstract .about { grid-column: 2; grid-row: 1; align-self: center; max-width: 60ch; }
+  .compact.abstract .websites { grid-column: 2; }
 }
 @media (max-width: 560px) { .facts { gap: 1rem; } .facts > div { flex-basis: calc(50% - .5rem); } .about { line-height: 1.65; } }

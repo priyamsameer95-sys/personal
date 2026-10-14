@@ -27,7 +27,7 @@
 .proofMeasure { margin-top: .5rem; font-size: .95rem; line-height: 1.6; }
 .proofNote { margin-top: .6rem; font-size: .875rem; line-height: 1.65; color: var(--muted); }
 .workItem > a { margin-top: 1.1rem; }
-.career { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 3rem; }
+.career { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem 3rem; }
 .career li { border-top: 1px solid var(--rule); padding-top: 1rem; }
 .careerDate { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 .careerBrands { min-height: 128px; margin: .9rem 0 .7rem; }
