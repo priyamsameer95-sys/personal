@@ -37,7 +37,7 @@ function load(filename, stubs = {}, env = {}) {
   const module = { exports: {} };
   vm.runInNewContext(outputText, {
     module, exports: module.exports, process: { env }, console, URL,
-    require: id => Object.hasOwn(stubs, id) ? stubs[id] : require(id),
+    require: id => id === '@/lib/seo' ? require('./helpers/seo.cjs') : Object.hasOwn(stubs, id) ? stubs[id] : require(id),
   }, { filename });
   return module.exports;
 }
@@ -60,7 +60,7 @@ function experienceHtml() {
     ...shared, './content.json': career, './cv.module.css': css,
     '@/lib/work': { findCaseStudy: slug => registry.caseStudies.find(study => study.slug === slug) },
     '@/lib/company-context': companyContext,
-    '@/components/CvDownload': load('components/CvDownload.tsx', {'@/components/Icon':Icon}).default,
+    '@/components/CvDownload': require('./helpers/cv-download.cjs').default,
   }).default;
   return renderToStaticMarkup(createElement(Page));
 }
@@ -76,8 +76,9 @@ test('the Experience document preserves the full chronology, 25 proof links and 
   for (const href of [`mailto:${career.contacts.email}`, career.contacts.phoneHref, career.contacts.websiteUrl, career.contacts.linkedinUrl]) assert.ok(html.includes(`href="${escapeHtml(href)}"`), href);
   assert.match(html, /aria-label="Copy email address"/);
   for (const value of [career.contacts.email, career.contacts.phone, career.contacts.website]) assert.ok(visible.includes(escapeHtml(value)), value);
-  const suppliedCv = json('content/cv-download.json');
-  assert.ok(html.includes(`href="${suppliedCv.publicPath}?v=${suppliedCv.sha256.slice(0,12)}" download="Priyam_Sameer_CV.pdf"`));
+  assert.match(html, /<button[^>]+aria-label="Download CV"[^>]+aria-haspopup="dialog"/);
+  assert.match(html, /type="email" name="email"/);
+  assert.doesNotMatch(html, /href="[^\"]+\.pdf/, 'The CV document uses the shared email gate');
   assert.doesNotMatch(html, /Across the product lifecycle|What I bring|<figure\b|<video\b/);
   assert.doesNotMatch(visible, /Dates not specified|supplied material|source-reported|direct-report counts|16%|45%|40%|66%|₹5\.5|₹1\.2|3,600\+/i);
   assert.deepEqual(career.experience.map(job => [job.companyId, job.dates]), [

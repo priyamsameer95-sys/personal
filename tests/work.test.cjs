@@ -51,7 +51,7 @@ function load(relativePath, stubs = {}, env = {}, globals = {}) {
   const moduleContext = { exports: {} };
   vm.runInNewContext(outputText, {
     module: moduleContext, exports: moduleContext.exports, URL,
-    require: id => Object.prototype.hasOwnProperty.call(stubs, id) ? stubs[id] : id === '@/components/EmailContact' ? EmailContact : id === '@/components/Icon' ? Icon : id === '@/lib/product-links' ? load('lib/product-links.ts') : require(id),
+    require: id => Object.prototype.hasOwnProperty.call(stubs, id) ? stubs[id] : id === '@/lib/seo' ? require('./helpers/seo.cjs') : id === '@/lib/work-presentation' ? load('lib/work-presentation.ts') : id === '@/components/EmailContact' ? EmailContact : id === '@/components/Icon' ? Icon : id === '@/lib/product-links' ? load('lib/product-links.ts') : require(id),
     process: { env }, console: { error() {} }, ...globals,
   }, { filename: relativePath });
   return moduleContext.exports;
@@ -428,7 +428,7 @@ test('curated detail routes bypass the database, publish metadata, redirect old 
   assert.equal(calls, 0);
   const metadata = await route.generateMetadata({ params: { category: 'product', id: 'company-one' } });
   assert.equal(metadata.description, study.visualSummary.summary);
-  assert.equal(metadata.alternates.canonical, '/product/company-one');
+  assert.equal(metadata.alternates.canonical, 'https://www.priyamsameer.com/product/company-one');
   await assert.rejects(route.default({ params: { category: 'product', id: 'older-slug' } }), /Redirect: \/product\/company-one/);
   await assert.rejects(route.default({ params: { category: 'product', id: 'draft' } }), /Not found/);
   const retiredRoute = routeModule(workModule(), async () => { calls += 1; throw new Error('Should not query'); }, { POSTGRES_URL: 'configured' });

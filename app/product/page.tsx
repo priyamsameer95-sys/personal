@@ -5,19 +5,16 @@ import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
 import WorkExplorer, { prepareWorkGroups } from '@/components/work/WorkExplorer';
 import explorerStyles from '@/components/work/work-explorer.module.css';
+import { breadcrumbs, pageMetadata, serializeJsonLd } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Selected Work',
-  description: 'Product work at CashKaro, Absolute and UrbanKhet: lending journeys, AI review, partner APIs, agriculture and founder operations. Decisions, visual evidence and direct product references.',
-  openGraph: { title: 'Selected Work — Priyam Sameer', description: 'Lending journeys, shared policy systems and agricultural products, with visible evidence and personal ownership.', images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Priyam Sameer — product leadership' }] },
-  twitter: { card: 'summary_large_image', images: ['/twitter-image'], title: 'Selected Work — Priyam Sameer', description: 'Lending journeys, shared policy systems and agricultural products, with visible evidence and personal ownership.' },
-};
+export const metadata: Metadata = pageMetadata({ path: '/product', title: 'Product work at CashKaro, Absolute & UrbanKhet', description: 'Explore Priyam Sameer’s lending, AI review, agriculture and founder work: product decisions, personal responsibility and original visual evidence.' });
 
 export const revalidate = 0;
 
 export default function ProductWorkPage() {
   const groups = prepareWorkGroups(groupCaseStudies());
   return <PublicShell>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Work', path: '/product' }])) }} />
     <Header />
     <main id="main-content">
       <header className={explorerStyles.pageIntro}>

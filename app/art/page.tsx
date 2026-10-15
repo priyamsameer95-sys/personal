@@ -10,6 +10,7 @@ import Icon from '@/components/Icon';
 import ArtGallery from '@/components/art/ArtGallery';
 import { artCollections, artworks } from '@/content/art/works';
 import styles from './art.module.css';
+import { creativeWorkStructuredData, pageMetadata, serializeJsonLd } from '@/lib/seo';
 
 interface ContentItem {
   id: string;
@@ -21,14 +22,7 @@ interface ContentItem {
 
 const description = 'Paintings by Priyam Sameer in oil, acrylic and charcoal. Explore six works, their details and the artist’s original notes.';
 
-export const metadata: Metadata = {
-  title: 'Art', description,
-  openGraph: {
-    title: 'Art — Priyam Sameer', description,
-    images: [{ url: '/art/priyam/public-compass-preview.webp', width: 1000, height: 879, alt: 'Public Compass by Priyam Sameer' }],
-  },
-  twitter: { card: 'summary_large_image', title: 'Art — Priyam Sameer', description, images: ['/art/priyam/public-compass-preview.webp'] },
-};
+export const metadata: Metadata = pageMetadata({ path: '/art', title: 'Paintings in oil, acrylic & charcoal', description, image: { url: '/art/priyam/public-compass-preview.webp', width: 1000, height: 879, alt: 'Public Compass by Priyam Sameer' } });
 
 export const revalidate = 0;
 
@@ -60,6 +54,7 @@ export default async function ArtGalleryPage() {
 
   return (
     <PublicShell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd({ '@context': 'https://schema.org', '@graph': artworks.map(work => creativeWorkStructuredData({ path: `/art#${work.id}`, title: work.title, description: work.statement || work.description, image: work.image.src, author: true })) }) }} />
       <Header />
       <main id="main-content" className={styles.page}>
         <header className={styles.intro}>

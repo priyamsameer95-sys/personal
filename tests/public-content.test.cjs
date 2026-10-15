@@ -62,7 +62,7 @@ test('public hosting permits the supplied CV and keeps source documents and arch
   assert.deepEqual(retired, [], `Retired files must not be publicly hosted: ${retired.join(', ')}`);
 });
 
-test('every CV download serves the exact supplied PDF with a content version for cached browsers', () => {
+test('the CV gate preserves the exact supplied PDF and exposes no download before email capture', () => {
   const bytes = readFileSync(path.join(__dirname, '../public/cv/Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf'));
   const supplied = JSON.parse(readFileSync(path.join(__dirname, '../content/cv-download.json')));
   const approvedHash = '3a93c23d5b3ff90ead273b1ea1e6812e885df105bef525d638fb8fbe244ac713';
@@ -73,18 +73,17 @@ test('every CV download serves the exact supplied PDF with a content version for
   assert.equal(bytes.length, supplied.bytes);
   assert.equal(bytes.subarray(0, 5).toString(), '%PDF-');
   assert.equal(existsSync(path.join(__dirname, '../scripts/build-cv.py')), false, 'An obsolete generator must not overwrite the supplied PDF');
-  const { outputText: componentJs } = ts.transpileModule(readFileSync(path.join(__dirname, '../components/CvDownload.tsx'), 'utf8'), {
-    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, jsx: ts.JsxEmit.ReactJSX, esModuleInterop:true },
-  });
-  const componentModule = { exports: {} };
-  vm.runInNewContext(componentJs, { module: componentModule, exports: componentModule.exports, require: id => id === '@/components/Icon' ? require('./helpers/icon.cjs') : require(id) });
+  const component = require('./helpers/cv-download.cjs');
   const { createElement } = require('react');
   const { renderToStaticMarkup } = require('react-dom/server');
-  const html = renderToStaticMarkup(createElement(componentModule.exports.default));
+  const html = renderToStaticMarkup(createElement(component.default));
   const expectedUrl = `${supplied.publicPath}?v=${approvedHash.slice(0,12)}`;
-  assert.equal(componentModule.exports.CV_DOWNLOAD_URL,expectedUrl);
-  assert.ok(html.includes(`href="${expectedUrl}" download="Priyam_Sameer_CV.pdf"`));
-  assert.match(html, />Download CV/);
+  assert.equal(component.CV_DOWNLOAD_URL,expectedUrl);
+  assert.match(html, /<button[^>]+aria-label="Download CV"[^>]+aria-haspopup="dialog"/);
+  assert.match(html, /<dialog[^>]+aria-labelledby="[^"]+"[^>]+aria-describedby="[^"]+"/);
+  assert.match(html, /type="email" name="email" autoComplete="email" maxLength="254" required/);
+  assert.match(html, /This does not subscribe you to a newsletter/);
+  assert.doesNotMatch(html, /href="[^\"]+\.pdf|download=/, 'A visitor must complete the email form before a visible file link is rendered');
 });
 
 test('list excerpts omit formatting and only indicate actual truncation', () => {

@@ -13,7 +13,7 @@ function load(relativePath, stubs = {}, globals = {}) {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true },
   });
   const module = { exports: {} };
-  vm.runInNewContext(outputText, { ...globals, module, exports: module.exports, require: id => id === '@/components/Icon' ? require('./helpers/icon.cjs') : Object.hasOwn(stubs, id) ? stubs[id] : require(id) }, { filename: relativePath });
+  vm.runInNewContext(outputText, { ...globals, module, exports: module.exports, require: id => id === '@/lib/seo' ? require('./helpers/seo.cjs') : id === '@/components/Icon' ? require('./helpers/icon.cjs') : Object.hasOwn(stubs, id) ? stubs[id] : require(id) }, { filename: relativePath });
   return module.exports;
 }
 const link = ({ children, ...props }) => createElement('a', props, children);

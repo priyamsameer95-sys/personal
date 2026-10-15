@@ -18,11 +18,11 @@ function load(filename, stubs = {}) {
   });
   const module = { exports: {} };
   vm.runInNewContext(outputText, { module, exports: module.exports, URL,
-    require: id => id === '@/components/Icon' ? require('./helpers/icon.cjs') : Object.hasOwn(stubs, id) ? stubs[id] : require(id),
+    require: id => id === '@/lib/seo' ? require('./helpers/seo.cjs') : id === '@/components/Icon' ? require('./helpers/icon.cjs') : Object.hasOwn(stubs, id) ? stubs[id] : require(id),
   }, { filename });
   return module.exports;
 }
-const CvDownload = load('components/CvDownload.tsx');
+const CvDownload = require('./helpers/cv-download.cjs');
 const BrandMarks = load('components/BrandMarks.tsx', {
   '@/lib/brands': load('lib/brands.ts'), './brand-marks.module.css': css,
 }).default;
@@ -100,9 +100,12 @@ test('the introduction establishes the founder-to-lending remit without repeatin
   const selected = nodes.find(node => node.tag === 'section' && node.attributes.id === 'selected-work');
   assert.ok(selected && selected.start >= introduction.end, 'Selected work has its own section after the hero');
   assert.equal(selected.attributes.tabindex, '-1', 'The work jump can transfer keyboard focus');
-  const downloads = nodes.filter(node => node.tag === 'a' && node.attributes.href === CvDownload.CV_DOWNLOAD_URL);
+  const downloads = nodes.filter(node => node.tag === 'button' && node.attributes['aria-label'] === 'Download CV');
   assert.equal(downloads.length, 1, 'A single prominent CV download remains in the header');
-  assert.equal(downloads[0].attributes.download, 'Priyam_Sameer_CV.pdf');
+  assert.equal(downloads[0].attributes['aria-haspopup'], 'dialog');
+  const cvDialog = nodes.find(node => node.tag === 'dialog' && node.attributes.id === downloads[0].attributes['aria-controls']);
+  assert.ok(cvDialog, 'The CV button opens its labelled email request dialog');
+  assert.ok(!nodes.some(node => node.tag === 'a' && node.attributes.href === CvDownload.CV_DOWNLOAD_URL), 'The file is not linked before email capture');
   assert.equal(ancestor(downloads[0], 'header')?.attributes.id, 'nav-header');
   assert.doesNotMatch(html, /How I can help|Where I can help|how-i-can-help|work-conversation/);
   assert.ok(nodes.some(node => node.tag === 'a' && node.attributes.href === '/cv'));

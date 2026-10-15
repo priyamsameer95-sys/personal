@@ -121,7 +121,13 @@ function inspectPage(route, html) {
   requireThat(!parsed.duplicateIds.length, 'html', route, 'Duplicate IDs.', parsed.duplicateIds);
   requireThat(!parsed.tags.some(tag => tag.name === 'details'), 'html', route, 'A public details disclosure remains.');
   const links = parsed.tags.filter(tag => tag.name === 'a');
-  requireThat(links.some(tag => tag.attrs.href === cvDownloadUrl && Object.hasOwn(tag.attrs, 'download')), 'downloads', route, 'Current versioned CV download action is missing.');
+  const cvTriggers = parsed.tags.filter(tag => tag.name === 'button' && tag.attrs['aria-label'] === 'Download CV');
+  requireThat(cvTriggers.length > 0, 'downloads', route, 'The CV email-request action is missing.');
+  for (const trigger of cvTriggers) {
+    const dialog = parsed.tags.find(tag => tag.name === 'dialog' && tag.attrs.id === trigger.attrs['aria-controls']);
+    requireThat(trigger.attrs['aria-haspopup'] === 'dialog' && dialog && parsed.ids.has(dialog.attrs['aria-labelledby']) && parsed.ids.has(dialog.attrs['aria-describedby']) && !Object.hasOwn(dialog.attrs, 'open'), 'downloads', route, 'The CV control needs a closed, labelled email-request dialog.');
+  }
+  requireThat(parsed.tags.some(tag => tag.name === 'input' && tag.attrs.type === 'email' && tag.attrs.name === 'email' && Object.hasOwn(tag.attrs, 'required')), 'downloads', route, 'The CV dialog must request an email address.');
   for (const tag of parsed.tags) {
     for (const name of ['src', 'poster']) if (tag.attrs[name]) addAsset(tag.attrs[name], `${route}: ${tag.name}[${name}]`, route);
     for (const candidate of (tag.attrs.srcset || '').split(',')) if (candidate.trim()) addAsset(candidate.trim().split(/\s+/)[0], `${route}: srcset`, route);
@@ -134,7 +140,7 @@ function inspectPage(route, html) {
     if (tag.attrs.target === '_blank') requireThat(/\bnoopener\b/.test(tag.attrs.rel || '') && /\bnoreferrer\b/.test(tag.attrs.rel || ''), 'links', route, 'New-tab link lacks safe rel attributes.', href);
     const isCV = local?.pathname === cvPath;
     if (Object.hasOwn(tag.attrs, 'download') || documentOrVideo.test(href)) requireThat(isCV, 'downloads', route, 'A separate document/video download action remains.', href);
-    if (isCV) requireThat(`${local.pathname}${local.search}` === cvDownloadUrl && Object.hasOwn(tag.attrs, 'download'), 'downloads', route, 'A CV control does not use the single source-versioned download.', href);
+    if (isCV) requireThat(false, 'downloads', route, 'A public CV link bypasses the email-request dialog before capture.', href);
     if (href && local && !assetExtension.test(href) && !href.startsWith('/_next/')) addNavigation(href, route);
   }
   for (const match of html.matchAll(/url\(\s*["']?([^\s"')]+)["']?\s*\)/gi)) addAsset(decodeHTML(match[1]), `${route}: CSS url`, route);
@@ -358,7 +364,10 @@ function localFile(value) {
   const relative = pathname.startsWith('/_next/static/') ? pathname.slice('/_next/static/'.length) : pathname.slice(1);
   const filename = path.resolve(root, relative);
   // Next App Router serves this conventional icon route directly from app/.
-  if (pathname === '/favicon.ico' && fs.existsSync(path.join(repo, 'app', 'favicon.ico'))) return path.join(repo, 'app', 'favicon.ico');
+  if (['/favicon.ico', '/icon.svg', '/apple-icon.png'].includes(pathname)) {
+    const icon = path.join(repo, 'app', pathname.slice(1));
+    if (fs.existsSync(icon)) return icon;
+  }
   return filename.startsWith(`${root}${path.sep}`) && fs.existsSync(filename) && fs.statSync(filename).isFile() ? filename : null;
 }
 const mimeTypes = {

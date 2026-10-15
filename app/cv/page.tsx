@@ -12,13 +12,10 @@ import EmailContact from '@/components/EmailContact';
 import Icon from '@/components/Icon';
 import content from './content.json';
 import styles from './cv.module.css';
+import { pageMetadata, profileStructuredData, serializeJsonLd } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Experience & CV',
-  description: 'Priyam Sameer’s career in lending products, partner platforms and commercial ownership: CashKaro, CredFlow, Absolute and UrbanKhet. Roles, dates, relevant work and a downloadable CV.',
-  openGraph: { title: 'Experience & CV — Priyam Sameer', description: 'Product leadership, partner platforms and founder experience. Explore the career record or download the CV.', images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Priyam Sameer — product leadership' }] },
-  twitter: { card: 'summary_large_image', images: ['/twitter-image'], title: 'Experience & CV — Priyam Sameer', description: 'Product leadership, partner platforms and founder experience. Explore the career record or download the CV.' },
-};
+const description = 'Priyam Sameer’s product leadership at CashKaro, CredFlow and Absolute, and founder work at UrbanKhet. Explore roles, responsibilities, evidence and the CV.';
+export const metadata: Metadata = pageMetadata({ path: '/cv', title: 'Product leadership experience & CV', description });
 
 function Section({ id, title, children, nested = false }: { id: string; title: string; children: ReactNode; nested?: boolean }) {
   const Heading = nested ? 'h3' : 'h2';
@@ -48,6 +45,7 @@ function RelatedWork({ items }: { items: readonly { slug: string; label: string 
 
 export default function ExperiencePage() {
   return <PublicShell className={styles.shell}>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(profileStructuredData('/cv', 'Priyam Sameer — Experience & CV', description)) }} />
     <Header />
     <main id="main-content" className={styles.document}>
       <header className={styles.introduction}>

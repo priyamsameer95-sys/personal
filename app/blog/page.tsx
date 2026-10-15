@@ -7,6 +7,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
 import styles from './blog.module.css';
+import { pageMetadata } from '@/lib/seo';
 
 interface ContentItem {
   id: string;
@@ -17,12 +18,10 @@ interface ContentItem {
   created_at: string;
 }
 
-export const metadata: Metadata = {
-  title: 'Writing',
-  description: 'For now, the clearest account of Priyam Sameer’s product thinking is in the work itself: the problem, the decision and what followed.',
-  openGraph: { title: 'Writing — Priyam Sameer', description: 'Start with the decisions behind my work.', images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Priyam Sameer — product leadership' }] },
-  twitter: { card: 'summary_large_image', images: ['/twitter-image'], title: 'Writing — Priyam Sameer', description: 'Start with the decisions behind my work.' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { items, unavailable } = await loadWriting();
+  return pageMetadata({ path: '/blog', title: 'Writing & product decisions', description: items.length > 0 ? 'Essays by Priyam Sameer on product decisions, building and business, with the context and trade-offs behind the work.' : 'Writing by Priyam Sameer. For now, explore product thinking through the case studies: the problem, the decision, the operating detail and what followed.', noIndex: items.length === 0 && !unavailable });
+}
 
 export const revalidate = 0;
 

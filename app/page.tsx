@@ -10,13 +10,10 @@ import Media from '@/components/work/Media';
 import HomeMotion from '@/components/HomeMotion';
 import BrandMarks from '@/components/BrandMarks';
 import styles from './home.module.css';
+import { pageMetadata, profileStructuredData, serializeJsonLd } from '@/lib/seo';
 
 const description = 'From founding UrbanKhet to leading lending products at CashKaro. Explore Priyam Sameer’s product work, decisions, prototypes and paintings.';
-export const metadata: Metadata = {
-  title: { absolute: 'Priyam Sameer — Product leader & founder' }, description,
-  openGraph: { title: 'Priyam Sameer — Product leader & founder', description, images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Priyam Sameer — product leadership' }] },
-  twitter: { card: 'summary_large_image', images: ['/twitter-image'], title: 'Priyam Sameer — Product leader & founder', description },
-};
+export const metadata: Metadata = pageMetadata({ path: '/', title: 'Priyam Sameer — Product leader & former founder', description });
 function asset(slug: string, id: string): CaseStudyMedia | undefined {
   return findCaseStudy(slug)?.media.find(media => media.id === id);
 }
@@ -28,6 +25,7 @@ export default function HomePage() {
   const prototype = asset('cashkaro-eduloans-policy-workflow', 'eduloans-prototype-inspector');
   const mcp = asset('cashkaro-lending-mcp-feedback', 'lending-mcp-proposal');
   return <PublicShell>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(profileStructuredData('/', 'Priyam Sameer — Product leader & former founder', description)) }} />
     <Header wordmarkOnly />
     <main id="main-content"><HomeMotion>
       <section className={styles.hero} aria-labelledby="intro-title">

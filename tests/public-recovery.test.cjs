@@ -23,6 +23,8 @@ function loadPage(filename, env, db, extra = {}) {
     'next/link': link,
     '@/lib/db': { publicDb: db },
     '@/lib/content': { contentExcerpt: value => value || '' },
+    '@/lib/seo': require('./helpers/seo.cjs'),
+    '@/lib/work-presentation': { getCaseDisplayTitle: study => study.visualSummary?.title || study.title, getPrimaryMedia: () => [] },
     '@/components/Header': empty,
     '@/components/Footer': empty,
     '@/components/PublicShell': shell,
