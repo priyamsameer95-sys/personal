@@ -46,6 +46,8 @@ export function prepareWorkGroups(groups: readonly { company: WorkCompany; studi
         title: study.title, summary: study.summary, workType: study.workType,
         visualSummary: study.visualSummary ? { title: study.visualSummary.title } : undefined,
         media, primaryMediaIds: media.map(asset => asset.id),
+        companionMedia: study.slug === 'urbankhet-farm-to-fork'
+          ? study.media.find(asset => asset.id === 'urbankhet-linkedin-sorted-packs') : undefined,
       };
     }),
   }));
@@ -67,10 +69,6 @@ const companyAccounts: Record<string, { name: string; website?: string; period: 
     about: 'A farm-to-customer venture serving households and business buyers through sourcing, subscriptions and delivery.',
     remit: 'I founded and operated the business, owning the customer offer, operations and P&L.',
   },
-};
-const careerDestinations: Record<string, string> = {
-  credflow: '/cv#credflow', 'founder-programmes': '/cv#founder-programmes',
-  'water-farmers': '/cv#internship', cept: '/cv#education',
 };
 const legacyTargets: Record<string, string> = {
   'lending-journeys': 'cashkaro-college-money-education-loans',
@@ -97,7 +95,7 @@ export default function WorkExplorer({ groups }: { groups: WorkExplorerGroup[] }
       return <section key={id} id={id} className={styles.companySection} aria-labelledby={`${id}-work-title`} tabIndex={-1}>
         <header className={styles.companyHeader}>
           <div className={styles.companyIdentity}>
-            {account.website ? <a className={styles.companyLink} href={account.website} target="_blank" rel="noopener noreferrer" aria-label={`${account.name} (opens in a new tab)`}><BrandMarks companyId={id} /><h2 id={`${id}-work-title`}>{account.name}<Icon name="arrow-up-right" /></h2></a> : <div className={styles.companyLink}><BrandMarks companyId={id} /><h2 id={`${id}-work-title`}>{account.name}</h2></div>}
+            {account.website ? <a className={styles.companyLink} href={account.website} target="_blank" rel="noopener noreferrer" aria-label={`${account.name} (opens in a new tab)`}><BrandMarks companyId={id} /><h2 id={`${id}-work-title`} tabIndex={-1}>{account.name}<Icon name="arrow-up-right" /></h2></a> : <div className={styles.companyLink}><BrandMarks companyId={id} /><h2 id={`${id}-work-title`} tabIndex={-1}>{account.name}</h2></div>}
             <p>{account.period}</p>
           </div>
           <div className={styles.companyAccount}><p>{account.about}</p></div>
@@ -126,8 +124,8 @@ export default function WorkExplorer({ groups }: { groups: WorkExplorerGroup[] }
       </section>;
     })}
     <section id="other-contexts" className={styles.experienceBridge} aria-labelledby="experience-bridge-title" tabIndex={-1}>
-      <h2 id="experience-bridge-title">The full career</h2><p>Roles, promotions, education and further work are in <Link href="/cv">Experience <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link>.</p>
-      <nav aria-label="Earlier roles and additional experience">{career.map(({ company }) => <Link key={company.id} id={company.id} href={careerDestinations[company.id] || '/cv#other-contexts'}>{company.name} <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link>)}</nav>
+      {career.map(({ company }) => <span key={company.id} id={company.id} className={styles.anchorAlias} />)}
+      <h2 id="experience-bridge-title" tabIndex={-1}>The full career</h2><p>Roles, promotions, education and further work are in <Link href="/cv">Experience <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link>.</p>
     </section>
   </div>;
 }

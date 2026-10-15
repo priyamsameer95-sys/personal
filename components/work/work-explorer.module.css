@@ -12,6 +12,7 @@
 .companyLink { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.5rem; width: fit-content; max-width: 100%; color: var(--ink); text-decoration: none; }
 .companyLink > div { margin: 0; }
 .companyLink h2 { display: inline-flex; align-items: center; gap: .65rem; margin: 0; font-size: 1.5rem; font-weight: 500; letter-spacing: -.025em; line-height: 1.35; }
+.companyLink h2:focus-visible { outline: none; box-shadow: -3px 0 0 var(--ink); padding-left: .75rem; margin-left: -.75rem; }
 a.companyLink:hover h2 { text-decoration: underline; text-underline-offset: .25em; }
 .companyIdentity > p { margin-top: .5rem; color: var(--muted); font-size: 1rem; line-height: 1.6; font-variant-numeric: tabular-nums; }
 .companyAccount p { max-width: 56ch; margin: 0; font-size: 1rem; line-height: 1.75; text-wrap: pretty; }
@@ -19,7 +20,6 @@ a.companyLink:hover h2 { text-decoration: underline; text-underline-offset: .25e
 .companyProjects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 2.5rem; }
 .projectTarget { position: relative; min-width: 0; scroll-margin-top: 2rem; }
 .projectLead { grid-column: 1 / -1; }
-.projectTarget:target { outline: var(--focus-ring, 2px solid var(--ink)); outline-offset: 7px; border-radius: .75rem; }
 .companySection:focus-visible, .projectTarget:focus-visible, .experienceBridge:focus-visible, .companyNavigation:focus-visible { outline: var(--focus-ring, 2px solid var(--ink)); outline-offset: 7px; }
 .anchorAlias { position: absolute; top: 0; left: 0; scroll-margin-top: 2rem; }
 .productStack { margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); }
@@ -32,7 +32,7 @@ a.companyLink:hover h2 { text-decoration: underline; text-underline-offset: .25e
 .supportingCard:hover h4 { text-decoration: underline; text-underline-offset: .25em; }
 .supportingCard p { max-width: 48ch; margin: 0; font-size: 1rem; line-height: 1.7; }
 .supportingCard > span { display: block; margin-top: .65rem; font-size: .875rem; line-height: 1.6; color: var(--muted); }
-.experienceBridge { border-top: 1px solid var(--rule); padding-top: 2.5rem; scroll-margin-top: 2rem; }
+.experienceBridge { position: relative; border-top: 1px solid var(--rule); padding-top: 2.5rem; scroll-margin-top: 2rem; }
 .experienceBridge h2 { margin: 0 0 .75rem; font-size: 1.5rem; font-weight: 500; line-height: 1.35; letter-spacing: -.025em; }
 .experienceBridge > p { max-width: 66ch; font-size: 1rem; line-height: 1.7; color: var(--muted); }
 .experienceBridge > p a { color: var(--ink); text-underline-offset: .25em; }

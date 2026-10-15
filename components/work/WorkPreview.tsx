@@ -10,6 +10,7 @@ import styles from './work-preview.module.css';
 
 export type WorkPreviewStudy = Pick<CaseStudy, 'id' | 'slug' | 'companyId' | 'title' | 'summary' | 'workType' | 'media' | 'heroMediaId' | 'primaryMediaIds'> & {
   visualSummary?: Pick<NonNullable<CaseStudy['visualSummary']>, 'title'>;
+  companionMedia?: CaseStudy['media'][number];
 };
 export const selectedProjectOwnership: Readonly<Record<string, string>> = {
  'cashkaro-college-money-education-loans':'I owned the education-loan journey, partner commercials and operations, connecting intake, documents and lender routing. This is a current public reference; lenders retain the credit decision.',
@@ -53,6 +54,7 @@ interface WorkPreviewProps {
 
 export default function WorkPreview({ study, priority = false, reveal = false, showBrand = true, layout = 'card' }: WorkPreviewProps) {
   const media = getPrimaryMedia(study)[0];
+  const portrait = layout === 'lead' && media?.kind === 'video' && media.frame === 'portrait';
   const title = getCaseDisplayTitle(study);
   const product = productLinks[study.slug];
   const status = study.companyId === 'absolute' && study.workType === 'delivered'
@@ -64,12 +66,12 @@ export default function WorkPreview({ study, priority = false, reveal = false, s
       {showBrand && <BrandMarks companyId={study.companyId} small />}
       <p>{projectThemes[study.slug] && <span>{projectThemes[study.slug]}<span aria-hidden="true"> · </span></span>}{status}</p>
     </div>
-    <h3 id={`preview-${study.id}`}>{title}</h3>
+    <h3 id={`preview-${study.id}`} tabIndex={-1}>{title}</h3>
   </header>;
-  return <article className={`${styles.preview}${layout === 'lead' ? ` ${styles.lead}` : layout === 'diagram' ? ` ${styles.diagram}` : ''}${!media ? ` ${styles.textOnly}` : ''}`} aria-labelledby={`preview-${study.id}`}>
+  return <article className={`${styles.preview}${layout === 'lead' ? ` ${styles.lead}` : layout === 'diagram' ? ` ${styles.diagram}` : ''}${portrait ? ` ${styles.portraitLead}` : ''}${!media ? ` ${styles.textOnly}` : ''}`} aria-labelledby={`preview-${study.id}`}>
     {heading}
-    {media && <div className={`${styles.evidence}${study.companyId === 'urbankhet' ? ` ${styles.portraitEvidence}` : ''}`}>
-      <Media media={media} priority={priority} compact />
+    {media && <div className={styles.evidence}>
+      <Media media={portrait ? { ...media, caption: 'Select a pack and a delivery date in the original storefront.' } : media} priority={priority} compact />
     </div>}
     <div className={styles.story}>
       <div className={styles.account}>
@@ -81,5 +83,8 @@ export default function WorkPreview({ study, priority = false, reveal = false, s
         </div>
       </div>
     </div>
+    {portrait && study.companionMedia && <div className={styles.companion}>
+      <Media media={{ ...study.companionMedia, caption: 'Sorted-Packs — the original customer offer.' }} compact />
+    </div>}
   </article>;
 }

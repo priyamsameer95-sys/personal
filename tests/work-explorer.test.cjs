@@ -13,7 +13,7 @@ function load(relativePath, stubs = {}, globals = {}) {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true },
   });
   const module = { exports: {} };
-  vm.runInNewContext(outputText, { ...globals, module, exports: module.exports, require: id => id === '@/lib/seo' ? require('./helpers/seo.cjs') : id === '@/components/Icon' ? require('./helpers/icon.cjs') : Object.hasOwn(stubs, id) ? stubs[id] : require(id) }, { filename: relativePath });
+  vm.runInNewContext(outputText, { URL, ...globals, module, exports: module.exports, require: id => id === '@/lib/seo' ? require('./helpers/seo.cjs') : id === '@/components/Icon' ? require('./helpers/icon.cjs') : Object.hasOwn(stubs, id) ? stubs[id] : require(id) }, { filename: relativePath });
   return module.exports;
 }
 const link = ({ children, ...props }) => createElement('a', props, children);
@@ -194,8 +194,10 @@ test('original company anchors and legacy theme fragments remain unique and keyb
     assert.equal(tree.filter(node => node.attrs.id === company.id).length, 1, `${company.id}: unique original anchor`);
     assert.equal(fragmentModule.resolveWorkFragment(`#${company.id}`, fragments), company.id);
   }
-  const destinations = { credflow: '/cv#credflow', 'founder-programmes': '/cv#founder-programmes', 'water-farmers': '/cv#internship', 'gujarat-action-group': '/cv#other-contexts', advisory: '/cv#other-contexts', cept: '/cv#education' };
-  for (const [id, href] of Object.entries(destinations)) assert.match(html, new RegExp(`<a[^>]+id="${id}"[^>]+href="${href}"`));
+  for (const id of ['credflow', 'founder-programmes', 'water-farmers', 'gujarat-action-group', 'advisory', 'cept']) {
+    assert.match(html, new RegExp(`<span[^>]+id="${id}"`), 'Legacy context anchors remain available to the redirect handler');
+  }
+  assert.doesNotMatch(html, /aria-label="Earlier roles and additional experience"/, 'Work ends with one Experience bridge instead of a second career index');
   for (const [fragment, slug] of Object.entries(legacyTargets)) {
     const alias = tree.find(node => node.attrs.id === fragment);
     assert.ok(alias, fragment);
@@ -314,7 +316,7 @@ test('previews name the product before evidence and keep ownership readable with
   for (const study of prepared().flatMap(group => group.studies).filter(study => selected.includes(study.slug))) {
     const html = renderToStaticMarkup(createElement(preview, { study }));
     const title = presentation.getCaseDisplayTitle(study);
-    assert.ok(html.includes(`<h3 id="preview-${study.id}">${escaped(title)}</h3>`));
+    assert.ok(html.includes(`<h3 id="preview-${study.id}" tabindex="-1">${escaped(title)}</h3>`));
     const evidence = html.indexOf('<figure');
     assert.ok(html.indexOf('</h3>') < evidence, `${study.slug}: title before evidence`);
     assert.ok(evidence < html.indexOf('<p class="summary">'), `${study.slug}: evidence before ownership account`);
@@ -324,4 +326,20 @@ test('previews name the product before evidence and keep ownership readable with
   assert.match(html, /src="\/work\/college-money\/screenshots\/abroad-hero-final\.webp"/);
   assert.match(html, /Current public reference/);
   assert.equal(presentation.getPrimaryMedia(registry.caseStudies.find(study => study.slug === college.slug))[0].id, 'college-money-abroad-readiness');
+});
+
+test('UrbanKhet pairs the visible original portrait walkthrough with its genuine company offer', () => {
+  const study = prepared().flatMap(group => group.studies).find(study => study.slug === 'urbankhet-farm-to-fork');
+  assert.equal(study.companionMedia.id, 'urbankhet-linkedin-sorted-packs');
+  const original = registry.caseStudies.find(item => item.slug === study.slug);
+  assert.ok(original.media.some(asset => asset.src === study.companionMedia.src));
+  const html = renderToStaticMarkup(createElement(preview, { study, layout: 'lead', showBrand: false }));
+  assert.match(html, /class="preview lead portraitLead"/);
+  assert.match(html, /<video[^>]+controls=""[^>]+preload="none"/);
+  assert.match(html, /src="\/work\/urbankhet\/video\/urbankhet-storefront-excerpt\.mp4"/);
+  assert.match(html, /src="\/work\/urbankhet\/linkedin\/sorted-packs-proposition\.jpg"/);
+  assert.match(html, /Enlarge image: Original UrbanKhet Sorted-Packs/);
+  assert.ok(html.includes(study.companionMedia.provenance.sourceUrl));
+  assert.doesNotMatch(html, /autoplay|<details|<summary|\shidden=/i);
+  assert.equal((html.match(/Full case study/g) || []).length, 1);
 });
