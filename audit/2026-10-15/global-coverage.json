@@ -1,0 +1,487 @@
+{
+  "chapters": [
+    1,
+    2,
+    4,
+    5
+  ],
+  "entries": [
+    {
+      "id": "F0001",
+      "chapter": 1,
+      "page": 8,
+      "heading": "I build products and the business around them.",
+      "target": "app/page.tsx",
+      "resolution": "One recurring remit, current role/city and clear Work/CV/conversation actions replace an inventory introduction.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0002",
+      "chapter": 1,
+      "page": 9,
+      "heading": "Contact dialog opened from the homepage",
+      "target": "components/ContactChooser.tsx",
+      "resolution": "The labelled channel chooser retains Email, LinkedIn, WhatsApp and Call, keyboard dismissal and trigger focus; its introduction now asks about the role or product problem.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0003",
+      "chapter": 1,
+      "page": 10,
+      "heading": "Working image viewer with Actual size control",
+      "target": "components/work/Media.tsx",
+      "resolution": "Direct image enlargement and fit/actual-size controls remain; identity and decision context precede media, while source metadata is kept concise or in evidence pages.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0004",
+      "chapter": 1,
+      "page": 12,
+      "heading": "Selected work: section opening",
+      "target": "app/page.tsx",
+      "resolution": "Three delivered customer/operating problems anchor the page; each explains personal responsibility and the question answered by its case.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0005",
+      "chapter": 1,
+      "page": 12,
+      "heading": "Selected work: College.money card",
+      "target": "app/page.tsx",
+      "resolution": "College.money explains enquiry-to-prepared-application and ownership; the underdefined 40% metric is omitted.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0006",
+      "chapter": 1,
+      "page": 13,
+      "heading": "Selected work: crop-health AI card",
+      "target": "app/page.tsx",
+      "resolution": "Crop AI leads with offline capture and diagnosis after reconnection; historical delivery is separated from intended advice and dataset scale is not an outcome.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0007",
+      "chapter": 1,
+      "page": 14,
+      "heading": "Selected work: UrbanKhet card and image caption",
+      "target": "app/page.tsx",
+      "resolution": "UrbanKhet leads with the original storefront and founder ownership of sourcing through fulfilment; historical counts do not headline the preview.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0008",
+      "chapter": 1,
+      "page": 14,
+      "heading": "Prototypes and system design: introduction",
+      "target": "app/page.tsx",
+      "resolution": "Prototype and proposal are a separate exploration section, introduced through the reviewer problem.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0009",
+      "chapter": 1,
+      "page": 15,
+      "heading": "EduLoans prototype card",
+      "target": "app/page.tsx",
+      "resolution": "EduLoans explains the inspectable rules/document workflow and sample/scripted status; rule counts and archived assertions do not act as outcome proof.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0010",
+      "chapter": 1,
+      "page": 16,
+      "heading": "Results in context",
+      "target": "app/page.tsx",
+      "resolution": "Removed a repeated result ledger. Only the interpretable programme GMV with unit and nine-month period remains in a SilkRoute account.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0011",
+      "chapter": 1,
+      "page": 17,
+      "heading": "Career highlights: all three roles",
+      "target": "app/page.tsx",
+      "resolution": "Selected career progression shows roles, tenure and remit; full chronology is directly linked and company marketing is omitted.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0012",
+      "chapter": 1,
+      "page": 18,
+      "heading": "Career highlights",
+      "target": "components/HowICanHelp.tsx",
+      "resolution": "Four concrete problems, bounded useful outputs, supporting cases and a relevant conversation action; no invented availability, fees or guarantees.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0013",
+      "chapter": 1,
+      "page": 19,
+      "heading": "Painting teaser",
+      "target": "app/page.tsx",
+      "resolution": "Painting retains a short personal invitation and original artwork; the professional closing follows separately.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0014",
+      "chapter": 1,
+      "page": 19,
+      "heading": "Let’s talk.",
+      "target": "app/page.tsx",
+      "resolution": "A role/product/handoff invitation supplements the existing simple contact footer; anchor cases have specific invitations.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0015",
+      "chapter": 1,
+      "page": 20,
+      "heading": "Crop-health AI, from capture to advice",
+      "target": "app/page.tsx",
+      "resolution": "Additional capture covered by the delivered crop-health story and separate prototype/proposal section.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0016",
+      "chapter": 1,
+      "page": 21,
+      "heading": "Senior Manager → General Manager",
+      "target": "app/page.tsx",
+      "resolution": "Selected career retains the CashKaro promotion without repeating the full CV.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0017",
+      "chapter": 2,
+      "page": 22,
+      "heading": "Page opening and navigation",
+      "target": "components/work/WorkExplorer.tsx",
+      "resolution": "Four problem-based paths replace employer-only selection; all eight selected projects appear without filtering.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0018",
+      "chapter": 2,
+      "page": 23,
+      "heading": "CashKaro: employer introduction",
+      "target": "components/work/WorkExplorer.tsx",
+      "resolution": "CashKaro context starts with the lending remit and BankKaro/College.money relationship, plus the official website; no company-scale sidebar.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0019",
+      "chapter": 2,
+      "page": 23,
+      "heading": "CashKaro overview video and caption",
+      "target": "components/work/WorkExplorer.tsx",
+      "resolution": "Removed the generic employer montage from Work. College.money uses a specific readiness artifact, integrations can lead without decorative media.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0020",
+      "chapter": 2,
+      "page": 24,
+      "heading": "CashKaro: College.money card",
+      "target": "components/work/WorkPreview.tsx",
+      "resolution": "One problem/ownership paragraph invites a particular case; the uninterpretable conversion result is omitted.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0021",
+      "chapter": 2,
+      "page": 25,
+      "heading": "CashKaro: MCP card",
+      "target": "components/work/WorkPreview.tsx",
+      "resolution": "MCP is a design proposal with evaluation contract, human policy approval and validation question; it is not described as a deployed service.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0022",
+      "chapter": 2,
+      "page": 25,
+      "heading": "CashKaro: lender integrations card",
+      "target": "components/work/WorkPreview.tsx",
+      "resolution": "The integration remit connects common requirements, lender-specific policy and operating reviews; unseen security mechanisms are not claimed as deployed.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0023",
+      "chapter": 2,
+      "page": 26,
+      "heading": "CashKaro: EduLoans prototype card",
+      "target": "components/work/WorkPreview.tsx",
+      "resolution": "The prototype names student, partner and reviewer tasks and sample/scripted responses; detailed counts remain in its case.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0024",
+      "chapter": 2,
+      "page": 27,
+      "heading": "Absolute: employer introduction",
+      "target": "components/work/WorkExplorer.tsx",
+      "resolution": "Absolute context covers the full-tenure consumer/commerce/institutional remit and official site rather than funding prestige.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0025",
+      "chapter": 2,
+      "page": 27,
+      "heading": "Absolute overview video and caption",
+      "target": "components/work/WorkExplorer.tsx",
+      "resolution": "Removed the general Absolute montage from the main index; each case has task-specific evidence or a purposeful text introduction.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0026",
+      "chapter": 2,
+      "page": 28,
+      "heading": "Absolute: farm-risk case card",
+      "target": "components/work/WorkPreview.tsx",
+      "resolution": "RiskStac leads with assessment information for lender appraisal. Ambiguous reach/client/time totals are omitted from the card.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0027",
+      "chapter": 2,
+      "page": 29,
+      "heading": "Absolute: SilkRoute card",
+      "target": "components/work/WorkPreview.tsx",
+      "resolution": "SilkRoute connects discovery with negotiation, order, payment and operations; GMV remains programme transaction value over nine months.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0028",
+      "chapter": 2,
+      "page": 29,
+      "heading": "Absolute: crop-health card",
+      "target": "components/work/WorkPreview.tsx",
+      "resolution": "Crop-health shows the offline-capture product question. Dataset size is not presented as accuracy or impact.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0029",
+      "chapter": 2,
+      "page": 30,
+      "heading": "Absolute: wider Upaj stack links",
+      "target": "components/work/WorkExplorer.tsx",
+      "resolution": "Two differentiated Upaj and Farm OS supporting cases have explanatory lines; related cases carry the wider stack.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0030",
+      "chapter": 2,
+      "page": 31,
+      "heading": "UrbanKhet: company introduction and provenance",
+      "target": "components/work/WorkExplorer.tsx",
+      "resolution": "UrbanKhet starts with the founder business and actual storefront; incubation moves into the venture-support note.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0031",
+      "chapter": 2,
+      "page": 31,
+      "heading": "UrbanKhet: farm-to-fork card",
+      "target": "components/work/WorkPreview.tsx",
+      "resolution": "UrbanKhet explains the business-model change and fulfilment promise; ambiguous customer totals do not headline the preview.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0032",
+      "chapter": 2,
+      "page": 32,
+      "heading": "Career and background: page ending",
+      "target": "components/work/WorkExplorer.tsx",
+      "resolution": "A bounded help/conversation module and complete-career bridge close the selection.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0033",
+      "chapter": 2,
+      "page": 33,
+      "heading": "Selected work.",
+      "target": "app/product/page.tsx",
+      "resolution": "Additional heading capture covered by the problem-led opening.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0034",
+      "chapter": 2,
+      "page": 33,
+      "heading": "EduLoans: AI-assisted lending workflows",
+      "target": "components/work/WorkPreview.tsx",
+      "resolution": "Additional prototype capture covered by explicit scripted-prototype status and tasks.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0035",
+      "chapter": 2,
+      "page": 33,
+      "heading": "Farm-risk information for lenders",
+      "target": "components/work/WorkPreview.tsx",
+      "resolution": "Additional farm-risk capture covered by lender-appraisal problem and responsibility.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0036",
+      "chapter": 2,
+      "page": 34,
+      "heading": "Crop-health AI: capture to advice",
+      "target": "components/work/WorkPreview.tsx",
+      "resolution": "Additional crop-health capture covered by historical journey and evidence labels.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0037",
+      "chapter": 2,
+      "page": 34,
+      "heading": "UrbanKhet farm-to-fork",
+      "target": "components/work/WorkPreview.tsx",
+      "resolution": "Additional UrbanKhet capture covered by original storefront and founder operating account.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0066",
+      "chapter": 4,
+      "page": 52,
+      "heading": "Gallery opening",
+      "target": "app/art/page.tsx",
+      "resolution": "Brief first-person introduction in oil, acrylic and charcoal, with no professional-competency metaphor.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0067",
+      "chapter": 4,
+      "page": 53,
+      "heading": "Selected paintings and gallery navigation",
+      "target": "components/art/ArtGallery.tsx",
+      "resolution": "Six complete compositions remain uncropped with title/medium/dimensions/notes; optional Detail thumbnails enlarge directly without content accordions.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0068",
+      "chapter": 4,
+      "page": 53,
+      "heading": "Public Compass: note and label",
+      "target": "content/art/works.json",
+      "resolution": "Public Compass grammar is repaired while gold/social divisions remain its subjects; originalStatement retained and unexplained themes omitted. Tumult retains movement toward/away from chaos without slashed pronouns.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0069",
+      "chapter": 4,
+      "page": 54,
+      "heading": "Celestial: note and label",
+      "target": "content/art/works.json",
+      "resolution": "Celestial keeps the original existential challenge; Continual keeps repetition and the marble image. Original notes remain preserved privately in the record.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0070",
+      "chapter": 4,
+      "page": 55,
+      "heading": "Live-life: note and label",
+      "target": "content/art/works.json",
+      "resolution": "Live-life uses a complete sentence; Reminiscence remains a personal note. Unconfirmed sale/theme labels are omitted.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0071",
+      "chapter": 4,
+      "page": 56,
+      "heading": "Detail view and original portfolio credit",
+      "target": "components/art/ArtGallery.tsx",
+      "resolution": "Close-ups say Detail; original source-page metadata remains in records rather than every caption.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0072",
+      "chapter": 4,
+      "page": 57,
+      "heading": "Closing artist statement",
+      "target": "app/art/page.tsx",
+      "resolution": "Original closing artist statement retained as personal expression, followed by a painting conversation action.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0073",
+      "chapter": 4,
+      "page": 57,
+      "heading": "ANNA cover image and final provenance note",
+      "target": "app/art/page.tsx",
+      "resolution": "Unresolved ANNA cover is removed from the main gallery ending; its asset/source record is preserved without invented authorship.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0074",
+      "chapter": 4,
+      "page": 58,
+      "heading": "Public Compass",
+      "target": "content/art/works.json",
+      "resolution": "Additional Public Compass capture covered by preserved full composition and lightly edited note.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0075",
+      "chapter": 4,
+      "page": 59,
+      "heading": "Celestial",
+      "target": "content/art/works.json",
+      "resolution": "Additional Celestial capture covered by preserved full composition and original emotional force.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0076",
+      "chapter": 4,
+      "page": 59,
+      "heading": "Live-life",
+      "target": "content/art/works.json",
+      "resolution": "Additional Live-life capture covered by preserved full composition and repaired note.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0077",
+      "chapter": 4,
+      "page": 59,
+      "heading": "Art is expression.",
+      "target": "app/art/page.tsx",
+      "resolution": "Additional closing capture covered by retained artist statement and simple optional contact.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0078",
+      "chapter": 5,
+      "page": 60,
+      "heading": "Writing heading and promise",
+      "target": "components/Header.tsx",
+      "resolution": "Writing is removed from primary navigation; /blog remains a truthful holding page with decisions in the cases.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0079",
+      "chapter": 5,
+      "page": 61,
+      "heading": "Empty state and recovery link",
+      "target": "app/blog/page.tsx",
+      "resolution": "The holding page links directly to education lending and lender integrations, then the full Work selection.",
+      "status": "implemented"
+    },
+    {
+      "id": "F0080",
+      "chapter": 5,
+      "page": 61,
+      "heading": "No essays to read here yet.",
+      "target": "audit/2026-10-15/README.md",
+      "resolution": "No filler essay is published. A first-essay brief and author review requirement are recorded; substantive author review remains external.",
+      "status": "holding-page-implemented; author-reviewed-essay-not-yet-published"
+    },
+    {
+      "id": "F0081",
+      "chapter": 5,
+      "page": 62,
+      "heading": "Writing.",
+      "target": "app/blog/page.tsx",
+      "resolution": "Additional Writing heading capture covered by honest holding page, with distinct connection-failure recovery.",
+      "status": "implemented"
+    }
+  ]
+}

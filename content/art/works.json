@@ -15,8 +15,8 @@
     {
       "id": "public-compass",
       "title": "Public Compass",
-      "description": "Live",
-      "statement": "Social differences are evident when seen from top. Our society is divided in different patches of faith, background or religion. Only thing common between all of us-the golden patches irrespective of gender, color, faith. Gold is the true constant of human history",
+      "description": "",
+      "statement": "Seen from above, society appears divided into patches of faith, background and religion. The golden patches run through all of them, regardless of gender, colour or faith. Gold is the true constant of human history.",
       "collectionId": "original-portfolio",
       "sourcePage": 2,
       "sourcePages": [
@@ -35,19 +35,21 @@
       "detailImages": [
         {
           "src": "/art/priyam/public-compass-detail.webp",
-          "alt": "Public Compass — detail view from the original portfolio",
+          "alt": "Public Compass — detail",
           "width": 1540,
           "height": 2400,
-          "caption": "Detail view · Original portfolio, page 3",
+          "caption": "Detail",
           "sourcePage": 3
         }
-      ]
+      ],
+      "originalStatement": "Social differences are evident when seen from top. Our society is divided in different patches of faith, background or religion. Only thing common between all of us-the golden patches irrespective of gender, color, faith. Gold is the true constant of human history",
+      "sourceDescription": "Live"
     },
     {
       "id": "tumult",
       "title": "Tumult",
-      "description": "Feel",
-      "statement": "Depends on the perspective of the viewer,\n\nLife keeps moving till it lasts, the movement towards chaos and from chaos. See where are you heading towards it/them/him/her or away from it/them/him/her.",
+      "description": "",
+      "statement": "Life keeps moving, towards chaos and away from it. Where are you heading? What are you moving towards, and what are you leaving behind? The answer depends on where you stand.",
       "collectionId": "original-portfolio",
       "sourcePage": 4,
       "sourcePages": [
@@ -66,19 +68,21 @@
       "detailImages": [
         {
           "src": "/art/priyam/tumult-detail.webp",
-          "alt": "Tumult — detail view from the original portfolio",
+          "alt": "Tumult — detail",
           "width": 1540,
           "height": 2400,
-          "caption": "Detail view · Original portfolio, page 5",
+          "caption": "Detail",
           "sourcePage": 5
         }
-      ]
+      ],
+      "originalStatement": "Depends on the perspective of the viewer,\n\nLife keeps moving till it lasts, the movement towards chaos and from chaos. See where are you heading towards it/them/him/her or away from it/them/him/her.",
+      "sourceDescription": "Feel"
     },
     {
       "id": "celestial",
       "title": "Celestial",
-      "description": "Wisdom",
-      "statement": "Questioning the endless efforts of Humans to make a dent in the universe. A universe with billions and trillions of stars & planets, where we just exist on one tiny planet. Is your life worth as much as you think it is?",
+      "description": "",
+      "statement": "I question our endless effort to make a dent in the universe. Among billions of stars and planets, we live on one tiny planet. Is your life worth as much as you think it is?",
       "collectionId": "original-portfolio",
       "sourcePage": 6,
       "sourcePages": [
@@ -97,19 +101,21 @@
       "detailImages": [
         {
           "src": "/art/priyam/celestial-detail.webp",
-          "alt": "Celestial — detail view from the original portfolio",
+          "alt": "Celestial — detail",
           "width": 1540,
           "height": 2400,
-          "caption": "Detail view · Original portfolio, page 7",
+          "caption": "Detail",
           "sourcePage": 7
         }
-      ]
+      ],
+      "originalStatement": "Questioning the endless efforts of Humans to make a dent in the universe. A universe with billions and trillions of stars & planets, where we just exist on one tiny planet. Is your life worth as much as you think it is?",
+      "sourceDescription": "Wisdom"
     },
     {
       "id": "continual",
       "title": "Continual",
-      "description": "Experience",
-      "statement": "A small marble in a bigger picture of life. We were destined to meet-\nif not today, then may be tomorrow,\nIf not here, then maybe somewhere near,\nIf not like, this then maybe like that,\nIf we didn't have a happy ending here, then we will have one there.",
+      "description": "",
+      "statement": "A small marble in the bigger picture of life. We were destined to meet: if not today, then maybe tomorrow; if not here, then somewhere near; if not like this, then another way. If we did not have a happy ending here, we will have one there.",
       "collectionId": "original-portfolio",
       "sourcePage": 8,
       "sourcePages": [
@@ -128,19 +134,21 @@
       "detailImages": [
         {
           "src": "/art/priyam/continual-detail.webp",
-          "alt": "Continual — detail view from the original portfolio",
+          "alt": "Continual — detail",
           "width": 1540,
           "height": 2400,
-          "caption": "Detail view · Original portfolio, page 9",
+          "caption": "Detail",
           "sourcePage": 9
         }
-      ]
+      ],
+      "originalStatement": "A small marble in a bigger picture of life. We were destined to meet-\nif not today, then may be tomorrow,\nIf not here, then maybe somewhere near,\nIf not like, this then maybe like that,\nIf we didn't have a happy ending here, then we will have one there.",
+      "sourceDescription": "Experience"
     },
     {
       "id": "live-life",
       "title": "Live-life",
-      "description": "Aware",
-      "statement": "Depends on the perspective of the viewer,\n\nHappiness/Joy/Fulfillment is always around us, it's always about acknowledgment.",
+      "description": "",
+      "statement": "Happiness, joy and fulfilment are always around us. It is a matter of noticing them.",
       "collectionId": "original-portfolio",
       "sourcePage": 10,
       "sourcePages": [
@@ -159,19 +167,21 @@
       "detailImages": [
         {
           "src": "/art/priyam/live-life-detail.webp",
-          "alt": "Live-life — detail view from the original portfolio",
+          "alt": "Live-life — detail",
           "width": 1540,
           "height": 2400,
-          "caption": "Detail view · Original portfolio, page 11",
+          "caption": "Detail",
           "sourcePage": 11
         }
-      ]
+      ],
+      "originalStatement": "Depends on the perspective of the viewer,\n\nHappiness/Joy/Fulfillment is always around us, it's always about acknowledgment.",
+      "sourceDescription": "Aware"
     },
     {
       "id": "reminiscence",
       "title": "Reminiscence",
-      "description": "Fear · Marked “Not for Sale” in the original portfolio.",
-      "statement": "Inspired by people I met and care about",
+      "description": "",
+      "statement": "Inspired by people I have met and care about.",
       "collectionId": "original-portfolio",
       "sourcePage": 12,
       "sourcePages": [
@@ -190,13 +200,15 @@
       "detailImages": [
         {
           "src": "/art/priyam/reminiscence-detail.webp",
-          "alt": "Reminiscence — detail view from the original portfolio",
+          "alt": "Reminiscence — detail",
           "width": 1540,
           "height": 2400,
-          "caption": "Detail view · Original portfolio, page 13",
+          "caption": "Detail",
           "sourcePage": 13
         }
-      ]
+      ],
+      "originalStatement": "Inspired by people I met and care about",
+      "sourceDescription": "Fear · Marked “Not for Sale” in the original portfolio."
     }
   ],
   "portfolioCover": {

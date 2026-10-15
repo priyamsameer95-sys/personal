@@ -4,7 +4,7 @@
 .caseHeader { display: grid; grid-template-columns: minmax(0,2fr) minmax(16rem,1fr); gap: 1.75rem 3rem; padding: 1rem 0 1.5rem; }
 .caseIdentity { display: flex; justify-content: space-between; align-items: center; gap: 1rem 2rem; grid-column: 1 / -1; }
 .eyebrow { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.6; }
-.caseHeader h1 { max-width: 25ch; margin: 0 0 1rem; font-size: clamp(2.1rem, 4vw, 3.7rem); line-height: 1.12; letter-spacing: -.04em; font-weight: 550; text-wrap: balance; }
+.caseHeader h1 { max-width: 25ch; margin: 0 0 1rem; font-family: var(--font-editorial, Georgia, serif); font-size: clamp(2.2rem, 4vw, 3.7rem); line-height: 1.12; letter-spacing: -.035em; font-weight: 400; text-wrap: balance; }
 .caseSummary { max-width: 64ch; font-size: 1.1rem; line-height: 1.7; margin: 0; }
 .caseRemit { align-self: start; border-left: 1px solid var(--rule); padding: .3rem 0 .3rem 1.5rem; }
 .visualRole { max-width: 48ch; font-size: 1rem; line-height: 1.7; margin: 0; }
@@ -108,6 +108,8 @@
 .dialogImage.actualSize { align-self: start; justify-self: start; width: auto; max-width: none; max-height: none; margin: 0; }
 .dialogCaption { flex: 0 0 auto; padding: .85rem 1.25rem; font-size: .9rem; line-height: 1.6; color: var(--muted, #625e56); max-height: 7rem; overflow: auto; }
 .video { display: block; width: 100%; max-height: 36rem; aspect-ratio: 16 / 9; object-fit: contain; border-radius: .2rem; background: var(--ink, #191714); }
+.portraitVideo { width:min(100%,17rem); max-height:none; aspect-ratio:332 / 720; object-fit:cover; margin-inline:auto; }
+.portraitDiagram { max-width:32.5rem; margin-inline:auto; }
 
 .image { max-height: 30rem; object-fit: contain; }
 .longImage { max-height: 30rem; object-fit: contain; object-position: top; }
@@ -142,3 +144,26 @@
   .dialogCaption { padding: .75rem .85rem; max-height: 9rem; }
 }
 @media (prefers-reduced-motion: reduce) { .imageHint, .dialogClose { transition: none; } .imageButton:active .imageHint, .dialogClose:active { transform: none; } }
+/* The account is short; complete source collections have their own open destination. */
+.caseInvitation,.referenceEntry { padding:2rem 0; border-top:1px solid var(--rule); }
+.caseInvitation h2,.referenceEntry h2 { margin:0 0 .6rem; font-size:1.5rem; font-weight:550; letter-spacing:-.025em; line-height:1.3; }
+.caseInvitation p,.referenceEntry p { max-width:65ch; margin:0 0 .65rem; font-size:1rem; line-height:1.7; }
+.referenceEntry p { color:var(--muted); }
+.caseActions { display:flex; flex-wrap:wrap; gap:.5rem 2rem; padding:1rem 0; }
+.backgroundNote { max-width:66rem; }
+.backgroundNote .caseHeader { grid-template-columns:minmax(0,1fr); gap:1rem; }
+.backgroundNote .caseRemit { border:0; padding:0; }
+.backgroundNote .decisionBeat { grid-template-columns:minmax(0,1fr); gap:.8rem; }
+.referenceHeader { max-width:80ch; padding:1rem 0 2rem; }
+.referenceHeader > p:first-child { color:var(--muted); font-size:.875rem; }
+.referenceHeader h1 { margin:.5rem 0 1rem; font-family:var(--font-editorial); font-size:clamp(2rem,4vw,3rem); line-height:1.15; letter-spacing:-.035em; }
+.referenceHeader p { line-height:1.7; }
+.referencePage .sourceFamily { display:block; padding:2rem 0; }
+.referencePage .chapterHeader { margin-bottom:1rem; }
+.referencePage .chapterHeader h2 { font-size:1.35rem; font-weight:550; line-height:1.4; letter-spacing:-.02em; }
+.referencePage .gallery { max-width:none; }
+.referencePage .image { max-height:32rem; object-fit:contain; }
+.referencePage .longImage { height:32rem; }
+.chapterBody > .gallery { margin-top:1.2rem; }
+.related { grid-template-columns:repeat(2,minmax(0,1fr)); }
+@media(max-width:767px) { .caseInvitation,.referenceEntry { padding:1.5rem 0; } .related { grid-template-columns:minmax(0,1fr); } .referencePage .image,.referencePage .longImage { max-height:26rem; } .tableScroll caption { max-width:calc(100vw - 4rem); } }

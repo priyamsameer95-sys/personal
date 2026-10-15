@@ -1,0 +1,623 @@
+{
+  "scope": "Chapters 03 and 31: Experience page and downloaded CV",
+  "read_in_full": [
+    "/private/tmp/priyam-audit-chapters/03.txt",
+    "/private/tmp/priyam-audit-chapters/31.txt"
+  ],
+  "source_archive": "/Users/rajveerbhullar/Downloads/priyam-audit-source-backup-20261015/",
+  "files": [
+    "app/cv/content.json",
+    "app/cv/page.tsx",
+    "app/cv/cv.module.css",
+    "scripts/build-cv.py",
+    "public/cv/Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf"
+  ],
+  "chronology_convention": "Formal CV role tenure; promotion boundaries retained from the reviewed career source, without assigning projects to title phases.",
+  "entries": [
+    {
+      "chapter": "03",
+      "pages": [
+        35
+      ],
+      "finding_id": "F0038",
+      "heading": "Identity, location and opening",
+      "action": "done",
+      "resolution": "One concise first-person scope summary and shared contact/location source. Bengaluru, India and BS agree in web and generated PDF; no experience-total estimate or relocation claim.",
+      "implementation": [
+        "content.name",
+        "content.location",
+        "content.summary",
+        "content.contacts",
+        "page.identity",
+        "PDF header"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        36
+      ],
+      "finding_id": "F0039",
+      "heading": "Download CV and case-link vocabulary",
+      "action": "done",
+      "resolution": "Stable original CV URL now serves the reconciled two-page PDF. All 25 case links have short artifact-specific labels; removed visible and screen-reader proof-of-work vocabulary and parenthetical link clusters.",
+      "implementation": [
+        "experience[].cases",
+        "page.RelatedWork",
+        "PDF case link annotations"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        36,
+        37
+      ],
+      "finding_id": "F0040",
+      "heading": "CashKaro role progression",
+      "action": "done",
+      "resolution": "CashKaro / BankKaro tenure is stated once; General Manager, Product Management & Business Growth April 2026–Present follows Senior Manager, Product Management March 2025–March 2026. Removed Current/Employment administration.",
+      "implementation": [
+        "experience[0].dates",
+        "experience[0].progression"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        37
+      ],
+      "finding_id": "F0041",
+      "heading": "CashKaro lending strategy and personal-loan result",
+      "action": "omitted_unresolved_metric",
+      "resolution": "Removed the 16%–45% comparison from the concise source, page and PDF because events/cohorts/attribution remain unresolved. Retained common application, lender matching, funnel analysis and partner-feedback scope. Original source PDF preserved by root; no assertion that the reported result was false.",
+      "implementation": [
+        "experience[0].responsibilities[0]"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        38
+      ],
+      "finding_id": "F0042",
+      "heading": "CashKaro partner integration responsibility",
+      "action": "done",
+      "resolution": "Connects engineering/lender collaboration on eligibility, KYC, status and payouts with reconciliation and service-level review. Does not claim sole engineering ownership, verified implementation count or undocumented security mechanisms.",
+      "implementation": [
+        "experience[0].responsibilities[1]"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        38,
+        39
+      ],
+      "finding_id": "F0043",
+      "heading": "CashKaro EduLoans and MCP",
+      "action": "done",
+      "resolution": "Authored policy/workflow model and scripted interaction prototypes are labelled together; documented 62 rules/eight configurations/23 states remain design scope. MCP is separately an explored policy-service proposal.",
+      "implementation": [
+        "experience[0].responsibilities[2]",
+        "experience[0].responsibilities[3]"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        39
+      ],
+      "finding_id": "F0044",
+      "heading": "CashKaro leadership and routine activities",
+      "action": "done",
+      "resolution": "Kept cross-functional coordination, hiring participation and partner negotiation. Removed roster/headcount caveats and duplicated task/scope lists without adding direct-report counts.",
+      "implementation": [
+        "experience[0].responsibilities[3]"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        40
+      ],
+      "finding_id": "F0045",
+      "heading": "CredFlow role and results",
+      "action": "omitted_unresolved_metric",
+      "resolution": "Full Senior Product Manager tenure December 2024–March 2025 is included. Retained KuberX launch/acquisition/activation economics and SME payment handoffs; omitted 45% CAC and ₹10 crore first-week volume from concise CV rather than narrating absent records.",
+      "implementation": [
+        "experience[1]"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        40,
+        41
+      ],
+      "finding_id": "F0046",
+      "heading": "Absolute three-role progression",
+      "action": "done",
+      "resolution": "Preserved Product Manager start October 2021, Senior Product Manager promotion April 2023 and Principal Product Manager promotion April 2024, with full tenure to November 2024. Work is grouped under tenure, not attributed to promotion phases.",
+      "implementation": [
+        "experience[2].dates",
+        "experience[2].progression"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        41
+      ],
+      "finding_id": "F0047",
+      "heading": "Absolute SilkRoute and payments",
+      "action": "done",
+      "resolution": "Explains connected trader discovery, negotiation, ordering and settlement. Retains $100M nine-month programme GMV as transaction value, with separate SilkRoute and trade-payment/ERP links.",
+      "implementation": [
+        "experience[2].responsibilities[0]",
+        "experience[2].cases"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        42
+      ],
+      "finding_id": "F0048",
+      "heading": "Absolute Upaj growth",
+      "action": "omitted_unresolved_metric",
+      "resolution": "Omitted 100K–600K active-user series because definition and period are unresolved; retained recurring farmer needs, monitoring, markets, content, notifications and collaborative delivery.",
+      "implementation": [
+        "experience[2].responsibilities[2]"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        42,
+        43
+      ],
+      "finding_id": "F0049",
+      "heading": "Absolute ULI, ONDC and applied data products",
+      "action": "done",
+      "resolution": "Separates lender-facing agricultural risk and ULI adaptation from a distinct ONDC proposal. Lender credit decisions remain explicit. Crop guidance/monitoring/rainfall workflows have a separate contribution bullet and relevant links.",
+      "implementation": [
+        "experience[2].responsibilities[1]",
+        "experience[2].responsibilities[2]",
+        "experience[2].cases"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        43
+      ],
+      "finding_id": "F0050",
+      "heading": "Absolute international work and delivery routines",
+      "action": "done",
+      "resolution": "Keeps Brazil/Malaysia adaptation and cross-functional/regional collaboration without invented localization detail or a routine Jira/scrum inventory. Institutional and supporting references remain linked.",
+      "implementation": [
+        "experience[2].responsibilities[3]",
+        "experience[2].cases"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        43,
+        44
+      ],
+      "finding_id": "F0051",
+      "heading": "UrbanKhet founder role and wind-down",
+      "action": "done",
+      "resolution": "Uses consistent formal July 2019–September 2021 tenure. Preserves founder offer/product/farmer/fulfilment/economics ownership, COVID adaptation and wind-down after second wave. Omitted ambiguous headcounts and customer/revenue period claims.",
+      "implementation": [
+        "experience[3]"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        44
+      ],
+      "finding_id": "F0052",
+      "heading": "Internship: Water Farmers",
+      "action": "done",
+      "resolution": "One dated Farm operations intern entry with actual harvest/packing/supply-chain/field work; removes denial of unrelated managerial authority.",
+      "implementation": [
+        "internship",
+        "page#internship"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        45
+      ],
+      "finding_id": "F0053",
+      "heading": "Other experience: incubation and grants",
+      "action": "done",
+      "resolution": "Moved all incubation/seed/innovation support into one UrbanKhet paragraph, including TIDE 2.0/Gujarat SSIP. Removed separate support-job entry and repeated recognition lines; retained founder-programmes anchor and case URL.",
+      "implementation": [
+        "experience[3].ventureSupport",
+        "page#founder-programmes"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        45,
+        46
+      ],
+      "finding_id": "F0054",
+      "heading": "Other experience: Gujarat Action Group",
+      "action": "done",
+      "resolution": "Concise explicitly volunteer April–June 2021 hospital-bed/oxygen/medicine information and volunteer coordination entry, without fabricated crisis outcomes.",
+      "implementation": [
+        "otherContexts[0]"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        46
+      ],
+      "finding_id": "F0055",
+      "heading": "Other experience: independent advisory",
+      "action": "done",
+      "resolution": "Preserved product strategy, unit economics, GTM and fundraising-narrative support with descriptive advisory link. Removed missing-date/confidentiality administration; no invented client/outcome/availability claim.",
+      "implementation": [
+        "otherContexts[1]"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        46,
+        47
+      ],
+      "finding_id": "F0056",
+      "heading": "Education and personal background",
+      "action": "done",
+      "resolution": "CEPT BS in Construction Technology 2014–2019 is identical on web/PDF. Kept brief FC Sparta/painting context; direct Art link is visible and background URL remains an optional descriptive link.",
+      "implementation": [
+        "education",
+        "page#education"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        47
+      ],
+      "finding_id": "F0057",
+      "heading": "Recognition: all three entries",
+      "action": "partly_omitted_unresolved_recipient",
+      "resolution": "Retained CashKaro Rock Star as personal internal recognition, 2025. Removed Atal Innovation Award until the recipient is established. Venture grants appear once under UrbanKhet, not as personal awards.",
+      "implementation": [
+        "recognitionDetails",
+        "experience[3].ventureSupport"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        48
+      ],
+      "finding_id": "F0058",
+      "heading": "Certifications: Pendo AI course",
+      "action": "done",
+      "resolution": "Compact title, Pendo.io, August 2026 and verification link; printed credential ID removed. No mastery/model-deployment inference.",
+      "implementation": [
+        "certifications[0]"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        48,
+        49
+      ],
+      "finding_id": "F0059",
+      "heading": "Certifications: cryptocurrency fundamentals",
+      "action": "done",
+      "resolution": "Short additional-learning title, Udemy, March 2026 and credential link, proportionate to relevance. Original full course remains recoverable at credential URL. No professional crypto-domain claim.",
+      "implementation": [
+        "certifications[1]"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        49
+      ],
+      "finding_id": "F0060",
+      "heading": "Skills: product/business and platforms/operations",
+      "action": "done",
+      "resolution": "Four short evidenced capability statements replace keyword inventories; career-specific links make corresponding journeys, platforms and economics inspectable.",
+      "implementation": [
+        "skills",
+        "experience[].cases"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        49,
+        50
+      ],
+      "finding_id": "F0060",
+      "heading": "Skills: AI/data and leadership",
+      "action": "partly_omitted_unverified_proficiency",
+      "resolution": "Specifies AI-assisted prototyping, deterministic models, document-review workflows and funnel analysis; leadership is cross-functional coordination, negotiations and hiring participation. Omitted SQL/Python until actual proficiency/examples are established.",
+      "implementation": [
+        "skills[2]",
+        "skills[3]"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        50
+      ],
+      "finding_id": "F0061",
+      "heading": "Career: additional section evidence",
+      "action": "mapped_evidence",
+      "resolution": "Career remains a complete four-entry chronology.",
+      "implementation": [
+        "app/cv/content.json",
+        "app/cv/page.tsx"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        51
+      ],
+      "finding_id": "F0062",
+      "heading": "Absolute / Upaj: additional section evidence",
+      "action": "mapped_evidence",
+      "resolution": "All eleven Absolute case URLs remain discoverable without nine equal-weight bullets.",
+      "implementation": [
+        "app/cv/content.json",
+        "app/cv/page.tsx"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        51
+      ],
+      "finding_id": "F0063",
+      "heading": "UrbanKhet: additional section evidence",
+      "action": "mapped_evidence",
+      "resolution": "Founder operating history and honest ending remain open.",
+      "implementation": [
+        "app/cv/content.json",
+        "app/cv/page.tsx"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        51
+      ],
+      "finding_id": "F0064",
+      "heading": "Internship: additional section evidence",
+      "action": "mapped_evidence",
+      "resolution": "Dated internship remains open and clearly labelled.",
+      "implementation": [
+        "app/cv/content.json",
+        "app/cv/page.tsx"
+      ]
+    },
+    {
+      "chapter": "03",
+      "pages": [
+        51
+      ],
+      "finding_id": "F0065",
+      "heading": "IIMA Ventures / CIIE.CO and GUSEC: additional section evidence",
+      "action": "mapped_evidence",
+      "resolution": "Support is preserved under UrbanKhet once, including the existing anchor and case URL; not separate employment.",
+      "implementation": [
+        "app/cv/content.json",
+        "app/cv/page.tsx"
+      ]
+    },
+    {
+      "chapter": "31",
+      "pages": [
+        332
+      ],
+      "finding_id": "F0489",
+      "heading": "PDF header, contact details and portfolio navigation",
+      "action": "done",
+      "resolution": "Visible PriyamSameer.com, email, telephone and LinkedIn all have working URI annotations. Removed generic AI builds and Source code. Header and contacts come from the shared JSON.",
+      "implementation": [
+        "scripts/build-cv.py header",
+        "content.contacts",
+        "PDF annotations"
+      ]
+    },
+    {
+      "chapter": "31",
+      "pages": [
+        333
+      ],
+      "finding_id": "F0490",
+      "heading": "PDF summary",
+      "action": "done",
+      "resolution": "Short recurring scope connects customer journeys, partner platforms, operating teams and commercial decisions; AI is described through concrete prototype work, not a general production-builder identity. No unsupported experience total.",
+      "implementation": [
+        "content.summary",
+        "PDF summary"
+      ]
+    },
+    {
+      "chapter": "31",
+      "pages": [
+        334
+      ],
+      "finding_id": "F0491",
+      "heading": "PDF CashKaro education-lending volume and economics",
+      "action": "omitted_unresolved_metric",
+      "resolution": "Omitted education-only ₹5.5 crore/INR 55M monthly disbursement attribution and positive-economics timing. Preserved education marketplace roadmap/lender commercials/operations/P&L. No inference from loan principal to revenue or profit.",
+      "implementation": [
+        "experience[0].responsibilities[0]"
+      ]
+    },
+    {
+      "chapter": "31",
+      "pages": [
+        335
+      ],
+      "finding_id": "F0492",
+      "heading": "PDF CashKaro personal-loan conversion",
+      "action": "omitted_unresolved_metric",
+      "resolution": "Removed causal 16%–45% claim from both formats pending defined transitions, cohorts and attribution; retained onboarding/matching/funnel/partner feedback contribution.",
+      "implementation": [
+        "experience[0].responsibilities[0]"
+      ]
+    },
+    {
+      "chapter": "31",
+      "pages": [
+        335
+      ],
+      "finding_id": "F0492",
+      "heading": "PDF CashKaro integration scale",
+      "action": "omitted_unverified_implementation_count",
+      "resolution": "No 20+ implemented-infrastructure claim. Describes reusable partner requirements and collaboration without upgrading the wider lender panel to connected adapter count.",
+      "implementation": [
+        "experience[0].responsibilities[1]"
+      ]
+    },
+    {
+      "chapter": "31",
+      "pages": [
+        336
+      ],
+      "finding_id": "F0492",
+      "heading": "PDF CashKaro live Gemini workflow versus EduLoans prototypes",
+      "action": "omitted_unresolved_attribution",
+      "resolution": "Kept authored scripted prototype and separate MCP proposal status explicit. Omitted nine-to-four-hour and ₹1,562 savings until system/period/denominator/contribution are resolved. Does not declare the separate operational Gemini account false or attribute its reported result to prototypes.",
+      "implementation": [
+        "experience[0].responsibilities[2]",
+        "experience[0].responsibilities[3]"
+      ]
+    },
+    {
+      "chapter": "31",
+      "pages": [
+        336,
+        337
+      ],
+      "finding_id": "F0493",
+      "heading": "PDF Absolute experience",
+      "action": "done",
+      "resolution": "Prioritizes connected trade/settlement, lender-facing risk with ULI/ONDC boundary and applied data/farmer workflows. International/cross-team scope is one concise bullet; supporting material remains linked.",
+      "implementation": [
+        "experience[2]"
+      ]
+    },
+    {
+      "chapter": "31",
+      "pages": [
+        337
+      ],
+      "finding_id": "F0494",
+      "heading": "PDF UrbanKhet and complete chronology",
+      "action": "done",
+      "resolution": "Restored CredFlow as a substantive dated role, retains consistent founder/Absolute/CashKaro dates. Omitted unresolved customer/revenue snapshots and headcounts, retaining operating ownership and wind-down.",
+      "implementation": [
+        "experience"
+      ]
+    },
+    {
+      "chapter": "31",
+      "pages": [
+        338
+      ],
+      "finding_id": "F0495",
+      "heading": "PDF education, skills, awards and grant evidence",
+      "action": "done",
+      "resolution": "BS preserved, four evidence-based capabilities replace broad tool inventories, no unverified SQL/Python. CashKaro internal recognition retained; ambiguous Atal omitted; UrbanKhet support stated once.",
+      "implementation": [
+        "education",
+        "skills",
+        "recognitionDetails",
+        "experience[3].ventureSupport"
+      ]
+    },
+    {
+      "chapter": "31",
+      "pages": [
+        339
+      ],
+      "finding_id": "F0496",
+      "heading": "PDF readability and hierarchy",
+      "action": "done",
+      "resolution": "Reduced approximately 1,026 words to 688. Two-page A4 single column, left aligned 10.5-point body with role/section hierarchy and visible link annotations. Rendered and visually inspected both pages; checked character boxes are within page margins.",
+      "implementation": [
+        "scripts/build-cv.py",
+        "/private/tmp/priyam-cv-validation.json"
+      ]
+    },
+    {
+      "chapter": "31",
+      "pages": [
+        340
+      ],
+      "finding_id": "F0497",
+      "heading": "PDF identity: additional section evidence",
+      "action": "mapped_evidence",
+      "resolution": "Name, current city, website and frictionless contacts appear in the first read, with complete career and deeper case navigation.",
+      "implementation": [
+        "PDF header"
+      ]
+    }
+  ],
+  "validation": {
+    "pages": 2,
+    "words": 688,
+    "unique_link_annotations": 31,
+    "case_study_urls": 25,
+    "required_links_pass": true,
+    "claim_scope_checks_pass": true,
+    "font_size_word_counts": {
+      "8.5": 10,
+      "27.0": 2,
+      "11.5": 28,
+      "10.5": 637,
+      "12.0": 11
+    },
+    "text_bounds": [
+      {
+        "page": 1,
+        "min_left": 42.65,
+        "max_right": 551.72,
+        "min_bottom": 17.22,
+        "max_top": 793.55
+      },
+      {
+        "page": 2,
+        "min_left": 42.65,
+        "max_right": 552.83,
+        "min_bottom": 17.22,
+        "max_top": 797.76
+      }
+    ],
+    "visual_inspection": [
+      "/private/tmp/priyam-cv-page-1.png",
+      "/private/tmp/priyam-cv-page-2.png"
+    ],
+    "visual_result": "Both rendered pages reviewed; single column, left-aligned, no clipping, no stranded section heading."
+  },
+  "typecheck": "Passed: bundled Node + TypeScript tsc --noEmit --pretty false.",
+  "out_of_scope": [
+    "No other pages/components/registry/tests edited.",
+    "No ANNA issue changes.",
+    "No deployment or GitHub action."
+  ]
+}

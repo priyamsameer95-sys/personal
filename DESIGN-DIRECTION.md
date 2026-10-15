@@ -1,26 +1,27 @@
-# Portfolio presentation: an operating portfolio
+# Portfolio design contract — audit revision
 
-14 October 2026. Audience: a hiring leader or product peer who wants to understand Priyam's responsibility and see real work quickly. The next actions are to inspect a relevant case, read the CV or choose a contact channel.
+15 October 2026. This revision implements the supplied 342-page website audit. Its audience is a recruiter, hiring leader, founder or peer choosing a relevant account of Priyam’s work.
 
-## Design contract
+## Visitor journey
 
-- Cream paper `#faf7f0`, black ink `#191714`, quiet rules `#ddd7cb` and muted text `#625e56`. Existing blue, orange, pink, lime and yellow show through the paper edge and original media; they do not become decorative dashboard cards.
-- The locally hosted Geist family carries the interface. A stable 16px base, clear heading steps and readable line lengths replace viewport-dependent text scaling. No italic half-headlines or decorative project numbering.
-- Home opens with the documented lending remit and founder history, followed quickly by a real College.money capture. Delivered crop-health and UrbanKhet work precede the clearly classified EduLoans prototype and MCP proposal. Programme figures live in a compact ledger, with their qualifications alongside them.
-- Work has one company identity and one coherent short context block before the product evidence. No metric sidebar, repeated company-logo cards, 'Company-reported' disclaimer paragraph or Sources/Reviewed footer. Dated numbers and inline references retain the evidence boundary.
-- Project previews show actual media, a product title, personal contribution and one supported result or validation status. One optional full-case action. All eight selected projects remain visible, while all 25 case URLs and the complete CV remain accessible.
-- Case introductions, primary media, decisions and results use one reading hierarchy. Technical sources are an open, deduplicated reference list; qualifications remain beside the claims and original media. No content accordions.
-- CV remains a factual document with inline proof. Art retains the paintings, original notes and enlargement. Writing stays secondary, with honest recovery states.
-- One restrained entrance sequence. Images and video are never hidden by scroll reveals. Section links focus their destination and scroll once without a smooth-scroll race. Keyboard, reduced motion, phone reading, image enlargement and native video remain supported.
+- Cream paper, black ink, quiet rules and colour underneath remain the visual foundation. Original brands and artworks retain their proportions. No new decorative dashboard, prestige panel or slogan is added.
+- Home keeps “I build products and the business around them.” Three delivered customer/operating problems demonstrate the remit. EduLoans and MCP follow separately as an interaction prototype and design proposal. A bounded help module explains what a conversation could address.
+- Work opens through four recognizable problems: lending journeys, partner platforms, AI/review and operating a business. All eight selected cases are initially visible. Company attribution, original logos and official websites support the work without competing with it.
+- Experience is the complete concise career record, including CredFlow, promotions, education, learning and descriptive links to all 25 cases. The website and two-page CV share one JSON source.
+- A case introduces the problem, responsibility and relevant artifact, then explains its consequential choices and scoped result. The number of decisions follows the evidence. Background experiences and proposals do not imitate delivered product cases.
+- Each case has one optional evidence page at `/product/<slug>/references`. Detailed records, tables, original media and source notes remain open there. Legacy source/chapter links resolve to the location that now owns them. There are no content accordions or nested scrolling galleries.
+- Images enlarge directly; videos start only on the visitor’s action. Captions explain what to inspect and identify current references, historical work, authored explanation and prototypes. The crop-health diagram separates delivered capture/diagnosis from intended advisory work within the visual itself.
+- Art has six complete paintings, medium/dimensions, lightly edited original notes and small Detail thumbnails. The unresolved ANNA cover and historical sale labels stay out of the main viewing experience. Painting is personal expression, not career proof.
+- Writing stays out of primary navigation until a substantive author-reviewed essay exists. The existing route points honestly to two relevant case accounts.
 
-## Skills used for judgment
+## Editorial and evidence rules
 
-Frontend Design and Anti-UI-Slop ground the design in the actual products and existing components. Anti-Slop Design supplies the clutter, hierarchy and spacing review. Structure & Pitch and Marketing Strategy & PMM guide the reader from evidence to responsibility and next action. Accessibility guidance supplies the keyboard, focus, contrast, target-size and reduced-motion checks. The user’s original paper/colour brief takes precedence over generic skill examples and animation defaults. Unrelated installed skills are not claimed as design evidence.
+Use first-person responsibility and concrete decisions. Do not publish authoring instructions, missing-roster commentary or a repeated measurement disclaimer as the story. Omit uninterpretable figures from the main pitch and CV; keep necessary qualifications beside any retained result. Dataset size is scope, not model accuracy. Programme GMV is transaction value, not revenue. An illustrative contract or proposed evaluation plan is not deployed infrastructure or a test result.
 
-## Review criteria
+The CV/contact actions remain prominent. Contact opens a labelled channel chooser with keyboard dismissal and focus restoration. A restrained entry respects reduced motion and never hides evidence. Phone layouts retain readable text, complete compositions and usable tables.
 
-A first screen contains a concrete remit and visible product evidence. Company summaries feel like introductions, not an audit report. No claim outruns its original evidence; proposals and prototypes remain explicit. Desktop space has a deliberate reading grid and phone content stacks in DOM order. Original assets are not stretched or masked. All retained routes, anchors, source facts and original CV downloads work.
+## Review and verification
 
-## Verification
+Structure & Pitch and Marketing Strategy & PMM guide the reader’s question and evidence order. Frontend Design, Anti-UI-Slop and Anti-Slop Design guide composition and restraint; accessibility guidance supplies interaction checks. These are methods, not a claim that taste or audience response has been measured.
 
-72 automated tests, standalone type checking and the production build passed. The final local production audit passed 3,124 HTTP/content checks across 25 cases, 20 aliases, 492 current section fragments and 157 hosted asset URLs. The original CV hash is unchanged. Native review used an actual 1280px desktop viewport and 390px/320px phone widths. Menu and contact keyboard dismissal, trigger-focus restoration, direct section navigation, image enlargement and actual-size viewing passed. No page-width overflow was found on the reviewed pages. These are recorded source/browser checks, not a claim of WCAG certification or measured AI performance.
+The complete finding map, source baseline, factual exclusions and reader-study tasks are in `audit/2026-10-15/`. Final verification is recorded in `SITE-AUDIT.md`. Historical entries there refer to earlier releases.

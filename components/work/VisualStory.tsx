@@ -8,7 +8,8 @@ export function formatChartValue(value: number, unit?: string): string {
   if (unit === '%') return `${number}%`;
   if (unit === 'USD') return `$${number}`;
   if (unit === 'INR') return `₹${number}`;
-  return unit ? `${number} ${unit}` : number;
+  const displayUnit = value === 1 ? unit?.replace(/days$/, 'day').replace(/hours$/, 'hour') : unit;
+  return displayUnit ? `${number} ${displayUnit}` : number;
 }
 
 function metricValue(value: number, unit?: string): string {

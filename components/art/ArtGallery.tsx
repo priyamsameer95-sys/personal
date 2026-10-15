@@ -51,7 +51,6 @@ export default function ArtGallery({ collections, works }: { collections: ArtCol
               <h2 id={`collection-title-${collection.id}`}>{collection.title}</h2>
               {collection.description && <p>{collection.description}</p>}
             </div>
-            <p className={styles.count}>{groupWorks.length} {groupWorks.length === 1 ? 'painting' : 'paintings'}</p>
           </header>
 
           <div className={styles.works}>
@@ -70,7 +69,7 @@ export default function ArtGallery({ collections, works }: { collections: ArtCol
                     {work.statement && <div className={styles.statement}><h4>Artist’s note</h4>{work.statement.split(/\n\s*\n/).map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>}
                     {work.detailImages && work.detailImages.length > 0 && <div className={styles.detailImages}>
                       {work.detailImages.map((detail, index) => (
-                        <Media key={detail.src} previewSrc={detail.previewSrc} media={{ id: `${work.id}-detail-${index + 1}`, kind: 'image', src: detail.src, alt: detail.alt, width: detail.width, height: detail.height, caption: detail.caption || '' }} />
+                          <Media key={detail.src} previewSrc={detail.previewSrc} media={{ id: `${work.id}-detail-${index + 1}`, kind: 'image', src: detail.src, alt: detail.alt, width: detail.width, height: detail.height, caption: 'Detail' }} />
                       ))}
                     </div>}
                   </div>

@@ -1,5 +1,5 @@
 .pageIntro { max-width: 54rem; margin-bottom: 1rem; }
-.pageIntro h1 { font-size: clamp(2.6rem, 4.3vw, 3.4rem); line-height: 1.08; letter-spacing: -.05em; font-weight: 550; margin: 0 0 .75rem; color: var(--ink, #191714); }
+.pageIntro h1 { font-family: var(--font-editorial, Georgia, serif); font-size: clamp(3rem, 5vw, 4.6rem); line-height: 1.06; letter-spacing: -.04em; font-weight: 400; margin: 0 0 .75rem; color: var(--ink, #191714); }
 .pageIntro > p:last-child { font-size: 1rem; line-height: 1.65; color: var(--muted, #625e56); max-width: 70ch; }
 .explorer { min-width: 0; }
 .companyNavigation { display: flex; flex-wrap: wrap; gap: .3rem 2rem; padding: .4rem 0 .75rem; border-bottom: 1px solid var(--rule); margin-bottom: 2rem; scroll-margin-top: 2rem; }
@@ -29,9 +29,14 @@
   .productStack { grid-template-columns: 1fr; gap: .7rem; }
 }
 @media (max-width: 760px) {
-  .pageIntro h1 { font-size: clamp(2.1rem, 7vw, 2.7rem); }
+  .pageIntro h1 { font-size: clamp(2.4rem, 7vw, 3.1rem); }
   .companyNavigation { gap: .3rem 1.25rem; margin-bottom: 1.5rem; }
   .companyHeader { margin-bottom: 1.25rem; }
   .companySection { margin-bottom: 3rem; }
 }
 @media print { .companyNavigation { display: none; } .selectedProjects > article { break-inside: avoid; } }
+.pathHeader { max-width:78ch; margin-bottom:1.5rem; }
+.pathHeader h2 { font-size:clamp(1.6rem,2.6vw,2.2rem); line-height:1.25; font-weight:550; letter-spacing:-.035em; margin:0 0 .7rem; }
+.pathHeader p,.remit { font-size:.95rem; line-height:1.7; color:var(--muted); margin:0 0 1.5rem; }
+.remit { max-width:80ch; padding:1rem 0; border-top:1px solid var(--rule); }
+.remit a { color:var(--ink); text-underline-offset:.25em; }

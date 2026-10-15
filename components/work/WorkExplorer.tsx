@@ -1,104 +1,31 @@
 'use client';
-
 import Link from 'next/link';
-import { useEffect } from 'react';
-import type { CaseStudy, WorkCompany } from '@/lib/work-types';
-import CompanyContext from '@/components/CompanyContext';
-import { getCompanyContext } from '@/lib/company-context';
+import {useEffect} from 'react';
+import type {CaseStudy,WorkCompany} from '@/lib/work-types';
 import styles from './work-explorer.module.css';
-import WorkPreview, { type WorkPreviewStudy } from './WorkPreview';
-
-export interface WorkExplorerGroup {
-  company: WorkCompany;
-  studies: Array<WorkPreviewStudy & Pick<CaseStudy, 'period'>>;
-}
-
-export const selectedWorkSlugs = [
-  'cashkaro-college-money-education-loans',
-  'cashkaro-lending-mcp-feedback',
-  'cashkaro-lender-integration-operations',
-  'cashkaro-eduloans-policy-workflow',
-  'absolute-rural-credit-uli',
-  'absolute-silkroute-marketplace',
-  'absolute-crop-health-ai',
-  'urbankhet-farm-to-fork',
-] as const;
-
-const selectedCompanyIds = ['cashkaro', 'absolute', 'urbankhet'];
-const experienceDestinations: Record<string, string> = {
-  credflow: '/cv#credflow',
-  'founder-programmes': '/cv#other-contexts',
-  'water-farmers': '/cv#internship',
-  'gujarat-action-group': '/cv#other-contexts',
-  advisory: '/cv#other-contexts',
-  cept: '/cv#education',
-};
-
-export function selectWorkGroups(groups: readonly WorkExplorerGroup[]): WorkExplorerGroup[] {
-  return selectedCompanyIds.flatMap(id => {
-    const group = groups.find(group => group.company.id === id);
-    if (!group) return [];
-    const studies = selectedWorkSlugs.flatMap(slug => group.studies.filter(study => study.slug === slug));
-    return studies.length ? [{ company: group.company, studies }] : [];
-  });
-}
-
-export function resolveWorkFragment(hash: string, groups: readonly WorkExplorerGroup[]): string | null {
-  let fragment: string;
-  try { fragment = decodeURIComponent(hash.replace(/^#/, '')); } catch { return null; }
-  if (['other-contexts', 'company-index'].includes(fragment)) return fragment;
-  return groups.some(group => group.company.id === fragment) ? fragment : null;
-}
-
-const upajStack = [
-  { title: 'Farmer app', description: 'Recurring farm information, markets and useful next actions.', slug: 'absolute-upaj-farmer-experience' },
-  { title: 'Farm monitoring', description: 'Plot context, IoT and GIS connected to field use.', slug: 'absolute-farm-os-iot-gis' },
-  { title: 'Crop-health AI', description: 'Leaf capture, diagnosis and crop-specific advice.', slug: 'absolute-crop-health-ai' },
-  { title: 'RiskStac for institutions', description: 'Agricultural risk information for lender assessment.', slug: 'absolute-rural-credit-uli' },
+import WorkPreview,{type WorkPreviewStudy} from './WorkPreview';
+import HowICanHelp from '@/components/HowICanHelp';
+export interface WorkExplorerGroup{company:WorkCompany;studies:Array<WorkPreviewStudy&Pick<CaseStudy,'period'>>}
+export const selectedWorkSlugs=['cashkaro-college-money-education-loans','cashkaro-lending-mcp-feedback','cashkaro-lender-integration-operations','cashkaro-eduloans-policy-workflow','absolute-rural-credit-uli','absolute-silkroute-marketplace','absolute-crop-health-ai','urbankhet-farm-to-fork'] as const;
+const selectedCompanyIds=['cashkaro','absolute','urbankhet'];
+export function selectWorkGroups(groups:readonly WorkExplorerGroup[]):WorkExplorerGroup[]{return selectedCompanyIds.flatMap(id=>{const group=groups.find(group=>group.company.id===id);if(!group)return[];const studies=selectedWorkSlugs.flatMap(slug=>group.studies.filter(study=>study.slug===slug));return studies.length?[{company:group.company,studies}]:[];});}
+const paths=[
+ {id:'lending-journeys',title:'Preparing a case a lender can assess',intro:'Consumer and agricultural lending have different inputs. Both depend on turning customer information into a reviewable case, with the credit decision kept with the lender.',slugs:['cashkaro-college-money-education-loans','absolute-rural-credit-uli']},
+ {id:'partner-platforms',title:'Connecting the product to partners and payments',intro:'A common journey has to survive partner-specific rules, settlement and operating exceptions.',slugs:['cashkaro-lender-integration-operations','absolute-silkroute-marketplace']},
+ {id:'applied-ai',title:'Making complex review and advice usable',intro:'Historical crop-health delivery, a scripted lending prototype and a separate policy-service proposal. Each has a different maturity and a specific question to inspect.',slugs:['absolute-crop-health-ai','cashkaro-eduloans-policy-workflow','cashkaro-lending-mcp-feedback']},
+ {id:'operating-business',title:'Building the business behind the order',intro:'I founded UrbanKhet to supply fresh produce to households and business buyers. The work joined the offer, web product, farmer relationships, delivery and economics.',slugs:['urbankhet-farm-to-fork']},
 ];
-
-function CompanyWork({ group, priority }: { group: WorkExplorerGroup; priority?: boolean }) {
-  const { company, studies } = group;
-  return <section id={company.id} tabIndex={-1} aria-labelledby={`${company.id}-title`} className={styles.companySection}>
-    <header className={styles.companyHeader}>
-      <CompanyContext companyId={company.id} headingId={`${company.id}-title`} headingLevel={2} period={company.period} compact />
-    </header>
-    <div className={styles.selectedProjects}>{studies.map((study, index) => <WorkPreview key={study.id} study={study} priority={priority && index === 0} showBrand={false} />)}</div>
-    {company.id === 'absolute' && <section className={styles.productStack} aria-labelledby="upaj-stack-title">
-      <h3 id="upaj-stack-title">The wider Upaj stack</h3>
-      <div><p>Connected farmer information, monitoring, advisory and institutional risk.</p>
-      <ul>{upajStack.map(product => <li key={product.slug}><Link href={`/product/${product.slug}`} title={product.description}>{product.title}<span aria-hidden="true"> ↗</span></Link></li>)}</ul></div>
-    </section>}
-  </section>;
-}
-
-export default function WorkExplorer({ groups }: { groups: WorkExplorerGroup[] }) {
-  const selected = selectWorkGroups(groups);
-  const career = groups.filter(group => !selectedCompanyIds.includes(group.company.id));
-  useEffect(() => {
-    let frame = 0;
-    const followFragment = () => {
-      const fragment = resolveWorkFragment(window.location.hash, groups);
-      if (!fragment) return;
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const target = document.getElementById(fragment);
-        target?.focus({ preventScroll: true });
-        target?.scrollIntoView({ block: 'start', behavior: 'instant' });
-      });
-    };
-    followFragment();
-    window.addEventListener('hashchange', followFragment);
-    return () => { cancelAnimationFrame(frame); window.removeEventListener('hashchange', followFragment); };
-  }, [groups]);
-
-  return <div className={styles.explorer}>
-    <nav id="company-index" className={styles.companyNavigation} aria-label="Selected company work" tabIndex={-1}>{selected.map(({ company }) => <a key={company.id} href={`#${company.id}`}>{getCompanyContext(company.id)?.name || company.name}<span aria-hidden="true"> ↓</span></a>)}</nav>
-    {selected.map((group, index) => <CompanyWork key={group.company.id} group={group} priority={index === 0} />)}
-    <section id="other-contexts" className={styles.experienceBridge} aria-labelledby="experience-bridge-title" tabIndex={-1}>
-      <h2 id="experience-bridge-title">Career &amp; background</h2>
-      <p>For the complete chronology, role progression and work beyond these selected projects, <Link href="/cv">view my experience <span aria-hidden="true">↗</span></Link>.</p>
-      <nav aria-label="Earlier roles and additional experience">{career.map(({ company }) => <Link key={company.id} id={company.id} href={experienceDestinations[company.id] || '/cv'}>{company.name}<span aria-hidden="true"> ↗</span></Link>)}</nav>
-    </section>
-  </div>;
+export function resolveWorkFragment(hash:string,groups:readonly WorkExplorerGroup[]):string|null{let fragment:string;try{fragment=decodeURIComponent(hash.replace(/^#/,''));}catch{return null;}if(['other-contexts','company-index','upaj-stack-title',...paths.map(path=>path.id)].includes(fragment))return fragment;return groups.some(group=>group.company.id===fragment)?fragment:null;}
+export default function WorkExplorer({groups}:{groups:WorkExplorerGroup[]}){
+ const studies=groups.flatMap(group=>group.studies);
+ const career=groups.filter(group=>!selectedCompanyIds.includes(group.company.id));
+ const firstCompany=new Set<string>();
+ useEffect(()=>{let frame=0;const follow=()=>{const id=resolveWorkFragment(window.location.hash,groups);if(!id)return;cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{const target=document.getElementById(id);target?.focus({preventScroll:true});target?.scrollIntoView({block:'start',behavior:'instant'});});};follow();window.addEventListener('hashchange',follow);return()=>{cancelAnimationFrame(frame);window.removeEventListener('hashchange',follow);};},[groups]);
+ return <div className={styles.explorer}>
+  <nav id="company-index" className={styles.companyNavigation} aria-label="Choose a product problem" tabIndex={-1}><a href="#lending-journeys">Lending journeys ↓</a><a href="#partner-platforms">Partner platforms ↓</a><a href="#applied-ai">AI and review ↓</a><a href="#operating-business">Operating a business ↓</a></nav>
+  {paths.map(path=><section key={path.id} id={path.id} className={styles.companySection} aria-labelledby={`${path.id}-title`} tabIndex={-1}><header className={styles.pathHeader}><h2 id={`${path.id}-title`}>{path.title}</h2><p>{path.intro}</p></header>{path.slugs.map(slug=>{const study=studies.find(study=>study.slug===slug);if(!study)return null;const first=!firstCompany.has(study.companyId);firstCompany.add(study.companyId);return <div key={slug} id={first?study.companyId:undefined} tabIndex={first?-1:undefined}>{first&&study.companyId!=='urbankhet'&&<p className={styles.remit}>{study.companyId==='cashkaro'?<>At CashKaro, my remit spans consumer and education lending, lender partnerships, operating priorities and P&amp;L. BankKaro and College.money sit within that work. <a href="https://cashkaro.com/" target="_blank" rel="noopener noreferrer">Company website ↗</a></>:study.companyId==='absolute'?<>At Absolute, I worked across commodity trading, farmer products and agricultural information for institutions during October 2021–November 2024. <a href="https://absolute.bio/" target="_blank" rel="noopener noreferrer">Company website ↗</a></>:null}</p>}<WorkPreview study={study} priority={slug===paths[0].slugs[0]}/></div>;})}</section>)}
+  <section className={styles.productStack} aria-labelledby="upaj-stack-title"><h2 id="upaj-stack-title">Two supporting farmer-product cases</h2><ul><li><Link href="/product/absolute-upaj-farmer-experience">Upaj recurring utility ↗</Link><p>Organising the farmer app around recurring information and useful next actions.</p></li><li><Link href="/product/absolute-farm-os-iot-gis">Farm OS monitoring ↗</Link><p>Connecting plot context, monitoring and field workflows.</p></li></ul></section>
+  <HowICanHelp id="work-conversation"/>
+  <section id="other-contexts" className={styles.experienceBridge} aria-labelledby="experience-bridge-title" tabIndex={-1}><h2 id="experience-bridge-title">Complete career and background</h2><p>Roles, promotions, education and the work beyond this selection are in <Link href="/cv">Experience ↗</Link>.</p><nav aria-label="Earlier roles and additional experience">{career.map(({company})=><Link key={company.id} id={company.id} href={company.id==='founder-programmes'?'/cv#founder-programmes':company.id==='credflow'?'/cv#credflow':company.id==='water-farmers'?'/cv#internship':company.id==='cept'?'/cv#education':'/cv#other-contexts'}>{company.name} ↗</Link>)}</nav></section>
+ </div>;
 }

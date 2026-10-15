@@ -1,0 +1,24 @@
+# Factual boundaries used in the audit revision
+
+This is an internal implementation record, not portfolio copy. The audit's missing fields do not prove that the work or an older CV claim was false. They determine what the current public account can support.
+
+| Record | Treatment in this revision | Evidence needed before stronger wording |
+| --- | --- | --- |
+| Personal-lending conversion 16% → 45% | Removed from Home, Work cards, main outcome graphics and concise CV; qualified source report retained in case notes. | Defined transition, denominator, dates, comparable populations and programme attribution. |
+| Education conversion 40%, ₹5.5 crore monthly disbursement, positive economics | Not used as study-abroad outcome or calculated profit. Main case explains the owned journey/commercial remit; proposed economics/cohort models are labelled. | Education-only versus wider-lending scope, events/cohorts, principal versus earned revenue, reconciled ledger and economics period. |
+| Lender integrations | Requirements, partner collaboration, daily MIS, service reviews and payout reconciliation retained. Illustrative metadata/status/handshake/security contracts are labelled reference designs. | Shareable production contract, adapter count on that contract, execution traces, implemented controls and measured reliability/onboarding gain. |
+| EduLoans and origination effort | Model, scripted interaction prototype and recorded release restrictions are distinct from production. Archived 145 assertions retain March 2026 date, mocked scope and not-rerun limitation. | Fresh end-to-end validation, deployed function checks, labelled-document evaluation, release closure and effort attribution to the correct system. |
+| MCP | Design proposal; shared policy evaluation and separately approved policy change. Evaluation plan remains proposed. | Deployment record, tool execution, authorization and evaluation results. |
+| SilkRoute | Reported programme $100M GMV within nine months; personal product remit is separate. | Isolated feature causality, revenue or profit would need different evidence. |
+| Payments/ERP | Earlier five-day to one-day settlement report retained once in qualified prose; no chart or real-time guarantee. The unsupported 24-working-day baseline was rejected. | Settlement clock, cohorts, complaint denominator and monetary leakage baseline. |
+| Upaj retention and active users | No prominent growth/retention cards; source series remain in measurement notes. | Active-user definition, periods, cohorts, baselines and relative versus percentage-point retention basis. |
+| Crop health | Dataset/crop counts describe scope, not accuracy. Delivered capture/compression/reconnect/diagnosis is separate from intended playbooks/conversational advice. | Representative labelled evaluation, expert agreement, uncertainty handling and confirmed advisory release. |
+| RiskStac / ULI | Agricultural assessment-product contribution leads; lender retains credit decision. National infrastructure and later public references remain background. | Product-specific adoption, time baseline and historical institution-by-institution acceptance/deployment. |
+| International/institutional work | Country and institution scope is retained with dated/proposal labels. Mixed client turnover, planned ARR, company raise and programme targets are excluded from public personal impact. | Reconciled institution/module/date/status and interpretable commercial outcomes. |
+| UrbanKhet | Founder offer, storefront, sourcing and fulfilment are the principal account. Different historical customer snapshots are not combined; no funding total is invented. | Comparable customer periods/definitions, investment/grant amounts and exact recognition recipient/date. |
+| Atal and other venture recognition | Unresolved recipient removed from concise CV and main support note; source history remains qualified. | Authoritative award recipient, issuer, title and date. |
+| CredFlow | Two concise contributions; reported CAC/savings/transaction figures, where retained in case notes, have one scoped definition and are not summed or called revenue. CV omits unresolved figures. | Acquisition spend/cohort/retention and initiated/successful/settled transaction state. |
+| Career, city and external profile | Web/PDF use the same supplied chronology, titles, BS degree and Bengaluru/contact record. No invented experience total, team size, relocation preference or external-profile confirmation. | Official HR/profile reconciliation if a competing record is supplied. |
+| Art | Six works with full compositions and original-note preservation. ANNA and historical sale/theme labels omitted from main gallery. | Artist-confirmed authorship/meaning and current availability. |
+
+No numerical result, client incident, deployment, security certification, fee, availability or reader-study outcome was invented to close an evidence gap.

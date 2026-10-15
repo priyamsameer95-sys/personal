@@ -8,7 +8,7 @@ import explorerStyles from '@/components/work/work-explorer.module.css';
 
 export const metadata: Metadata = {
   title: 'Selected Work',
-  description: 'Eight selected projects: College.money, lending MCP design, lender integrations, EduLoans, RiskStac, SilkRoute, crop-health AI and UrbanKhet. See the product, personal decisions and qualified outcomes.',
+  description: 'Choose a product problem: lending journeys, partner platforms, applied AI or operating a business. Eight cases explain Priyam’s responsibility, decisions and what followed.',
   openGraph: { title: 'Selected Work — Priyam Sameer', description: 'Lending journeys, shared policy systems and agricultural products, with visible evidence and personal ownership.' },
   twitter: { title: 'Selected Work — Priyam Sameer', description: 'Lending journeys, shared policy systems and agricultural products, with visible evidence and personal ownership.' },
 };
@@ -26,8 +26,8 @@ export default function ProductWorkPage() {
     <Header />
     <main id="main-content" className="animate-fade-in-up">
       <header className={explorerStyles.pageIntro}>
-        <h1>Selected work.</h1>
-        <p>Eight selected projects across lending, AI, agricultural data and commerce.</p>
+        <h1>The decisions behind the products.</h1>
+        <p>Lending, marketplaces and agricultural products. Each case follows a problem, the decisions I contributed to and what happened next. Start with the problem closest to yours.</p>
       </header>
       <WorkExplorer groups={groups} />
     </main>

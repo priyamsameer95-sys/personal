@@ -1,0 +1,1399 @@
+{
+  "audit": "Priyam website audit — 15 October 2026",
+  "chapters": [
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "pages": [
+    63,
+    126
+  ],
+  "records": [
+    "cashkaro-personal-loan-marketplace",
+    "cashkaro-college-money-education-loans",
+    "cashkaro-eduloans-policy-workflow",
+    "cashkaro-lender-integration-operations",
+    "cashkaro-lending-mcp-feedback"
+  ],
+  "scope": "Five CashKaro records only; component/layout implementation and native screenshot verification belong to the integrating agent.",
+  "preservation": {
+    "originalSections": 57,
+    "retainedSections": 57,
+    "originalMedia": 30,
+    "retainedMedia": 30,
+    "allAliasesAndSectionAnchorAliasesPreserved": true,
+    "allSourceLinksPreserved": true,
+    "allOriginalTablesRetained": true,
+    "newMainTable": "Illustrative status mapping — not production schema"
+  },
+  "principalWordCounts": {
+    "cashkaro-personal-loan-marketplace": 414,
+    "cashkaro-college-money-education-loans": 476,
+    "cashkaro-eduloans-policy-workflow": 475,
+    "cashkaro-lender-integration-operations": 442,
+    "cashkaro-lending-mcp-feedback": 393
+  },
+  "limitations": [
+    "No new historical customer incident, experiment, API contract or deployed security mechanism was invented.",
+    "Original unsupported numerical reports remain only in evidence/reference context; charts, outcome cards and summary pitches do not promote them.",
+    "Existing authored diagrams, full galleries, three College.money tours, detailed proposed tables and dated external references are retained for optional reference pages."
+  ],
+  "entries": [
+    {
+      "id": "F0082",
+      "chapter": 6,
+      "page": 63,
+      "heading": "Personal-loan marketplace",
+      "action": "Rewrite problem-led opening",
+      "resolution": "The first read starts with unsuitable lender fit, then states shared-application ownership and partner collaboration without inventing a customer episode or release date.",
+      "targets": [
+        "summary",
+        "executiveBrief",
+        "visualSummary",
+        "sections.problem"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0083",
+      "chapter": 6,
+      "page": 64,
+      "heading": "Desktop evidence for Hero workflow",
+      "action": "Remove generic workflow from main opening",
+      "resolution": "Explicit empty primaryMediaIds and chapter mainMediaIds omit the five-box lifecycle from the principal story. Original asset and distinct borrower/commercial-state explanation remain in references; no new historical artifact is fabricated.",
+      "targets": [
+        "primaryMediaIds",
+        "presentation.decisionBeats",
+        "media.workflow-diagram.caption"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0084",
+      "chapter": 6,
+      "page": 65,
+      "heading": "The decisions behind the work: opening",
+      "action": "Rewrite problem-led opening",
+      "resolution": "The first read starts with unsuitable lender fit, then states shared-application ownership and partner collaboration without inventing a customer episode or release date.",
+      "targets": [
+        "summary",
+        "executiveBrief",
+        "visualSummary",
+        "sections.problem"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0085",
+      "chapter": 6,
+      "page": 66,
+      "heading": "One application, different lender requirements",
+      "action": "Condense shared-versus-specific decision",
+      "resolution": "Two decision paragraphs distinguish common inputs from lender-specific policy, KYC and commercial commitments; no actual anonymized mapping or fabricated specification is claimed.",
+      "targets": [
+        "sections.build",
+        "sections.routing",
+        "presentation.decisionBeats.decision"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0086",
+      "chapter": 6,
+      "page": 66,
+      "heading": "A weekly rhythm for improving the funnel",
+      "action": "Keep one operating account without an invented experiment",
+      "resolution": "Daily MIS and weekly investigation are described once. The case explicitly lacks a shareable hypothesis/intervention/isolated-effect episode.",
+      "targets": [
+        "sections.delivery",
+        "sections.operating-rhythm",
+        "sourceNotes"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0087",
+      "chapter": 6,
+      "page": 67,
+      "heading": "The judgment I take forward",
+      "action": "Replace generic takeaway",
+      "resolution": "The close explains who follows the case, where it stopped and what the lender owes next.",
+      "targets": [
+        "sections.takeaway",
+        "presentation.decisionBeats.delivery"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0088",
+      "chapter": 6,
+      "page": 68,
+      "heading": "Desktop evidence for Results",
+      "action": "Omit unresolved uplift from prominent results",
+      "resolution": "16%→45%, missing event/cohort/period definitions and the wider20+ panel remain in one evidence note. No conversion chart, result card or29-point causal pitch remains.",
+      "targets": [
+        "outcomes",
+        "visualSummary.charts",
+        "visualSummary.impact",
+        "sourceNotes"
+      ],
+      "status": "omitted_unsupported"
+    },
+    {
+      "id": "F0089",
+      "chapter": 6,
+      "page": 69,
+      "heading": "Notes and references",
+      "action": "Consolidate evidence and limits",
+      "resolution": "Plain first-person evidence register replaces editorial assembly language; unavailable launch artifacts and inaccessible BankKaro public capture remain explicit.",
+      "targets": [
+        "sourceNotes"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0090",
+      "chapter": 6,
+      "page": 69,
+      "heading": "Keep exploring and closing conversion",
+      "action": "Add case-specific engagement and purposeful continuation",
+      "resolution": "The engagement identifies stalled borrower/lender handoffs; relatedSlugs prioritize integration contract depth and education-lending transfer.",
+      "targets": [
+        "engagement",
+        "relatedSlugs"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0091",
+      "chapter": 6,
+      "page": 70,
+      "heading": "Desktop evidence for Decision sections",
+      "action": "Remove repeated summaries and mandatory third beat",
+      "resolution": "Two edited chapters use distinct decision and operating accounts. Source paragraphs no longer repeat multiple versions of the same role inventory. Native layout verification remains the integrating agent’s responsibility.",
+      "targets": [
+        "presentation.decisionBeats",
+        "sections"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0092",
+      "chapter": 6,
+      "page": 71,
+      "heading": "The decisions behind the work",
+      "action": "Preserve supplementary heading coverage",
+      "resolution": "The existing story/evidence/continuation remains mapped to the rewritten narrative, reference register or case-specific engagement.",
+      "targets": [
+        "full-case-study"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0093",
+      "chapter": 6,
+      "page": 71,
+      "heading": "Notes and references",
+      "action": "Preserve supplementary heading coverage",
+      "resolution": "The existing story/evidence/continuation remains mapped to the rewritten narrative, reference register or case-specific engagement.",
+      "targets": [
+        "evidence"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0094",
+      "chapter": 6,
+      "page": 72,
+      "heading": "Keep exploring",
+      "action": "Preserve supplementary heading coverage",
+      "resolution": "The existing story/evidence/continuation remains mapped to the rewritten narrative, reference register or case-specific engagement.",
+      "targets": [
+        "related"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0095",
+      "chapter": 7,
+      "page": 73,
+      "heading": "College.money education loans",
+      "action": "Lead with the student predicament",
+      "resolution": "Repeated evidence requests and uncertain handoffs organize the opening. Responsibility and delivered service scope precede selected current reference material.",
+      "targets": [
+        "summary",
+        "sections.problem",
+        "executiveBrief"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0096",
+      "chapter": 7,
+      "page": 74,
+      "heading": "Opening walkthrough and destination-country screenshot",
+      "action": "Choose one purposeful opening reference",
+      "resolution": "A current readiness frame replaces the montage plus country selector in the hero. The caption states the decision to notice and the unauthenticated, current-reference boundary; all videos remain optional references.",
+      "targets": [
+        "primaryMediaIds",
+        "media.college-money-abroad-readiness.caption",
+        "sections.college-money-walkthroughs"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0097",
+      "chapter": 7,
+      "page": 75,
+      "heading": "The decisions behind the work: opening",
+      "action": "Lead with the student predicament",
+      "resolution": "Repeated evidence requests and uncertain handoffs organize the opening. Responsibility and delivered service scope precede selected current reference material.",
+      "targets": [
+        "summary",
+        "sections.problem",
+        "executiveBrief"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0098",
+      "chapter": 7,
+      "page": 75,
+      "heading": "Turning student intent into a workable case",
+      "action": "Separate historical audience from current reference and prototype",
+      "resolution": "Historical upskilling/tier2/3 scope, later study-abroad public pages and the separate EduLoans prototype are distinguished. No unavailable exact historical launch/version is invented.",
+      "targets": [
+        "sections.borrower-to-case",
+        "presentation.decisionBeats.decision",
+        "sourceNotes"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0099",
+      "chapter": 7,
+      "page": 76,
+      "heading": "Building the product and the business together",
+      "action": "Bring effort-versus-readiness trade-off forward",
+      "resolution": "The main account explains the cost of a short form versus incomplete cases and links stage reporting to partner readiness and operating economics without inventing a verified experiment.",
+      "targets": [
+        "presentation.decisionBeats",
+        "sections.delivery",
+        "sections.business-and-team"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0100",
+      "chapter": 7,
+      "page": 76,
+      "heading": "The judgment I take forward",
+      "action": "Use actors and next actions",
+      "resolution": "Student evidence, receiving-team action and lender case usability replace abstract product-account terminology.",
+      "targets": [
+        "sections.takeaway",
+        "presentation.decisionBeats.delivery"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0101",
+      "chapter": 7,
+      "page": 77,
+      "heading": "Results and scope: 40% conversion and 5.5 crore₹",
+      "action": "Omit ambiguous financial/conversion pitch",
+      "resolution": "40% and disputed₹5.5crore remain only in the evidence/reference record. Computed60% remainder and all prominent charts/outcome cards are removed; no principal-as-revenue or profit claim is made.",
+      "targets": [
+        "outcomes",
+        "visualSummary.charts",
+        "executiveBrief.impact",
+        "sourceNotes"
+      ],
+      "status": "omitted_unsupported"
+    },
+    {
+      "id": "F0102",
+      "chapter": 7,
+      "page": 77,
+      "heading": "Inside the work / Current public discovery: screenshot groups",
+      "action": "Select interpreted frames rather than dump galleries",
+      "resolution": "Main media selects readiness, destination dependency and borrowing comparison with individual explanatory captions. All original frames, loading/calculator/FAQ states and source records remain reference depth.",
+      "targets": [
+        "primaryMediaIds",
+        "presentation.decisionBeats.mainMediaIds",
+        "media.caption",
+        "sections.public-discovery-reference"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0103",
+      "chapter": 7,
+      "page": 78,
+      "heading": "Desktop evidence for Later videos",
+      "action": "Move overlapping tours and published-step inventory to references",
+      "resolution": "No video montage leads the case. Three original reference clips and the complete published-step table remain available outside the principal story, with one dated evidence boundary.",
+      "targets": [
+        "sections.college-money-walkthroughs",
+        "sections.published-application-reference",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0104",
+      "chapter": 7,
+      "page": 79,
+      "heading": "The education-lending business: opening and economics diagram",
+      "action": "Separate commercial remit from proposed accounting model",
+      "resolution": "The principal story distinguishes principal, earned partner revenue and processing contribution. Complete economics diagram/table stays labelled proposed analytical reference; unavailable inputs produce no profit calculation.",
+      "targets": [
+        "presentation.decisionBeats.delivery",
+        "sections.lending-revenue-and-pnl",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0105",
+      "chapter": 7,
+      "page": 80,
+      "heading": "Revenue-to-bottom-line bridge — amounts are unavailable",
+      "action": "Separate commercial remit from proposed accounting model",
+      "resolution": "The principal story distinguishes principal, earned partner revenue and processing contribution. Complete economics diagram/table stays labelled proposed analytical reference; unavailable inputs produce no profit calculation.",
+      "targets": [
+        "presentation.decisionBeats.delivery",
+        "sections.lending-revenue-and-pnl",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0106",
+      "chapter": 7,
+      "page": 81,
+      "heading": "Student-to-partner funnel table and next-business-review table",
+      "action": "Label proposed cohort and review models",
+      "resolution": "The main story does not imply that retrospective tables are deployed instrumentation. Full funnel and commercial-review tables remain proposed reference models; no review episode is invented.",
+      "targets": [
+        "sections.acquisition-to-revenue-funnel",
+        "sections.commercial-decision-checks"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0107",
+      "chapter": 7,
+      "page": 81,
+      "heading": "Borrower protection and the lender boundary",
+      "action": "Keep dated legal reading secondary",
+      "resolution": "The borrower/lender responsibility boundary stays in the story; legal materials remain dated optional references and establish no compliance result.",
+      "targets": [
+        "sections.borrower-protection-reference",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0108",
+      "chapter": 7,
+      "page": 82,
+      "heading": "Notes and references: extra images and source limits",
+      "action": "Replace internal attribution prose and duplicate main media",
+      "resolution": "The evidence register separates operating account, current public captures and unresolved financial scope. Original gallery records remain reference material without being repeated in main notes.",
+      "targets": [
+        "sourceNotes",
+        "sections.public-discovery-reference",
+        "presentation.decisionBeats.mainMediaIds"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0109",
+      "chapter": 7,
+      "page": 82,
+      "heading": "Keep exploring and engagement",
+      "action": "Add service-specific next step",
+      "resolution": "Engagement asks about cases stalled between evidence, reviewers and partners; prototype and integration links offer different continuations.",
+      "targets": [
+        "engagement",
+        "relatedSlugs"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0110",
+      "chapter": 7,
+      "page": 83,
+      "heading": "Desktop evidence for Hero media",
+      "action": "Choose one purposeful opening reference",
+      "resolution": "A current readiness frame replaces the montage plus country selector in the hero. The caption states the decision to notice and the unauthenticated, current-reference boundary; all videos remain optional references.",
+      "targets": [
+        "primaryMediaIds",
+        "media.college-money-abroad-readiness.caption",
+        "sections.college-money-walkthroughs"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0111",
+      "chapter": 7,
+      "page": 84,
+      "heading": "Desktop evidence for Public-reference gallery",
+      "action": "Select interpreted frames rather than dump galleries",
+      "resolution": "Main media selects readiness, destination dependency and borrowing comparison with individual explanatory captions. All original frames, loading/calculator/FAQ states and source records remain reference depth.",
+      "targets": [
+        "primaryMediaIds",
+        "presentation.decisionBeats.mainMediaIds",
+        "media.caption",
+        "sections.public-discovery-reference"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0112",
+      "chapter": 7,
+      "page": 85,
+      "heading": "The decisions behind the work",
+      "action": "Retain supplementary heading/anchor coverage",
+      "resolution": "The original section identity and any aliases are preserved; its content now belongs to the concise main story, labelled analytical reference or relevant next step.",
+      "targets": [
+        "presentation.decisionBeats"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0113",
+      "chapter": 7,
+      "page": 85,
+      "heading": "Building the product and the business together",
+      "action": "Retain supplementary heading/anchor coverage",
+      "resolution": "The original section identity and any aliases are preserved; its content now belongs to the concise main story, labelled analytical reference or relevant next step.",
+      "targets": [
+        "sections.business-and-team"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0114",
+      "chapter": 7,
+      "page": 85,
+      "heading": "Results and scope",
+      "action": "Retain supplementary heading/anchor coverage",
+      "resolution": "The original section identity and any aliases are preserved; its content now belongs to the concise main story, labelled analytical reference or relevant next step.",
+      "targets": [
+        "sections.results"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0115",
+      "chapter": 7,
+      "page": 86,
+      "heading": "Inside the work",
+      "action": "Retain supplementary heading/anchor coverage",
+      "resolution": "The original section identity and any aliases are preserved; its content now belongs to the concise main story, labelled analytical reference or relevant next step.",
+      "targets": [
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0116",
+      "chapter": 7,
+      "page": 86,
+      "heading": "The education-lending business: funnel, revenue and costs",
+      "action": "Retain supplementary heading/anchor coverage",
+      "resolution": "The original section identity and any aliases are preserved; its content now belongs to the concise main story, labelled analytical reference or relevant next step.",
+      "targets": [
+        "sections.lending-revenue-and-pnl"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0117",
+      "chapter": 7,
+      "page": 86,
+      "heading": "Notes and references",
+      "action": "Retain supplementary heading/anchor coverage",
+      "resolution": "The original section identity and any aliases are preserved; its content now belongs to the concise main story, labelled analytical reference or relevant next step.",
+      "targets": [
+        "sourceNotes"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0118",
+      "chapter": 7,
+      "page": 86,
+      "heading": "Keep exploring",
+      "action": "Retain supplementary heading/anchor coverage",
+      "resolution": "The original section identity and any aliases are preserved; its content now belongs to the concise main story, labelled analytical reference or relevant next step.",
+      "targets": [
+        "engagement"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0119",
+      "chapter": 8,
+      "page": 87,
+      "heading": "EduLoans: AI-assisted lending workflows",
+      "action": "Start with the missing-policy risk and authorship",
+      "resolution": "The opening leads with13threshold gaps; AI-assisted building is distinct from live AI lending. A single inspector screenshot leads, with sample/scripted labels preserved.",
+      "targets": [
+        "summary",
+        "executiveBrief",
+        "sections.problem",
+        "primaryMediaIds"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0120",
+      "chapter": 8,
+      "page": 88,
+      "heading": "The decisions behind the work: opening",
+      "action": "Start with the missing-policy risk and authorship",
+      "resolution": "The opening leads with13threshold gaps; AI-assisted building is distinct from live AI lending. A single inspector screenshot leads, with sample/scripted labels preserved.",
+      "targets": [
+        "summary",
+        "executiveBrief",
+        "sections.problem",
+        "primaryMediaIds"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0121",
+      "chapter": 8,
+      "page": 89,
+      "heading": "Deterministic policy before confident automation and workflow diagram",
+      "action": "Make the release restriction the consequential choice",
+      "resolution": "Five affected lenders require relationship-manager policy confirmation. Deterministic gates, deferred ML and bounded scores explain the alternative; model counts remain scope rather than quality.",
+      "targets": [
+        "presentation.decisionBeats.decision",
+        "sections.policy-and-launch",
+        "sections.defended-policy-choices"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0122",
+      "chapter": 8,
+      "page": 89,
+      "heading": "Verification, document uncertainty and human review",
+      "action": "Make uncertain documents concrete",
+      "resolution": "A regional marksheet/tax scan illustrates classification versus reliable validation and KAM verification; it is explicitly not an executed document-quality test.",
+      "targets": [
+        "presentation.decisionBeats.delivery",
+        "sections.delivery"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0123",
+      "chapter": 8,
+      "page": 90,
+      "heading": "Desktop evidence for Architecture diagrams",
+      "action": "Explain role ownership and sequence selected evidence",
+      "resolution": "Student and partner views follow the primary KAM inspector. Captions describe each action. Shared case-model intention is distinguished from a recorded end-to-end run; complete lifecycle/scoring diagrams stay reference depth.",
+      "targets": [
+        "primaryMediaIds",
+        "presentation.decisionBeats.mainMediaIds",
+        "sections.interaction-design",
+        "media.caption"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0124",
+      "chapter": 8,
+      "page": 91,
+      "heading": "Prototype scope and validation: 9 → 4 hours and model counts",
+      "action": "Separate broader operational AI report from scripted prototype",
+      "resolution": "9→4hours and₹1,562 leave all prototype charts/outcomes/pitch. A single evidence note preserves the separate career-account claim and unavailable measurement/attribution.62rules/eightconfigurations/23states are labelled documentary scope.",
+      "targets": [
+        "outcomes",
+        "visualSummary.charts",
+        "sections.results",
+        "sourceNotes"
+      ],
+      "status": "omitted_unsupported"
+    },
+    {
+      "id": "F0125",
+      "chapter": 8,
+      "page": 91,
+      "heading": "Inside the work / Build choices and release gates: architecture and scoring images",
+      "action": "Make restrictions and unfinished work explicit",
+      "resolution": "Main story distinguishes working model/prototype from threshold and rule-version restrictions, pincode wiring, checklist coverage and later operational dashboards. Full architecture/scoring images remain references.",
+      "targets": [
+        "sections.takeaway",
+        "sections.defended-policy-choices",
+        "sections.release-backlog"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0126",
+      "chapter": 8,
+      "page": 92,
+      "heading": "Tool roles in the technical portfolio",
+      "action": "Move tool inventory to implementation references",
+      "resolution": "The main account explains independent policy/interface review without AI-tool name-dropping. Original tool-role table and all distinct tool facts remain technical reference material.",
+      "targets": [
+        "sections.tool-choices",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0127",
+      "chapter": 8,
+      "page": 93,
+      "heading": "Recorded backlog table",
+      "action": "Date and classify archived backlog",
+      "resolution": "Backlog caption/body state archived technical-portfolio status reviewed15October2026, not a live or closed backlog. Consequence labels distinguish release restriction, coverage/contract work and later operations. All six original entries remain.",
+      "targets": [
+        "sections.release-backlog",
+        "sections.release-backlog.tables"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0128",
+      "chapter": 8,
+      "page": 94,
+      "heading": "Further learning: agent orchestration and connector boundaries",
+      "action": "Separate follow-on exploration",
+      "resolution": "NemoClaw/Antigravity and Zapier/Apify/Unipile remain in a clearly separate reference note, never as delivered lending components.",
+      "targets": [
+        "sections.further-ai-learning",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0129",
+      "chapter": 8,
+      "page": 94,
+      "heading": "Archived unit and regression validation table",
+      "action": "Lead archived-test explanation with scope and limits",
+      "resolution": "UI/utilities/local helper scope precedes145passes. Date/time, mocks, lack of deployed-function import and inconsistent archive markers remain. No live/model-quality score is promoted.",
+      "targets": [
+        "sections.software-validation-record",
+        "sourceNotes"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0130",
+      "chapter": 8,
+      "page": 95,
+      "heading": "Desktop evidence for Proposed validation",
+      "action": "Summarize three proposed release gates",
+      "resolution": "Main story has policy fixtures, verification enforcement and version consistency. Full seven-scenario matrix remains reference depth, explicitly proposed and not executed.",
+      "targets": [
+        "presentation.decisionBeats.delivery",
+        "sections.evaluation-plan",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0131",
+      "chapter": 8,
+      "page": 96,
+      "heading": "Notes and references",
+      "action": "Provide a candid artifact register",
+      "resolution": "The record names PRD/rule model, original prototype and dated archived tests without promising unrestricted repository access or invented artifact URLs. Preserved diagrams/tables and source records support the reference route.",
+      "targets": [
+        "sourceNotes",
+        "sections.software-validation-record"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0132",
+      "chapter": 8,
+      "page": 96,
+      "heading": "Keep exploring and engagement",
+      "action": "Add policy-uncertainty engagement",
+      "resolution": "The specific next step offers rules/review-gate/evaluation design while preserving prototype status and linking to delivered College.money context.",
+      "targets": [
+        "engagement",
+        "relatedSlugs"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0133",
+      "chapter": 8,
+      "page": 97,
+      "heading": "Desktop evidence for Four prototype screens",
+      "action": "Explain role ownership and sequence selected evidence",
+      "resolution": "Student and partner views follow the primary KAM inspector. Captions describe each action. Shared case-model intention is distinguished from a recorded end-to-end run; complete lifecycle/scoring diagrams stay reference depth.",
+      "targets": [
+        "primaryMediaIds",
+        "presentation.decisionBeats.mainMediaIds",
+        "sections.interaction-design",
+        "media.caption"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0134",
+      "chapter": 8,
+      "page": 98,
+      "heading": "The decisions behind the work",
+      "action": "Preserve supplementary story/detail coverage",
+      "resolution": "Every original section ID and alias survives, with original artifacts retained in the main selection or labelled reference depth.",
+      "targets": [
+        "sections",
+        "presentation"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0135",
+      "chapter": 8,
+      "page": 98,
+      "heading": "Deterministic policy before confident automation",
+      "action": "Make the release restriction the consequential choice",
+      "resolution": "Five affected lenders require relationship-manager policy confirmation. Deterministic gates, deferred ML and bounded scores explain the alternative; model counts remain scope rather than quality.",
+      "targets": [
+        "presentation.decisionBeats.decision",
+        "sections.policy-and-launch",
+        "sections.defended-policy-choices"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0136",
+      "chapter": 8,
+      "page": 99,
+      "heading": "Verification, document uncertainty and human review",
+      "action": "Make uncertain documents concrete",
+      "resolution": "A regional marksheet/tax scan illustrates classification versus reliable validation and KAM verification; it is explicitly not an executed document-quality test.",
+      "targets": [
+        "presentation.decisionBeats.delivery",
+        "sections.delivery"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0137",
+      "chapter": 8,
+      "page": 99,
+      "heading": "One case model, three different jobs",
+      "action": "Explain role ownership and sequence selected evidence",
+      "resolution": "Student and partner views follow the primary KAM inspector. Captions describe each action. Shared case-model intention is distinguished from a recorded end-to-end run; complete lifecycle/scoring diagrams stay reference depth.",
+      "targets": [
+        "primaryMediaIds",
+        "presentation.decisionBeats.mainMediaIds",
+        "sections.interaction-design",
+        "media.caption"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0138",
+      "chapter": 8,
+      "page": 99,
+      "heading": "Prototype scope and validation",
+      "action": "Separate broader operational AI report from scripted prototype",
+      "resolution": "9→4hours and₹1,562 leave all prototype charts/outcomes/pitch. A single evidence note preserves the separate career-account claim and unavailable measurement/attribution.62rules/eightconfigurations/23states are labelled documentary scope.",
+      "targets": [
+        "outcomes",
+        "visualSummary.charts",
+        "sections.results",
+        "sourceNotes"
+      ],
+      "status": "omitted_unsupported"
+    },
+    {
+      "id": "F0139",
+      "chapter": 8,
+      "page": 99,
+      "heading": "Inside the work",
+      "action": "Preserve supplementary story/detail coverage",
+      "resolution": "Every original section ID and alias survives, with original artifacts retained in the main selection or labelled reference depth.",
+      "targets": [
+        "sections",
+        "presentation"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0140",
+      "chapter": 8,
+      "page": 100,
+      "heading": "Evaluation and release validation — proposed",
+      "action": "Summarize three proposed release gates",
+      "resolution": "Main story has policy fixtures, verification enforcement and version consistency. Full seven-scenario matrix remains reference depth, explicitly proposed and not executed.",
+      "targets": [
+        "presentation.decisionBeats.delivery",
+        "sections.evaluation-plan",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0141",
+      "chapter": 8,
+      "page": 100,
+      "heading": "Notes and references",
+      "action": "Provide a candid artifact register",
+      "resolution": "The record names PRD/rule model, original prototype and dated archived tests without promising unrestricted repository access or invented artifact URLs. Preserved diagrams/tables and source records support the reference route.",
+      "targets": [
+        "sourceNotes",
+        "sections.software-validation-record"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0142",
+      "chapter": 8,
+      "page": 100,
+      "heading": "Keep exploring",
+      "action": "Add policy-uncertainty engagement",
+      "resolution": "The specific next step offers rules/review-gate/evaluation design while preserving prototype status and linking to delivered College.money context.",
+      "targets": [
+        "engagement",
+        "relatedSlugs"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0143",
+      "chapter": 9,
+      "page": 102,
+      "heading": "Desktop evidence for Hero architecture",
+      "action": "Frame a short architecture exploration",
+      "resolution": "DefineMCPandbusiness-ruleengines after the concrete reuse premise. Consumers and demand are intended, not claimed live. Conventional API remains a real untested alternative.",
+      "targets": [
+        "summary",
+        "sections.problem",
+        "presentation.format",
+        "presentation.decisionBeats.decision"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0144",
+      "chapter": 9,
+      "page": 103,
+      "heading": "The proposed product approach: opening",
+      "action": "Frame a short architecture exploration",
+      "resolution": "DefineMCPandbusiness-ruleengines after the concrete reuse premise. Consumers and demand are intended, not claimed live. Conventional API remains a real untested alternative.",
+      "targets": [
+        "summary",
+        "sections.problem",
+        "presentation.format",
+        "presentation.decisionBeats.decision"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0145",
+      "chapter": 9,
+      "page": 103,
+      "heading": "Separating the policy from its interface and workflow diagram",
+      "action": "Show an illustrative versioned request/result and alternative",
+      "resolution": "Same authorized case/policy version returns reasons and missing-input flags to different consumers; no execution is claimed. MCP must earn its complexity over a conventional API.",
+      "targets": [
+        "sections.service-boundary",
+        "presentation.decisionBeats.decision"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0146",
+      "chapter": 9,
+      "page": 104,
+      "heading": "What lender outcomes can tell the product",
+      "action": "Diagnose feedback before mutation",
+      "resolution": "Illustrative rejection triage separates missing information, routing and policy issues, with review tied to original case/version. It does not automatically change later evaluations.",
+      "targets": [
+        "sections.delivery",
+        "sections.feedback",
+        "presentation.decisionBeats.feedback"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0147",
+      "chapter": 9,
+      "page": 104,
+      "heading": "The judgment I take forward",
+      "action": "Use a practical authority boundary",
+      "resolution": "The lesson explains today’s result without authorizing tomorrow’s policy change.",
+      "targets": [
+        "sections.takeaway"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0148",
+      "chapter": 9,
+      "page": 105,
+      "heading": "Proposed approach and validation",
+      "action": "Remove outcome-shaped proposal cards",
+      "resolution": "Empty outcomes; results describe authored architecture/contracts and unverified wiring, reuse, permissions and approval/rollback. No business-result or automatic-retuning claim.",
+      "targets": [
+        "outcomes",
+        "sections.results",
+        "presentation.resultsTitle"
+      ],
+      "status": "omitted_unsupported"
+    },
+    {
+      "id": "F0149",
+      "chapter": 9,
+      "page": 106,
+      "heading": "Inside the work / Evaluation and release validation — proposed table",
+      "action": "Put contract before concise release questions",
+      "resolution": "The proposal introduces a concrete input/result before three release gates. Full six-row proposed validation table stays optional reference depth.",
+      "targets": [
+        "presentation.decisionBeats",
+        "sections.evaluation-plan",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0150",
+      "chapter": 9,
+      "page": 106,
+      "heading": "Callable policy: opening and protocol-version discussion",
+      "action": "Move protocol revision commentary to dated references",
+      "resolution": "Main story stays about evaluation and approval.14October2026contract notes distinguish later authored examples from the earlier direction; original technical revision/source links remain.",
+      "targets": [
+        "sections.mcp-tool-contract-reference",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0151",
+      "chapter": 9,
+      "page": 107,
+      "heading": "Illustrative tool-contract table",
+      "action": "Separate consumer and administrative operations",
+      "resolution": "Illustrative table labels evaluation/inspection consumer scope, permitted feedback and separately authorized human administration; approval is excluded from ordinary applicant clients. No manifest deployment is claimed.",
+      "targets": [
+        "sections.mcp-tool-contract-reference.tables",
+        "presentation.decisionBeats.feedback"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0152",
+      "chapter": 9,
+      "page": 108,
+      "heading": "Boundary that must be explicit before release",
+      "action": "Keep trust controls as proposed requirements",
+      "resolution": "Compact caller/case/version/downstream-connection boundary is dated reference design; original detailed control table and sources remain, without executed-security claims.",
+      "targets": [
+        "sections.mcp-authorisation-and-state"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0153",
+      "chapter": 9,
+      "page": 109,
+      "heading": "Notes and references",
+      "action": "Consolidate evidence register",
+      "resolution": "Original direction, later authored examples, protocol context and absent live artifacts are distinct; references validate protocol reading, not deployment.",
+      "targets": [
+        "sourceNotes"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0154",
+      "chapter": 9,
+      "page": 109,
+      "heading": "Keep exploring and engagement",
+      "action": "Make EduLoans the relevant continuation",
+      "resolution": "Engagement offers shared-policy design and evaluation work; EduLoans is first related case and supplies the rule-model context, not a promised production MCP product.",
+      "targets": [
+        "engagement",
+        "relatedSlugs"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0155",
+      "chapter": 9,
+      "page": 110,
+      "heading": "Desktop evidence for Validation and trust tables",
+      "action": "Put contract before concise release questions",
+      "resolution": "The proposal introduces a concrete input/result before three release gates. Full six-row proposed validation table stays optional reference depth.",
+      "targets": [
+        "presentation.decisionBeats",
+        "sections.evaluation-plan",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0156",
+      "chapter": 9,
+      "page": 111,
+      "heading": "MCP for lending policy",
+      "action": "Frame a short architecture exploration",
+      "resolution": "DefineMCPandbusiness-ruleengines after the concrete reuse premise. Consumers and demand are intended, not claimed live. Conventional API remains a real untested alternative.",
+      "targets": [
+        "summary",
+        "sections.problem",
+        "presentation.format",
+        "presentation.decisionBeats.decision"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0157",
+      "chapter": 9,
+      "page": 111,
+      "heading": "The proposed product approach",
+      "action": "Frame a short architecture exploration",
+      "resolution": "DefineMCPandbusiness-ruleengines after the concrete reuse premise. Consumers and demand are intended, not claimed live. Conventional API remains a real untested alternative.",
+      "targets": [
+        "summary",
+        "sections.problem",
+        "presentation.format",
+        "presentation.decisionBeats.decision"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0158",
+      "chapter": 9,
+      "page": 112,
+      "heading": "Inside the work",
+      "action": "Move protocol revision commentary to dated references",
+      "resolution": "Main story stays about evaluation and approval.14October2026contract notes distinguish later authored examples from the earlier direction; original technical revision/source links remain.",
+      "targets": [
+        "sections.mcp-tool-contract-reference",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0159",
+      "chapter": 9,
+      "page": 112,
+      "heading": "Callable policy: a concrete tool contract and trust boundary",
+      "action": "Separate consumer and administrative operations",
+      "resolution": "Illustrative table labels evaluation/inspection consumer scope, permitted feedback and separately authorized human administration; approval is excluded from ordinary applicant clients. No manifest deployment is claimed.",
+      "targets": [
+        "sections.mcp-tool-contract-reference.tables",
+        "presentation.decisionBeats.feedback"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0160",
+      "chapter": 9,
+      "page": 112,
+      "heading": "Notes and references",
+      "action": "Consolidate evidence register",
+      "resolution": "Original direction, later authored examples, protocol context and absent live artifacts are distinct; references validate protocol reading, not deployment.",
+      "targets": [
+        "sourceNotes"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0161",
+      "chapter": 9,
+      "page": 112,
+      "heading": "Keep exploring",
+      "action": "Make EduLoans the relevant continuation",
+      "resolution": "Engagement offers shared-policy design and evaluation work; EduLoans is first related case and supplies the rule-model context, not a promised production MCP product.",
+      "targets": [
+        "engagement",
+        "relatedSlugs"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0162",
+      "chapter": 10,
+      "page": 114,
+      "heading": "Desktop evidence for Opening workflow",
+      "action": "Lead with normalization that preserves meaning",
+      "resolution": "The opening explains lender differences and ownership. Empty primary media and mainMediaIds omit the generic lifecycle; an illustrative status comparison is the story’s inspectable artifact.",
+      "targets": [
+        "summary",
+        "sections.problem",
+        "primaryMediaIds",
+        "presentation.decisionBeats"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0163",
+      "chapter": 10,
+      "page": 115,
+      "heading": "The decisions behind the work: opening",
+      "action": "Lead with normalization that preserves meaning",
+      "resolution": "The opening explains lender differences and ownership. Empty primary media and mainMediaIds omit the generic lifecycle; an illustrative status comparison is the story’s inspectable artifact.",
+      "targets": [
+        "summary",
+        "sections.problem",
+        "primaryMediaIds",
+        "presentation.decisionBeats"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0164",
+      "chapter": 10,
+      "page": 115,
+      "heading": "Making the common steps explicit",
+      "action": "Replace repeated normalization summaries with a specific example",
+      "resolution": "Added two-row illustrative received-for-review/needs-information mapping with retained provenance and next action. It is explicitly not deployed schema or a real incident.",
+      "targets": [
+        "sections.contract.tables",
+        "presentation.decisionBeats.decision.mainTableCaptions"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0165",
+      "chapter": 10,
+      "page": 116,
+      "heading": "Building an operating team around the integration",
+      "action": "State recruiting and operating contribution without inflating management scope",
+      "resolution": "One account covers engineering/partner work, recruiting participation and dailyMISqueues. No headcount or direct-report claim is added.",
+      "targets": [
+        "sections.delivery",
+        "presentation.decisionBeats.delivery",
+        "sourceNotes"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0166",
+      "chapter": 10,
+      "page": 116,
+      "heading": "The judgment I take forward",
+      "action": "Separate API success, lender decision and money",
+      "resolution": "Practical conclusion distinguishes successful handoff, approval, disbursement, earning and collection. No particular mismatch incident is invented.",
+      "targets": [
+        "sections.team-and-records",
+        "presentation.decisionBeats.delivery"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0167",
+      "chapter": 10,
+      "page": 117,
+      "heading": "Results and scope",
+      "action": "Remove panel count as an implementation result",
+      "resolution": "20+ is retained only as wider lending-panel context in evidence notes, not verified adapter count or contract rollout; no speed/reliability gain claimed.",
+      "targets": [
+        "outcomes",
+        "visualSummary.impact",
+        "sourceNotes"
+      ],
+      "status": "omitted_unsupported"
+    },
+    {
+      "id": "F0168",
+      "chapter": 10,
+      "page": 118,
+      "heading": "Inside the work / The integration contract: opening and handshake image",
+      "action": "Separate documented remit from later security/API examples",
+      "resolution": "Main narrative states common requirements plus operations. Entire handshake/control specification remains clearly labelled reference design, with no implemented credential or protocol claim.",
+      "targets": [
+        "sections.integration-auth-handshake",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0169",
+      "chapter": 10,
+      "page": 119,
+      "heading": "Authored contract model table",
+      "action": "Focus the main table on provenance rather than a field inventory",
+      "resolution": "Main comparison retains partner meaning/reason/reference/time/action. Original six-area metadata table stays optional, labelled illustrative.",
+      "targets": [
+        "sections.contract.tables",
+        "sections.integration-metadata-contract"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0170",
+      "chapter": 10,
+      "page": 120,
+      "heading": "Reference integration handshake — proposed controls",
+      "action": "Keep general handshake and failure controls secondary",
+      "resolution": "Main body uses the contract/operating boundary. Original six-stage proposed handshake and detailed failure controls remain reference depth.",
+      "targets": [
+        "sections.integration-auth-handshake",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0171",
+      "chapter": 10,
+      "page": 121,
+      "heading": "Illustrative API call and result table",
+      "action": "Promote the accepted-versus-needs-information distinction, not a fake endpoint",
+      "resolution": "A plain illustrative status comparison supports the main story; invented method names/payload fields stay technical references and are expressly not liveAPI documentation.",
+      "targets": [
+        "sections.contract.tables",
+        "sections.integration-api-example"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0172",
+      "chapter": 10,
+      "page": 121,
+      "heading": "Operating the connection after launch",
+      "action": "Keep actual operations central",
+      "resolution": "DailyMIS, service levels, dispute queues and reconciliation are in the main narrative. Security and legal surveys remain dated reference sections.",
+      "targets": [
+        "sections.delivery",
+        "sections.integration-operating-controls",
+        "sections.integration-regulatory-boundary"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0173",
+      "chapter": 10,
+      "page": 122,
+      "heading": "Operational controls and proposed release-checks table",
+      "action": "Distinguish recurring concerns from proposed checks",
+      "resolution": "Status disagreement and payout questions reveal the operating boundary; complete six-scenario proposed check table is preserved in references without suggesting executed results.",
+      "targets": [
+        "presentation.decisionBeats.delivery",
+        "sections.integration-operating-controls"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0174",
+      "chapter": 10,
+      "page": 123,
+      "heading": "Notes and references",
+      "action": "Put scope boundaries beside affected claims and consolidate evidence",
+      "resolution": "Reference-design distinction is in the story; panel versus eightconfiguration scope, recruiting limits and unmeasured performance remain one evidence register. Citations are not implementation certification.",
+      "targets": [
+        "presentation.decisionBeats",
+        "sourceNotes"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0175",
+      "chapter": 10,
+      "page": 123,
+      "heading": "Keep exploring and engagement",
+      "action": "Add integration-specific engagement and customer-context continuation",
+      "resolution": "The close asks about custom partner journeys and unresolved queues, offering contract/ownership design and linking to the personal-loan application story.",
+      "targets": [
+        "engagement",
+        "relatedSlugs"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0176",
+      "chapter": 10,
+      "page": 124,
+      "heading": "Lender integrations",
+      "action": "Lead with normalization that preserves meaning",
+      "resolution": "The opening explains lender differences and ownership. Empty primary media and mainMediaIds omit the generic lifecycle; an illustrative status comparison is the story’s inspectable artifact.",
+      "targets": [
+        "summary",
+        "sections.problem",
+        "primaryMediaIds",
+        "presentation.decisionBeats"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0177",
+      "chapter": 10,
+      "page": 125,
+      "heading": "The decisions behind the work",
+      "action": "Lead with normalization that preserves meaning",
+      "resolution": "The opening explains lender differences and ownership. Empty primary media and mainMediaIds omit the generic lifecycle; an illustrative status comparison is the story’s inspectable artifact.",
+      "targets": [
+        "summary",
+        "sections.problem",
+        "primaryMediaIds",
+        "presentation.decisionBeats"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0178",
+      "chapter": 10,
+      "page": 125,
+      "heading": "Building an operating team around the integration",
+      "action": "State recruiting and operating contribution without inflating management scope",
+      "resolution": "One account covers engineering/partner work, recruiting participation and dailyMISqueues. No headcount or direct-report claim is added.",
+      "targets": [
+        "sections.delivery",
+        "presentation.decisionBeats.delivery",
+        "sourceNotes"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0179",
+      "chapter": 10,
+      "page": 125,
+      "heading": "Inside the work",
+      "action": "Separate documented remit from later security/API examples",
+      "resolution": "Main narrative states common requirements plus operations. Entire handshake/control specification remains clearly labelled reference design, with no implemented credential or protocol claim.",
+      "targets": [
+        "sections.integration-auth-handshake",
+        "presentation.supportingGroups"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0180",
+      "chapter": 10,
+      "page": 125,
+      "heading": "Notes and references",
+      "action": "Put scope boundaries beside affected claims and consolidate evidence",
+      "resolution": "Reference-design distinction is in the story; panel versus eightconfiguration scope, recruiting limits and unmeasured performance remain one evidence register. Citations are not implementation certification.",
+      "targets": [
+        "presentation.decisionBeats",
+        "sourceNotes"
+      ],
+      "status": "done"
+    },
+    {
+      "id": "F0181",
+      "chapter": 10,
+      "page": 126,
+      "heading": "Keep exploring",
+      "action": "Add integration-specific engagement and customer-context continuation",
+      "resolution": "The close asks about custom partner journeys and unresolved queues, offering contract/ownership design and linking to the personal-loan application story.",
+      "targets": [
+        "engagement",
+        "relatedSlugs"
+      ],
+      "status": "done"
+    }
+  ]
+}

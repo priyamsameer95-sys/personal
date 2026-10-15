@@ -6,8 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
 import ArtGallery from '@/components/art/ArtGallery';
-import Media from '@/components/work/Media';
-import { artCollections, artworks, portfolioCover } from '@/content/art/works';
+import { artCollections, artworks } from '@/content/art/works';
 import styles from './art.module.css';
 
 interface ContentItem {
@@ -64,11 +63,11 @@ export default async function ArtGalleryPage() {
         <header className={styles.intro}>
           <div>
             <p className={styles.eyebrow}>Priyam Sameer · Paintings</p>
-            <h1>Art.</h1>
+            <h1>Paintings.</h1>
           </div>
           <div className={styles.introNote}>
-            <p>Communicating with one’s soul.</p>
-            <span>Oil, acrylic and charcoal. Six paintings, my notes and their original close-ups.</span>
+            <p>I paint in oil, acrylic and charcoal.</p>
+            <span>Six paintings, with the notes I wrote alongside them. Open a full work or a detail for a closer look.</span>
           </div>
         </header>
         <ArtGallery collections={artCollections} works={artworks} />
@@ -78,10 +77,6 @@ export default async function ArtGalleryPage() {
             <h2 id="artist-note-title">Art is expression.</h2>
             <p className={styles.statement}>Art is emotion. Art is love. Art is life.<br />Art is fear. Art is wisdom. Art is courage.</p>
             <a className={styles.contact} href="mailto:Priyam.Sameer.95@gmail.com?subject=About%20your%20paintings">Talk about a painting <span aria-hidden="true">↗</span></a>
-          </div>
-          <div className={styles.cover}>
-            <Media media={{ id: 'art-portfolio-cover', kind: 'image', ...portfolioCover.image, caption: '' }} previewSrc={portfolioCover.image.previewSrc} />
-            <p>From the portfolio cover · Labelled “ANNA”</p>
           </div>
         </section>
         {items.length > 0 && <section className={styles.additional} aria-labelledby="additional-art-title">
@@ -104,7 +99,6 @@ export default async function ArtGalleryPage() {
             })}
           </div>
         </section>}
-        <p className={styles.sourceNote}>Paintings and artist’s notes from my original art portfolio. Close-ups retain the detail views used in that portfolio.</p>
       </main>
       <Footer />
     </PublicShell>

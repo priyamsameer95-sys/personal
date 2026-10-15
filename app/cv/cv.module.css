@@ -1,105 +1,101 @@
 .shell { min-width: 0; }
-.document { width: 100%; margin: 0 auto; color: var(--ink, #191714); font-size: 1rem; line-height: 1.6; }
+.document { width: 100%; max-width: 1100px; margin: 0 auto; color: var(--ink, #191714); font-size: 1rem; line-height: 1.6; }
 .document > *, .document li, .document article, .document dl, .document dd { min-width: 0; }
-.identity { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 1.2rem 0 1.75rem; }
-.documentLabel { margin-bottom: .7rem; color: var(--muted, #625e56); font-size: .9375rem; }
-.identity h1 { margin: 0; font-size: clamp(2.75rem, 5vw, 4.25rem); font-weight: 550; letter-spacing: -.055em; line-height: 1.1; }
-.profession { margin-top: .8rem; font-size: 1.125rem; font-weight: 500; }
-.location { margin-top: .2rem; color: var(--muted, #625e56); font-size: .9375rem; }
-.contactLinks { display: flex; flex-wrap: wrap; gap: .35rem 1.5rem; margin-top: .6rem; }
-.externalLink { display: inline-flex; align-items: center; flex-wrap: wrap; gap: .3rem; min-height: 44px; max-width: 100%; font-size: .9375rem; text-decoration: underline; text-underline-offset: .23em; overflow-wrap: anywhere; }
+.identity { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; padding: 1.3rem 0 1.5rem; }
+.identity > div { min-width: 0; }
+.identity > a { flex-shrink: 0; margin-top: .3rem; }
+.documentLabel { margin: 0 0 .65rem; color: var(--muted, #625e56); font-size: .875rem; }
+.identity h1 { margin: 0; font-size: clamp(2.5rem, 4.8vw, 3.8rem); font-weight: 550; letter-spacing: -.05em; line-height: 1.1; }
+.profession { margin-top: .65rem; font-size: 1.125rem; font-weight: 550; }
+.profession span { color: var(--muted, #625e56); font-size: 1rem; font-weight: 400; }
+.summary { max-width: 70ch; margin-top: .85rem; }
+.contactLinks { display: flex; flex-wrap: wrap; gap: 0 1.15rem; margin-top: .6rem; }
+.externalLink { display: inline-flex; align-items: center; gap: .3rem; min-height: 44px; max-width: 100%; font-size: .875rem; text-decoration: underline; text-underline-offset: .2em; overflow-wrap: anywhere; }
 .externalLink:hover, .caseLink:hover { text-decoration-thickness: 2px; }
-.pageNav { display: flex; flex-wrap: wrap; gap: .2rem 1.5rem; margin-bottom: 2.1rem; padding: .45rem 0; border-top: 1px solid var(--rule, #ddd7cb); border-bottom: 1px solid var(--rule, #ddd7cb); }
-.pageNav a { display: inline-flex; align-items: center; min-height: 44px; font-size: .9375rem; text-underline-offset: .25em; }
+.pageNav { display: flex; flex-wrap: wrap; gap: 0 1.35rem; margin-bottom: 1.8rem; padding: .2rem 0; border-block: 1px solid var(--rule, #ddd7cb); }
+.pageNav a { display: inline-flex; align-items: center; min-height: 44px; font-size: .875rem; text-underline-offset: .25em; }
 .pageNav a:hover { text-decoration: underline; }
-.section { scroll-margin-top: 6rem; }
-.section + .section, .foundationGrid, .foundationGrid + .section { margin-top: 2.7rem; padding-top: 1.75rem; border-top: 1px solid var(--rule, #ddd7cb); }
-.sectionTitle { margin: 0 0 1.5rem; font-size: clamp(1.65rem, 2.6vw, 2.2rem); font-weight: 550; letter-spacing: -.035em; line-height: 1.25; }
+.section, .careerEntry, .cvEntry, .workAccount, .ventureSupport { scroll-margin-top: 6rem; }
+.section + .section { margin-top: 2.25rem; padding-top: 1.65rem; border-top: 1px solid var(--rule, #ddd7cb); }
+.sectionTitle { margin: 0 0 1.25rem; font-size: 1.55rem; font-weight: 550; letter-spacing: -.025em; line-height: 1.25; }
 .career { margin: 0; padding: 0; list-style: none; }
-.careerEntry, .cvEntry { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 2.25rem; scroll-margin-top: 6rem; }
-.careerEntry + .careerEntry { margin-top: 2.3rem; padding-top: 1.9rem; border-top: 1px solid var(--rule, #ddd7cb); }
-.tenure { padding-top: .15rem; }
-.dates { color: var(--ink, #191714); font-size: .9375rem; font-weight: 500; line-height: 1.55; font-variant-numeric: tabular-nums; }
-.relationship { margin-top: .25rem; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.55; }
-.current { width: fit-content; margin-bottom: .55rem; padding-left: .7rem; border-left: 3px solid #ff7628; font-size: .875rem; font-weight: 550; }
-.companyMarks { margin-bottom: .7rem; }
-.companyName { margin: 0; font-size: 1.0625rem; font-weight: 550; line-height: 1.45; }
-.companyDescription { margin-top: .25rem; color: var(--muted, #625e56); font-size: .9375rem; line-height: 1.55; }
-.websiteLinks { display: flex; flex-wrap: wrap; gap: .15rem 1.2rem; }
-.roles { display: grid; gap: .65rem; margin: 1rem 0 1.2rem; padding: .9rem 0; border-top: 1px solid var(--rule, #ddd7cb); border-bottom: 1px solid var(--rule, #ddd7cb); list-style: none; }
-.roles li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem 1.25rem; }
-.roleTitle, .singleRole { font-size: 1.125rem; font-weight: 550; line-height: 1.5; }
-.roleDetail { color: var(--muted, #625e56); font-size: .875rem; line-height: 1.55; }
-.roleDates { align-self: start; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.7; font-variant-numeric: tabular-nums; }
-.singleRole { margin: .9rem 0 .7rem; }
-.workAccount { scroll-margin-top: 6rem; }
-.responsibilities { margin: 0; padding: 0 0 0 1.1rem; }
-.responsibilities > li { padding-left: .15rem; }
-.responsibilities > li + li { margin-top: .7rem; }
-.responsibilities > li::marker { color: var(--muted, #625e56); font-size: .75em; }
-.responsibilities p { max-width: 90ch; }
-.proofLinks { font-size: .9375rem; }
-.caseLink { color: var(--ink, #191714); text-decoration: underline; text-underline-offset: .2em; overflow-wrap: anywhere; }
-.resultLine { margin-top: .25rem; font-size: .9375rem; line-height: 1.6; }
-.resultLine strong { font-weight: 550; }
-.qualification { color: var(--muted, #625e56); }
-.sourceNote { max-width: 95ch; margin-top: .85rem; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.6; }
-.otherEntries { display: grid; gap: 1.75rem; }
-.otherEntries .cvEntry + .cvEntry { padding-top: 1.25rem; border-top: 1px solid var(--rule, #ddd7cb); }
-.entryTitle { font-size: 1.0625rem; font-weight: 550; line-height: 1.5; }
-.entryCopy { margin-top: .5rem; }
-.foundationGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3.25rem; }
-.foundationGrid .section + .section { margin: 0; padding: 0; border: 0; }
+.careerEntry, .cvEntry { display: grid; grid-template-columns: 10rem minmax(0, 1fr); gap: 1.75rem; }
+.careerEntry + .careerEntry { margin-top: 1.9rem; padding-top: 1.6rem; border-top: 1px solid var(--rule, #ddd7cb); }
+.dates { padding-top: .1rem; font-size: .875rem; line-height: 1.55; font-variant-numeric: tabular-nums; }
+.companyMarks { margin: 0 0 .7rem; }
+.companyName { margin: 0; font-size: 1.0625rem; font-weight: 600; line-height: 1.45; }
+.companyContext { margin-top: .2rem; color: var(--muted, #625e56); font-size: .875rem; }
+.companyContext > p { max-width: 75ch; }
+.companyContext > a + a { margin-left: 1rem; }
+.roles { margin: .6rem 0 .9rem; padding: .65rem 0; border-block: 1px solid var(--rule, #ddd7cb); list-style: none; }
+.roles li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .25rem 1rem; }
+.roles li + li { margin-top: .45rem; }
+.roleTitle, .singleRole { font-size: 1rem; font-weight: 550; line-height: 1.5; }
+.roleDates { align-self: start; color: var(--muted, #625e56); font-size: .8125rem; line-height: 1.7; font-variant-numeric: tabular-nums; }
+.singleRole { margin: .55rem 0 .65rem; }
+.responsibilities { margin: 0; padding-left: 1.05rem; }
+.responsibilities > li { max-width: 85ch; padding-left: .12rem; }
+.responsibilities > li + li { margin-top: .55rem; }
+.responsibilities > li::marker { color: var(--muted, #625e56); font-size: .7em; }
+.caseLinks { display: flex; flex-wrap: wrap; gap: 0 1rem; margin: .6rem 0 0; padding: 0; list-style: none; }
+.caseLinks > li { display: flex; }
+.caseLink { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; font-size: .875rem; text-decoration: underline; text-underline-offset: .2em; overflow-wrap: anywhere; }
+.ventureSupport { margin-top: .45rem; padding-top: .6rem; border-top: 1px solid var(--rule, #ddd7cb); font-size: .9375rem; }
+.ventureSupport .caseLink { display: inline; min-height: 0; }
+.otherEntries { display: grid; gap: 1.4rem; }
+.entryTitle { font-size: 1rem; font-weight: 550; line-height: 1.5; }
+.entryTitle span { color: var(--muted, #625e56); font-weight: 400; }
+.entryCopy { margin-top: .35rem; }
+.entryLinks { display: flex; flex-wrap: wrap; gap: 0 1rem; margin-top: .2rem; }
 .degree { margin-top: .35rem; font-weight: 500; }
-.foundationGrid .dates { margin-top: .2rem; }
-.recognition { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; }
+.recognition { margin: 0; padding: 0; list-style: none; }
+.recognition > li { display: flex; flex-wrap: wrap; gap: .2rem 1rem; }
+.recognition strong { font-weight: 550; }
+.recognition span { color: var(--muted, #625e56); font-size: .9375rem; }
 .certifications { margin: 0; padding: 0; list-style: none; }
-.certifications > li { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 2.25rem; }
-.certifications > li + li { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--rule, #ddd7cb); }
-.certificationBrand { align-self: start; margin-top: .25rem; }
-.certificationMeta { margin-top: .3rem; color: var(--muted, #625e56); font-size: .9375rem; }
-.credentialId { margin-top: .2rem; color: var(--muted, #625e56); font-size: .875rem; line-height: 1.55; overflow-wrap: anywhere; }
-.skills { display: grid; gap: .6rem; }
-.skills > div { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 2.25rem; }
+.certifications > li { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem 1.5rem; }
+.certifications > li + li { margin-top: .85rem; }
+.certifications p { color: var(--muted, #625e56); font-size: .875rem; }
+.skills { display: grid; gap: .7rem; }
+.skills > div { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: 1.75rem; }
 .skills dt { font-size: .9375rem; font-weight: 550; }
-.skills dd { margin: 0; font-size: .9375rem; line-height: 1.6; }
+.skills dd { margin: 0; font-size: .9375rem; }
+.document a:focus-visible { outline: 2px solid var(--ink, #191714); outline-offset: 4px; }
 
 @media (max-width: 1000px) {
-  .careerEntry, .cvEntry, .certifications > li, .skills > div { grid-template-columns: 9rem minmax(0, 1fr); gap: 1.5rem; }
-  .roles li { grid-template-columns: minmax(0, 1fr); gap: .15rem; }
+  .careerEntry, .cvEntry { grid-template-columns: 8rem minmax(0, 1fr); gap: 1.25rem; }
+  .roles li { grid-template-columns: minmax(0, 1fr); gap: .1rem; }
+  .identity { gap: 1.25rem; }
 }
 @media (max-width: 700px) {
-  .identity { align-items: flex-start; flex-direction: column; gap: 1.25rem; padding-top: .75rem; }
-  .identity h1 { font-size: clamp(2.45rem, 10vw, 3.2rem); }
-  .profession { font-size: 1.0625rem; }
-  .contactLinks { gap: .2rem 1rem; }
-  .pageNav { gap: .1rem 1.15rem; }
-  .careerEntry, .cvEntry, .certifications > li { grid-template-columns: minmax(0, 1fr); gap: .85rem; }
-  .tenure { padding: 0; }
-  .tenure .relationship { margin-top: .1rem; }
-  .current { margin-bottom: .35rem; }
-  .careerEntry + .careerEntry { margin-top: 2rem; padding-top: 1.6rem; }
-  .roles { margin-top: .7rem; }
+  .identity { flex-direction: column; gap: 1rem; padding-top: .65rem; }
+  .identity h1 { font-size: clamp(2.35rem, 10vw, 3rem); }
+  .profession span { display: block; margin-top: .2rem; font-size: .9375rem; }
+  .summary { margin-top: .7rem; }
+  .contactLinks { gap: 0 1rem; }
+  .identity > a { margin: 0; }
+  .pageNav { gap: 0 1.15rem; margin-bottom: 1.5rem; }
+  .careerEntry, .cvEntry { grid-template-columns: minmax(0, 1fr); gap: .65rem; }
+  .dates { padding: 0; color: var(--muted, #625e56); }
+  .careerEntry + .careerEntry { margin-top: 1.65rem; padding-top: 1.4rem; }
   .responsibilities { padding-left: 1rem; }
   .responsibilities > li { padding-left: .05rem; }
-  .section + .section, .foundationGrid, .foundationGrid + .section { margin-top: 2.25rem; padding-top: 1.5rem; }
-  .foundationGrid { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
-  .foundationGrid .section + .section { padding-top: 1.5rem; border-top: 1px solid var(--rule, #ddd7cb); }
-  .skills > div { grid-template-columns: minmax(0, 1fr); gap: .1rem; }
-  .skills { gap: .85rem; }
+  .section + .section { margin-top: 1.8rem; padding-top: 1.4rem; }
+  .certifications > li { flex-wrap: wrap; gap: 0; }
+  .skills > div { grid-template-columns: minmax(0, 1fr); gap: .05rem; }
 }
 @media print {
-  .document { max-width: none; margin: 0; font-size: 10pt; line-height: 1.4; }
+  .document { max-width: none; font-size: 10.5pt; line-height: 1.4; }
   .identity { display: block; padding: 0 0 12pt; }
   .identity h1 { font-size: 25pt; }
   .identity > a, .pageNav { display: none; }
-  .profession { font-size: 11pt; }
-  .careerEntry, .cvEntry, .certifications > li, .skills > div { grid-template-columns: 85pt minmax(0, 1fr); gap: 15pt; }
+  .careerEntry, .cvEntry { grid-template-columns: 80pt minmax(0, 1fr); gap: 15pt; }
   .roles li { grid-template-columns: minmax(0, 1fr) auto; }
-  .section + .section, .foundationGrid, .foundationGrid + .section, .careerEntry + .careerEntry { margin-top: 15pt; padding-top: 10pt; }
-  .sectionTitle { font-size: 16pt; break-after: avoid; }
+  .section + .section, .careerEntry + .careerEntry { margin-top: 14pt; padding-top: 10pt; }
+  .sectionTitle { font-size: 14pt; break-after: avoid; }
   .companyHeader, .roleTitle, .singleRole { break-after: avoid; }
-  .responsibilities > li, .recognition li, .certifications > li { break-inside: avoid; }
-  .externalLink { min-height: 0; }
+  .responsibilities > li, .certifications > li { break-inside: avoid; }
+  .externalLink, .caseLink { min-height: 0; }
+  .caseLinks { gap: 4pt 10pt; }
   .section p { orphans: 2; widows: 2; }
 }

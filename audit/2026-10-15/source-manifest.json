@@ -1,0 +1,2913 @@
+{
+  "audit": "PriyamSameer_Website_Audit.pdf",
+  "auditSha256": "5666b7476a9b2ec38f8149d04986adcb46f0add07146d395de4e6b732866d9f5",
+  "date": "2026-10-15",
+  "studies": [
+    {
+      "slug": "cashkaro-personal-loan-marketplace",
+      "aliases": [
+        "personal-loan-marketplace"
+      ],
+      "companyId": "cashkaro",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "routing",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "operating-rhythm",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/cashkaro-personal-loan-marketplace.svg",
+          "sha256": "fc0706e531ab91dbc157386dc8d18d32918068064e4b3f02e5985df546a3cd2b"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "routing"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "operating-rhythm"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cashkaro-college-money-education-loans",
+      "aliases": [
+        "college-money-education-loans"
+      ],
+      "companyId": "cashkaro",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "borrower-to-case",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "business-and-team",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "college-money-walkthroughs",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "public-discovery-reference",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "published-application-reference",
+          "anchorAliases": [],
+          "tables": [
+            "Published steps and what the capture establishes"
+          ]
+        },
+        {
+          "id": "lending-revenue-and-pnl",
+          "anchorAliases": [],
+          "tables": [
+            "Revenue-to-bottom-line bridge — amounts are unavailable"
+          ]
+        },
+        {
+          "id": "acquisition-to-revenue-funnel",
+          "anchorAliases": [],
+          "tables": [
+            "From student intent to an earned partner outcome"
+          ]
+        },
+        {
+          "id": "commercial-decision-checks",
+          "anchorAliases": [],
+          "tables": [
+            "Questions for the next business review — proposed"
+          ]
+        },
+        {
+          "id": "borrower-protection-reference",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "college-money-abroad-comparison-verified",
+          "src": "/work/college-money/screenshots/abroad-comparison-verified.webp",
+          "sha256": "be06140997a6d49c73f56d6db938f60dfe0b20e686fabc7833423273f1c0b3a6"
+        },
+        {
+          "id": "college-money-abroad-country-selector",
+          "src": "/work/college-money/screenshots/abroad-country-selector.webp",
+          "sha256": "d61845adf27e8c36154abf9ccf3545a7e00709235564f1e54e362076b3adcc44"
+        },
+        {
+          "id": "college-money-abroad-desktop-initial",
+          "src": "/work/college-money/screenshots/abroad-desktop-initial.webp",
+          "sha256": "8d6f2d0761a982f5e5886d9d4c6a2a276d21c8890dc2799259cddc4a44423d3c"
+        },
+        {
+          "id": "college-money-abroad-faq-expanded-verified",
+          "src": "/work/college-money/screenshots/abroad-faq-expanded-verified.webp",
+          "sha256": "0f3d192433e01230934231a07bdec365228c0b426fa9dca01354aae1e9ff6a5a"
+        },
+        {
+          "id": "college-money-abroad-hero-final",
+          "src": "/work/college-money/screenshots/abroad-hero-final.webp",
+          "sha256": "f633dc238c99c90464b823e3a80dca7f382bf5bbd6a102fb247c826322b07e1b"
+        },
+        {
+          "id": "college-money-abroad-hero-live",
+          "src": "/work/college-money/screenshots/abroad-hero-live.webp",
+          "sha256": "d29abb2ff82e7e93c97c06dd804cf42b5dd95947f70cc05ba973c33cabd28882"
+        },
+        {
+          "id": "college-money-abroad-how-it-works",
+          "src": "/work/college-money/screenshots/abroad-how-it-works.webp",
+          "sha256": "6f16b3b213fcc41fa3a08ba98d89bd98833c5c85dc402f7270ac36264ef22628"
+        },
+        {
+          "id": "college-money-abroad-loan-types",
+          "src": "/work/college-money/screenshots/abroad-loan-types.webp",
+          "sha256": "df1e47d54cb58dd550656bb30376155828bc6960162545059cb4047ddd51232e"
+        },
+        {
+          "id": "college-money-abroad-readiness",
+          "src": "/work/college-money/screenshots/abroad-readiness.webp",
+          "sha256": "719f19ca92dc2ffa401513e3dc2ee4e610413775f2269a523d7b50d37722dc56"
+        },
+        {
+          "id": "college-money-abroad-university-loading",
+          "src": "/work/college-money/screenshots/abroad-university-loading.webp",
+          "sha256": "7b32f052470206a355f795fbf5d0c2d86f9930202142070f415c6fb6a190440c"
+        },
+        {
+          "id": "college-money-abroad-university-options-verified",
+          "src": "/work/college-money/screenshots/abroad-university-options-verified.webp",
+          "sha256": "8ac3df50353b0ddb894e48ba3f8774301d20ae4717953865e75325192a68755d"
+        },
+        {
+          "id": "college-money-emi-calculator-default",
+          "src": "/work/college-money/screenshots/emi-calculator-default.webp",
+          "sha256": "5198e9ebf1454f9b044f2853e6dc42bba4125fef75546742ddaa9ae9b3cdffa8"
+        },
+        {
+          "id": "college-money-College-Money-01-Product-Overview",
+          "src": "/work/college-money/videos/College-Money-01-Product-Overview.mp4",
+          "sha256": "aee015abbef01678f314d490c2cd6c6e136a31af2ac51aa671e2eb1a38a04fc3"
+        },
+        {
+          "id": "college-money-College-Money-02-Loan-Discovery",
+          "src": "/work/college-money/videos/College-Money-02-Loan-Discovery.mp4",
+          "sha256": "055a6485025d1fe10105d6eda66b2e0f2f8c643726357839add85d25adb89344"
+        },
+        {
+          "id": "college-money-College-Money-03-Published-Journey",
+          "src": "/work/college-money/videos/College-Money-03-Published-Journey.mp4",
+          "sha256": "1c88de71d3e9c56aace969785f874f886808b99076209b6e159c30301267bb6c"
+        },
+        {
+          "id": "college-money-economics",
+          "src": "/work/architecture/college-money-economics.svg",
+          "sha256": "200765968c8a381d161ec7d52b4f5a23fe208089150aa514dd40e71717058eb9"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "borrower-to-case"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "business-and-team"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-public-product-reference",
+          "sectionIds": [
+            "public-discovery-reference",
+            "published-application-reference",
+            "college-money-walkthroughs"
+          ]
+        },
+        {
+          "id": "chapter-education-lending-business",
+          "sectionIds": [
+            "lending-revenue-and-pnl",
+            "acquisition-to-revenue-funnel",
+            "commercial-decision-checks"
+          ]
+        },
+        {
+          "id": "chapter-lending-borrower-boundaries",
+          "sectionIds": [
+            "borrower-protection-reference"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cashkaro-eduloans-policy-workflow",
+      "aliases": [
+        "eduloans-policy-workflow"
+      ],
+      "companyId": "cashkaro",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "policy-and-launch",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "people-and-exceptions",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "interaction-design",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "tool-choices",
+          "anchorAliases": [],
+          "tables": [
+            "Tool roles in the technical portfolio"
+          ]
+        },
+        {
+          "id": "defended-policy-choices",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "release-backlog",
+          "anchorAliases": [],
+          "tables": [
+            "Recorded backlog, with completion status preserved"
+          ]
+        },
+        {
+          "id": "further-ai-learning",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "software-validation-record",
+          "anchorAliases": [],
+          "tables": [
+            "What the archived validation establishes"
+          ]
+        },
+        {
+          "id": "evaluation-plan",
+          "anchorAliases": [],
+          "tables": [
+            "Proposed evaluation plan — no measured results claimed"
+          ]
+        }
+      ],
+      "media": [
+        {
+          "id": "college-money-system-architecture",
+          "src": "/work/college-money/architecture/system-architecture.webp",
+          "sha256": "60d7a017ed8dcad53b0c60aa080c76b28eb2af040c881c68d282f5c1ab21facc"
+        },
+        {
+          "id": "college-money-lender-scoring",
+          "src": "/work/college-money/architecture/lender-scoring.webp",
+          "sha256": "cfcc20ab09902f8323ee3984c2705601f3ea930585303d1963a91421650bb49f"
+        },
+        {
+          "id": "college-money-lead-workflow",
+          "src": "/work/college-money/architecture/lead-workflow.webp",
+          "sha256": "2155c9bdd1b489c1c457313e09955146395a35cd8a98428a29a42c7e09070151"
+        },
+        {
+          "id": "college-money-document-pipeline",
+          "src": "/work/college-money/architecture/document-pipeline.webp",
+          "sha256": "4e4efd4cc13f3629beca1619563f23039cb4803d5a18b604b251f31da80384f1"
+        },
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/cashkaro-eduloans-policy-workflow.svg",
+          "sha256": "6cd432ae4efb27da8b30d9bbdf2c6408b4fa000b7f59ef54382f2a85ed3c913a"
+        },
+        {
+          "id": "eduloans-prototype-student",
+          "src": "/work/eduloans/prototype/student-intake.png",
+          "sha256": "0afd5179d9bb39a19394390ed4c6430c569991a629a253b1a54b1565d6719509"
+        },
+        {
+          "id": "eduloans-prototype-partner",
+          "src": "/work/eduloans/prototype/partner-pipeline.png",
+          "sha256": "e5cb596158b8dec8ed3ef11ac6fe448c2ca6d9b0e61dc0b7b5fed482b9e9179e"
+        },
+        {
+          "id": "eduloans-prototype-kam",
+          "src": "/work/eduloans/prototype/kam-queue.png",
+          "sha256": "bdf64fc122185f524bf9979dbf0a02cdd8241c62e29ed2625a5dde57b47217cb"
+        },
+        {
+          "id": "eduloans-prototype-inspector",
+          "src": "/work/eduloans/prototype/kam-inspector.png",
+          "sha256": "bacc7eaa516d726619534397b30932a211aaeeba2956608b62e199c79110ead9"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "policy-and-launch"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "people-and-exceptions"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway",
+            "interaction-design"
+          ]
+        },
+        {
+          "id": "chapter-build-and-release",
+          "sectionIds": [
+            "tool-choices",
+            "defended-policy-choices",
+            "release-backlog"
+          ]
+        },
+        {
+          "id": "chapter-further-ai-learning",
+          "sectionIds": [
+            "further-ai-learning"
+          ]
+        },
+        {
+          "id": "chapter-software-validation-record",
+          "sectionIds": [
+            "software-validation-record"
+          ]
+        },
+        {
+          "id": "chapter-evaluation-plan",
+          "sectionIds": [
+            "evaluation-plan"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cashkaro-lender-integration-operations",
+      "aliases": [
+        "lender-integration-operations"
+      ],
+      "companyId": "cashkaro",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "contract",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "team-and-records",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "integration-metadata-contract",
+          "anchorAliases": [],
+          "tables": [
+            "Authored contract model — field names are illustrative"
+          ]
+        },
+        {
+          "id": "integration-auth-handshake",
+          "anchorAliases": [],
+          "tables": [
+            "Reference integration handshake — proposed controls"
+          ]
+        },
+        {
+          "id": "integration-api-example",
+          "anchorAliases": [],
+          "tables": [
+            "Illustrative API call and result contract"
+          ]
+        },
+        {
+          "id": "integration-operating-controls",
+          "anchorAliases": [],
+          "tables": [
+            "Operational controls and proposed release checks"
+          ]
+        },
+        {
+          "id": "integration-regulatory-boundary",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/cashkaro-lender-integration-operations.svg",
+          "sha256": "1935a12285f91fd87d4627b6152b5d4fa8bdf252acc37fda962d9ab8ac650dec"
+        },
+        {
+          "id": "lender-integration-handshake",
+          "src": "/work/architecture/lender-integration-handshake.svg",
+          "sha256": "6a3b32a88d94312e1fabbd2c3a0ef5b7e681b9d945067f16231cb387671574d1"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "contract"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "team-and-records"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-integration-contract-and-handshake",
+          "sectionIds": [
+            "integration-metadata-contract",
+            "integration-auth-handshake",
+            "integration-api-example"
+          ]
+        },
+        {
+          "id": "chapter-integration-operations-and-controls",
+          "sectionIds": [
+            "integration-operating-controls",
+            "integration-regulatory-boundary"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cashkaro-lending-mcp-feedback",
+      "aliases": [
+        "lending-mcp-feedback"
+      ],
+      "companyId": "cashkaro",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "service-boundary",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "feedback",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "evaluation-plan",
+          "anchorAliases": [],
+          "tables": [
+            "Proposed evaluation plan — no measured results claimed"
+          ]
+        },
+        {
+          "id": "mcp-tool-contract-reference",
+          "anchorAliases": [],
+          "tables": [
+            "Illustrative tool contract — proposed, not deployed"
+          ]
+        },
+        {
+          "id": "mcp-authorisation-and-state",
+          "anchorAliases": [],
+          "tables": [
+            "Boundary that must be explicit before release"
+          ]
+        }
+      ],
+      "media": [
+        {
+          "id": "lending-mcp-proposal",
+          "src": "/work/architecture/lending-mcp-proposal.svg",
+          "sha256": "e46870416f5e90810d477fab6981b8b2ee0b83ec98e906e3eaf8885e88c7ba24"
+        },
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/cashkaro-lending-mcp-feedback.svg",
+          "sha256": "f137f3df7ae216d8d699d489edc3fe666924b2d3327f7c4fb831bce88afcf33c"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "service-boundary"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "feedback"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-evaluation-plan",
+          "sectionIds": [
+            "evaluation-plan"
+          ]
+        },
+        {
+          "id": "chapter-mcp-contract-reference",
+          "sectionIds": [
+            "mcp-tool-contract-reference",
+            "mcp-authorisation-and-state"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "credflow-kuberx-launch",
+      "aliases": [
+        "kuberx-launch"
+      ],
+      "companyId": "credflow",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "events",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "launch-execution",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/credflow-kuberx-launch.svg",
+          "sha256": "b151024cae3a24dda1ab08d88127373c7bba040865eb5341295fdd7d32f309d8"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "events"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "launch-execution"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "credflow-pay-via-credit-card",
+      "aliases": [
+        "pay-via-credit-card"
+      ],
+      "companyId": "credflow",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "customer-and-capacity",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "launch-context",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "customer-and-capacity"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "launch-context"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "absolute-silkroute-marketplace",
+      "aliases": [
+        "silkroute-marketplace"
+      ],
+      "companyId": "absolute",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "discovery-to-negotiation",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery-and-rollout",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "silkroute-trade-lifecycle",
+          "anchorAliases": [],
+          "tables": [
+            "From a discovered counterparty to a completed trade"
+          ]
+        },
+        {
+          "id": "silkroute-marketplace-economics",
+          "anchorAliases": [],
+          "tables": [
+            "A marketplace business review without assumed financials"
+          ]
+        }
+      ],
+      "media": [
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/absolute-silkroute-marketplace.svg",
+          "sha256": "87042eda70e73763a5a5d8589768f52c0a0395164009f69f928b824efadf4e14"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "discovery-to-negotiation"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "delivery-and-rollout"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-trade-lifecycle-and-economics",
+          "sectionIds": [
+            "silkroute-trade-lifecycle",
+            "silkroute-marketplace-economics"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "absolute-trade-payments-erp",
+      "aliases": [
+        "trade-payments-erp"
+      ],
+      "companyId": "absolute",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "trade-state",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "documentation-and-service",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/absolute-trade-payments-erp.svg",
+          "sha256": "b1ca4169f47cbdaa217c57c599a74660fb7d13cac0ee0bea8d25059fd87afe60"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "trade-state"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "documentation-and-service"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "absolute-rural-credit-uli",
+      "aliases": [
+        "rural-credit-uli"
+      ],
+      "companyId": "absolute",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "bank-information",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "integration",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "riskstac-reference",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "uli-walkthroughs",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "upaj-walkthroughs",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "uli-actors-and-journey",
+          "anchorAliases": [],
+          "tables": [
+            "Actors and responsibilities",
+            "Published integration stages"
+          ]
+        },
+        {
+          "id": "uli-consent-and-data",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "uli-asynchronous-land-records",
+          "anchorAliases": [],
+          "tables": [
+            "Documented processing states"
+          ]
+        },
+        {
+          "id": "uli-current-updates",
+          "anchorAliases": [],
+          "tables": [
+            "Published updates"
+          ]
+        },
+        {
+          "id": "uli-service-map",
+          "anchorAliases": [],
+          "tables": [
+            "Captured catalogue categories"
+          ]
+        },
+        {
+          "id": "uli-history-and-scale",
+          "anchorAliases": [],
+          "tables": [
+            "Timeline with event and publication dates distinguished"
+          ]
+        },
+        {
+          "id": "uli-institutional-forward-plan",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "riskstac-current-journey",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "risk-information-layer-contract",
+          "anchorAliases": [],
+          "tables": [
+            "Farm information → lender-facing assessment"
+          ]
+        },
+        {
+          "id": "risk-evaluation-and-institutional-value",
+          "anchorAliases": [],
+          "tables": [
+            "Validation plan — proposed, not measured"
+          ]
+        }
+      ],
+      "media": [
+        {
+          "id": "uli-docs-land-records-api-reference",
+          "src": "/work/uli/screenshots/docs-land-records-api-reference.webp",
+          "sha256": "1348da39819de044e742b7178febd32e68bef7f85c7c3b917a8a634d45666f47"
+        },
+        {
+          "id": "uli-docs-land-records-async-pipeline",
+          "src": "/work/uli/screenshots/docs-land-records-async-pipeline.webp",
+          "sha256": "b63fa7cd38706299767c560fe6e35fc4d5440c2a0f2e54776dfc8c55c921a801"
+        },
+        {
+          "id": "uli-docs-land-records-error-codes",
+          "src": "/work/uli/screenshots/docs-land-records-error-codes.webp",
+          "sha256": "8c0de72693e3ac6a267ee9500d5bb831c60b7bb0ac007b117ad4fb07c21fb3d3"
+        },
+        {
+          "id": "uli-docs-land-records-master-data",
+          "src": "/work/uli/screenshots/docs-land-records-master-data.webp",
+          "sha256": "9b0440601abf84f14591b3008a54f261819ca0e6a6b7796b89ea827d963e6707"
+        },
+        {
+          "id": "uli-docs-land-records-overview",
+          "src": "/work/uli/screenshots/docs-land-records-overview.webp",
+          "sha256": "433536dad29197e180965c51cb018a61d151f4acbdb112598644e284db84a12b"
+        },
+        {
+          "id": "uli-docs-land-records-state-providers",
+          "src": "/work/uli/screenshots/docs-land-records-state-providers.webp",
+          "sha256": "80eaeb9ab1a120ea641b871a79a1b4f054a4eb1ce3e53f18147d1f7d1415ca25"
+        },
+        {
+          "id": "uli-uli-dashboard-august-2026",
+          "src": "/work/uli/screenshots/uli-dashboard-august-2026.webp",
+          "sha256": "2d6fce0b5b8577683093c2aa4697bb2cd00c7697b4d851f22f0fe80911d6e817"
+        },
+        {
+          "id": "uli-uli-how-it-works",
+          "src": "/work/uli/screenshots/uli-how-it-works.webp",
+          "sha256": "17641af1c1a524fe851292f73a5b7f141a028cff3eed8ce77b4cf4594e22b227"
+        },
+        {
+          "id": "uli-uli-overview-full",
+          "src": "/work/uli/screenshots/uli-overview-full.webp",
+          "sha256": "5cdbbb7490df01ae7b3a95b658ae8053e02e6206c0cf35f7dd1a527735d7b429"
+        },
+        {
+          "id": "uli-uli-overview-top",
+          "src": "/work/uli/screenshots/uli-overview-top.webp",
+          "sha256": "1e83711479c1ded192e230bc7b7d19182bff69122720e763ce2643bb5aed18d2"
+        },
+        {
+          "id": "uli-uli-services-asset",
+          "src": "/work/uli/screenshots/uli-services-asset.webp",
+          "sha256": "f59bfa7f517f6fd0b879a75d8f613d8cca73b5e93552facd2e006bd0a9db4df9"
+        },
+        {
+          "id": "uli-uli-services-credit",
+          "src": "/work/uli/screenshots/uli-services-credit.webp",
+          "sha256": "c15c0784477e94c4c31344d7e7e05886d0cbf5b9871ef516d5696c63c8e4beba"
+        },
+        {
+          "id": "uli-uli-services-document-full",
+          "src": "/work/uli/screenshots/uli-services-document-full.webp",
+          "sha256": "794a42501220f8f91fc247070b2c9fca4ca0c6bf1b5eeee558a1458321c3c9e0"
+        },
+        {
+          "id": "uli-uli-services-document",
+          "src": "/work/uli/screenshots/uli-services-document.webp",
+          "sha256": "7b826760287ba9d84eb242ace885fe720a08e45dc1ed8e46a2a13c382519dbb1"
+        },
+        {
+          "id": "uli-uli-services-identity",
+          "src": "/work/uli/screenshots/uli-services-identity.webp",
+          "sha256": "f81f84a9ea3921a4ba7de2f6b06612099e50e499c41c9fcb82dd4d06141d66bb"
+        },
+        {
+          "id": "uli-uli-services-income-full",
+          "src": "/work/uli/screenshots/uli-services-income-full.webp",
+          "sha256": "224e66497efdf8a5558b9b1255784ce59ab6442997fc6bbfb4fd05d4cda4e980"
+        },
+        {
+          "id": "uli-uli-services-income",
+          "src": "/work/uli/screenshots/uli-services-income.webp",
+          "sha256": "4431395faabd4d4577ca9d6c61fa9057082cdb8540a48adb2341fe1f586f8579"
+        },
+        {
+          "id": "uli-uli-services-value-added",
+          "src": "/work/uli/screenshots/uli-services-value-added.webp",
+          "sha256": "92924b04fb4b191ae851689df2022146c8a8764a508869e260ff4f95d7ada76a"
+        },
+        {
+          "id": "uli-uli-whats-new-full",
+          "src": "/work/uli/screenshots/uli-whats-new-full.webp",
+          "sha256": "8a0370d9bb3f2911e0246c183e1df232f307cd231090ee6d512f2eb47abe1a88"
+        },
+        {
+          "id": "uli-uli-whats-new-middle",
+          "src": "/work/uli/screenshots/uli-whats-new-middle.webp",
+          "sha256": "d64f8e94ad3bf10a5e155dbb776c29e634b7afaf152f2f5f94cdd38bccc96302"
+        },
+        {
+          "id": "uli-uli-whats-new-rural-updates",
+          "src": "/work/uli/screenshots/uli-whats-new-rural-updates.webp",
+          "sha256": "3a5b7806929a389040977a6c76eef918cc1699861231b9fb9ddee37ce728a3c4"
+        },
+        {
+          "id": "uli-uli-whats-new-top",
+          "src": "/work/uli/screenshots/uli-whats-new-top.webp",
+          "sha256": "6bd03fb1a309d89cd7e44d73ae09546743975f6a9b6f93f2b342926b291cb81a"
+        },
+        {
+          "id": "uli-uli-workflow-step-2",
+          "src": "/work/uli/screenshots/uli-workflow-step-2.webp",
+          "sha256": "10bc051bb78e1e9170681bc37f35374a9e0f7cf9e4ed400be215000b18e7e0fb"
+        },
+        {
+          "id": "uli-uli-workflow-step-3",
+          "src": "/work/uli/screenshots/uli-workflow-step-3.webp",
+          "sha256": "9b4bad0d610be3a8462fc1cffccafaf64b3e42bf45383b21cefe13e101ff8584"
+        },
+        {
+          "id": "uli-uli-workflow-step-4",
+          "src": "/work/uli/screenshots/uli-workflow-step-4.webp",
+          "sha256": "6c5e5ea7cc228e7fa02eeee5587d5172f539545f1c608a11e5aadf90fe185329"
+        },
+        {
+          "id": "uli-uli-platform-workflow",
+          "src": "/work/uli/videos/uli-platform-workflow.mp4",
+          "sha256": "58871309b21cee003c4579cb712218e6ad18a1db9d9231b3200b98adf7da9c3f"
+        },
+        {
+          "id": "uli-uli-latest-updates",
+          "src": "/work/uli/videos/uli-latest-updates.mp4",
+          "sha256": "c8fd153467fb3cb02666f56368deece370251021d78e1b4929b37382f412b0e7"
+        },
+        {
+          "id": "uli-uli-data-and-services",
+          "src": "/work/uli/videos/uli-data-and-services.mp4",
+          "sha256": "af424b336f119157c86bf6b050eece11ac51cac6e443de35621d9ff9bc2c936e"
+        },
+        {
+          "id": "upaj-riskstac-data-inputs",
+          "src": "/work/upaj/screenshots/riskstac-data-inputs.webp",
+          "sha256": "08eb6c64e75fa7c7adf40b900bd9c49ca5602c1c9b383e282a727757a6998cce"
+        },
+        {
+          "id": "upaj-riskstac-hero",
+          "src": "/work/upaj/screenshots/riskstac-hero.webp",
+          "sha256": "3d888efaa7cdcb6028deafac2aee561523d82dbaee7645b932591a3761c4fddd"
+        },
+        {
+          "id": "upaj-riskstac-monitoring",
+          "src": "/work/upaj/screenshots/riskstac-monitoring.webp",
+          "sha256": "c1309c46f0fea696d65eab11946fa0790408d9cba49ed2870f742e8e423084d6"
+        },
+        {
+          "id": "upaj-riskstac-repayment-risk",
+          "src": "/work/upaj/screenshots/riskstac-repayment-risk.webp",
+          "sha256": "e23d5a23cfa7746a85fa76f3feda8fd1f9708e14e754b9a244554d833318adc4"
+        },
+        {
+          "id": "upaj-riskstac-why-and-data",
+          "src": "/work/upaj/screenshots/riskstac-why-and-data.webp",
+          "sha256": "3e8d44965fe081a8081d56d561d5678213518d60f6c17a0878ed2b2c3a5b73d3"
+        },
+        {
+          "id": "upaj-Upaj-01-Riskstac",
+          "src": "/work/upaj/videos/Upaj-01-Riskstac.mp4",
+          "sha256": "99c01b14dad3e906967c6248f9b533ed358e0d7fe61c564998028b2f877d2f80"
+        },
+        {
+          "id": "riskstac-uli-layers",
+          "src": "/work/architecture/riskstac-uli-layers.svg",
+          "sha256": "0545a22a6249ddd6e78408ef430c7804b7e02a78abbf1619e8da96ac1875dbbb"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "bank-information"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "integration"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-riskstac-reference",
+          "sectionIds": [
+            "riskstac-reference",
+            "riskstac-current-journey",
+            "upaj-walkthroughs"
+          ]
+        },
+        {
+          "id": "chapter-uli-access-and-services",
+          "sectionIds": [
+            "uli-actors-and-journey",
+            "uli-consent-and-data",
+            "uli-asynchronous-land-records",
+            "uli-service-map"
+          ]
+        },
+        {
+          "id": "chapter-uli-history-and-scale",
+          "sectionIds": [
+            "uli-current-updates",
+            "uli-history-and-scale",
+            "uli-institutional-forward-plan",
+            "uli-walkthroughs"
+          ]
+        },
+        {
+          "id": "chapter-assessment-to-lender-contract",
+          "sectionIds": [
+            "risk-information-layer-contract",
+            "risk-evaluation-and-institutional-value"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "absolute-ondc-credit-infrastructure",
+      "aliases": [
+        "ondc-credit-infrastructure"
+      ],
+      "companyId": "absolute",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "changed-context",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "scope",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/absolute-ondc-credit-infrastructure.svg",
+          "sha256": "c4abe9ea08d1fb7ac18b83d0df6ffd3017ac1edbcd8a6d1cceb3389afdbac6e7"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "changed-context"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "scope"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "absolute-upaj-farmer-experience",
+      "aliases": [
+        "upaj-farmer-experience"
+      ],
+      "companyId": "absolute",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "recurring-use",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "constraints",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "upaj-product-and-data-layers",
+          "anchorAliases": [],
+          "tables": [
+            "Connected product layers and their evidence boundaries"
+          ]
+        },
+        {
+          "id": "upaj-engagement-measurement",
+          "anchorAliases": [],
+          "tables": [
+            "Product question and proposed acceptance evidence"
+          ]
+        }
+      ],
+      "media": [
+        {
+          "id": "upaj-growstac-personalised",
+          "src": "/work/upaj/screenshots/growstac-personalised.webp",
+          "sha256": "416ab03cb9f404f0364cccf19cf88f3e091743ec8e7d3a75a35332dc75060ef3"
+        },
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/absolute-upaj-farmer-experience.svg",
+          "sha256": "e48898b8edf0e6495f46cc961a4b9f49c10ba8f49729d43bf83b5e3c266c6843"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "recurring-use"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "constraints"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-upaj-platform-layers",
+          "sectionIds": [
+            "upaj-product-and-data-layers",
+            "upaj-engagement-measurement"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "absolute-farm-os-iot-gis",
+      "aliases": [
+        "farm-os-iot-gis"
+      ],
+      "companyId": "absolute",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "two-environments",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "growstac-reference",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "farm-context",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "upaj-walkthroughs",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "growstac-current-journey",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "upaj-growstac-advisory",
+          "src": "/work/upaj/screenshots/growstac-advisory.webp",
+          "sha256": "6d967a426301e0822f51c29d4dd56c27368afb57209d4e12e30e3878a5430521"
+        },
+        {
+          "id": "upaj-growstac-demo-inquiry",
+          "src": "/work/upaj/screenshots/growstac-demo-inquiry.webp",
+          "sha256": "7ff808b3a4202175e8b9cb02751bf693a2f7319efa969e3d2d859428a80fe8c4"
+        },
+        {
+          "id": "upaj-growstac-hero",
+          "src": "/work/upaj/screenshots/growstac-hero.webp",
+          "sha256": "1ef45004de1721fc9ff28b79de4632edca4cbce344cf321e119f5b2be2e3e829"
+        },
+        {
+          "id": "upaj-growstac-inquiry-interests",
+          "src": "/work/upaj/screenshots/growstac-inquiry-interests.webp",
+          "sha256": "54df23d3b5782a40161dbd3c8097864a597e4e2df430b59e99e4acb15177f2c6"
+        },
+        {
+          "id": "upaj-growstac-personalised",
+          "src": "/work/upaj/screenshots/growstac-personalised.webp",
+          "sha256": "416ab03cb9f404f0364cccf19cf88f3e091743ec8e7d3a75a35332dc75060ef3"
+        },
+        {
+          "id": "upaj-growstac-research",
+          "src": "/work/upaj/screenshots/growstac-research.webp",
+          "sha256": "d513309467976c8bc7781baded3cee42f2ff29b3287a881499f6872d50d72150"
+        },
+        {
+          "id": "upaj-growstac-technology",
+          "src": "/work/upaj/screenshots/growstac-technology.webp",
+          "sha256": "d86ddfda2144e59ca5ece992ce45d9a49717f9943eebb5ff7eb58d368cb56074"
+        },
+        {
+          "id": "upaj-Upaj-03-Growstac",
+          "src": "/work/upaj/videos/Upaj-03-Growstac.mp4",
+          "sha256": "d7135ecdb31723ec63f56d691acffded2e08c0bfe35d06f593589012e7d0f557"
+        },
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/absolute-farm-os-iot-gis.svg",
+          "sha256": "e5655aac828282ebd850e86f96de377c342cf32fea73b58db68528f78ff0e0a8"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "two-environments"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "farm-context"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-growstac-reference",
+          "sectionIds": [
+            "growstac-reference"
+          ]
+        },
+        {
+          "id": "chapter-upaj-walkthroughs",
+          "sectionIds": [
+            "upaj-walkthroughs"
+          ]
+        },
+        {
+          "id": "chapter-growstac-current-journey",
+          "sectionIds": [
+            "growstac-current-journey"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "absolute-crop-health-ai",
+      "aliases": [
+        "crop-health-ai"
+      ],
+      "companyId": "absolute",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "dataset-and-experts",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "capture-to-advice",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "growstac-advisory",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "evaluation-plan",
+          "anchorAliases": [],
+          "tables": [
+            "Proposed evaluation plan — no measured results claimed"
+          ]
+        }
+      ],
+      "media": [
+        {
+          "id": "upaj-growstac-advisory",
+          "src": "/work/upaj/screenshots/growstac-advisory.webp",
+          "sha256": "6d967a426301e0822f51c29d4dd56c27368afb57209d4e12e30e3878a5430521"
+        },
+        {
+          "id": "upaj-growstac-technology",
+          "src": "/work/upaj/screenshots/growstac-technology.webp",
+          "sha256": "d86ddfda2144e59ca5ece992ce45d9a49717f9943eebb5ff7eb58d368cb56074"
+        },
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/absolute-crop-health-ai.svg",
+          "sha256": "33ab7f347deaa0b0984c8144273170bd26b328b04ac0dde93e51ee6b3c656f1a"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "dataset-and-experts"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "capture-to-advice"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-growstac-advisory",
+          "sectionIds": [
+            "growstac-advisory"
+          ]
+        },
+        {
+          "id": "chapter-evaluation-plan",
+          "sectionIds": [
+            "evaluation-plan"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "absolute-rainfall-grid-insurance",
+      "aliases": [
+        "rainfall-grid-insurance"
+      ],
+      "companyId": "absolute",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "data-to-pricing",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "finstac-reference",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "upaj-walkthroughs",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "finstac-current-distribution",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "upaj-finstac-climate-resilience",
+          "src": "/work/upaj/screenshots/finstac-climate-resilience.webp",
+          "sha256": "1f9bb38e0c65b9ee06cfde4632170fd5f0afdc627173b14360e66bc49a25c2d2"
+        },
+        {
+          "id": "upaj-finstac-diy-platform",
+          "src": "/work/upaj/screenshots/finstac-diy-platform.webp",
+          "sha256": "f58341536b64811c4757fd0bde89599df191c488b1ec89fba0c1e2e651aa06d0"
+        },
+        {
+          "id": "upaj-finstac-hero",
+          "src": "/work/upaj/screenshots/finstac-hero.webp",
+          "sha256": "674cfd66d8b08f2c624f014db07aa7a3afe750dd9b98be0af8621b294fe7f7d7"
+        },
+        {
+          "id": "upaj-finstac-insurance-products",
+          "src": "/work/upaj/screenshots/finstac-insurance-products.webp",
+          "sha256": "28dc051acf8374e762e9317dcd18f5dc29acb3e10ccee0d6fe88d3973b54a6c8"
+        },
+        {
+          "id": "upaj-finstac-phygital",
+          "src": "/work/upaj/screenshots/finstac-phygital.webp",
+          "sha256": "17b1bee4d293ffec3fc8146ca1ae8ee29a4e8131e065dc738c0dc680ec200d29"
+        },
+        {
+          "id": "upaj-Upaj-02-Finstac",
+          "src": "/work/upaj/videos/Upaj-02-Finstac.mp4",
+          "sha256": "9fa106188f05149f53e84e589aa198aff17d387a7f2bee4d02b1f96fe3d8e8d6"
+        },
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/absolute-rainfall-grid-insurance.svg",
+          "sha256": "7dec851ffab03c9b4951475e67076800e73046f58e031bdfb3da4c8b96e88df9"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "data-to-pricing"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-finstac-reference",
+          "sectionIds": [
+            "finstac-reference"
+          ]
+        },
+        {
+          "id": "chapter-upaj-walkthroughs",
+          "sectionIds": [
+            "upaj-walkthroughs"
+          ]
+        },
+        {
+          "id": "chapter-finstac-current-distribution",
+          "sectionIds": [
+            "finstac-current-distribution"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "absolute-upaj-international",
+      "aliases": [
+        "upaj-international"
+      ],
+      "companyId": "absolute",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "localisation",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "institutional-delivery",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/absolute-upaj-international.svg",
+          "sha256": "888c26796255a974b79bdc26e90e8cec83d60dc2b738f717dc0202c8e7c4b08f"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "localisation"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "institutional-delivery"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "absolute-agri-input-institutional-commerce",
+      "aliases": [
+        "agri-input-institutional-commerce"
+      ],
+      "companyId": "absolute",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "commerce-launch",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "institutional-use-cases",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "institutional-service-map",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": [
+            "Historical capability map"
+          ]
+        }
+      ],
+      "media": [
+        {
+          "id": "absolute-institutional-overview-1",
+          "src": "/work/absolute/gallery/institutional-overview-1.webp",
+          "sha256": "b67a769183c4badb14d7ae8eda007db4581ba9e38b6c0834c33761337d43432f"
+        },
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/absolute-agri-input-institutional-commerce.svg",
+          "sha256": "e419b8ab1406ec059e99c0d95c298d2fe6a3ef12ca0e109291b2f0c77af9491d"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "commerce-launch"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "institutional-use-cases"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-institutional-service-map",
+          "sectionIds": [
+            "institutional-service-map"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "absolute-supporting-portfolio",
+      "aliases": [],
+      "companyId": "absolute",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "supporting-workstreams",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "institutional-data-flow",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": [
+            "Architecture layers in the proposal"
+          ]
+        },
+        {
+          "id": "institutional-proposal-boundaries",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "supporting-scope-register",
+          "anchorAliases": [],
+          "tables": [
+            "Supporting numerical context"
+          ]
+        }
+      ],
+      "media": [
+        {
+          "id": "absolute-institutional-overview-2",
+          "src": "/work/absolute/gallery/institutional-overview-2.webp",
+          "sha256": "b15196794249428e6631ebf379f04085e22f835e5e9f2ab458b607d348e36885"
+        },
+        {
+          "id": "absolute-institutional-overview-3",
+          "src": "/work/absolute/gallery/institutional-overview-3.webp",
+          "sha256": "c9232b28fbc0ecdde7105c4e377486ebc93ad959aeaa809c2aef657c15b819b1"
+        },
+        {
+          "id": "absolute-institutional-overview-1",
+          "src": "/work/absolute/gallery/institutional-overview-1.webp",
+          "sha256": "b67a769183c4badb14d7ae8eda007db4581ba9e38b6c0834c33761337d43432f"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "supporting-workstreams"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-institutional-data-flow",
+          "sectionIds": [
+            "institutional-data-flow"
+          ]
+        },
+        {
+          "id": "chapter-institutional-proposal-boundaries",
+          "sectionIds": [
+            "institutional-proposal-boundaries"
+          ]
+        },
+        {
+          "id": "chapter-supporting-scope-register",
+          "sectionIds": [
+            "supporting-scope-register"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "urbankhet-farm-to-fork",
+      "aliases": [],
+      "companyId": "urbankhet",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "early-demand",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "physical-system",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "venture-history-reference",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": [
+            "Public history and chronology"
+          ]
+        },
+        {
+          "id": "service-tradeoffs-reference",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "campaign-credit-reference",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "urbankhet-customer-model",
+          "anchorAliases": [],
+          "tables": [
+            "Two customer jobs, one perishables operation"
+          ]
+        },
+        {
+          "id": "urbankhet-unit-economics-and-controls",
+          "anchorAliases": [],
+          "tables": [
+            "Authored perishables unit-economics bridge — no amounts assumed"
+          ]
+        }
+      ],
+      "media": [
+        {
+          "id": "urbankhet-storefront-excerpt",
+          "src": "/work/urbankhet/video/urbankhet-storefront-excerpt.mp4",
+          "sha256": "90d76324e8e8c9cfeeeea786dfcefec4ad76726fc5e87578bf85369885b43358"
+        },
+        {
+          "id": "urbankhet-UrbanKhet-Infographic",
+          "src": "/work/urbankhet/assets/previews/UrbanKhet-Infographic.webp",
+          "sha256": "830b1c2ab50db9caed19181e5d49f0ae73252a6401931d9137c29df03b2b4f05"
+        },
+        {
+          "id": "urbankhet-UrbanKhet-Original-Interpretation",
+          "src": "/work/urbankhet/assets/previews/UrbanKhet-Original-Interpretation.webp",
+          "sha256": "30824f08e0d2f44c7e207b525fd00124f3afa714f3dcdafaf48f560f32d1f9d6"
+        },
+        {
+          "id": "urbankhet-studio--campaign-poster-01",
+          "src": "/work/urbankhet/assets/previews/studio--campaign-poster-01.webp",
+          "sha256": "49d06c5f557286a69a658a269c728e393121da5ba33a95ff1f014805bee01b5d"
+        },
+        {
+          "id": "urbankhet-studio--campaign-poster-02",
+          "src": "/work/urbankhet/assets/previews/studio--campaign-poster-02.webp",
+          "sha256": "5e17bd6c6b0a34428df0c71301716bc2c0166abe6faa8bf103c21eb746cc63b5"
+        },
+        {
+          "id": "urbankhet-studio--customer-fresh-vegetables",
+          "src": "/work/urbankhet/assets/previews/studio--customer-fresh-vegetables.webp",
+          "sha256": "41db8ac3d95878cd3747ff15d05053f64c1da2eca60b062ca3f2f163d3a116a9"
+        },
+        {
+          "id": "urbankhet-studio--delivery-straight-outta-khet",
+          "src": "/work/urbankhet/assets/previews/studio--delivery-straight-outta-khet.webp",
+          "sha256": "04097894be3b922713207b2a9c9ab014039c87eff1668389498ee3b7063c1bcb"
+        },
+        {
+          "id": "urbankhet-studio--market-detail-06",
+          "src": "/work/urbankhet/assets/previews/studio--market-detail-06.webp",
+          "sha256": "7c2563b192335ffc6237cebd06bc14e6de17f2016d756abd917b8956bba9cc52"
+        },
+        {
+          "id": "urbankhet-studio--market-detail-07",
+          "src": "/work/urbankhet/assets/previews/studio--market-detail-07.webp",
+          "sha256": "a975ee976c0010798136beeccc6f7f7d845e4dea47507db1a7f4f73d0cc3ed78"
+        },
+        {
+          "id": "urbankhet-studio--market-detail-08",
+          "src": "/work/urbankhet/assets/previews/studio--market-detail-08.webp",
+          "sha256": "967d7e8b1418e4b57306e70f99c10d388c94a0fb5b86e0c11d612144c7d9d534"
+        },
+        {
+          "id": "urbankhet-studio--market-detail-09",
+          "src": "/work/urbankhet/assets/previews/studio--market-detail-09.webp",
+          "sha256": "8fe73f383dddeebe91ba17eac83d90eaba911f73529428f1aeef284c85bf17cd"
+        },
+        {
+          "id": "urbankhet-studio--urbankhet-farmer-market",
+          "src": "/work/urbankhet/assets/previews/studio--urbankhet-farmer-market.webp",
+          "sha256": "7a0c2e6b721cea40f0c24acaad83db0cad59151e207e897b9c9e166675580118"
+        },
+        {
+          "id": "urbankhet-studio--urbankhet-superhero-market",
+          "src": "/work/urbankhet/assets/previews/studio--urbankhet-superhero-market.webp",
+          "sha256": "2351f6492268f61678b81ecc339dec8ae4eef6cbb3594d6e1d78ca2f9dbe6b9a"
+        },
+        {
+          "id": "urbankhet-linkedin-company-farm-cover",
+          "src": "/work/urbankhet/linkedin/company-farm-cover.jpg",
+          "sha256": "ddec095a94de3c751cfd9fec7aa3b2c72b945cf253c65c3270b40962469f3cf7"
+        },
+        {
+          "id": "urbankhet-linkedin-khet-direct-launch",
+          "src": "/work/urbankhet/linkedin/khet-direct-launch.jpg",
+          "sha256": "757e046876eca3eda225307710087d253ea930bb5ec30c1af06ec344f6bf0031"
+        },
+        {
+          "id": "urbankhet-linkedin-sorted-packs",
+          "src": "/work/urbankhet/linkedin/sorted-packs-proposition.jpg",
+          "sha256": "34f9e649b71b932ccd7ef881ca76241f32e5c197f6f0d070e01d671d84368c38"
+        },
+        {
+          "id": "urbankhet-linkedin-direct-chain",
+          "src": "/work/urbankhet/linkedin/direct-supply-chain.jpg",
+          "sha256": "ac9bccff8d94ee32d7382e8e40603f11b579d142c48c653cedb647e08f078d63"
+        },
+        {
+          "id": "urbankhet-linkedin-intermediary-chain",
+          "src": "/work/urbankhet/linkedin/intermediary-supply-chain.jpg",
+          "sha256": "1dc20a2379e45c77425cc293108b102a2e92c9de28057b707f4a69e1ff0f27b5"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "early-demand"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "physical-system"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-venture-context",
+          "sectionIds": [
+            "venture-history-reference",
+            "service-tradeoffs-reference"
+          ]
+        },
+        {
+          "id": "chapter-campaign-credits",
+          "sectionIds": [
+            "campaign-credit-reference"
+          ]
+        },
+        {
+          "id": "chapter-subscription-business-and-fulfilment",
+          "sectionIds": [
+            "urbankhet-customer-model",
+            "urbankhet-unit-economics-and-controls"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "urbankhet-covid-pivot",
+      "aliases": [],
+      "companyId": "urbankhet",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "demand-and-routes",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "team-and-viability",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "wind-down-reference",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "urbankhet-studio--delivery-straight-outta-khet",
+          "src": "/work/urbankhet/assets/previews/studio--delivery-straight-outta-khet.webp",
+          "sha256": "04097894be3b922713207b2a9c9ab014039c87eff1668389498ee3b7063c1bcb"
+        },
+        {
+          "id": "urbankhet-studio--urbankhet-farmer-market",
+          "src": "/work/urbankhet/assets/previews/studio--urbankhet-farmer-market.webp",
+          "sha256": "7a0c2e6b721cea40f0c24acaad83db0cad59151e207e897b9c9e166675580118"
+        },
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/urbankhet-covid-pivot.svg",
+          "sha256": "d2a82069059ef8e86537f64bb80b4e0e0320d10f89730266bb4397fd56574375"
+        },
+        {
+          "id": "urbankhet-linkedin-sorted-packs",
+          "src": "/work/urbankhet/linkedin/sorted-packs-proposition.jpg",
+          "sha256": "34f9e649b71b932ccd7ef881ca76241f32e5c197f6f0d070e01d671d84368c38"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build",
+            "demand-and-routes"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery",
+            "team-and-viability"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-wind-down-reference",
+          "sectionIds": [
+            "wind-down-reference"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "urbankhet-incubation-funding",
+      "aliases": [],
+      "companyId": "founder-programmes",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "programme-history-reference",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "urbankhet-UrbanKhet-Original-Interpretation",
+          "src": "/work/urbankhet/assets/previews/UrbanKhet-Original-Interpretation.webp",
+          "sha256": "30824f08e0d2f44c7e207b525fd00124f3afa714f3dcdafaf48f560f32d1f9d6"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        },
+        {
+          "id": "chapter-programme-history-reference",
+          "sectionIds": [
+            "programme-history-reference"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "water-farmers-aquaponics",
+      "aliases": [],
+      "companyId": "water-farmers",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/water-farmers-aquaponics.svg",
+          "sha256": "7d991f178da9e76a5be372b119ebb162241347de695a97b2884de0011b99f21a"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gujarat-action-group-covid-resource-database",
+      "aliases": [
+        "covid-resource-database"
+      ],
+      "companyId": "gujarat-action-group",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [
+        {
+          "id": "workflow-diagram",
+          "src": "/work/workflows/gujarat-action-group-covid-resource-database.svg",
+          "sha256": "a16fe25b93820a791ea8b318110cc4fd6540e8a4aff2253cdfba514a7e728820"
+        }
+      ],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "independent-founder-advisory",
+      "aliases": [
+        "founder-advisory"
+      ],
+      "companyId": "advisory",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cept-football-creative-practice",
+      "aliases": [
+        "football-creative-practice"
+      ],
+      "companyId": "cept",
+      "sections": [
+        {
+          "id": "problem",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "build",
+          "anchorAliases": [],
+          "tables": []
+        },
+        {
+          "id": "delivery",
+          "anchorAliases": [
+            "story-role"
+          ],
+          "tables": []
+        },
+        {
+          "id": "results",
+          "anchorAliases": [
+            "downloads"
+          ],
+          "tables": []
+        },
+        {
+          "id": "takeaway",
+          "anchorAliases": [],
+          "tables": []
+        }
+      ],
+      "media": [],
+      "chapterAnchors": [
+        {
+          "id": "chapter-decision",
+          "sectionIds": [
+            "build"
+          ]
+        },
+        {
+          "id": "chapter-delivery",
+          "sectionIds": [
+            "delivery"
+          ]
+        },
+        {
+          "id": "chapter-judgment",
+          "sectionIds": [
+            "takeaway"
+          ]
+        }
+      ]
+    }
+  ],
+  "originalCvSha256": "01978cf50d61878a4e55ad390a3c83e115779d430ddd2679f0eca0fced079176"
+}

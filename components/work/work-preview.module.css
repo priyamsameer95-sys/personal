@@ -9,7 +9,7 @@
 .brand { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; margin-bottom: .65rem; }
 .brand > p { font-size: .8rem; line-height: 1.6; color: var(--muted); }
 .account { max-width: 52ch; padding-top: .1rem; }
-.account h3 { font-size: clamp(1.5rem, 2.35vw, 2.15rem); font-weight: 550; line-height: 1.18; letter-spacing: -.04em; margin-bottom: .85rem; text-wrap: balance; }
+.account h3 { font-family: var(--font-editorial, Georgia, serif); font-size: clamp(1.7rem, 2.35vw, 2.15rem); font-weight: 400; line-height: 1.18; letter-spacing: -.025em; margin-bottom: .85rem; text-wrap: balance; }
 .summary { font-size: 1.05rem; line-height: 1.65; margin: 0; text-wrap: pretty; }
 .ownership { font-size: .95rem; color: var(--muted); line-height: 1.65; margin: 1rem 0; text-wrap: pretty; }
 .ownership strong, .result strong { font-weight: 550; color: var(--ink); }
@@ -21,3 +21,11 @@
   .evidence figure > button > img, .evidence video { max-height: 30rem; }
 }
 @media print { .preview { break-inside: avoid; } }
+.preview { grid-template-columns:minmax(0,1fr) minmax(0,1.2fr); }
+.textOnly { display:block; }
+.textOnly .account { max-width:80ch; }
+.account > a { margin-top:.75rem; }
+@media(max-width:760px) { .preview { grid-template-columns:minmax(0,1fr); } }
+
+.portraitEvidence { max-width:17rem; justify-self:center; width:100%; }
+.portraitEvidence video { aspect-ratio:332/720; max-height:none; object-fit:cover; }

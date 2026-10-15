@@ -52,7 +52,7 @@ export default function ContactChooser({ className = '', children }: { className
       <div className={styles.content}>
         <div className={styles.heading}><p>Start a conversation</p><button type="button" onClick={close} aria-label="Close contact options">Close <span aria-hidden="true">×</span></button></div>
         <h2 id={titleId}>Contact Priyam.</h2>
-        <p id={descriptionId} className={styles.intro}>Choose the channel that works for you.</p>
+        <p id={descriptionId} className={styles.intro}>Tell me about the role or product problem you have in mind.</p>
         <ul className={styles.channels}>{channels.map((channel, index) => <li key={channel.name}>
           <a ref={index === 0 ? firstChannel : undefined} href={channel.href} target={channel.external ? '_blank' : undefined} rel={channel.external ? 'noopener noreferrer' : undefined} onClick={close}>
             <span><strong>{channel.name}</strong><span className={styles.detail}>{channel.detail}</span><span className={styles.value}>{channel.value}</span></span>

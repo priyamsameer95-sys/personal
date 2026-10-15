@@ -1,379 +1,283 @@
 {
   "name": "Priyam Sameer",
+  "profession": "Product leader",
   "location": "Bengaluru, India",
-  "summary": "I’m a product leader and former founder working across lending, marketplaces and agritech. I own discovery, strategy, delivery and commercial decisions, connecting customer journeys with the people, integrations and operations needed to make them work.",
+  "contacts": {
+    "email": "Priyam.Sameer.95@gmail.com",
+    "phone": "+91 82384 52277",
+    "phoneHref": "tel:+918238452277",
+    "website": "PriyamSameer.com",
+    "websiteUrl": "https://www.priyamsameer.com",
+    "linkedinUrl": "https://www.linkedin.com/in/priyam-sameer"
+  },
+  "summary": "I lead lending products, lender partnerships and P&L at CashKaro. Previously, I worked across agricultural products and commerce at Absolute and founded UrbanKhet. My work connects customer journeys with partner integrations, operating teams and commercial decisions.",
   "experience": [
     {
       "companyId": "cashkaro",
       "company": "CashKaro / BankKaro",
-      "title": "General Manager, Product Management & Business Growth",
       "dates": "March 2025–Present",
-      "context": "Consumer lending, education-loan journeys, lender partnerships and distribution.",
-      "roleHistory": [
-        "General Manager · April 2026–Present",
-        "Senior Manager · March 2025–March 2026"
+      "companyDescription": "Cashback, savings and financial-products marketplaces.",
+      "title": "General Manager, Product Management & Business Growth",
+      "progression": [
+        {
+          "title": "Senior Manager, Product Management",
+          "dates": "March 2025–March 2026"
+        },
+        {
+          "title": "General Manager, Product Management & Business Growth",
+          "dates": "April 2026–Present"
+        }
       ],
       "responsibilities": [
         {
-          "text": "I lead lending product strategy and delivery alongside business growth, P&L, lender commercials and operating priorities.",
-          "cases": [
-            "cashkaro-personal-loan-marketplace",
-            "cashkaro-college-money-education-loans"
-          ]
+          "text": "Lead personal and education lending product strategy, lender commercials, operations and P&L. Connect application capture and lender matching with funnel analysis and partner feedback."
         },
         {
-          "text": "I brought application capture, lender matching and partner operations into a common personal-loan journey, using funnel data and lender feedback to prioritise improvements.",
-          "result": "Reported funnel conversion: 16% to 45%.",
-          "note": "Original event definitions and comparison cohorts are not available, so the case study keeps that measurement limit visible.",
-          "cases": [
-            "cashkaro-personal-loan-marketplace"
-          ]
+          "text": "Work with engineering and lender partners on eligibility, KYC, application-status and payout handoffs, connecting integration requirements with reconciliation and service-level reviews."
         },
         {
-          "text": "I work with engineering and lender partners on reusable eligibility, KYC, status and payout handoffs, with reconciliation and service-level reviews built into the operating process.",
-          "cases": [
-            "cashkaro-lender-integration-operations"
-          ]
+          "text": "Authored the EduLoans policy/workflow model and scripted interaction prototypes for student intake, partner review and human document verification: 62 rules, eight lender configurations and 23 workflow states."
         },
         {
-          "text": "I authored the EduLoans policy model and origination workflow, including 62 rules for eight lenders and 23 workflow states. I built working prototypes to explore verification, document review and the student, partner and account-manager experience.",
-          "note": "The documented prototypes and proposed feedback work are separate from evidence of production delivery.",
-          "cases": [
-            "cashkaro-eduloans-policy-workflow",
-            "cashkaro-lending-mcp-feedback"
-          ]
+          "text": "Explored a separate MCP policy-service proposal for shared evaluation and reviewed feedback. Coordinate cross-functional priorities, participate in hiring and negotiate with partners."
         }
       ],
-      "relationship": "Employment",
-      "highlights": [
-        "Lead consumer and education lending, from borrower journeys to lender partnerships and P&L.",
-        "Join product, growth, engineering and operations around acquisition, application and disbursement.",
-        "Promoted from Senior Manager to General Manager in April 2026."
-      ],
-      "progression": [
+      "cases": [
         {
-          "title": "Senior Manager",
-          "dates": "March 2025–March 2026",
-          "detail": "Product Management"
+          "slug": "cashkaro-personal-loan-marketplace",
+          "label": "Personal lending"
         },
         {
-          "title": "General Manager",
-          "dates": "April 2026–Present",
-          "detail": "Product Management & Business Growth"
+          "slug": "cashkaro-college-money-education-loans",
+          "label": "College.money"
+        },
+        {
+          "slug": "cashkaro-eduloans-policy-workflow",
+          "label": "EduLoans prototype"
+        },
+        {
+          "slug": "cashkaro-lender-integration-operations",
+          "label": "Lender integrations"
+        },
+        {
+          "slug": "cashkaro-lending-mcp-feedback",
+          "label": "MCP proposal"
         }
-      ],
-      "scope": [
-        {
-          "label": "Product lifecycle",
-          "text": "Discovery, eligibility and application design, prioritisation, release follow-through and funnel improvement across personal and education loans."
-        },
-        {
-          "label": "Business ownership",
-          "text": "Lending P&L, lender commercials, distribution, partner onboarding, reconciliation and operating priorities."
-        },
-        {
-          "label": "People and delivery",
-          "text": "Recruitment across product, sales and operations; coordination with engineering, growth and lender teams; weekly funnel, MIS and service-level reviews."
-        }
-      ],
-      "leadershipNote": "Leadership and hiring are source-reported. Direct-report counts and a final team roster are not established."
+      ]
     },
     {
       "companyId": "credflow",
       "company": "CredFlow",
-      "title": "Senior Product Manager",
       "dates": "December 2024–March 2025",
-      "context": "KuberX acquisition, activation, SME payments and product economics.",
-      "roleHistory": [],
-      "responsibilities": [
-        {
-          "text": "I connected KuberX’s launch and go-to-market work with acquisition, activation and the economics of serving SMEs.",
-          "result": "Reported first-month acquisition-cost reduction: 45%.",
-          "note": "The original spend and cohort records are not attached to the career account.",
-          "cases": [
-            "credflow-kuberx-launch"
-          ]
-        },
-        {
-          "text": "I worked on Pay via Credit Card as a business-payment journey, aligning the customer offer with payment infrastructure and operating handoffs.",
-          "result": "Reported first-week transaction volume: ₹10 crore.",
-          "note": "This is transaction value, separate from revenue or reconciled settled funds.",
-          "cases": [
-            "credflow-pay-via-credit-card"
-          ]
-        }
-      ],
-      "relationship": "Employment",
-      "highlights": [
-        "Connected KuberX launch, acquisition and onboarding with SME product economics.",
-        "Used analytics and lifecycle communication to identify activation and acquisition friction.",
-        "Worked with engineering on Pay via Credit Card and its payment operating handoffs."
-      ],
+      "companyDescription": "Finance software, working capital and payments for MSMEs.",
+      "title": "Senior Product Manager",
       "progression": [
         {
           "title": "Senior Product Manager",
-          "dates": "December 2024–March 2025",
-          "detail": "KuberX and SME payments"
+          "dates": "December 2024–March 2025"
         }
       ],
-      "scope": [
+      "responsibilities": [
         {
-          "label": "Product lifecycle",
-          "text": "Launch planning, acquisition, onboarding, activation and payment journeys for SMEs."
+          "text": "Worked on the KuberX launch and go-to-market plan, connecting acquisition, onboarding and activation with SME product economics."
         },
         {
-          "label": "Business ownership",
-          "text": "Product economics and P&L, acquisition-cost analysis and payment value; transaction volume is kept separate from revenue."
-        },
-        {
-          "label": "People and delivery",
-          "text": "Partnership with engineering and go-to-market teams, using product analytics and MoEngage to connect customer behaviour with delivery decisions."
+          "text": "On Pay via Credit Card, connected the SME customer offer with payment infrastructure and operating handoffs, working with engineering and go-to-market teams."
         }
       ],
-      "leadershipNote": "This account describes product and cross-functional ownership; it does not establish a direct-report team size."
+      "cases": [
+        {
+          "slug": "credflow-kuberx-launch",
+          "label": "KuberX launch"
+        },
+        {
+          "slug": "credflow-pay-via-credit-card",
+          "label": "Pay via Credit Card"
+        }
+      ]
     },
     {
       "companyId": "absolute",
       "company": "Absolute / Upaj",
-      "title": "Principal Product Manager",
       "dates": "October 2021–November 2024",
-      "context": "Commodity trading, farmer products, agricultural data and rural-credit infrastructure.",
-      "roleHistory": [
-        "Product Manager → Senior Product Manager → Principal Product Manager"
-      ],
-      "responsibilities": [
-        {
-          "text": "I led SilkRoute from customer discovery into catalogue, negotiation, ordering and settlement workflows, working with regional teams on a cross-border commodity marketplace.",
-          "result": "Reported transaction value: $100 million within nine months.",
-          "note": "Transaction value is distinct from platform revenue.",
-          "cases": [
-            "absolute-silkroute-marketplace",
-            "absolute-trade-payments-erp"
-          ]
-        },
-        {
-          "text": "I reshaped Upaj around recurring farmer needs: monitoring, market information, content and timely notifications. I coordinated product, design, engineering, data and operations around those journeys.",
-          "result": "Reported active-user growth: 100,000 to 600,000.",
-          "note": "The source does not include the original active-user definition or cohort records.",
-          "cases": [
-            "absolute-upaj-farmer-experience",
-            "absolute-farm-os-iot-gis"
-          ]
-        },
-        {
-          "text": "I led agricultural credit-risk and lender-facing product work and contributed to adapting those capabilities for the ULI and ONDC ecosystems.",
-          "note": "National infrastructure and partner lending results are separate from my individual product remit.",
-          "cases": [
-            "absolute-rural-credit-uli",
-            "absolute-ondc-credit-infrastructure"
-          ]
-        },
-        {
-          "text": "I worked with technical and agronomy teams on crop-health AI, farm monitoring and rainfall-grid insurance products, connecting data outputs to field and institutional workflows.",
-          "cases": [
-            "absolute-crop-health-ai",
-            "absolute-rainfall-grid-insurance"
-          ]
-        },
-        {
-          "text": "I adapted product capabilities for Brazil and Malaysia and worked across agri-input commerce and institutional delivery. Supporting portfolio and proposal material retains its own attribution limits.",
-          "cases": [
-            "absolute-upaj-international",
-            "absolute-agri-input-institutional-commerce",
-            "absolute-supporting-portfolio"
-          ]
-        }
-      ],
-      "relationship": "Employment",
-      "highlights": [
-        "Progressed from Product Manager to Principal Product Manager across commodity trade, farmer products and agricultural data.",
-        "Joined product, engineering, data, agronomy, finance, operations and regional business teams.",
-        "Connected digital journeys with settlement, field operations, institutional use and international adaptation."
-      ],
+      "companyDescription": "Bioscience, agricultural data, farmer products and commodity commerce.",
+      "title": "Principal Product Manager",
       "progression": [
         {
           "title": "Product Manager",
-          "dates": "Joined October 2021",
-          "detail": "Commodity trade and process digitisation"
+          "dates": "October 2021–March 2023"
         },
         {
           "title": "Senior Product Manager",
-          "dates": "Promoted April 2023",
-          "detail": "Broader consumer and enterprise scope"
+          "dates": "April 2023–March 2024"
         },
         {
           "title": "Principal Product Manager",
-          "dates": "Promoted April 2024",
-          "detail": "Through November 2024"
+          "dates": "April–November 2024"
         }
       ],
-      "scope": [
+      "responsibilities": [
         {
-          "label": "Product lifecycle",
-          "text": "Customer discovery, platform requirements, workflow design, roadmaps, delivery and iteration across trading, farmer engagement, monitoring and rural-credit products."
+          "text": "Led SilkRoute product work from trader discovery through negotiation, ordering and settlement, working with regional teams on a connected commodity-trading system. The programme reported $100M GMV within nine months; this is transaction value, not platform revenue."
         },
         {
-          "label": "Business and operations",
-          "text": "Ordering and settlement, payment-failure analysis, field and institutional handoffs, and adaptation for Brazil and Malaysia."
+          "text": "Led lender-facing agricultural risk product work and contributed to adapting information exchange for ULI. Explored a separate ONDC credit proposal; lenders retained credit decisions."
         },
         {
-          "label": "People and delivery",
-          "text": "Cross-functional coordination across technical, agronomy, finance, operations and regional leaders, with Jira, daily scrum and shared delivery priorities."
+          "text": "Reshaped Upaj around farm monitoring, market information, content and timely notifications. Worked with engineering and agronomy on crop-health guidance, monitoring and rainfall-insurance workflows."
+        },
+        {
+          "text": "Coordinated product, engineering, data, agronomy, finance, operations and regional teams, including adaptation for Brazil and Malaysia and institutional-commerce requirements."
         }
       ],
-      "leadershipNote": "The portfolio spans the full tenure. Individual project-to-promotion assignments and direct-report counts are not fully established; national infrastructure and later public products remain separate from personal ownership."
+      "cases": [
+        {
+          "slug": "absolute-silkroute-marketplace",
+          "label": "SilkRoute"
+        },
+        {
+          "slug": "absolute-trade-payments-erp",
+          "label": "Trade payments & ERP"
+        },
+        {
+          "slug": "absolute-rural-credit-uli",
+          "label": "Risk information & ULI"
+        },
+        {
+          "slug": "absolute-ondc-credit-infrastructure",
+          "label": "ONDC proposal"
+        },
+        {
+          "slug": "absolute-upaj-farmer-experience",
+          "label": "Upaj farmer experience"
+        },
+        {
+          "slug": "absolute-farm-os-iot-gis",
+          "label": "Farm OS"
+        },
+        {
+          "slug": "absolute-crop-health-ai",
+          "label": "Crop-health AI"
+        },
+        {
+          "slug": "absolute-rainfall-grid-insurance",
+          "label": "Rainfall-grid insurance"
+        },
+        {
+          "slug": "absolute-upaj-international",
+          "label": "Brazil & Malaysia"
+        },
+        {
+          "slug": "absolute-agri-input-institutional-commerce",
+          "label": "Institutional commerce"
+        },
+        {
+          "slug": "absolute-supporting-portfolio",
+          "label": "Supporting product references"
+        }
+      ]
     },
     {
       "companyId": "urbankhet",
       "company": "UrbanKhet",
-      "title": "Founder & Director",
       "dates": "July 2019–September 2021",
-      "context": "A farm-to-customer venture serving households and business buyers.",
-      "roleHistory": [],
-      "responsibilities": [
-        {
-          "text": "I founded the venture and owned the customer offer, product, farmer relationships, acquisition, partnerships, fulfilment and business economics.",
-          "cases": [
-            "urbankhet-farm-to-fork"
-          ]
-        },
-        {
-          "text": "I built the operating model around sourcing and decentralised delivery, then reworked logistics during COVID as demand and supply constraints changed. I later wound down the venture after the second wave.",
-          "cases": [
-            "urbankhet-covid-pivot"
-          ]
-        }
-      ],
-      "relationship": "Founder venture",
-      "highlights": [
-        "Founded and operated a farm-to-customer venture for households and business buyers.",
-        "Owned the customer offer, farmer relationships, web product, sourcing, delivery and business economics.",
-        "Reworked fulfilment during COVID and later assessed the venture’s viability and wind-down."
-      ],
+      "companyDescription": "Farm-to-customer produce venture for households and business buyers.",
+      "title": "Founder & Director",
       "progression": [
         {
           "title": "Founder & Director",
-          "dates": "July 2019–September 2021",
-          "detail": "Customer proposition → operating business"
+          "dates": "July 2019–September 2021"
         }
       ],
-      "scope": [
+      "responsibilities": [
         {
-          "label": "Product and customers",
-          "text": "Early manual customer and farmer outreach, proposition development, the web product, acquisition and buyer relationships."
+          "text": "Founded the venture and owned the customer offer, web product, farmer relationships, acquisition, fulfilment and business economics."
         },
         {
-          "label": "Business ownership",
-          "text": "P&L, sourcing, fulfilment, partnerships, incubation and funding conversations, and the decision to wind down after the second COVID wave."
-        },
-        {
-          "label": "People and delivery",
-          "text": "Built the operating team and SOPs, coordinated farmers and delivery partners, and adapted logistics as demand and supply constraints changed."
+          "text": "Built the sourcing and decentralised-delivery model, reworked fulfilment during COVID as constraints changed, then wound down the venture after the second wave."
         }
       ],
-      "leadershipNote": "The formal CV role starts in July 2019; published venture-origin material refers to earlier activity. Peak and closure-period team counts differ, so no single team-size headline is used."
+      "cases": [
+        {
+          "slug": "urbankhet-farm-to-fork",
+          "label": "UrbanKhet product & operations"
+        },
+        {
+          "slug": "urbankhet-covid-pivot",
+          "label": "COVID delivery pivot"
+        }
+      ],
+      "ventureSupport": {
+        "id": "founder-programmes",
+        "text": "UrbanKhet received incubation, seed support and innovation-grant backing through IIMA Ventures/CIIE.CO and GUSEC, including TIDE 2.0 and Gujarat SSIP.",
+        "case": {
+          "slug": "urbankhet-incubation-funding",
+          "label": "Venture support"
+        }
+      }
     }
   ],
   "internship": {
+    "companyId": "water-farmers",
     "company": "Water Farmers / Madhavi Farms",
     "title": "Farm operations intern",
     "dates": "May–July 2018",
-    "description": "I worked on aquaponics operations in Bengaluru, including harvest and packing procedures, supply-chain coordination and field-team workflows.",
+    "description": "Worked on harvest, packing, supply-chain coordination and field workflows in aquaponics operations in Bengaluru.",
     "caseSlug": "water-farmers-aquaponics",
-    "highlights": [
-      "Aquaponics operations, harvest and packing procedures.",
-      "Supply-chain coordination and field-team workflows."
-    ],
-    "scope": "This was an operations internship, distinct from later employment and founder responsibility. Field-team coordination does not imply hiring or appraisal authority."
+    "caseLabel": "Aquaponics operations",
+    "website": "https://waterfarmers.com/"
   },
   "otherContexts": [
     {
-      "title": "Incubation and founder support",
-      "organisation": "IIMA Ventures / CIIE.CO and GUSEC",
-      "dates": "2019–2021",
-      "description": "UrbanKhet received incubation, seed support and innovation-grant backing. This was support for my venture, separate from employment or an academic degree.",
-      "caseSlug": "urbankhet-incubation-funding"
-    },
-    {
-      "title": "Community volunteering",
+      "id": "gujarat-action-group",
+      "title": "Volunteer",
       "organisation": "Gujarat Action Group",
       "dates": "April–June 2021",
-      "description": "I helped maintain live hospital-bed, oxygen and medicine information and coordinate volunteers during the second COVID wave.",
-      "caseSlug": "gujarat-action-group-covid-resource-database"
+      "description": "Helped maintain hospital-bed, oxygen and medicine information and coordinate volunteers during the second COVID wave.",
+      "caseSlug": "gujarat-action-group-covid-resource-database",
+      "caseLabel": "COVID resource coordination"
     },
     {
-      "title": "Independent founder advisory",
-      "organisation": "Independent engagements",
-      "dates": "Dates not specified",
-      "description": "I have supported early-stage founders with product strategy, unit economics, go-to-market and fundraising narratives. Client identities and measured outcomes are not disclosed here.",
-      "caseSlug": "independent-founder-advisory"
+      "id": "advisory",
+      "title": "Independent founder support",
+      "organisation": "Founder advisory",
+      "dates": "",
+      "description": "Supported early-stage founders with product strategy, unit economics, go-to-market and fundraising narratives.",
+      "caseSlug": "independent-founder-advisory",
+      "caseLabel": "Founder advisory"
     }
   ],
   "education": {
     "institution": "CEPT University",
     "degree": "BS in Construction Technology",
     "dates": "2014–2019",
-    "description": "Alongside my studies, I captained FC Sparta. I continue an independent painting practice.",
-    "caseSlug": "cept-football-creative-practice"
+    "description": "Captained FC Sparta during university; I also maintain an independent painting practice.",
+    "caseSlug": "cept-football-creative-practice",
+    "caseLabel": "University & interests",
+    "website": "https://cept.ac.in/"
   },
   "skills": [
     {
-      "area": "Product and business",
-      "description": "Discovery, customer research, strategy, roadmaps, prioritisation, go-to-market, KPI design, P&L and unit economics."
+      "area": "Customer & operating journeys",
+      "description": "Lending applications, B2B trade and fresh-food fulfilment."
     },
     {
-      "area": "Platforms and operations",
-      "description": "Lending, B2B marketplaces, B2C journeys, APIs, partner onboarding, payments and reconciliation."
+      "area": "Partner platforms",
+      "description": "Eligibility, KYC handoffs, status, payments and reconciliation."
     },
     {
-      "area": "AI and data",
-      "description": "AI-assisted prototyping, document review, deterministic rule models, funnel and retention analysis, SQL and Python."
+      "area": "AI & data work",
+      "description": "AI-assisted prototyping, deterministic lender-rule models, document-review workflows and funnel analysis."
     },
     {
-      "area": "Leadership",
-      "description": "Cross-functional delivery, hiring, stakeholder alignment, partner negotiations and international product adaptation."
-    }
-  ],
-  "recognition": [
-    "CashKaro Rock Star award, 2025.",
-    "Atal Innovation Award, Government of Gujarat, 2021.",
-    "UrbanKhet innovation-grant support through TIDE 2.0 and Gujarat SSIP."
-  ],
-  "intro": "Product leadership across lending, marketplaces and agritech. Former founder.",
-  "lifecycle": [
-    {
-      "label": "Discover",
-      "detail": "Customer needs and operating constraints"
-    },
-    {
-      "label": "Define",
-      "detail": "Product decisions and business economics"
-    },
-    {
-      "label": "Align",
-      "detail": "Teams, partners and delivery priorities"
-    },
-    {
-      "label": "Deliver",
-      "detail": "Journeys, integrations and operating handoffs"
-    },
-    {
-      "label": "Improve",
-      "detail": "Funnel reviews, feedback and iteration"
+      "area": "Commercial & team leadership",
+      "description": "Product strategy, lender relationships, P&L, unit economics, cross-functional delivery, partner negotiations and hiring participation."
     }
   ],
   "recognitionDetails": [
     {
       "title": "CashKaro Rock Star",
       "context": "Internal recognition · 2025"
-    },
-    {
-      "title": "Atal Innovation Award",
-      "context": "Government of Gujarat · 2021"
-    },
-    {
-      "title": "TIDE 2.0 and Gujarat SSIP",
-      "context": "Innovation-grant support for UrbanKhet"
     }
   ],
   "certifications": [
@@ -383,16 +287,14 @@
       "brandId": "pendo",
       "issued": "Aug 2026",
       "issuedDate": "2026-08",
-      "credentialId": "13dde14c-704f-4348-80bb-d2185173e0c0",
       "credentialUrl": "https://www.credly.com/badges/13dde14c-704f-4348-80bb-d2185173e0c0/public_url"
     },
     {
-      "title": "Cryptocurrency Fundamentals: Coins, Wallets, Exchanges, ICOs",
+      "title": "Cryptocurrency Fundamentals",
       "issuer": "Udemy",
       "brandId": "udemy",
       "issued": "Mar 2026",
       "issuedDate": "2026-03",
-      "credentialId": "UC-af162e16-4a41-41c8-8484-f5448321b551",
       "credentialUrl": "https://www.udemy.com/certificate/UC-af162e16-4a41-41c8-8484-f5448321b551/"
     }
   ]

@@ -26,3 +26,8 @@ Twenty WebP files provide six full images, six lighter previews, six source clos
 The original PDF, 14 native-resolution page images, 13 lossless crops and extraction manifest remain in the private `Art-Portfolio-Originals` source archive outside the repository. That manifest records each crop boundary, derivative dimensions, source page and SHA-256. The website hosts only reviewed artwork images and text. Notes and close-ups remain on the website; the original PDF is not publicly hosted.
 
 The gallery also preserves additional published art from the existing admin database and its legacy detail routes. Supplied artwork does not require database credentials. Keyboard users can open notes with Enter or Space, enlarge any image, close with Escape and return focus to the image trigger.
+
+
+## Gallery edit following the 15 October 2026 audit
+
+The six compositions, medium/dimensions and asset files are retained. Public notes receive light grammatical edits; the exact earlier text remains in each record's `originalStatement`, and earlier labels remain in source fields. Close-ups now say “Detail”; source pagination remains internal. The ANNA cover asset is preserved but omitted from the main ending until authorship/meaning is confirmed. Historical sale and unexplained theme labels do not imply current availability. See `audit/2026-10-15/global-coverage.json` for F0066–F0077.

@@ -1,2 +1,4 @@
 # PDF fixtures are binary artifacts; preserve their exact cross-reference bytes.
 tests/fixtures/*.pdf binary
+# Generated CVs also contain byte offsets even when their content streams are printable.
+public/cv/*.pdf binary

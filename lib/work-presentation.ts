@@ -10,7 +10,7 @@ export function getPrimaryMedia(study: Pick<CaseStudy, 'media' | 'heroMediaId' |
     const media = study.media.find(asset => asset.id === id);
     return media ? [media] : [];
   });
-  if (selected.length) return selected.filter((media, index, all) => all.findIndex(asset => asset.src === media.src) === index);
+  if (study.primaryMediaIds) return selected.filter((media, index, all) => all.findIndex(asset => asset.src === media.src) === index);
   const hero = study.media.find(media => media.id === study.heroMediaId);
   if (hero) return [hero];
   const priorities = ['prototype-screenshot', 'product-screenshot', 'walkthrough', 'photograph', 'diagram', 'illustration', 'source-document'];

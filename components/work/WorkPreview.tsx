@@ -5,35 +5,21 @@ import { getPrimaryMedia } from '@/lib/work-presentation';
 import Media from './Media';
 import BrandMarks from '@/components/BrandMarks';
 import styles from './work-preview.module.css';
-
-export type WorkPreviewStudy = Pick<CaseStudy, 'id' | 'slug' | 'companyId' | 'title' | 'summary' | 'role' | 'workType' | 'visualSummary' | 'media' | 'heroMediaId' | 'primaryMediaIds' | 'featuredOrder' | 'outcomes'>;
-
-/** Concise presentation of the recorded remit and decision; the source registry remains unchanged. */
-export const selectedProjectOwnership: Readonly<Record<string, string>> = {
-  'cashkaro-college-money-education-loans': 'I owned the education-loan journey and partner commercials, connecting student intake, documents and lender routing with operations and P&L.',
-  'cashkaro-lending-mcp-feedback': 'I proposed a shared policy interface for two rule engines, separating evaluation from approval to change a rule.',
-  'cashkaro-lender-integration-operations': 'I joined engineering requirements with lender service levels and payout operations, keeping a common contract around lender-specific policy.',
-  'cashkaro-eduloans-policy-workflow': 'I turned the PRD and lender rules into an AI-assisted interaction prototype, keeping document uncertainty and verification with a human reviewer.',
-  'absolute-rural-credit-uli': 'I shaped farm-risk information for lender appraisal, standardising assessment outputs and API access while leaving the credit decision with the lender.',
-  'absolute-silkroute-marketplace': 'I connected commodity discovery and negotiation with trade operations, working across research, product modules and regional delivery.',
-  'absolute-crop-health-ai': 'I brought engineering, modelling and agronomy into the capture-to-advice journey, connecting expert-reviewed data and offline leaf capture with crop-specific guidance.',
-  'urbankhet-farm-to-fork': 'I built the customer offer and the operating business together, moving from terrace farming to produce sourcing, orders, delivery and P&L.',
+export type WorkPreviewStudy=Pick<CaseStudy,'id'|'slug'|'companyId'|'title'|'summary'|'role'|'workType'|'visualSummary'|'media'|'heroMediaId'|'primaryMediaIds'|'featuredOrder'|'outcomes'>;
+export const selectedProjectOwnership:Readonly<Record<string,string>>={
+ 'cashkaro-college-money-education-loans':'A student enquiry still needs documents, lender matching and follow-through before a lender can review it. I owned the education-loan journey, partner commercials and operations. The case follows how intake, preparation and routing were connected.',
+ 'cashkaro-lending-mcp-feedback':'I proposed a shared way for two lending rule engines to evaluate a case, with separate approval before policy changes. The case explains the proposed tool contract, trust boundary and validation plan.',
+ 'cashkaro-lender-integration-operations':'Each lender brought different rules and handoffs. I worked with engineering and partners on common eligibility, KYC, status and payout requirements, while retaining lender-specific policy and operating reviews.',
+ 'cashkaro-eduloans-policy-workflow':'I built an interaction prototype for student, partner and reviewer workflows around inspectable lender rules and human document verification. It uses sample records and scripted responses; the case explains the model and what still needs validation.',
+ 'absolute-rural-credit-uli':'I shaped agricultural risk information for lender appraisal, including standardised outputs and API access. The lender retained the credit decision. The case shows the assessment-product decision before explaining the ULI context.',
+ 'absolute-silkroute-marketplace':'Finding a buyer or seller was only the beginning. I connected discovery and negotiation with ordering, payments and regional operations. The programme reported $100M GMV in nine months.',
+ 'absolute-crop-health-ai':'I worked with engineering, modelling and agronomy to make leaf-image capture usable offline and diagnosis available after reconnection. The case separates the delivered flow from the intended conversational-advisory layer.',
+ 'urbankhet-farm-to-fork':'I moved from terrace farming to a produce service, building the storefront alongside sourcing, subscriptions and delivery. The case examines the customer promise and what changed as operating conditions became harder.',
 };
-
-export default function WorkPreview({ study, priority = false, reveal = false, showBrand = true }: { study: WorkPreviewStudy; priority?: boolean; reveal?: boolean; showBrand?: boolean }) {
-  const media = getPrimaryMedia(study)[0];
-  const visual = study.visualSummary;
-  return <article className={styles.preview} aria-labelledby={`preview-${study.id}`}>
-    {media && <div className={styles.evidence}>
-      <Media media={media} priority={priority} compact />
-    </div>}
-    <div className={styles.account} data-reveal={reveal ? '' : undefined}>
-      <div className={styles.brand}>{showBrand && <BrandMarks companyId={study.companyId} small />}<p>{workTypeLabels[study.workType]}</p></div>
-      <h3 id={`preview-${study.id}`}>{visual?.title || study.title}</h3>
-      <p className={styles.summary}>{visual?.summary || study.summary}</p>
-      <p className={styles.ownership}>{selectedProjectOwnership[study.slug] || <><strong>My part.</strong> {visual?.role || study.role}{visual?.decision && <> {visual.decision}</>}</>}</p>
-      {visual?.impact && <p className={styles.result}><strong>{study.workType === 'proposal' || study.workType === 'prototype' ? 'Validation status.' : 'Outcome.'}</strong> {visual.impact}</p>}
-      <Link href={`/product/${encodeURIComponent(study.slug)}`} className="ink-link">Full case study <span aria-hidden="true">↗</span><span className="sr-only">: {visual?.title || study.title}</span></Link>
-    </div>
-  </article>;
+export default function WorkPreview({study,priority=false,reveal=false,showBrand=true}:{study:WorkPreviewStudy;priority?:boolean;reveal?:boolean;showBrand?:boolean}){
+ const media=getPrimaryMedia(study)[0];
+ return <article className={`${styles.preview}${!media?` ${styles.textOnly}`:''}`} aria-labelledby={`preview-${study.id}`}>
+  <div className={styles.account} data-reveal={reveal?'':undefined}><div className={styles.brand}>{showBrand&&<BrandMarks companyId={study.companyId} small/>}<p>{study.companyId==='absolute'&&study.workType==='delivered'?'Historical product delivery':workTypeLabels[study.workType]}</p></div><h3 id={`preview-${study.id}`}>{study.visualSummary?.title||study.title}</h3><p className={styles.summary}>{selectedProjectOwnership[study.slug]||study.summary}</p><Link href={`/product/${study.slug}`} className="ink-link">Read the case <span aria-hidden="true">↗</span><span className="sr-only">: {study.visualSummary?.title||study.title}</span></Link></div>
+  {media&&<div className={`${styles.evidence}${study.companyId==='urbankhet'?` ${styles.portraitEvidence}`:''}`}><Media media={media} priority={priority} compact/></div>}
+ </article>;
 }

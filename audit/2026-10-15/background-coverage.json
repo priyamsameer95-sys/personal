@@ -1,0 +1,1375 @@
+{
+  "audit": "Priyamsameer.com website audit, 15 October 2026",
+  "chapters": [
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "pages": [
+    254,
+    331
+  ],
+  "recordCount": 9,
+  "substantiveFindings": 94,
+  "supportingCaptures": 26,
+  "coverageCount": 120,
+  "sharedRepositoryFilesEdited": false,
+  "replacementRecords": "/private/tmp/priyam-audit-background.json",
+  "preservation": [
+    {
+      "slug": "credflow-kuberx-launch",
+      "mainStoryWords": 225,
+      "sectionsPreserved": 7,
+      "sectionAliasesPreserved": 2,
+      "chapterIdsPreserved": [
+        "decision",
+        "delivery",
+        "judgment"
+      ],
+      "mediaPreserved": 1,
+      "tablesPreserved": 0,
+      "sourceRecordsPreserved": 0
+    },
+    {
+      "slug": "credflow-pay-via-credit-card",
+      "mainStoryWords": 181,
+      "sectionsPreserved": 7,
+      "sectionAliasesPreserved": 2,
+      "chapterIdsPreserved": [
+        "decision",
+        "delivery",
+        "judgment"
+      ],
+      "mediaPreserved": 0,
+      "tablesPreserved": 0,
+      "sourceRecordsPreserved": 0
+    },
+    {
+      "slug": "urbankhet-farm-to-fork",
+      "mainStoryWords": 502,
+      "sectionsPreserved": 12,
+      "sectionAliasesPreserved": 2,
+      "chapterIdsPreserved": [
+        "campaign-credits",
+        "decision",
+        "delivery",
+        "judgment",
+        "subscription-business-and-fulfilment",
+        "venture-context"
+      ],
+      "mediaPreserved": 18,
+      "tablesPreserved": 3,
+      "sourceRecordsPreserved": 5
+    },
+    {
+      "slug": "urbankhet-covid-pivot",
+      "mainStoryWords": 244,
+      "sectionsPreserved": 8,
+      "sectionAliasesPreserved": 2,
+      "chapterIdsPreserved": [
+        "decision",
+        "delivery",
+        "judgment",
+        "wind-down-reference"
+      ],
+      "mediaPreserved": 4,
+      "tablesPreserved": 0,
+      "sourceRecordsPreserved": 1
+    },
+    {
+      "slug": "urbankhet-incubation-funding",
+      "mainStoryWords": 206,
+      "sectionsPreserved": 6,
+      "sectionAliasesPreserved": 2,
+      "chapterIdsPreserved": [
+        "decision",
+        "delivery",
+        "judgment",
+        "programme-history-reference"
+      ],
+      "mediaPreserved": 1,
+      "tablesPreserved": 0,
+      "sourceRecordsPreserved": 1
+    },
+    {
+      "slug": "water-farmers-aquaponics",
+      "mainStoryWords": 234,
+      "sectionsPreserved": 5,
+      "sectionAliasesPreserved": 2,
+      "chapterIdsPreserved": [
+        "decision",
+        "delivery",
+        "judgment"
+      ],
+      "mediaPreserved": 1,
+      "tablesPreserved": 0,
+      "sourceRecordsPreserved": 0
+    },
+    {
+      "slug": "gujarat-action-group-covid-resource-database",
+      "mainStoryWords": 181,
+      "sectionsPreserved": 5,
+      "sectionAliasesPreserved": 2,
+      "chapterIdsPreserved": [
+        "decision",
+        "delivery",
+        "judgment"
+      ],
+      "mediaPreserved": 1,
+      "tablesPreserved": 0,
+      "sourceRecordsPreserved": 0
+    },
+    {
+      "slug": "independent-founder-advisory",
+      "mainStoryWords": 264,
+      "sectionsPreserved": 5,
+      "sectionAliasesPreserved": 2,
+      "chapterIdsPreserved": [
+        "decision",
+        "delivery",
+        "judgment"
+      ],
+      "mediaPreserved": 0,
+      "tablesPreserved": 0,
+      "sourceRecordsPreserved": 0
+    },
+    {
+      "slug": "cept-football-creative-practice",
+      "mainStoryWords": 215,
+      "sectionsPreserved": 5,
+      "sectionAliasesPreserved": 2,
+      "chapterIdsPreserved": [
+        "decision",
+        "delivery",
+        "judgment"
+      ],
+      "mediaPreserved": 0,
+      "tablesPreserved": 0,
+      "sourceRecordsPreserved": 0
+    }
+  ],
+  "rootRenderingDependencies": [
+    "Render presentation.format note without the full product template.",
+    "Honour presentation.suppressPeriod for unknown or irrelevant hero periods while retaining the original source period in data.",
+    "Render only explicitly selected primaryMediaIds and per-group mainMediaIds in the principal account; all media remain optional on-site evidence.",
+    "Move supporting groups, original tables, source records, media archive and notes to the optional reference page while resolving all old section/alias/chapter fragments.",
+    "Render the contextual engagement before related work and honour presentation.links for direct Art/Work and internship continuation.",
+    "The storefront should have a readable portrait-content presentation; no farm cover beside it in the main hero."
+  ],
+  "evidenceLimitsNotInvented": [
+    "No actual UrbanKhet SOP excerpt, route sheet, comparison of pivot alternatives or decision-threshold ledger was added.",
+    "No real funding pitch/application, adopted mentor recommendation, consolidated funding amount or investment date was invented.",
+    "No named advisory client, implemented advice, client result, fees, availability or service duration was invented; the method sample is explicitly hypothetical.",
+    "No COVID-resource schema, verification protocol, automated feed, patient record, beneficiary count or clinical effect was invented.",
+    "No CredFlow activation event, isolated causal experiment, payment capacity benchmark, architecture authorship or reconciled transaction state was invented.",
+    "No internship production uplift, enlarged later farm scope, training/selection method or professional causal claim from personal activities was invented."
+  ],
+  "findings": [
+    {
+      "finding": "F0369",
+      "chapter": 22,
+      "page": 254,
+      "heading": "UrbanKhet farm-to-fork",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Rewrite the opening and select actual product evidence",
+      "resolution": "The UrbanKhet title, summary, challenge and founder remit now open with terrace farming becoming produce supply. The original storefront is the sole lead asset; the unattributed farm cover remains contextual evidence only.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0370",
+      "chapter": 22,
+      "page": 255,
+      "heading": "Desktop evidence for Hero and storefront video",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Give the historical recording a viewing task",
+      "resolution": "The clip caption asks readers to inspect the pack and delivery plan. Its transcript preserves the visible calendar/cart interactions and Studio Sorted credit. Privacy and unknown recording date are compact notes; duplicate-file housekeeping is removed.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0371",
+      "chapter": 22,
+      "page": 256,
+      "heading": "The decisions behind the work",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Use the perishable order as the narrative hinge",
+      "resolution": "The opening ties a website order to sourcing, packing and delivery. The main story follows the documented move into direct supply and the order-to-fulfilment dependency. No unrecorded alternatives, customer-research finding or pivot trigger is invented.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0372",
+      "chapter": 22,
+      "page": 256,
+      "heading": "01 From terrace farming to a paid customer promise; Sorted-Packs and Khet Direct images",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Bring manual acquisition and dated offers forward",
+      "resolution": "The first decision begins with the first 44 customers and farmer outreach. April 2020 Sorted-Packs and October 2020 Khet Direct have separate explanatory roles. Their dates are not presented as evidence of what caused the pivot.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0373",
+      "chapter": 22,
+      "page": 257,
+      "heading": "02 A web product supported by distributed operations; direct/intermediary diagrams",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Explain the documented handoffs and archive marketing diagrams",
+      "resolution": "The second decision connects the order to sourcing, inventory, harvest, packing and last-mile delivery in Maharashtra/Gujarat. The direct/intermediary diagrams remain labelled historical positioning in optional depth. A real SOP excerpt or route exception is unavailable and is not fabricated.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0374",
+      "chapter": 22,
+      "page": 258,
+      "heading": "03 The judgment I take forward",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Remove the forced third leadership chapter",
+      "resolution": "The main story has two decisions. The takeaway is a short commerce implication grounded in the founder remit, retained as optional context rather than a third slogan-led main chapter.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0375",
+      "chapter": 22,
+      "page": 258,
+      "heading": "Results and scope",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Remove unresolved counts and financial labels from headline cards",
+      "resolution": "All outcome cards are removed. The 28-person team remains founder-reported scope in prose; 3,400 B2C, 3,600+ clients, 45 business customers and 3,000 farmer reach remain separately qualified in detailed evidence. ₹1.2 crore is not a headline revenue/profit result.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0376",
+      "chapter": 22,
+      "page": 259,
+      "heading": "Inside the work / UrbanKhet: operating history and service trade-offs; infographic",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Keep a compact dated evolution in optional depth",
+      "resolution": "The history paragraph retains the microfarm origin, June 2020 produce service and 2020–21 support. The editorial infographic is identified as retrospective explanation rather than an operating photograph or proof of results.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0377",
+      "chapter": 22,
+      "page": 260,
+      "heading": "Public history and chronology table",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Preserve the full chronology table outside the principal story",
+      "resolution": "The original chronology table remains unchanged for source coverage, with the public-origin versus formal-role distinction stated once. Fine-grained award, announcement and campaign dates stay in optional history rather than the main account.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0378",
+      "chapter": 22,
+      "page": 261,
+      "heading": "Desktop evidence for Historical campaign gallery",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Choose two purposeful proposition images and archive the campaign variants",
+      "resolution": "The main story selects the original Sorted-Packs and Khet Direct company posts. All Studio Sorted images remain in the optional campaign archive, with Abhishek Durani, Ritam Mukherjee, Ishita Poddar, Tanmay Acharya and Netra Ajjampur credited. Later editorial artwork remains distinct.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0379",
+      "chapter": 22,
+      "page": 262,
+      "heading": "Desktop evidence for Business-model tables",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Replace the business-school block with the actual shared-operation tension",
+      "resolution": "The principal story contrasts household subscriptions and business supply using their shared sourcing and differing volumes/specifications. The customer-model and proposed accounting tables move to optional depth; no undocumented margin or route-choice experiment is added.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0380",
+      "chapter": 22,
+      "page": 263,
+      "heading": "Two customer jobs, one perishables operation table",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Label the customer/operation comparison as retrospective",
+      "resolution": "The customer-model section now states the two customer jobs first and labels the table as a retrospective operating map. Service controls in the table are analytical questions, not asserted historical software features.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0381",
+      "chapter": 22,
+      "page": 264,
+      "heading": "Authored perishables unit-economics bridge — no amounts assumed",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Present the accounting bridge as an optional working method",
+      "resolution": "The unit-economics section explicitly frames its table as how Priyam would examine a similar business. Missing ledgers, contradictory P&L/ARR wording and separate timing/waste versions remain traceable; no financial amounts or profitability are inferred.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0382",
+      "chapter": 22,
+      "page": 265,
+      "heading": "Desktop evidence for References and close",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Consolidate evidence notes and remove production housekeeping",
+      "resolution": "Source notes now group contemporary posts, founder-reported metrics, timing, privacy and artwork provenance. Byte-identity detail is removed. Existing media source URLs and original source records are retained; an operating-problem invitation precedes relevant next work through the engagement field.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0383",
+      "chapter": 22,
+      "page": 266,
+      "heading": "Keep exploring",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Add a relevant operating-model enquiry and two connected cases",
+      "resolution": "The engagement asks where suppliers, teams and delivery make the promise difficult to keep. Related work is limited to the COVID operating response and SilkRoute marketplace, without a guaranteed business result.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0384",
+      "chapter": 22,
+      "page": 267,
+      "heading": "The decisions behind the work",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0385",
+      "chapter": 22,
+      "page": 267,
+      "heading": "A web product supported by distributed operations",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0386",
+      "chapter": 22,
+      "page": 267,
+      "heading": "Inside the work",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0387",
+      "chapter": 22,
+      "page": 267,
+      "heading": "Historical campaign and creative credits",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0388",
+      "chapter": 22,
+      "page": 268,
+      "heading": "The business model behind the fresh-food promise",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0389",
+      "chapter": 22,
+      "page": 268,
+      "heading": "Notes and references",
+      "slug": "urbankhet-farm-to-fork",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0390",
+      "chapter": 23,
+      "page": 269,
+      "heading": "UrbanKhet through COVID",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Open with lockdown disruption rather than an imperative",
+      "resolution": "The title and opening state changed business demand and delivery access. The role stays founder; the summary and brief distinguish the first-wave response from later viability. Sorted-Packs is no longer a primary asset.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0391",
+      "chapter": 23,
+      "page": 270,
+      "heading": "The decisions behind the work",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Connect the constraint to the response without inventing runway",
+      "resolution": "The challenge explains why accepting produce orders required changed customers and routes. The cash-runway phrase is removed from the lead because no amount, decision threshold or dated cash record is established.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0392",
+      "chapter": 23,
+      "page": 271,
+      "heading": "Desktop evidence for Workflow illustration",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Tell the first-wave response once and remove the lead diagram",
+      "resolution": "The main decision describes greater direct-consumer emphasis, routes linked to daily volume and decentralised Amul collaboration. Fifteen days is founder-reported. The generic diagram remains only optional retrospective material, not a route artifact.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0393",
+      "chapter": 23,
+      "page": 272,
+      "heading": "02 Leadership through a changing operating reality",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Make the second main chapter the later viability decision",
+      "resolution": "The later wind-down is separated from the first-wave rebuild. Team counts and unresolved stakeholder outcomes stay in optional history, with no claims of placements, successful settlements or a universal team size.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0394",
+      "chapter": 23,
+      "page": 272,
+      "heading": "03 The judgment I take forward",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Use the specific distinction between restoration and viability",
+      "resolution": "The reflection is no longer a generic third leadership chapter. The later decision states that restoring operations did not settle whether to continue; no unrecorded financial threshold is introduced.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0395",
+      "chapter": 23,
+      "page": 273,
+      "heading": "Results and scope",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Remove the waste achievement card from the COVID case",
+      "resolution": "All result cards are removed. The result is founder-reported logistics rebuild and first-wave continuity, followed by a later wind-down. General venture wastage is explicitly not attributed to the pivot.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0396",
+      "chapter": 23,
+      "page": 273,
+      "heading": "Inside the work / UrbanKhet: continuity and closure are different periods",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Keep the two periods clear and counts in the evidence",
+      "resolution": "The main story has first-wave response and later viability sections. The optional history retains the 28-person wider venture and twenty-person closure account as different scopes and preserves the closure-timing limit.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0397",
+      "chapter": 23,
+      "page": 274,
+      "heading": "Desktop evidence for Notes and references",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Archive campaign material and consolidate closure notes",
+      "resolution": "Studio Sorted artwork and the original pack post remain as historical positioning in optional depth, not crisis evidence. One compact source account distinguishes the periods and stakeholder limitations.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0398",
+      "chapter": 23,
+      "page": 275,
+      "heading": "Keep exploring and engagement close",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Close with a bounded coordination problem",
+      "resolution": "The engagement offers to examine changed demand, supply, delivery constraints and handoffs. Related work leads to the main UrbanKhet case and another marketplace, with no turnaround guarantee.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0399",
+      "chapter": 23,
+      "page": 276,
+      "heading": "Desktop evidence for Hero",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Remove the oversized contextual poster from the hero",
+      "resolution": "primaryMediaIds is empty and the old hero selection is removed. The pack and campaign art remain in the media array and optional evidence; no invented operating artifact replaces them.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0400",
+      "chapter": 23,
+      "page": 277,
+      "heading": "The decisions behind the work",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0401",
+      "chapter": 23,
+      "page": 277,
+      "heading": "Leadership through a changing operating reality",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0402",
+      "chapter": 23,
+      "page": 277,
+      "heading": "Inside the work",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0403",
+      "chapter": 23,
+      "page": 278,
+      "heading": "Notes and references",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0404",
+      "chapter": 23,
+      "page": 278,
+      "heading": "Keep exploring",
+      "slug": "urbankhet-covid-pivot",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0405",
+      "chapter": 24,
+      "page": 279,
+      "heading": "UrbanKhet venture backing",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Lead with the founder contribution and remove unrelated lead art",
+      "resolution": "The title/summary explain incubation and fundraising alongside running a produce business. No primary illustration is selected. Incubation, seed investment, grants and recognition are kept as distinct relationships.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0406",
+      "chapter": 24,
+      "page": 280,
+      "heading": "The decisions behind the work",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Replace generic startup uncertainty with the produce-business questions",
+      "resolution": "The opening names the customer, delivery and business-development questions behind support conversations. It does not invent investor objections, selection criteria or an application decision.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0407",
+      "chapter": 24,
+      "page": 280,
+      "heading": "01 The product decision",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Rename and condense the support narrative",
+      "resolution": "The main note has one factual support chapter naming CIIE.CO incubation/seed backing, mentoring topics and separate TIDE 2.0/SSIP grants. It does not present mentorship topics as adopted decisions or measured benefit.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0408",
+      "chapter": 24,
+      "page": 281,
+      "heading": "02 Putting the decision into practice",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Merge the repeated implementation summary",
+      "resolution": "The former delivery section is a concise optional founder-programme account. The main note describes the relationships once; no fictitious pitch artifact or mentor-inspired change is added.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0409",
+      "chapter": 24,
+      "page": 282,
+      "heading": "03 The judgment I take forward",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Replace the capital-story slogan with a bounded contribution",
+      "resolution": "The optional takeaway and engagement explain helping an outside reader understand the customer, service model and economics. Neither promises fundraising effectiveness or investor conversion.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0410",
+      "chapter": 24,
+      "page": 282,
+      "heading": "Results and scope; CIIE.CO and TIDE/SSIP cards",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Remove non-comparable support metric cards",
+      "resolution": "outcomes is empty. The narrative categorizes incubation/seed backing, grants and recognition rather than giving institutions metric-card treatment. The absence of a consolidated amount is stated once with the support record.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0411",
+      "chapter": 24,
+      "page": 283,
+      "heading": "Inside the work / Venture backing: programmes, awards and investment context",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Keep fine-grained programme dates in optional history",
+      "resolution": "The original programme-history source survives with GUSEC Rise event and announcement dates, TIDE/Continuity Accelerator participation, IIMA portfolio context and unknown aggregate/date. The principal note concentrates on what support involved.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0412",
+      "chapter": 24,
+      "page": 283,
+      "heading": "Notes and references",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Use accurate relationship labels and institutional references",
+      "resolution": "One note clarifies venture support rather than a degree/employment or summed funding result. Existing source metadata is preserved and direct GUSEC history/award plus IIMA institutional links are added.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0413",
+      "chapter": 24,
+      "page": 284,
+      "heading": "Keep exploring and engagement close",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Add a limited product-and-operating-story invitation",
+      "resolution": "The engagement asks about clarifying a real customer, service model and unresolved assumptions. Main UrbanKhet is the operating proof, and advisory is the bounded next topic; no promise of funding is made.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0414",
+      "chapter": 24,
+      "page": 285,
+      "heading": "Desktop evidence for Hero image",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Remove the unrelated editorial hero",
+      "resolution": "The farm-market illustration is retained in media for optional historical reference but primaryMediaIds is empty. The support record starts immediately without a decorative lead image.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0415",
+      "chapter": 24,
+      "page": 286,
+      "heading": "Desktop evidence for Numbered narrative and results",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Replace three template rows with a short programme note",
+      "resolution": "presentation.format is note with one main chapter. Original delivery, history and takeaway IDs remain optional, and all source records stay on-site. The note is retained at its URL per the route-preservation requirement rather than presented as a separate product build.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0416",
+      "chapter": 24,
+      "page": 287,
+      "heading": "The decisions behind the work",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0417",
+      "chapter": 24,
+      "page": 287,
+      "heading": "Inside the work",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0418",
+      "chapter": 24,
+      "page": 287,
+      "heading": "Notes and references",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0419",
+      "chapter": 24,
+      "page": 288,
+      "heading": "Keep exploring",
+      "slug": "urbankhet-incubation-funding",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0420",
+      "chapter": 25,
+      "page": 289,
+      "heading": "Independent founder advisory",
+      "slug": "independent-founder-advisory",
+      "action": "Reframe the record as a prospective founder-advisory note",
+      "resolution": "workType changes from delivered to supporting; the title names a founder decision. The original period remains in data for coverage, while presentation.suppressPeriod hides the unknown-date wording from the hero.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0421",
+      "chapter": 25,
+      "page": 290,
+      "heading": "The decisions behind the work",
+      "slug": "independent-founder-advisory",
+      "action": "Start with founder problems rather than confidentiality",
+      "resolution": "The opening names an unclear first customer, cost to serve or route to market. Client confidentiality is one attribution note lower down, not the first reason to read.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0422",
+      "chapter": 25,
+      "page": 290,
+      "heading": "01 The product decision",
+      "slug": "independent-founder-advisory",
+      "action": "Describe a proposed working method with useful output",
+      "resolution": "The main chapter starts with one decision, evidence versus assumptions, options, constraints and a next test. A short decision brief is a possible output subject to the engagement, not a universal package or proven client implementation.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0423",
+      "chapter": 25,
+      "page": 291,
+      "heading": "02 Putting the decision into practice",
+      "slug": "independent-founder-advisory",
+      "action": "Keep sectors compact and use actual operating proof",
+      "resolution": "FMCG, energy and carbon-credit advisory subjects are retained in a compact experience line. UrbanKhet and SilkRoute are the disclosed proof links; private advisory work is not portrayed as their cause or as a named client case.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0424",
+      "chapter": 25,
+      "page": 292,
+      "heading": "03 The judgment I take forward",
+      "slug": "independent-founder-advisory",
+      "action": "Replace the attribution slogan with a decision standard",
+      "resolution": "The prospective method aims to clarify a choice and its next test. The old takeaway becomes the short enquiry context rather than an invented lesson from an undisclosed engagement.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0425",
+      "chapter": 25,
+      "page": 292,
+      "heading": "Results and scope; advisory scope card",
+      "slug": "independent-founder-advisory",
+      "action": "Replace achieved-scope framing with a hypothetical sample",
+      "resolution": "All outcome cards are removed. The results slot is titled A hypothetical working sample, using an imagined household-subscription pack-versus-custom-order decision. It includes no invented client, fee, price, margin, adoption or performance result.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0426",
+      "chapter": 25,
+      "page": 293,
+      "heading": "Notes and references",
+      "slug": "independent-founder-advisory",
+      "action": "Use one plain attribution note and real-work links",
+      "resolution": "The source note distinguishes advisory activity from employment and published client outcomes. Disclosed founder/product cases supply the proof; the method and sample are explicitly prospective.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0427",
+      "chapter": 25,
+      "page": 293,
+      "heading": "Keep exploring",
+      "slug": "independent-founder-advisory",
+      "action": "Provide a low-effort, direct advisory enquiry",
+      "resolution": "engagement requests only the product, the decision and the main constraint. It offers to assess fit, with no invented availability, fees, automatic acceptance or success guarantee.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0428",
+      "chapter": 25,
+      "page": 294,
+      "heading": "Desktop evidence for Hero metadata",
+      "slug": "independent-founder-advisory",
+      "action": "Suppress the internal unknown-date hero line",
+      "resolution": "The period field is preserved but suppressed from the public hero. Supporting-context status and the founder-advisory title replace Delivered work and the source-gap date.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0429",
+      "chapter": 25,
+      "page": 295,
+      "heading": "Desktop evidence for Results through contact",
+      "slug": "independent-founder-advisory",
+      "action": "Add an honest sample and place the enquiry before related work",
+      "resolution": "The clearly hypothetical pack example makes the proposed activity inspectable. The focused engagement comes before the two relevant operating proofs; generic lending recommendations are removed.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0430",
+      "chapter": 25,
+      "page": 296,
+      "heading": "Notes and references",
+      "slug": "independent-founder-advisory",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0431",
+      "chapter": 26,
+      "page": 297,
+      "heading": "COVID resource coordination",
+      "slug": "gujarat-action-group-covid-resource-database",
+      "action": "Lead with the volunteer database contribution and period",
+      "resolution": "The title and summary identify the shared COVID resource, April–June 2021, database creation and volunteer/ground-staff coordination. No primary diagram is selected and no beneficiary or clinical result is inferred.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0432",
+      "chapter": 26,
+      "page": 298,
+      "heading": "The decisions behind the work",
+      "slug": "gujarat-action-group-covid-resource-database",
+      "action": "Explain the freshness dependency within known evidence",
+      "resolution": "The story links changing availability with people continuing to communicate updates. It does not add timestamps, expiry rules, a verification protocol or automatic refresh that the account cannot establish.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0433",
+      "chapter": 26,
+      "page": 299,
+      "heading": "01 The product decision",
+      "slug": "gujarat-action-group-covid-resource-database",
+      "action": "Describe the actual resource categories and people",
+      "resolution": "The resource contains bed, oxygen and medicine availability supplied by volunteers/ground staff for families and field teams. No synthetic patient/volunteer record or invented database schema is published as historical evidence.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0434",
+      "chapter": 26,
+      "page": 299,
+      "heading": "02 Putting the decision into practice",
+      "slug": "gujarat-action-group-covid-resource-database",
+      "action": "Bound the geographic and technical scope",
+      "resolution": "The text says contributors worked in different locations in India, not comprehensive national coverage. Automated real-time service and independent availability verification are not claimed.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0435",
+      "chapter": 26,
+      "page": 300,
+      "heading": "03 The judgment I take forward",
+      "slug": "gujarat-action-group-covid-resource-database",
+      "action": "Tie the reflection to people maintaining the resource",
+      "resolution": "The takeaway describes the database and continued communication as the documented contribution. No present-day design recommendation is rewritten as a historical feature.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0436",
+      "chapter": 26,
+      "page": 300,
+      "heading": "Results and scope; database and coordination cards",
+      "slug": "gujarat-action-group-covid-resource-database",
+      "action": "Show contribution rather than a growth-style reach result",
+      "resolution": "All result cards and visible thousands-helped wording are removed. The resultsTitle is Contribution and the result names the database and coordination; the original broad reach statement remains qualified once in source notes.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0437",
+      "chapter": 26,
+      "page": 301,
+      "heading": "Notes and references",
+      "slug": "gujarat-action-group-covid-resource-database",
+      "action": "Consolidate the source and privacy boundary",
+      "resolution": "One note identifies the March 2022 record, unverified reach and unknown software/verification detail. No personal records are exposed and no missing artifact is manufactured.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0438",
+      "chapter": 26,
+      "page": 301,
+      "heading": "Keep exploring and engagement close",
+      "slug": "gujarat-action-group-covid-resource-database",
+      "action": "Use a respectful thematic bridge rather than an emergency sales claim",
+      "resolution": "Related work concerns farmer information and lender handoffs. The engagement is a restrained conversation about changing operational information, without monetizing clinical outcomes or promising referrals.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0439",
+      "chapter": 26,
+      "page": 302,
+      "heading": "Desktop evidence for Hero diagram",
+      "slug": "gujarat-action-group-covid-resource-database",
+      "action": "Remove the generic hero diagram and retain its status honestly",
+      "resolution": "No primary media is selected. The original SVG remains optional and its caption identifies a retrospective people-plus-database overview, not an archived interface, availability guarantee or automated feed.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0440",
+      "chapter": 26,
+      "page": 303,
+      "heading": "Desktop evidence for Narrative and contribution",
+      "slug": "gujarat-action-group-covid-resource-database",
+      "action": "Replace repetitive template sections with one volunteer note",
+      "resolution": "The main note has one contribution chapter, without scope metric cards. Original IDs and sources remain optional. No artifact or schema is invented to fill the unavailable historical evidence.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0441",
+      "chapter": 26,
+      "page": 304,
+      "heading": "The decisions behind the work",
+      "slug": "gujarat-action-group-covid-resource-database",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0442",
+      "chapter": 26,
+      "page": 304,
+      "heading": "Notes and references",
+      "slug": "gujarat-action-group-covid-resource-database",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0443",
+      "chapter": 27,
+      "page": 305,
+      "heading": "KuberX launch",
+      "slug": "credflow-kuberx-launch",
+      "action": "Name KuberX, SME customers and approved employment dates",
+      "resolution": "The title introduces SME payments/lending, with launch/P&L ownership in the summary. December 2024–March 2025 remains unchanged from the approved career account.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0444",
+      "chapter": 27,
+      "page": 306,
+      "heading": "Workflow diagram excerpt",
+      "slug": "credflow-kuberx-launch",
+      "action": "Remove generic activation-flow proof from the lead",
+      "resolution": "No primary diagram is selected. The existing SVG stays optional with a caption saying the activation event/campaign funnel are not documented. No bracketed evidence request becomes public copy.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0445",
+      "chapter": 27,
+      "page": 306,
+      "heading": "The decisions behind the work: introductory paragraphs",
+      "slug": "credflow-kuberx-launch",
+      "action": "State the actual launch scope without a fictional bottleneck",
+      "resolution": "The opening names acquisition, onboarding, lending analytics, payments and P&L. It does not invent a funnel failure, initial conversion baseline or customer research finding.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0446",
+      "chapter": 27,
+      "page": 307,
+      "heading": "01 Making acquisition and activation visible",
+      "slug": "credflow-kuberx-launch",
+      "action": "State instrumentation and onboarding work once",
+      "resolution": "The main chapter names MoEngage, app analytics, targeted/gamified sign-up events and personalised SME onboarding. No specific event definition, isolated experiment or resulting decision is invented.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0447",
+      "chapter": 27,
+      "page": 307,
+      "heading": "02 Bringing the workstreams into one launch",
+      "slug": "credflow-kuberx-launch",
+      "action": "Use the second main chapter for the payment connection",
+      "resolution": "The payment chapter explains the engineering partnership and SME business-payment action. The feature has a short companion note; acquisition work is not recast as an independent payment decision.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0448",
+      "chapter": 27,
+      "page": 308,
+      "heading": "03 The judgment I take forward",
+      "slug": "credflow-kuberx-launch",
+      "action": "Remove the generic third lesson",
+      "resolution": "There are two main chapters. The old takeaway ID remains as optional measurement context, without a manufactured prediction, surprise or changed decision.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0449",
+      "chapter": 27,
+      "page": 308,
+      "heading": "Results and scope, metric labels and captions",
+      "slug": "credflow-kuberx-launch",
+      "action": "Keep CAC and savings precise without double counting",
+      "resolution": "All metric cards are removed. The result consistently says 45% first-month CAC reduction and ₹10 lakh acquisition-cost savings; overlap and calculation are unresolved, so they are not summed. Payment value belongs to its companion note.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0450",
+      "chapter": 27,
+      "page": 309,
+      "heading": "Notes and references",
+      "slug": "credflow-kuberx-launch",
+      "action": "Use one evidence note",
+      "resolution": "The note identifies career-record provenance and missing campaign/cohort definitions. Public source-processing wording is removed, and no unavailable analytics screen or private walkthrough is promised.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0451",
+      "chapter": 27,
+      "page": 309,
+      "heading": "Keep exploring",
+      "slug": "credflow-kuberx-launch",
+      "action": "Offer connected follow-on work and a launch enquiry",
+      "resolution": "The payment companion and education-lending case are the related records. A bounded engagement asks which acquisition/onboarding/action question needs examination. Both existing CredFlow routes remain concise notes under the root route-preservation instruction.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0452",
+      "chapter": 27,
+      "page": 310,
+      "heading": "The decisions behind the work",
+      "slug": "credflow-kuberx-launch",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0453",
+      "chapter": 27,
+      "page": 310,
+      "heading": "Bringing the workstreams into one launch",
+      "slug": "credflow-kuberx-launch",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0454",
+      "chapter": 27,
+      "page": 311,
+      "heading": "Notes and references",
+      "slug": "credflow-kuberx-launch",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0455",
+      "chapter": 28,
+      "page": 312,
+      "heading": "SME credit-card payments",
+      "slug": "credflow-pay-via-credit-card",
+      "action": "Name the SME task, contribution and approved dates",
+      "resolution": "The title/opening describe business payments by credit card. The role is payment launch/customer journey with engineering; December 2024–March 2025 remains unchanged.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0456",
+      "chapter": 28,
+      "page": 313,
+      "heading": "The decisions behind the work: introduction",
+      "slug": "credflow-pay-via-credit-card",
+      "action": "Replace money-movement generalities with the established remit",
+      "resolution": "The opening states the customer task and collaboration. It does not infer credit, cash-flow or settlement benefits from the feature name.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0457",
+      "chapter": 28,
+      "page": 313,
+      "heading": "01 A customer flow with a money-movement dependency",
+      "slug": "credflow-pay-via-credit-card",
+      "action": "Keep the product/engineering contribution bounded",
+      "resolution": "The note covers the launch and customer-facing capability, rather than suggesting a documented alternatives-and-choice episode. No missing flow, exception or architecture artifact is fabricated.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0458",
+      "chapter": 28,
+      "page": 314,
+      "heading": "01 technical wording within the same subsection",
+      "slug": "credflow-pay-via-credit-card",
+      "action": "Remove unsupported capacity performance language",
+      "resolution": "High-volume/high-value claims are replaced with business-payment requirements and expected launch traffic. Source notes state that throughput, concurrency and transaction-size benchmarks are not established; architecture ownership is not inferred.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0459",
+      "chapter": 28,
+      "page": 314,
+      "heading": "02 The payment feature inside the KuberX programme",
+      "slug": "credflow-pay-via-credit-card",
+      "action": "Keep wider launch explanation in its programme note",
+      "resolution": "The payment note makes one short connection to KuberX acquisition/onboarding. Detailed launch actions belong to the companion rather than repeating as a second result.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0460",
+      "chapter": 28,
+      "page": 315,
+      "heading": "03 The judgment I take forward",
+      "slug": "credflow-pay-via-credit-card",
+      "action": "Move the transaction-state distinction into the result definition",
+      "resolution": "The result explains initiated, successful and settled states directly. The generic third leadership lesson is removed from the principal note and remains only a concise optional definition.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0461",
+      "chapter": 28,
+      "page": 315,
+      "heading": "Results and scope: narrative, metric and caption",
+      "slug": "credflow-pay-via-credit-card",
+      "action": "Use reported transaction value consistently",
+      "resolution": "The result is ₹10 crore first-week reported transaction value. It does not claim money successfully moved, fee revenue, settled funds, success rate, capacity or profitability. No numeric headline card is used while state scope is unresolved.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0462",
+      "chapter": 28,
+      "page": 316,
+      "heading": "Notes and references",
+      "slug": "credflow-pay-via-credit-card",
+      "action": "Remove undocumented architecture suggestions",
+      "resolution": "One source note identifies the launch/customer-journey contribution and the unknown state/capacity/architecture detail. No unsupported architecture authorship or implied evidence artifact is added.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0463",
+      "chapter": 28,
+      "page": 316,
+      "heading": "Keep exploring",
+      "slug": "credflow-pay-via-credit-card",
+      "action": "Use distinct next evidence and a payment-product enquiry",
+      "resolution": "Related work is the KuberX programme plus lender integration operations. The engagement asks about the customer flow, system handoffs and launch constraint. The old URL remains a concise companion note as explicitly required by the root task.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0464",
+      "chapter": 28,
+      "page": 317,
+      "heading": "The decisions behind the work",
+      "slug": "credflow-pay-via-credit-card",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0465",
+      "chapter": 28,
+      "page": 317,
+      "heading": "Notes and references",
+      "slug": "credflow-pay-via-credit-card",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0466",
+      "chapter": 29,
+      "page": 318,
+      "heading": "Aquaponics operating routines",
+      "slug": "water-farmers-aquaponics",
+      "action": "Lead with internship status and actual work",
+      "resolution": "The title says internship, the role says Farm operations intern and workType is supporting. The summary gives Bengaluru and May–July 2018 before procedures and coordination; no delivered-product ownership is implied.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0467",
+      "chapter": 29,
+      "page": 319,
+      "heading": "Workflow diagram excerpt",
+      "slug": "water-farmers-aquaponics",
+      "action": "Remove the generic workflow as lead evidence",
+      "resolution": "primaryMediaIds is empty. The existing SVG remains optional with a retrospective-context caption, not a farm photograph, SOP or contemporaneous artifact.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0468",
+      "chapter": 29,
+      "page": 319,
+      "heading": "The decisions behind the work: introductory paragraphs",
+      "slug": "water-farmers-aquaponics",
+      "action": "State the remit directly without defensive ownership copy",
+      "resolution": "The main note describes work under farm leadership spanning inputs, farm management, harvest, packing and supply. It does not manufacture a failed handoff or a changed routine episode.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0469",
+      "chapter": 29,
+      "page": 320,
+      "heading": "01 The product decision",
+      "slug": "water-farmers-aquaponics",
+      "action": "Separate procedure work from practical exposure",
+      "resolution": "The note distinguishes establishing procedures and daily coordination from learning integrated pest management, biofiltration and crop diversification. It does not claim design of the underlying aquaponics systems.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0470",
+      "chapter": 29,
+      "page": 320,
+      "heading": "01 later-operation paragraph",
+      "slug": "water-farmers-aquaponics",
+      "action": "Remove irrelevant later-operation discussion from the story",
+      "resolution": "No later fish-stock, production-capacity or enlarged operation claim appears in the main note. The source-period boundary remains compact in optional notes without introducing unshown numbers.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0471",
+      "chapter": 29,
+      "page": 321,
+      "heading": "02 Putting the decision into practice",
+      "slug": "water-farmers-aquaponics",
+      "action": "Bring the 35 women field workers into the remit",
+      "resolution": "Daily coordination with 35 women field workers is stated in the main account, under farm leadership. It is not converted into hiring, appraisal or line-management authority.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0472",
+      "chapter": 29,
+      "page": 321,
+      "heading": "03 The judgment I take forward",
+      "slug": "water-farmers-aquaponics",
+      "action": "Remove the unsupported software morality",
+      "resolution": "The main note ends with the career connection to UrbanKhet. The old takeaway ID becomes Before UrbanKhet rather than an invented lesson from an undocumented incident.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0473",
+      "chapter": 29,
+      "page": 322,
+      "heading": "Results and scope: workforce and acreage cards",
+      "slug": "water-farmers-aquaponics",
+      "action": "Label acreage and workforce as internship context",
+      "resolution": "All outcome cards are removed and resultsTitle is Internship context. The 1.5-acre figure is retained exactly, with 35 field workers, without implying a production or management result.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0474",
+      "chapter": 29,
+      "page": 322,
+      "heading": "Notes and references",
+      "slug": "water-farmers-aquaponics",
+      "action": "Use one period-specific source note",
+      "resolution": "The note identifies May–July 2018 and distinguishes later operation-capacity accounts without expanding internship scope. No source-reconciliation essay appears in the main story.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0475",
+      "chapter": 29,
+      "page": 323,
+      "heading": "Keep exploring",
+      "slug": "water-farmers-aquaponics",
+      "action": "Link next to the actual career progression",
+      "resolution": "The first related case and direct presentation link lead to building UrbanKhet; Farm OS is the optional agritech continuation. There is no commercial engagement close on the internship note.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0476",
+      "chapter": 29,
+      "page": 324,
+      "heading": "The decisions behind the work",
+      "slug": "water-farmers-aquaponics",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0477",
+      "chapter": 29,
+      "page": 324,
+      "heading": "Notes and references",
+      "slug": "water-farmers-aquaponics",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    },
+    {
+      "finding": "F0478",
+      "chapter": 30,
+      "page": 325,
+      "heading": "Captaincy and painting",
+      "slug": "cept-football-creative-practice",
+      "action": "Replace product positioning with a personal note",
+      "resolution": "The title and summary introduce FC Sparta at CEPT and independent painting. The workType stays creative; note format and suppressed irrelevant period prevent a product-delivery presentation.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0479",
+      "chapter": 30,
+      "page": 326,
+      "heading": "The decisions behind the work: introduction",
+      "slug": "cept-football-creative-practice",
+      "action": "Use a factual team account",
+      "resolution": "The main paragraph states captaincy during three consecutive team championships, with the earlier near-bottom finish preserved. The achievement belongs to the team; no leadership method or remembered episode is invented.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0480",
+      "chapter": 30,
+      "page": 326,
+      "heading": "01 The product decision",
+      "slug": "cept-football-creative-practice",
+      "action": "Delete the editorial instruction from every body",
+      "resolution": "The old build section is rewritten as the FC Sparta account. Keep captaincy visible and similar generation instructions are removed from public section and presentation text, while the section ID remains available.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0481",
+      "chapter": 30,
+      "page": 327,
+      "heading": "01 football account paragraph",
+      "slug": "cept-football-creative-practice",
+      "action": "Remove discussion of undocumented training or selection",
+      "resolution": "The captaincy paragraph states only the factual university account and team result. Missing-method commentary is removed rather than made the story.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0482",
+      "chapter": 30,
+      "page": 327,
+      "heading": "01 painting paragraph",
+      "slug": "cept-football-creative-practice",
+      "action": "Link to actual art and describe only supported works",
+      "resolution": "Direct /art navigation is included. The personal note identifies six works and their actual media using the supplied Art registry; complete paintings, captions and detail views remain in the Art collection.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0483",
+      "chapter": 30,
+      "page": 328,
+      "heading": "02 Putting the decision into practice",
+      "slug": "cept-football-creative-practice",
+      "action": "Remove repetitive template practice copy",
+      "resolution": "The two main topics are football and painting, not a three-step product template. Each has a short factual paragraph; the former delivery section is the actual painting practice.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0484",
+      "chapter": 30,
+      "page": 328,
+      "heading": "03 The judgment I take forward",
+      "slug": "cept-football-creative-practice",
+      "action": "Remove the professional-evidence editorial lesson",
+      "resolution": "The takeaway is rewritten as Art/Work navigation. It makes no claim that a hobby proves professional management or that separating evidence is a personal achievement.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0485",
+      "chapter": 30,
+      "page": 329,
+      "heading": "Results and scope, championship metric and painting block",
+      "slug": "cept-football-creative-practice",
+      "action": "Remove metric cards and professional comparisons",
+      "resolution": "All outcome cards are removed. Championships sit naturally in the football paragraph with team credit, and actual paintings are reached through Art rather than a quantified creative-performance block.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0486",
+      "chapter": 30,
+      "page": 329,
+      "heading": "Notes and references",
+      "slug": "cept-football-creative-practice",
+      "action": "Keep one useful attribution note outside the story",
+      "resolution": "The optional source note identifies the Professional Profile and original Priyam Art portfolio. Repeated employment/professional-comparison caveats are removed.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0487",
+      "chapter": 30,
+      "page": 330,
+      "heading": "Keep exploring",
+      "slug": "cept-football-creative-practice",
+      "action": "Provide destination-appropriate choices",
+      "resolution": "presentation.links has View paintings → /art and Explore my work → /product. Generic lending recommendations and a commercial enquiry close are absent; the existing route remains a short personal note for compatibility.",
+      "status": "implemented within documented evidence"
+    },
+    {
+      "finding": "F0488",
+      "chapter": 30,
+      "page": 331,
+      "heading": "Notes and references",
+      "slug": "cept-football-creative-practice",
+      "action": "Preserve the observed section destination without template filler",
+      "resolution": "This is an additional capture, not a separate finding. Its original section/alias remains mapped to the rewritten principal note or optional on-site evidence. The chapter’s substantive findings above describe the copy, classification, media selection and navigation changes.",
+      "status": "supporting capture covered"
+    }
+  ]
+}

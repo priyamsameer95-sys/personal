@@ -106,6 +106,7 @@ export interface CaseStudyVideo extends WorkMediaBase {
   duration?: string;
   transcript?: string;
   captions?: { src: string; language: string; label: string }[];
+  frame?: 'portrait';
 }
 
 export type CaseStudyMedia = CaseStudyScreenshot | CaseStudyVideo;
@@ -116,11 +117,20 @@ export interface CaseStudyChapterGroup {
   sectionIds: string[];
   /** Edited account of these source sections; unique facts remain mapped to the source records. */
   body?: string[];
+  mainMediaIds?: string[];
+  mainTableCaptions?: string[];
 }
 
 export interface CaseStudyPresentation {
   decisionBeats: CaseStudyChapterGroup[];
   supportingGroups: CaseStudyChapterGroup[];
+  format?: 'case' | 'note' | 'archive';
+  resultsTitle?: string;
+  suppressPeriod?: boolean;
+  periodLabel?: string;
+  internalSectionIds?: string[];
+  links?: { label: string; href: string }[];
+  legacyChapterTargets?: { id: string; sectionId: string }[];
 }
 
 export interface CaseStudy {
@@ -147,6 +157,7 @@ export interface CaseStudy {
   media: CaseStudyMedia[];
   relatedSlugs?: string[];
   sourceNotes?: string[];
+  engagement?: { title: string; body: string; subject: string };
 }
 
 export interface PublishedWorkItem {

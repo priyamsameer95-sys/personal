@@ -61,9 +61,11 @@ test('public hosting permits the supplied CV and keeps source documents and arch
   assert.deepEqual(retired, [], `Retired files must not be publicly hosted: ${retired.join(', ')}`);
 });
 
-test('the CV download is the unchanged supplied PDF and has a direct download action', () => {
+test('the CV download serves the audit-aligned PDF and retains a direct download action', () => {
   const bytes = readFileSync(path.join(__dirname, '../public/cv/Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf'));
-  assert.equal(createHash('sha256').update(bytes).digest('hex'), '01978cf50d61878a4e55ad390a3c83e115779d430ddd2679f0eca0fced079176');
+  const baseline = JSON.parse(readFileSync(path.join(__dirname, '../audit/2026-10-15/source-manifest.json')));
+  assert.notEqual(createHash('sha256').update(bytes).digest('hex'), baseline.originalCvSha256, 'Audit required a new readable CV rather than the compressed original');
+  assert.ok(bytes.length > 8000, 'The downloadable document is populated');
   assert.equal(bytes.subarray(0, 5).toString(), '%PDF-');
   const { outputText: componentJs } = ts.transpileModule(readFileSync(path.join(__dirname, '../components/CvDownload.tsx'), 'utf8'), {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, jsx: ts.JsxEmit.ReactJSX },

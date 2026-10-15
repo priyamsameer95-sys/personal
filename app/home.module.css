@@ -1,74 +1,65 @@
-.introduction { display: grid; grid-template-columns: 1.15fr 1fr; gap: 4rem; align-items: start; padding: .5rem 0 2.5rem; }
-.byline { margin: 0 0 1rem; font-size: .875rem; color: var(--muted); }
-.introduction h1 { max-width: 17ch; margin: 0; font-size: clamp(2.3rem, 3.7vw, 3.6rem); font-weight: 550; line-height: 1.1; letter-spacing: -.045em; text-wrap: pretty; }
-.introCopy { padding-top: .1rem; }
-.introCopy > p:first-child { max-width: 49ch; font-size: 1.0625rem; line-height: 1.65; }
-.currentRole { margin-top: .9rem; color: var(--muted); font-size: .875rem; line-height: 1.5; }
-.actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-top: 1.25rem; }
-.download { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .5rem .15rem; font-size: .9rem; text-decoration: underline; text-underline-offset: .3em; }
-.download:hover { text-decoration-thickness: 2px; }
-.sectionHeading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem 2rem; margin-bottom: 1.5rem; }
-.sectionHeading h2 { font-size: 1.3rem; font-weight: 550; letter-spacing: -.025em; }
-.sectionHeading > p { color: var(--muted); font-size: .875rem; max-width: 48ch; line-height: 1.6; }
-.selected, .experiments, .results, .careerSection { padding: 2rem 0 2.5rem; border-top: 1px solid var(--rule); }
-.leadWork { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 2.5rem; align-items: start; }
-.leadMedia, .leadAccount { min-width: 0; }
-.leadAccount h3 { font-size: clamp(1.7rem, 2.3vw, 2.35rem); line-height: 1.2; font-weight: 550; letter-spacing: -.035em; margin: .9rem 0 1rem; max-width: 23ch; }
-.leadAccount > p:not(.qualification) { max-width: 43ch; font-size: 1rem; line-height: 1.7; }
-.result { display: flex; align-items: center; gap: 1.2rem; margin-top: 1.5rem; }
-.result strong { font-size: 3rem; font-variant-numeric: tabular-nums; font-weight: 550; letter-spacing: -.06em; line-height: 1.1; }
-.result > span { font-size: .9rem; line-height: 1.5; max-width: 22ch; }
-.qualification { font-size: .8125rem; line-height: 1.65; color: var(--muted); margin-top: .8rem; max-width: 55ch; }
-.leadAccount > a { margin-top: .9rem; }
-.workPair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: start; gap: 2.5rem; margin-top: 2.5rem; }
-.workPair > article { min-width: 0; }
-.pairAccount { margin-top: 1rem; }
-.workContext { font-size: .8125rem; color: var(--muted); line-height: 1.5; }
-.pairAccount h3 { font-size: 1.55rem; font-weight: 550; line-height: 1.25; letter-spacing: -.025em; margin: .5rem 0 .7rem; max-width: 29ch; }
-.pairAccount > p:not(.qualification):not(.workContext) { font-size: .95rem; line-height: 1.7; max-width: 55ch; }
-.pairAccount > a { margin-top: .65rem; }
-.experimentPair { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-.experimentPair > article { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 1.25rem; min-width: 0; }
-.experimentAccount h3 { font-size: 1.05rem; font-weight: 550; line-height: 1.35; margin-bottom: .5rem; }
-.experimentAccount p { font-size: .875rem; line-height: 1.7; color: var(--muted); }
-.experimentAccount > a { margin-top: .5rem; }
-.resultLedger > div { display: grid; grid-template-columns: 1fr .8fr 1.6fr; align-items: start; gap: 1.5rem; border-top: 1px solid var(--rule); padding: 1.3rem 0; }
-.resultLedger dt a { display: inline-flex; gap: .4rem; min-height: 44px; align-items: start; text-underline-offset: .3em; font-size: .95rem; }
-.resultValue { margin: 0; font-size: 1.5rem; font-weight: 550; line-height: 1.2; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
-.resultMeaning { margin: 0; font-size: .9rem; line-height: 1.5; }
-.resultMeaning small { display: block; margin-top: .3rem; font-size: .8125rem; line-height: 1.65; color: var(--muted); }
-.career { list-style: none; }
-.career li { display: grid; grid-template-columns: .6fr .9fr 1.6fr; align-items: center; gap: 1.5rem; padding: 1.2rem 0; border-top: 1px solid var(--rule); }
-.careerDate { font-size: .875rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.careerBrand { display: flex; align-items: center; gap: .8rem; min-width: 0; }
-.careerBrand > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
-.careerRemit h3 { font-size: 1rem; font-weight: 550; line-height: 1.5; }
-.careerRemit p { color: var(--muted); font-size: .875rem; line-height: 1.65; margin-top: .15rem; }
-.paintingSection { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center; padding: 2.5rem 0 .5rem; border-top: 1px solid var(--rule); }
-.paintingSection h2 { font-size: clamp(1.8rem, 2.7vw, 2.6rem); font-weight: 550; line-height: 1.15; letter-spacing: -.04em; max-width: 18ch; }
-.paintingSection p { max-width: 42ch; color: var(--muted); font-size: 1rem; line-height: 1.7; margin: 1rem 0; }
-.painting { width: 100%; max-width: 31rem; justify-self: end; text-decoration: none; }
-.painting img { display: block; width: 100%; height: auto; }
-.painting > span { display: flex; align-items: center; min-height: 44px; font-size: .8125rem; color: var(--muted); }
-.painting:hover > span { text-decoration: underline; text-underline-offset: .3em; }
-@media (max-width: 1100px) { .introduction { gap: 2rem; } .leadWork, .workPair, .experimentPair { gap: 1.75rem; } .experimentPair > article { grid-template-columns: 1fr; } }
-@media (max-width: 767px) {
-  .introduction { grid-template-columns: 1fr; gap: 1.25rem; padding-bottom: 2rem; }
-  .introduction h1 { max-width: 19ch; font-size: clamp(2.1rem, 7.5vw, 2.7rem); }
-  .introCopy > p:first-child { font-size: 1rem; }
-  .byline { font-size: .8125rem; }
-  .sectionHeading { margin-bottom: 1.25rem; }
-  .leadWork, .workPair, .experimentPair, .paintingSection { grid-template-columns: 1fr; gap: 1.5rem; }
-  .leadAccount h3 { font-size: 1.8rem; }
-  .workPair { margin-top: 2rem; gap: 2rem; }
-  .experimentPair { gap: 2rem; }
-  .experimentPair > article { grid-template-columns: 1fr; }
-  .resultLedger > div { grid-template-columns: 1fr 1fr; gap: .5rem 1rem; }
-  .resultMeaning { grid-column: 1 / -1; }
-  .resultValue { text-align: right; }
-  .career li { grid-template-columns: 1fr 1fr; gap: .75rem 1rem; align-items: center; }
-  .careerRemit { grid-column: 1 / -1; }
-  .careerBrand { justify-content: end; }
-  .paintingSection { padding-top: 2rem; }
-  .painting { max-width: 100%; justify-self: start; }
+.hero { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); align-items:start; gap:3rem; padding:1rem 0 2.5rem; }
+.role { font-size:.875rem; color:var(--muted); margin:0 0 1rem; line-height:1.6; }
+.hero h1 { max-width:17ch; margin:0; font-size:clamp(2.8rem,4.7vw,4.5rem); font-weight:500; line-height:1.05; letter-spacing:-.055em; }
+.heroCopy p { max-width:52ch; margin:0 0 .8rem; font-size:1rem; line-height:1.7; }
+.actions { display:flex; align-items:center; flex-wrap:wrap; gap:.5rem 1.5rem; margin:1.2rem 0; }
+.heroCopy .smallInvitation { font-size:.875rem; color:var(--muted); }
+.smallInvitation a { color:var(--ink); text-underline-offset:.25em; }
+.selected,.exploration,.career,.art,.closing { padding:2.5rem 0; border-top:1px solid var(--rule); }
+.sectionHeader { display:flex; justify-content:space-between; align-items:baseline; gap:1rem 3rem; margin-bottom:1.5rem; }
+.sectionHeader h2,.art h2,.closing h2 { margin:0 0 .65rem; font-size:clamp(1.6rem,2.5vw,2.2rem); font-weight:550; line-height:1.25; letter-spacing:-.035em; }
+.sectionHeader p { max-width:69ch; margin:0; font-size:1rem; line-height:1.7; color:var(--muted); }
+.sectionHeader > a { flex:0 0 auto; }
+.story { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:3rem; padding:2rem 0; border-top:1px solid var(--rule); }
+.story:first-of-type { border:0; padding-top:.5rem; }
+.account { min-width:0; }
+.brand { display:flex; align-items:center; flex-wrap:wrap; gap:.5rem 1rem; }
+.brand > div { margin:0; }
+.brand > span,.status { font-size:.8125rem; line-height:1.6; color:var(--muted); }
+.account h3 { margin:1rem 0 .9rem; max-width:30ch; font-family:var(--font-editorial); font-size:clamp(1.8rem,2.5vw,2.3rem); font-weight:400; line-height:1.15; letter-spacing:-.025em; }
+.account p { margin:0 0 .8rem; font-size:1rem; line-height:1.7; }
+.account .notice,.notice { color:var(--muted); font-size:.875rem; line-height:1.65; }
+.evidence { min-width:0; }
+.evidence img { width:100%; height:auto; max-height:none; object-fit:contain; }
+.evidence figcaption { font-size:.8125rem; }
+.storefront { width:15rem; justify-self:center; }
+.storefront video { width:100%; height:auto; aspect-ratio:332/720; object-fit:cover; }
+.tradeNote { max-width:80ch; margin-top:1rem; padding-top:1.5rem; border-top:1px solid var(--rule); }
+.tradeNote h3 { margin:0 0 .6rem; font-size:1.25rem; font-weight:550; line-height:1.4; }
+.tradeNote p { margin:0; font-size:1rem; line-height:1.7; }
+.experimentPair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:3rem; }
+.experimentPair article { min-width:0; }
+.experimentPair h3 { font-size:1.5rem; font-weight:550; line-height:1.35; letter-spacing:-.025em; margin:.4rem 0 .8rem; }
+.experimentPair p { line-height:1.7; margin:0 0 1rem; }
+.experimentPair figure { margin:1rem 0; }
+.experimentPair img { max-height:none; }
+.career > div { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem; }
+.career h3 { font-size:1.1rem; margin:.6rem 0 .3rem; font-weight:550; }
+.career p { margin:.3rem 0; line-height:1.6; }
+.art { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.5fr); gap:2rem; align-items:center; }
+.art p,.closing p { max-width:67ch; margin:0 0 .7rem; font-size:1rem; line-height:1.7; }
+.art > a { justify-self:end; max-width:14rem; text-decoration:none; }
+.art img { display:block; width:auto; height:15rem; max-width:100%; object-fit:contain; }
+.art > a > span { display:block; font-size:.8125rem; line-height:1.6; color:var(--muted); margin-top:.5rem; }
+.closing { padding-bottom:0; }
+@media(max-width:1050px) { .hero,.story,.experimentPair { gap:2rem; } }
+@media(max-width:767px) {
+ .hero,.story,.experimentPair { grid-template-columns:minmax(0,1fr); gap:1.25rem; }
+ .hero { padding:.5rem 0 2rem; }
+ .hero h1 { font-size:clamp(2.5rem,9vw,3.5rem); max-width:17ch; }
+ .role { margin-bottom:.75rem; }
+ .selected,.exploration,.career,.art,.closing { padding:2rem 0; }
+ .sectionHeader { flex-wrap:wrap; gap:.5rem 1rem; }
+ .story { padding:1.5rem 0; }
+ .story:first-of-type { padding-top:0; }
+ .account h3 { font-size:1.9rem; }
+ .account p { line-height:1.65; }
+ .evidence { width:100%; }
+ .storefront { width:12rem; }
+ .experimentPair { gap:2rem; }
+ .career > div { grid-template-columns:minmax(0,1fr); gap:1.5rem; }
+ .career article { padding-top:1rem; border-top:1px solid var(--rule); }
+ .art { grid-template-columns:minmax(0,1fr) minmax(0,.65fr); gap:1rem; }
+ .art img { height:auto; width:100%; }
 }
+@media(max-width:380px) { .actions { gap:.5rem 1rem; } .art { grid-template-columns:minmax(0,1fr); } .art > a { justify-self:start; width:10rem; } }

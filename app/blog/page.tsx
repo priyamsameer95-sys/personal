@@ -18,16 +18,16 @@ interface ContentItem {
 
 export const metadata: Metadata = {
   title: 'Writing',
-  description: 'Published writing by Priyam Sameer about product decisions and operating experience, alongside his product leadership portfolio.',
-  openGraph: { title: 'Writing — Priyam Sameer', description: 'My published writing about product decisions and operating experience.' },
-  twitter: { title: 'Writing — Priyam Sameer', description: 'My published writing about product decisions and operating experience.' },
+  description: 'For now, the clearest account of Priyam Sameer’s product thinking is in the work itself: the problem, the decision and what followed.',
+  openGraph: { title: 'Writing — Priyam Sameer', description: 'Start with the decisions behind my work.' },
+  twitter: { title: 'Writing — Priyam Sameer', description: 'Start with the decisions behind my work.' },
 };
 
 export const revalidate = 0;
 
 async function loadWriting(): Promise<{ items: ContentItem[]; unavailable: boolean }> {
   // Writing is optional; a missing connection must not make the portfolio fail.
-  if (!process.env.POSTGRES_URL) return { items: [], unavailable: process.env.NODE_ENV === 'production' };
+  if (!process.env.POSTGRES_URL) return { items: [], unavailable: false };
   try {
     const { rows } = await db`
       SELECT id, title, slug, summary, body_markdown, created_at
@@ -52,7 +52,7 @@ export default async function BlogPage() {
         <main id="main-content" className={styles.page}>
           <header className={styles.intro}>
             <h1>Writing.</h1>
-            <p>Product decisions, lessons and the experience behind them.</p>
+            <p>For now, the clearest account of my product thinking is in the work itself.</p>
           </header>
 
           {unavailable ? (
@@ -66,9 +66,9 @@ export default async function BlogPage() {
             </section>
           ) : items.length === 0 ? (
             <section className={styles.empty} aria-labelledby="writing-empty-title">
-              <h2 id="writing-empty-title">No essays to read here yet.</h2>
-              <p>For now, my case studies share the thinking behind the work.</p>
-              <Link href="/product">Explore my work <span aria-hidden="true">↗</span></Link>
+              <h2 id="writing-empty-title">Start with a decision.</h2>
+              <p>Read how an education-loan enquiry becomes a prepared application, or how a shared partner workflow makes room for different lender rules.</p>
+              <div className={styles.actions}><Link href="/product/cashkaro-college-money-education-loans">Education lending <span aria-hidden="true">↗</span></Link><Link href="/product/cashkaro-lender-integration-operations">Lender integrations <span aria-hidden="true">↗</span></Link><Link href="/product">Selected work <span aria-hidden="true">↗</span></Link></div>
             </section>
           ) : (
             <div className={styles.essays}>

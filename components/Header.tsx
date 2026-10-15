@@ -9,7 +9,7 @@ import styles from './site-chrome.module.css';
 
 const navItems = [
   { label: 'Home', path: '/' }, { label: 'Work', path: '/product' },
-  { label: 'Experience', path: '/cv' }, { label: 'Writing', path: '/blog' }, { label: 'Art', path: '/art' },
+  { label: 'How I can help', path: '/#how-i-can-help' }, { label: 'Experience', path: '/cv' }, { label: 'Art', path: '/art' },
 ];
 
 export default function Header() {

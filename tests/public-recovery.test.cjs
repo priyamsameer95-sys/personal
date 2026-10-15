@@ -45,16 +45,17 @@ test('Writing distinguishes a failed connection from an empty published collecti
 
   const connected = loadPage('app/blog/page.tsx', { POSTGRES_URL: 'configured' }, async () => ({ rows: [] }));
   const emptyHtml = renderToStaticMarkup(await connected.default());
-  assert.match(emptyHtml, /No essays to read here yet/);
+  assert.match(emptyHtml, /Start with a decision/);
   assert.doesNotMatch(emptyHtml, /temporarily unavailable/);
 });
 
-test('missing production Writing connection fails locally without a query or a false empty state', async () => {
+test('unconfigured Writing retains an honest case-led holding page without querying', async () => {
   const page = loadPage('app/blog/page.tsx', { NODE_ENV: 'production' }, () => assert.fail('Unconfigured Writing must not query'));
   const html = renderToStaticMarkup(await page.default());
-  assert.match(html, /Writing is temporarily unavailable/);
+  assert.match(html, /Start with a decision/);
   assert.match(html, /<h1>Writing\.<\/h1>/);
-  assert.doesNotMatch(html, /No essays/);
+  assert.match(html, /href="\/product\/cashkaro-college-money-education-loans"/);
+  assert.doesNotMatch(html, /temporarily unavailable|No essays|subscribe/i);
 });
 
 test('unknown public detail routes use 404 before touching an unconfigured database', async () => {

@@ -1,0 +1,15 @@
+{
+  "auditPages": 342,
+  "chapters": 31,
+  "uniqueFigureIds": 497,
+  "expectedFigureIds": 497,
+  "missingIds": [],
+  "maps": [
+    "global-coverage.json",
+    "cashkaro-coverage.json",
+    "absolute-coverage.json",
+    "background-coverage.json",
+    "cv-coverage.json"
+  ],
+  "status": "implemented within available evidence; final checks passed; external evidence and reader tasks explicitly recorded in README.md"
+}

@@ -1,0 +1,38 @@
+{
+  "pages": 2,
+  "words": 688,
+  "unique_link_annotations": 31,
+  "case_study_urls": 25,
+  "required_links_pass": true,
+  "claim_scope_checks_pass": true,
+  "font_size_word_counts": {
+    "8.5": 10,
+    "27.0": 2,
+    "11.5": 28,
+    "10.5": 637,
+    "12.0": 11
+  },
+  "text_bounds": [
+    {
+      "page": 1,
+      "min_left": 42.65,
+      "max_right": 551.72,
+      "min_bottom": 17.22,
+      "max_top": 793.55
+    },
+    {
+      "page": 2,
+      "min_left": 42.65,
+      "max_right": 552.83,
+      "min_bottom": 17.22,
+      "max_top": 797.76
+    }
+  ],
+  "visual_inspection": [
+    "/private/tmp/priyam-cv-page-1.png",
+    "/private/tmp/priyam-cv-page-2.png"
+  ],
+  "visual_result": "Both rendered pages reviewed; single column, left-aligned, no clipping, no stranded section heading.",
+  "sha256": "2a8e04a88736df3f7db72d2a198d0ae9f38bd8975ef2d55477ae08dcd28a59c9",
+  "actualBrowserDownloadSha256": "2a8e04a88736df3f7db72d2a198d0ae9f38bd8975ef2d55477ae08dcd28a59c9"
+}

@@ -34,6 +34,7 @@ export default function Media({ media, priority = false, previewSrc, compact = f
   const dialogId = `${labelId}-image`;
   const sourceContext = provenanceText(media);
   const isLongImage = media.kind === 'image' && Boolean(media.width && media.height && media.height > media.width * 2.5);
+  const portraitDiagram = media.kind === 'image' && media.category === 'diagram' && Boolean(media.width && media.height && media.height > media.width);
 
   useEffect(() => {
     if (!expanded || !dialog.current) return;
@@ -53,7 +54,7 @@ export default function Media({ media, priority = false, previewSrc, compact = f
   }
 
   return (
-    <figure className={`${styles.figure}${media.kind === 'video' ? ` ${styles.videoFigure}` : ''}${compact ? ` ${styles.compactMedia}` : ''}`}>
+    <figure className={`${styles.figure}${media.kind === 'video' ? ` ${styles.videoFigure}` : ''}${portraitDiagram ? ` ${styles.portraitDiagram}` : ''}${compact ? ` ${styles.compactMedia}` : ''}`}>
       {media.kind === 'image' ? (
         <>
           <button ref={trigger} type="button" aria-haspopup="dialog" aria-label={`Enlarge image: ${media.alt}`} aria-expanded={expanded} aria-controls={dialogId} className={styles.imageButton} onClick={() => { setActualSize(false); setExpanded(true); }}>
@@ -78,7 +79,7 @@ export default function Media({ media, priority = false, previewSrc, compact = f
         </>
       ) : (
         <>
-          <video className={styles.video} controls controlsList="nodownload" playsInline preload="none" poster={media.poster} aria-label={media.title}>
+          <video className={`${styles.video}${media.frame === 'portrait' ? ` ${styles.portraitVideo}` : ''}`} controls controlsList="nodownload" playsInline preload="none" poster={media.poster} aria-label={media.title}>
             <source src={media.src} type={media.mime || 'video/mp4'} />
             {media.captions?.map((track, index) => <track key={track.src} kind="captions" src={track.src} srcLang={track.language} label={track.label} default={index === 0} />)}
             Your browser cannot play this video.

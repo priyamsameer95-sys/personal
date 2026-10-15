@@ -47,3 +47,25 @@ test('parser resources are released after extraction and malformed PDF failure',
     PDFParse.prototype.destroy = originalDestroy;
   }
 });
+
+test('the downloadable CV matches the reconciled career source and stays readable', async () => {
+  const career = JSON.parse(fs.readFileSync(path.join(__dirname, '../app/cv/content.json')));
+  const bytes = fs.readFileSync(path.join(__dirname, '../public/cv/Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf'));
+  const text = await extractPdfText(bytes);
+  for (const field of [career.name, career.location, career.contacts.email, career.contacts.website, career.education.degree]) {
+    assert.ok(text.includes(field), `Shared web/PDF fact: ${field}`);
+  }
+  for (const job of career.experience) {
+    assert.ok(text.includes(job.company), job.company);
+    for (const role of job.progression) assert.ok(text.includes(role.title), role.title);
+  }
+  assert.match(text, /scripted interaction prototype/);
+  assert.match(text, /MCP policy-service proposal/);
+  assert.doesNotMatch(text, /16%|45%|40%|5\.5 crore|Atal Innovation|SQL|Python|real-time settlement/);
+  assert.ok(text.split(/\s+/).length < 850, 'A shortened two-page account replaces the compressed source CV');
+  const parser = new PDFParse({ data: bytes });
+  try {
+    const info = await parser.getInfo();
+    assert.equal(info.total, 2, 'The CV fits two ordinary readable pages');
+  } finally { await parser.destroy(); }
+});

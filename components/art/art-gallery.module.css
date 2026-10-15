@@ -40,3 +40,7 @@
 }
 @media (max-width: 380px) { .collectionHeader { align-items: start; flex-wrap: wrap; gap: .5rem; } .notes { grid-template-columns: minmax(0, 1fr) 5.25rem; } }
 @media print { .index { display: none; } .works { display: block; } .work { break-inside: avoid; margin-bottom: 2rem; } }
+/* A detail is an optional closer look, never a second competing full painting. */
+.detailImages { max-width:9rem; }
+.detailImages .figure { margin:0; }
+.detailImages img { max-height:11rem; width:auto; max-width:100%; object-fit:contain; }

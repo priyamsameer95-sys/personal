@@ -139,3 +139,55 @@ Final verification: **72 automated tests passed**, with zero failures; type chec
 Native review covered Home, Work, case introductions, a lender-integration chapter, CV, Art and Writing at an actual **1280px desktop width** and **390px/320px phone widths**. No page-width overflow was found in the inspected layouts. Phone menu and contact choices support Enter/Escape and restore focus; image enlargement supports actual-size viewing and returns focus to the original image button. Source links were inspected without sending messages or connecting lending systems. Independent read-only review found no factual, attribution or source-loss blocker.
 
 Fresh captures are saved outside the repository in Downloads as `priyam-operating-home-desktop.png`, `priyam-operating-work-desktop.png`, `priyam-operating-case-desktop.png`, `priyam-operating-home-phone.png`, `priyam-operating-work-phone.png`, `priyam-operating-case-phone.png`, `priyam-operating-integration-phone.png` and `priyam-operating-cv-phone.png`. The production checker report is `/private/tmp/portfolio-route-check-report.json`. Existing private-admin image/font advisories are nonfatal. This review does not claim a WCAG certification, a Lighthouse score or newly measured AI outcomes; registry source substance, auth, database and live partner systems are unchanged.
+
+## Working-folio refinement — 15 October 2026
+
+This local refinement follows the project-to-organisation map and the criticism of the site's visual taste. It supersedes the homepage composition in UI-17 above. The complete chronology, content registry and private systems remain unchanged.
+
+| Audit ID | Change |
+| --- | --- |
+| **UI-22** | Priyam's full name replaces the generic hero slogan. The concrete lending remit, work action and original CV sit beside an attributed detail of his own Public Compass painting. The hero is shorter and the artwork yields to the phone reading flow. |
+| **UI-23** | Short editorial product titles and wide evidence panels replace repeated pitch framing. EduLoans leads with its original prototype, followed by the MCP proposal and crop-health workflow, then College.money, SilkRoute and UrbanKhet's original storefront. Each project's title, status and personal contribution precede its media on phones. Commercial and validation limits remain visible with the relevant claim. |
+| **UI-24** | Serif display titles carry through Work and case headers, with sans-serif body copy and restrained metadata. The CV stays a plain document. Original brands, cream paper and colour beneath it remain. Tumult adds a different original painting to the art bridge. |
+
+Verification: **72 automated tests passed**; standalone type checking, the production build and whitespace checks passed. The final production route audit passed **3,125 checks with zero failures**, covering all 25 canonical cases, 20 aliases, 221 sections, 492 current section fragments, 157 hosted asset URLs and 121 registry media entries. All ten videos/posters and the original CV hash remain valid.
+
+Native review covered Home, Work and a case opening at 1280px desktop and 390px/320px phone widths. No page-width overflow was found on the inspected pages. Final phone review corrected the 320px action-row wrap. Image enlargement opens from Enter and restores focus on Escape; College.money plays on user action and pauses from the keyboard. All homepage images loaded with valid dimensions after scrolling through the page. Video remains paused until initiated. Independent review found no factual or attribution regression.
+
+Final production Home captures are saved outside the repository in Downloads: `priyam-taste-home-desktop.png`, `priyam-taste-home-phone.png` and `priyam-taste-home-full.png`. This pass is local and has not been pushed or deployed. The existing private-admin image/font advisories remain nonfatal.
+
+## Composition and project-map correction — 15 October 2026
+
+This follow-up replaces the floating hero painting and repeated small case rows from UI-22/23. It also corrects the separate local project map the user had open at port 3012.
+
+| Audit ID | Implemented correction |
+| --- | --- |
+| **UI-25** | The map's five-column inventory repeated employer and tenure, with relationships buried in notes. The local map now uses one open company/date/role block per organisation, branching into product families and their linked contributions. All 25 records and nine contexts remain, including overlapping venture support and volunteering, undated advisory and personal practice. The one-category-per-record selector is removed. Organisation filtering and search remain optional. |
+| **UI-26** | Home's introduction now uses a compact identity/remit composition, with actual paint exposed as a narrow edge beneath it. The original prototype gets a wide evidence plate; systems use two open plates and commercial projects share one spread. Phone order continues to establish title, status and ownership before media. |
+| **UI-27** | The original UrbanKhet recording is presented in portrait proportions, alongside original Sorted-Packs company artwork. One adjacent, open note preserves excerpt limits, Studio Sorted credit, historical marketing status, the 10 April 2020 post date and its source. Repeated workflow captions are removed while the authored-illustration classification remains visible. Detailed archived validation stays in its existing open case chapter. |
+
+Verification: 72 automated tests pass, including source continuity and the consolidated caption's attribution. The production build and type validation pass; the production route/media audit passes 3,124 checks with zero failures. The source registry, 25 cases, aliases, original CV and private systems remain unchanged. The map filter exposes five CashKaro studies and restores all 25; all are visible initially. Native review covers desktop, 390px and 320px layouts without page-width overflow. The portrait video plays from the keyboard and advances normally; images load correctly. The final full-page review caught and corrected prototype-logo grid placement.
+
+Current captures are `priyam-revised-home-desktop.png`, `priyam-revised-home-phone.png` and `priyam-revised-home-full.png` in Downloads, plus `priyam-project-map/preview.png` and `priyam-project-map/map-phone.png`. The map's source JSON/CSV/Markdown are unchanged. This remains a local, uncommitted review; passing checks do not establish audience approval or a visual-quality score.
+
+
+## 342-page audit implementation — 15 October 2026
+
+This revision implements the supplied `PriyamSameer_Website_Audit.pdf` and supersedes the presentation and unchanged-CV statements in the earlier dated entries above. The audit was read across all 31 chapters. The traceability files in `audit/2026-10-15/` map every one of its 497 distinct figure IDs, with the associated recommendations and honest evidence exclusions.
+
+Home now develops the connected product/business remit through three delivered problems before introducing the prototype and proposal separately. Work offers four problem-based paths and eight visible selected cases. All 25 case records were edited around supported decisions; shorter background notes avoid forced product narratives. Each main account has one optional open reference collection. Repetitive authoring directions and undefined metric graphics were removed. A corrected crop-health diagram separates the delivered flow from intended advisory work inside the image and remains readable on a phone.
+
+Experience and the replacement CV share `app/cv/content.json`. The PDF is two pages, 688 words, with 10.5-point body text, 31 distinct URI destinations and all 25 case links. Both rendered pages were inspected. The browser's visible Download CV action delivered the same bytes as the hosted file: SHA-256 `2a8e04a88736df3f7db72d2a198d0ae9f38bd8975ef2d55477ae08dcd28a59c9`. The original supplied PDF is preserved in the local source backup and still matches its original checksum.
+
+Art retains six complete paintings, mediums/dimensions and lightly edited notes, with exact original statements retained in data. Details are small thumbnails with direct enlargement. The ambiguous ANNA cover and historical availability labels stay outside the main gallery. Writing is removed from primary navigation until an author-reviewed essay exists; the route directs readers honestly to relevant case accounts.
+
+Final verification:
+
+- **78 tests passed; zero failures.** Type validation and the production build passed. `git diff --check` passed. Existing private-admin image advisories and optional Google icon-font optimization warning are nonfatal.
+- The production checker passed **55 public/main/reference pages, 20 permanent aliases, 109 original chapter links and 178 asset URLs**, including all original media checksums. All ten video/poster pairs and byte-range responses work. Twelve private/retired routes return the expected 404. No source archives, duplicate IDs, content accordions, unsafe source links or non-CV download actions were found.
+- The registry now has 224 sections, 39 tables (38 public; one internal numerical register excluded), 122 media entries and all 25 retained cases. Every original section/media identity and URL remains; the corrected diagram is additive. Old chapter hashes forward to their owning source chapter and restore reading focus.
+- Native desktop review used 1363 × 936; phone review used 390 × 844 and narrow checks used 320 × 844. The principal pages and representative case types fit within the page width. Images enlarge by keyboard, fit/actual-size works, Escape restores trigger focus, and body scrolling restores. Contact initially focuses Email and restores its trigger on dismissal. The phone menu and Help anchor work. Wide tables scroll from the keyboard without widening the page. UrbanKhet playback advanced under visitor control and its original phone interface is framed without the large side bars. All Home images loaded during normal viewing.
+
+Fresh captures in Downloads use the `priyam-audit-` prefix. The final HTTP report, PDF record, coverage summary and browser checks are saved in `audit/2026-10-15/check-report.json`, `cv-validation.json`, `coverage-summary.json` and `verification.json`. Re-run the portable HTTP checker with `node scripts/check-audit-site.mjs` after a production build/start.
+
+Real-reader validation remains pending; its tasks are prepared. Missing measurement definitions, production artifacts, external profile reconciliation and artist attribution were not invented. The first essay requires Priyam's substantive review before publication. This is a local, uncommitted implementation: no deployment, GitHub publication, private-system change, migration or live partner connection was performed. Passing technical checks is not a taste score or evidence of improved hiring conversion.

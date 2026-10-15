@@ -15,11 +15,19 @@ function navigate(event: MouseEvent<HTMLAnchorElement>, rootId: string, id: stri
 export function CaseStudyJump({ rootId, targetId, children, className }: { rootId: string; targetId: string; children: ReactNode; className?: string }) {
   return <a href={`#${targetId}`} className={className} onClick={event => navigate(event, rootId, targetId)}>{children}</a>;
 }
-export default function CaseStudyNavigation({ rootId, chapters }: { rootId: string; chapters: ChapterLink[] }) {
+export default function CaseStudyNavigation({ rootId, chapters, referenceHref, referenceFragments = [] }: { rootId: string; chapters: ChapterLink[]; referenceHref?: string; referenceFragments?: string[] }) {
   useEffect(() => {
-    function revealHash() { const root = document.getElementById(rootId); if (root) revealCaseStudyAnchor(window.location.hash, root); }
+    function revealHash() {
+      let fragment = '';
+      try { fragment = decodeURIComponent(window.location.hash.slice(1)); } catch { return; }
+      if (referenceHref && (referenceFragments.includes(fragment) || /^source-\d+$/.test(fragment))) {
+        window.location.replace(`${referenceHref}#${encodeURIComponent(fragment)}`);
+        return;
+      }
+      const root = document.getElementById(rootId); if (root) revealCaseStudyAnchor(window.location.hash, root);
+    }
     revealHash(); window.addEventListener('hashchange', revealHash);
     return () => window.removeEventListener('hashchange', revealHash);
-  }, [rootId]);
+  }, [rootId, referenceHref, referenceFragments]);
   return <nav className={styles.storyNav} aria-label="In this case study"><span>On this page</span><div>{chapters.map(chapter => <CaseStudyJump key={chapter.id} rootId={rootId} targetId={chapter.id}>{chapter.title}</CaseStudyJump>)}</div></nav>;
 }

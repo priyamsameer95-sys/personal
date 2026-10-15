@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-15",
+  "scope": "Supplied 342-page PDF audit; local implementation only",
+  "auditFigureCoverage": 497,
+  "content": {
+    "canonicalCases": 25,
+    "aliases": 20,
+    "sections": 224,
+    "tables": 39,
+    "publicTables": 38,
+    "mediaEntries": 122,
+    "videos": 10,
+    "paintings": 6
+  },
+  "automated": {
+    "tests": 78,
+    "passed": 78,
+    "failed": 0,
+    "typecheck": "passed as part of production build",
+    "productionBuild": "passed",
+    "httpReport": "check-report.json",
+    "httpFailures": 0,
+    "gitDiffCheck": "passed"
+  },
+  "browser": {
+    "desktop": {
+      "width": 1363,
+      "height": 936
+    },
+    "phone": {
+      "width": 390,
+      "height": 844
+    },
+    "narrow": {
+      "width": 320,
+      "height": 844
+    },
+    "checked": [
+      "Home, Work, Experience, Art, Writing",
+      "EduLoans, MCP, RiskStac, College.money, lender integrations and UrbanKhet main pages",
+      "Archived validation fragment forward and chapter-judgment forward, with reading focus",
+      "Reference Detailed material / Notes and sources keyboard navigation",
+      "Image dialog Enter, Actual size/Fit, Escape, trigger focus and body-scroll restoration",
+      "Contact Email initial focus, Escape and trigger-focus restoration",
+      "Phone menu, same-page help anchor and persistent CV/contact actions",
+      "Horizontal table keyboard scrolling (scrollLeft advanced to 40px without page overflow)",
+      "User-initiated UrbanKhet playback advanced to 15.65s; no autoplay; full phone interface framed without side bars",
+      "Original painting full/detail distinction, complete-image proportions and detail enlargement",
+      "Visible CV action downloaded the current PDF; checksum matched",
+      "All Home images loaded after normal viewing; no page overflow in the eight narrow-screen routes checked"
+    ],
+    "consoleErrorsOrWarnings": []
+  },
+  "cv": {
+    "pages": 2,
+    "words": 688,
+    "bodyPointSize": 10.5,
+    "caseLinks": 25,
+    "uniqueUriAnnotations": 31,
+    "sha256": "2a8e04a88736df3f7db72d2a198d0ae9f38bd8975ef2d55477ae08dcd28a59c9",
+    "originalArchivedSha256": "01978cf50d61878a4e55ad390a3c83e115779d430ddd2679f0eca0fced079176"
+  },
+  "captures": [
+    "/Users/rajveerbhullar/Downloads/priyam-audit-home-desktop.png",
+    "/Users/rajveerbhullar/Downloads/priyam-audit-home-phone.png",
+    "/Users/rajveerbhullar/Downloads/priyam-audit-home-full.png",
+    "/Users/rajveerbhullar/Downloads/priyam-audit-work-desktop.png",
+    "/Users/rajveerbhullar/Downloads/priyam-audit-case-desktop.png",
+    "/Users/rajveerbhullar/Downloads/priyam-audit-urbankhet-phone.png"
+  ],
+  "limitations": [
+    "No real-reader study has been performed; task script is prepared.",
+    "No reviewed original essay was invented or published.",
+    "Unresolved metrics, missing production artifacts and Atal/ANNA attribution were omitted or qualified; no external HR/LinkedIn reconciliation is claimed.",
+    "Existing private-admin image advisories and optional Google icon-font optimization warning remain nonfatal.",
+    "No deployment, publishing, authentication change, database migration or live partner connection was performed."
+  ]
+}
