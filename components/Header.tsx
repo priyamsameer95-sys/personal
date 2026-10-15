@@ -1,5 +1,6 @@
 'use client';
 
+import Icon from '@/components/Icon';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -9,10 +10,10 @@ import styles from './site-chrome.module.css';
 
 const navItems = [
   { label: 'Home', path: '/' }, { label: 'Work', path: '/product' },
-  { label: 'How I can help', path: '/#how-i-can-help' }, { label: 'Experience', path: '/cv' }, { label: 'Art', path: '/art' },
+  { label: 'Experience', path: '/cv' }, { label: 'Art', path: '/art' },
 ];
 
-export default function Header() {
+export default function Header({ wordmarkOnly = true }: { wordmarkOnly?: boolean }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -25,9 +26,9 @@ export default function Header() {
     if (event.key === 'Escape' && menuOpen) { setMenuOpen(false); menuButton.current?.focus(); }
   }}>
     <Link href="/" aria-label="Priyam Sameer — home" className={styles.identity} onClick={() => closeMenu('/')}>
-      <span className={styles.monogram} aria-hidden="true">ps.</span><span>Priyam Sameer</span>
+      {!wordmarkOnly && <span className={styles.monogram} aria-hidden="true">ps.</span>}<span>Priyam Sameer</span>
     </Link>
-    <button ref={menuButton} type="button" className={styles.menuButton} aria-expanded={menuOpen} aria-controls="public-navigation" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? 'Close' : 'Menu'} <span aria-hidden="true">{menuOpen ? '−' : '+'}</span></button>
+    <button ref={menuButton} type="button" className={styles.menuButton} aria-expanded={menuOpen} aria-controls="public-navigation" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? 'Close' : 'Menu'} <span aria-hidden="true"><Icon name={menuOpen ? 'minus' : 'plus'} /></span></button>
     <nav id="public-navigation" aria-label="Main navigation" className={styles.navigation} data-open={menuOpen}>
       {navItems.map(item => {
         const active = item.path === '/' ? pathname === '/' : pathname === item.path || pathname.startsWith(`${item.path}/`);
@@ -36,7 +37,7 @@ export default function Header() {
     </nav>
     <div className={styles.headerActions}>
       <CvDownload className={styles.cvButton} />
-      <ContactChooser className={styles.contactButton}><span className={styles.contactLong}>Contact Priyam</span><span className={styles.contactShort}>Contact</span> <span aria-hidden="true">↗</span></ContactChooser>
+      <ContactChooser className={styles.contactButton}><span className={styles.contactLong}>Contact Priyam</span><span className={styles.contactShort}>Contact</span> <span aria-hidden="true"><Icon name="arrow-up-right" /></span></ContactChooser>
     </div>
   </header>;
 }

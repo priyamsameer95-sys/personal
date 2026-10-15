@@ -1,46 +1,65 @@
 .gallery { min-width: 0; scroll-margin-top: 2rem; }
-.index { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--rule, #ddd7cb); }
-.index a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink, #191714); font-size: .9rem; text-decoration: underline; text-decoration-color: var(--rule, #ddd7cb); text-underline-offset: .3em; }
-.index a:hover { text-decoration-color: currentColor; }
-.index a:focus-visible { outline: 2px solid var(--ink, #191714); outline-offset: 4px; }
-.collection { padding: 2rem 0 3rem; scroll-margin-top: 2rem; }
-.collection + .collection { border-top: 1px solid var(--rule, #ddd7cb); }
-.collectionHeader { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1.75rem; }
-.collectionHeader h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 500; line-height: 1.25; letter-spacing: -.025em; }
-.collectionHeader > div > p { max-width: 44ch; margin-top: .6rem; font-size: 1rem; line-height: 1.7; color: var(--ink-muted, #625e56); }
-.count { flex-shrink: 0; color: var(--ink-muted, #625e56); font-size: .875rem; }
-.works { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 3rem; }
-.work { min-width: 0; scroll-margin-top: 2rem; }
-.painting { min-width: 0; }
-.painting button[aria-haspopup='dialog'], .detailImages button[aria-haspopup='dialog'] { border: 0; border-radius: 0; background: transparent; overflow: visible; }
-.painting button[aria-haspopup='dialog'] { display: flex; align-items: center; justify-content: center; min-height: 20rem; }
-.painting button[aria-haspopup='dialog'] > img { display: block; width: auto; height: auto; max-width: 100%; max-height: 29rem; object-fit: contain; }
-.detailImages button[aria-haspopup='dialog'] > img { display: block; width: auto; height: auto; max-width: 100%; max-height: 10rem; margin: 0 auto; object-fit: contain; }
-.painting button[aria-haspopup='dialog'] > span, .detailImages button[aria-haspopup='dialog'] > span { bottom: .6rem; right: .6rem; border: 0; border-radius: 0; background: var(--paper, #faf7f0); color: var(--ink, #191714); padding: .4rem .65rem; font-size: .875rem; }
-.caption { margin-top: 1rem; }
-.caption h3 { color: var(--ink, #191714); font-family: var(--font-editorial, Georgia, serif); font-size: clamp(1.6rem, 2.5vw, 2rem); font-weight: 400; line-height: 1.2; letter-spacing: -.025em; text-wrap: balance; }
-.metadata { margin-top: .5rem; font-size: .875rem; line-height: 1.65; color: var(--ink-muted, #625e56); }
-.description { max-width: 48ch; margin-top: .65rem; font-size: .9rem; line-height: 1.7; color: var(--ink-muted, #625e56); }
-.notes { display: grid; grid-template-columns: minmax(0, 1fr) 6.5rem; align-items: start; gap: 1.25rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--rule, #ddd7cb); }
-.statement { max-width: 55ch; font-size: .9375rem; line-height: 1.75; color: var(--ink-muted, #625e56); white-space: pre-line; }
-.statement h4 { margin: 0 0 .6rem; color: var(--ink, #191714); font-size: .875rem; font-weight: 500; }
+.index { display: flex; flex-wrap: wrap; gap: .25rem 1.75rem; padding: 0 0 2rem; border-bottom: 1px solid var(--rule); }
+.indexWork, .collectionLink { display: inline-flex; align-items: center; min-width: var(--target-size); min-height: var(--target-size); color: var(--muted); font-size: .9375rem; line-height: 1.4; text-decoration: none; text-underline-offset: .3em; cursor: pointer; transition: color var(--motion-fast) ease-out; }
+.indexWork:hover, .collectionLink:hover { color: var(--ink); text-decoration: underline; }
+.indexWork:focus-visible, .collectionLink:focus-visible, .collection:focus-visible, .work:focus-visible, .gallery:focus-visible, .backToOverview:focus-visible { outline: var(--focus-ring); outline-offset: 4px; }
+.collectionLink { width: 100%; }
+.collection { min-width: 0; scroll-margin-top: 2rem; }
+.collection + .collection { border-top: 1px solid var(--rule); }
+.collectionHeader { padding: 3rem 0 0; }
+.collectionHeader h2 { font-size: 1.5rem; font-weight: 500; line-height: 1.3; letter-spacing: -.025em; }
+.collectionHeader p { max-width: 48ch; margin-top: .6rem; font-size: 1rem; line-height: 1.7; color: var(--muted); }
+.works { display: grid; grid-template-columns: minmax(0, 1fr); }
+.work { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, .8fr); grid-template-areas: "painting caption" "painting notes"; grid-template-rows: auto 1fr; column-gap: clamp(2rem, 5vw, 5rem); row-gap: 1.5rem; min-width: 0; padding: clamp(3rem, 5.5vw, 5rem) 0; scroll-margin-top: 2rem; }
+.work + .work { border-top: 1px solid var(--rule); }
+.painting { grid-area: painting; min-width: 0; align-self: start; background: #f0ece3; }
+.painting > figure > button, .detail figure > button { border: 0; border-radius: 0; background: transparent; }
+.painting > figure > button { display: flex; align-items: center; justify-content: center; width: 100%; aspect-ratio: 6 / 5; min-width: 0; padding: clamp(1rem, 2.5vw, 2.5rem); }
+.painting > figure > button > img { display: block; width: 100%; height: 100%; max-height: 100%; object-fit: contain; }
+.painting > figure > button > span { bottom: .75rem; right: .75rem; border-radius: .2rem; }
+.caption { grid-area: caption; min-width: 0; padding-top: .1rem; overflow-wrap: anywhere; }
+.caption h3 { color: var(--ink); font-size: clamp(1.75rem, 2.8vw, 2.5rem); font-weight: 500; line-height: 1.12; letter-spacing: -.045em; text-wrap: balance; }
+.metadata { margin-top: .75rem; max-width: 28ch; font-size: .9375rem; line-height: 1.65; color: var(--muted); }
+.description { max-width: 38ch; margin-top: .75rem; font-size: 1rem; line-height: 1.7; color: var(--muted); }
+.notes { grid-area: notes; display: grid; align-content: start; gap: 2rem; min-width: 0; }
+.statement { max-width: 38ch; min-width: 0; font-size: 1rem; line-height: 1.75; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
+.statement h4 { margin: 0 0 .6rem; color: var(--muted); font-size: .8125rem; font-weight: 400; }
 .statement p + p { margin-top: .8rem; }
-.detailImages { display: grid; gap: 1rem; min-width: 0; }
-.detailImages figure { margin: 0; }
-.detailImages figure > figcaption { margin-top: .5rem; font-size: .875rem; line-height: 1.5; }
-.detailImages button[aria-haspopup='dialog'] > span { position: static; display: block; width: fit-content; margin: .35rem auto 0; padding: .25rem 0; font-size: .875rem; text-decoration: underline; text-underline-offset: .2em; }
-@media (max-width: 767px) {
-  .index { gap: .15rem 1rem; padding-bottom: .75rem; }
-  .collection { padding: 1.5rem 0 2rem; }
-  .collectionHeader { margin-bottom: 1.25rem; }
-  .works { grid-template-columns: 1fr; gap: 2.5rem; }
-  .painting button[aria-haspopup='dialog'] { min-height: 0; }
-  .painting button[aria-haspopup='dialog'] > img { max-height: 30rem; }
-  .notes { gap: 1rem; }
+.detailImages { display: grid; gap: 1.5rem; min-width: 0; }
+.detail { min-width: 0; max-width: 17.5rem; }
+.detail figure { margin: 0; }
+.detail figure > button { min-width: var(--target-size); min-height: var(--target-size); }
+.detail figure > button > img { display: block; width: 100%; height: auto; max-height: 20rem; margin: 0; object-fit: contain; object-position: left center; }
+.detail figure > button > span { bottom: .5rem; right: .5rem; font-size: .8125rem; }
+.detail figure > figcaption { margin-top: .5rem; font-size: .8125rem; line-height: 1.5; }
+.collectionEnd { display: flex; align-items: center; justify-content: space-between; gap: 1rem 3rem; padding: 0 0 3rem; }
+.collectionEnd > p { color: var(--muted); font-size: .875rem; line-height: 1.6; }
+.backToOverview { display: inline-flex; align-items: center; gap: .65rem; flex-shrink: 0; min-height: var(--target-size); min-width: var(--target-size); font-size: .875rem; text-decoration: underline; text-underline-offset: .3em; cursor: pointer; }
+.backToOverview:hover { text-decoration-thickness: 2px; }
+@media (max-width: 900px) {
+  .work { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: 2rem; }
+  .notes { gap: 1.5rem; }
+  .detail { max-width: 13rem; }
 }
-@media (max-width: 380px) { .collectionHeader { align-items: start; flex-wrap: wrap; gap: .5rem; } .notes { grid-template-columns: minmax(0, 1fr) 5.25rem; } }
-@media print { .index { display: none; } .works { display: block; } .work { break-inside: avoid; margin-bottom: 2rem; } }
-/* A detail is an optional closer look, never a second competing full painting. */
-.detailImages { max-width:9rem; }
-.detailImages .figure { margin:0; }
-.detailImages img { max-height:11rem; width:auto; max-width:100%; object-fit:contain; }
+@media (max-width: 767px) {
+  .index { column-gap: 1.25rem; padding-bottom: 1.5rem; }
+  .indexWork, .collectionLink, .metadata, .description, .statement, .statement h4, .detail figure > button > span, .detail figure > figcaption, .collectionEnd > p, .backToOverview { font-size: 1rem; }
+  .collectionHeader { padding-top: 2rem; }
+  .work { grid-template-columns: minmax(0, 1fr); grid-template-areas: "caption" "painting" "notes"; gap: 1.5rem; padding: 2.5rem 0 3rem; }
+  .caption h3 { font-size: 2rem; }
+  .metadata { margin-top: .5rem; max-width: none; }
+  .painting > figure > button { padding: 1rem; }
+  .painting > figure > button > span { bottom: .5rem; right: .5rem; font-size: 1rem; }
+  .notes { grid-template-columns: minmax(0, 1.3fr) minmax(0, .8fr); gap: 1.5rem; }
+  .statement { max-width: 42ch; }
+  .detail { max-width: 100%; }
+  .detail figure > button > img { max-height: 17rem; }
+  .collectionEnd { align-items: flex-start; flex-direction: column; gap: .5rem; padding-bottom: 2.5rem; }
+}
+@media (max-width: 520px) {
+  .notes { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .detail { max-width: 12rem; }
+  .detail figure > button > img { max-height: 18rem; }
+}
+@media (prefers-reduced-motion: reduce) { .indexWork, .collectionLink { transition: none; } }
+@media print { .index, .backToOverview { display: none; } .works { display: block; } .work { break-inside: avoid; } }

@@ -15,21 +15,22 @@
 .workflowNote, .chartNote { font-size: .9rem; line-height: 1.65; color: var(--muted, #625e56); margin: .9rem 0 0; max-width: 68ch; }
 .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 2rem; margin-top: 2rem; }
 .chart { min-width: 0; padding-top: 1.25rem; border-top: 1px solid var(--rule, #ddd7cb); margin: 0; }
-.comparison { display: flex; flex-direction: column; gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
-.barLabel { display: flex; justify-content: space-between; gap: .8rem; align-items: baseline; margin-bottom: .45rem; }
-.barLabel > span { font-size: .95rem; line-height: 1.6; color: var(--muted, #625e56); }
-.barLabel strong { font-size: 1.15rem; font-weight: 550; line-height: 1.5; font-variant-numeric: tabular-nums; text-align: right; }
+.comparison { width: 100%; border-collapse: collapse; table-layout: fixed; margin: 0; }
+.comparison th { width: 60%; padding: 0 .8rem .45rem 0; text-align: left; vertical-align: baseline; font-size: .95rem; font-weight: 400; line-height: 1.6; color: var(--muted, #625e56); overflow-wrap: anywhere; }
+.comparison td { padding: 0 0 .45rem; text-align: right; vertical-align: baseline; overflow-wrap: anywhere; }
+.comparison strong { font-size: 1.15rem; font-weight: 550; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.comparison .barRow td { padding: 0 0 1.25rem; }
+.comparison .barRow:last-child td { padding-bottom: 0; }
 .barTrack { height: .65rem; background: #e9e3d8; overflow: hidden; border-radius: 0 .2rem .2rem 0; }
 .barTrack > span { display: block; height: 100%; }
 .chartScale { display: flex; justify-content: space-between; font-size: .875rem; color: var(--muted, #625e56); margin-top: .5rem; }
 .donutLayout { display: flex; align-items: center; gap: 1.5rem; }
 .donut { width: 9rem; flex: 0 0 9rem; }
 .donut text { font-family: inherit; font-size: 20px; font-weight: 550; fill: var(--ink, #191714); }
-.legend { flex: 1; min-width: 0; }
-.legend > div + div { margin-top: .8rem; }
-.legend dt { display: flex; gap: .5rem; align-items: baseline; font-size: .95rem; line-height: 1.5; color: var(--muted, #625e56); }
-.legend dd { font-size: 1.15rem; font-weight: 550; margin: .25rem 0 0 1rem; }
-.colourKey { display: inline-block; flex: 0 0 .5rem; width: .5rem; height: .5rem; border-radius: 50%; }
+.legend { flex: 1; min-width: 0; border-collapse: collapse; }
+.legend th { padding: .4rem .8rem .4rem 0; font-size: .95rem; line-height: 1.5; font-weight: 400; text-align: left; color: var(--muted, #625e56); overflow-wrap: anywhere; }
+.legend td { padding: .4rem 0; font-size: 1.15rem; line-height: 1.5; font-weight: 550; text-align: right; font-variant-numeric: tabular-nums; }
+.colourKey { display: inline-block; width: .5rem; height: .5rem; margin-right: .5rem; border-radius: 50%; }
 .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: 1.5rem; }
 .metrics > div { border-left: 3px solid; padding-left: 1rem; min-width: 0; }
 .metrics dt { font-size: .95rem; line-height: 1.6; color: var(--muted, #625e56); }
@@ -54,7 +55,8 @@
   .charts { gap: 1.5rem; margin-top: 1.5rem; }
   .donut { width: 7rem; flex-basis: 7rem; }
   .donutLayout { gap: 1rem; }
+  .workflow li p, .workflowNote, .chartNote, .comparison th, .legend th, .metrics dt { font-size: 1rem; }
 }
-@media (max-width: 380px) { .donutLayout { flex-wrap: wrap; } .barLabel { flex-wrap: wrap; gap: .15rem .75rem; } }
+@media (max-width: 380px) { .donutLayout { flex-wrap: wrap; } .legend { flex-basis: 100%; } }
 @media print { .workflow, .chart { break-inside: avoid; } }
 .metrics abbr { text-decoration: none; }

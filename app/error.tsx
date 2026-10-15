@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
+import EmailContact from '@/components/EmailContact';
 
 export default function ErrorPage({ reset }: { reset: () => void }) {
   return (
@@ -30,9 +31,9 @@ export default function ErrorPage({ reset }: { reset: () => void }) {
             <Link href="/" className="inline-flex min-h-11 items-center text-sm text-system-primary underline underline-offset-4">
               Back to home
             </Link>
-            <a href="mailto:Priyam.Sameer.95@gmail.com" className="inline-flex min-h-11 items-center text-sm text-system-secondary underline underline-offset-4">
+            <EmailContact linkClassName="inline-flex min-h-11 items-center text-sm text-system-secondary underline underline-offset-4">
               Contact Priyam
-            </a>
+            </EmailContact>
           </div>
         </main>
         <Footer />

@@ -9,6 +9,7 @@ import WorkForm from '@/components/admin/WorkForm';
 import BlogForm from '@/components/admin/BlogForm';
 import ContentLibrary from '@/components/admin/ContentLibrary';
 import { ConfirmDialog } from '@/components/admin/shared';
+import Icon from '@/components/Icon';
 
 type TabType = 'cv' | 'art' | 'work' | 'blog';
 
@@ -90,7 +91,7 @@ export default function AdminDashboard() {
       />
 
       <header className="border-b border-[#E5E5E5] bg-white sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 min-h-16 flex flex-wrap gap-3 items-center justify-between">
           <div className="flex items-center gap-4">
             <h1 className="font-mono text-sm font-bold tracking-[0.1em] uppercase text-[#1A1A1A] m-0">
               Priyam Sameer
@@ -100,15 +101,17 @@ export default function AdminDashboard() {
             </span>
           </div>
           
-          <div className="flex gap-1 bg-[#FAFAFA] p-1 rounded-xl border border-[#E5E5E5]">
+          <div className="order-3 w-full sm:order-none sm:w-auto flex flex-wrap gap-2 bg-[#FAFAFA] p-1 rounded-xl border border-[#E5E5E5]" role="group" aria-label="Content type">
             {(['cv', 'art', 'work', 'blog'] as TabType[]).map(tab => (
               <button
                 key={tab}
+                type="button"
+                aria-pressed={activeTab === tab}
                 onClick={() => handleTabClick(tab)}
-                className={`px-6 py-1.5 rounded-lg text-sm font-semibold transition ${
+                className={`min-h-11 min-w-11 px-4 py-1.5 rounded-lg text-base font-semibold transition ${
                   activeTab === tab 
                     ? 'bg-white shadow-sm border border-[#E5E5E5] text-[#1A1A1A]' 
-                    : 'text-[#8C8C8C] hover:text-[#525252]'
+                    : 'text-[#625e56] hover:text-[#171717]'
                 }`}
               >
                 {tab.toUpperCase()}
@@ -118,23 +121,21 @@ export default function AdminDashboard() {
 
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 px-4 py-2 border border-[#E5E5E5] hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-sm font-semibold rounded-xl transition"
+            className="flex min-h-11 items-center gap-2 px-4 py-2 border border-[#E5E5E5] hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-base font-semibold rounded-xl transition"
           >
-            <span className="material-symbols-rounded text-base select-none">logout</span>
+            <Icon name="arrow-right" />
             Sign Out
           </button>
         </div>
       </header>
 
-      <main id="main-content" className="max-w-[1400px] mx-auto px-6 mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <main id="main-content" className="max-w-[1400px] mx-auto px-4 sm:px-6 mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         
         {/* Left Column: Form */}
-        <section className="bg-white border border-[#E5E5E5] p-8 rounded-2xl shadow-sm relative">
+        <section className="min-w-0 bg-white border border-[#E5E5E5] p-4 sm:p-8 rounded-2xl shadow-sm relative">
           <div className="flex justify-between items-center mb-6 border-b border-[#E5E5E5] pb-4">
             <h2 className="text-xl font-bold text-[#1A1A1A] flex items-center gap-2 font-sans">
-              <span className="material-symbols-rounded text-[#8C8C8C]">
-                {editItem ? 'edit_document' : 'add_circle'}
-              </span>
+              <Icon name={editItem ? 'edit' : 'plus'} />
               {editItem ? `Edit ${activeTab.toUpperCase()}` : `New ${activeTab.toUpperCase()}`}
             </h2>
             {editItem && (
@@ -149,7 +150,7 @@ export default function AdminDashboard() {
                     setEditItem(null);
                   }
                 }}
-                className="text-sm font-semibold text-[#525252] hover:text-[#1A1A1A] underline"
+                className="min-h-11 text-base font-semibold text-[#525252] hover:text-[#1A1A1A] underline"
               >
                 Cancel Edit
               </button>

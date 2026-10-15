@@ -1,3 +1,4 @@
+import Icon from '@/components/Icon';
 import type { Metadata } from 'next';
 import { publicDb as db } from '@/lib/db';
 import Link from 'next/link';
@@ -5,6 +6,7 @@ import { notFound, permanentRedirect } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
+import EmailContact from '@/components/EmailContact';
 import MarkdownContent from '@/components/MarkdownContent';
 import CaseStudy from '@/components/work/CaseStudy';
 import Media from '@/components/work/Media';
@@ -54,7 +56,8 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
       return {
         title: item.title,
         description,
-        openGraph: { title: `${item.title} — Priyam Sameer`, description, type: 'article' },
+        openGraph: { title: `${item.title} — Priyam Sameer`, description, type: 'article', images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Priyam Sameer — product leadership' }] },
+        twitter: { card: 'summary_large_image', title: `${item.title} — Priyam Sameer`, description, images: ['/twitter-image'] },
       };
     } catch { return fallback; }
   }
@@ -70,8 +73,9 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
       description,
       type: 'article',
       url: `/product/${study.slug}`,
+      images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Priyam Sameer — product leadership' }],
     },
-    twitter: { title: `${title} — Priyam Sameer`, description },
+    twitter: { card: 'summary_large_image', images: ['/twitter-image'], title: `${title} — Priyam Sameer`, description },
   };
 }
 
@@ -133,10 +137,10 @@ export default async function DetailPage({ params }: DetailPageProps) {
 
         <main id="main-content">
           <Link href={`/${category}`} className="mb-8 inline-flex min-h-11 items-center gap-3 text-sm text-system-secondary transition-colors hover:text-system-accent no-underline">
-            <span aria-hidden="true">←</span> All {section.label}
+            <span aria-hidden="true"><Icon name="arrow-left" /></span> All {section.label}
           </Link>
 
-          <article className="mx-auto max-w-3xl">
+          <article className="public-record mx-auto max-w-3xl">
             <header className="mb-10">
               <p className="mb-4 text-sm leading-relaxed text-system-secondary">
                 {section.heading} · Published <time dateTime={date.toISOString()}>{date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</time>
@@ -164,7 +168,7 @@ export default async function DetailPage({ params }: DetailPageProps) {
             <div className="mt-12 border-t border-system-outline pt-6">
               <h2 className="text-xl font-medium">{contact.heading}</h2>
               <p className="mt-3 leading-relaxed text-system-secondary">{contact.copy}</p>
-              <a href={`mailto:Priyam.Sameer.95@gmail.com?subject=${encodeURIComponent(item.title)}`} className="mt-3 inline-flex min-h-11 items-center underline underline-offset-4">{contact.action} <span aria-hidden="true" className="ml-2">↗</span></a>
+              <EmailContact subject={item.title} className="mt-3" linkClassName="inline-flex min-h-11 items-center underline underline-offset-4">{contact.action} <span aria-hidden="true" className="ml-2"><Icon name="arrow-up-right" /></span></EmailContact>
             </div>
           </article>
         </main>

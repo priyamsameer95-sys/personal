@@ -1,11 +1,11 @@
-.dialog { width: min(36rem, calc(100vw - 2rem)); max-width: none; max-height: calc(100dvh - 2rem); padding: 0; border: 1px solid var(--ink); border-radius: .75rem; background: var(--paper); color: var(--ink); }
+.dialog { width: min(36rem, calc(100vw - 2rem)); max-width: none; max-height: calc(100dvh - 2rem); padding: 0; border: 1px solid var(--ink); border-radius: .75rem; background: var(--paper); color: var(--ink); overscroll-behavior: contain; }
 .dialog::backdrop { background: #19171499; }
 .content { padding: clamp(1.25rem, 4vw, 2rem); }
 .heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
 .heading p { color: var(--muted); font-size: .875rem; }
 .heading button { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; padding: .45rem .65rem; border: 1px solid var(--rule); border-radius: .5rem; font-size: .875rem; }
 .heading button span { font-size: 1.3rem; }
-.dialog h2 { font-family: var(--font-editorial); font-size: clamp(2.2rem, 6vw, 3rem); line-height: 1.15; letter-spacing: -.04em; }
+.dialog h2 { font-family: inherit; font-size: clamp(2.2rem, 6vw, 3rem); font-weight: 550; line-height: 1.15; letter-spacing: -.04em; }
 .intro { margin: .75rem 0 1.5rem; color: var(--muted); line-height: 1.6; }
 .channels { display: grid; gap: .65rem; }
 .channels a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 44px; padding: 1rem; border: 1px solid var(--rule); border-radius: .5rem; text-decoration: none; background: var(--paper-soft); }
@@ -13,3 +13,6 @@
 .channels strong { display: block; font-size: 1.05rem; font-weight: 550; }
 .detail { display: block; color: var(--muted); line-height: 1.6; font-size: .875rem; margin-top: .25rem; }
 .value { display: block; font-size: .875rem; margin-top: .35rem; overflow-wrap: anywhere; }
+.copyEmail { margin: .15rem 1rem .25rem; }
+.channels a > span:first-child { min-width: 0; }
+@media (max-width: 700px) { .detail, .value, .heading p, .heading button { font-size: 1rem; } .channels, .heading { gap: var(--space-target); } }

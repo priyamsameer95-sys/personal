@@ -5,6 +5,8 @@ import { contentExcerpt } from '@/lib/content';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
+import EmailContact from '@/components/EmailContact';
+import Icon from '@/components/Icon';
 import ArtGallery from '@/components/art/ArtGallery';
 import { artCollections, artworks } from '@/content/art/works';
 import styles from './art.module.css';
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
     title: 'Art — Priyam Sameer', description,
     images: [{ url: '/art/priyam/public-compass-preview.webp', width: 1000, height: 879, alt: 'Public Compass by Priyam Sameer' }],
   },
-  twitter: { title: 'Art — Priyam Sameer', description, images: ['/art/priyam/public-compass-preview.webp'] },
+  twitter: { card: 'summary_large_image', title: 'Art — Priyam Sameer', description, images: ['/art/priyam/public-compass-preview.webp'] },
 };
 
 export const revalidate = 0;
@@ -59,24 +61,19 @@ export default async function ArtGalleryPage() {
   return (
     <PublicShell>
       <Header />
-      <main id="main-content">
+      <main id="main-content" className={styles.page}>
         <header className={styles.intro}>
-          <div>
-            <p className={styles.eyebrow}>Priyam Sameer · Paintings</p>
-            <h1>Paintings.</h1>
-          </div>
-          <div className={styles.introNote}>
-            <p>I paint in oil, acrylic and charcoal.</p>
-            <span>Six paintings, with the notes I wrote alongside them. Open a full work or a detail for a closer look.</span>
-          </div>
+          <h1>Paintings.</h1>
+          <p>I paint in oil, acrylic and charcoal.</p>
         </header>
         <ArtGallery collections={artCollections} works={artworks} />
-        <section id="artist-note" className={styles.artistNote} aria-labelledby="artist-note-title">
+        <section id="artist-note" tabIndex={-1} className={styles.artistNote} aria-labelledby="artist-note-title">
           <div className={styles.noteText}>
-            <p className={styles.eyebrow}>Artist’s note</p>
             <h2 id="artist-note-title">Art is expression.</h2>
-            <p className={styles.statement}>Art is emotion. Art is love. Art is life.<br />Art is fear. Art is wisdom. Art is courage.</p>
-            <a className={styles.contact} href="mailto:Priyam.Sameer.95@gmail.com?subject=About%20your%20paintings">Talk about a painting <span aria-hidden="true">↗</span></a>
+            <div>
+              <p className={styles.statement}>Art is emotion. Art is love. Art is life.<br />Art is fear. Art is wisdom. Art is courage.</p>
+              <EmailContact linkClassName={styles.contact} subject="About your paintings">Talk about a painting <Icon name="arrow-up-right" /></EmailContact>
+            </div>
           </div>
         </section>
         {items.length > 0 && <section className={styles.additional} aria-labelledby="additional-art-title">
@@ -87,13 +84,13 @@ export default async function ArtGalleryPage() {
               const excerpt = contentExcerpt(art.body_markdown, 160);
               return (
                 <Link key={art.id} href={`/art/${encodeURIComponent(art.slug || art.id)}`} className={styles.additionalWork}>
-                  {firstImage && (
-                    /* eslint-disable-next-line @next/next/no-img-element */
+                  {firstImage && <div className={styles.additionalImage} style={firstImage.width && firstImage.height ? { aspectRatio: `${firstImage.width} / ${firstImage.height}` } : undefined}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={firstImage.blob_url} alt={firstImage.alt_text || art.title} width={firstImage.width || undefined} height={firstImage.height || undefined} loading="lazy" decoding="async" />
-                  )}
+                  </div>}
                   <h3>{art.title}</h3>
                   {excerpt && <p>{excerpt}</p>}
-                  <span>View artwork <span aria-hidden="true">↗</span></span>
+                  <span>View artwork <Icon name="arrow-up-right" /></span>
                 </Link>
               );
             })}

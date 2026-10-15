@@ -21,7 +21,7 @@ export const brandAssets: Record<string, BrandAsset> = {
     sourcePage: 'https://credflow.in/', sourceUrl: 'https://credflow.in/credflow-logo.png',
   },
   absolute: {
-    name: 'Absolute', src: '/brands/absolute.svg', width: 316, height: 68, background: 'dark',
+    name: 'Absolute', src: '/brands/absolute.svg', width: 316, height: 68,
     sourcePage: 'https://www.absolute.bio/',
     sourceUrl: 'https://www.absolute.bio/assets/absolute-logo-png-1-vectorized-sad-fbpj.svg',
   },

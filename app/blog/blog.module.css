@@ -15,4 +15,5 @@
 .titleLink { display: block; color: var(--ink, #191714); text-decoration: none; }
 .titleLink:hover h2 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .12em; }
 .essay > p { max-width: 60ch; margin-top: 1rem; color: var(--ink-muted, #625e56); line-height: 1.75; }
-@media (max-width: 767px) { .intro { padding: 1rem 0 2rem; } .empty { padding: 1.5rem 0 2rem; } }
+.page a:focus-visible { outline: 2px solid var(--ink, #191714); outline-offset: 4px; }
+@media (max-width: 767px) { .intro { padding: 1rem 0 2rem; } .empty { padding: 1.5rem 0 2rem; } .empty a, .essay time { font-size: 1rem; } .actions { gap: 0 1.5rem; } }

@@ -6,6 +6,8 @@ const vm = require('node:vm');
 const ts = require('typescript');
 const { createElement } = require('react');
 const { renderToStaticMarkup } = require('react-dom/server');
+const EmailContact = require('./helpers/email-contact.cjs');
+const Icon = require('./helpers/icon.cjs');
 
 const root = path.join(__dirname, '..');
 const css = new Proxy({}, { get: (_, name) => name === '__esModule' ? false : String(name) });
@@ -28,13 +30,13 @@ const originalArtistNotes = {
   reminiscence: 'Inspired by people I met and care about',
 };
 
-function load(filename, stubs = {}) {
+function load(filename, stubs = {}, env = {}) {
   const { outputText } = ts.transpileModule(readFileSync(path.join(root, filename), 'utf8'), {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true },
   });
   const module = { exports: {} };
   vm.runInNewContext(outputText, {
-    module, exports: module.exports, process: { env: {} }, console, URL,
+    module, exports: module.exports, process: { env }, console, URL,
     require: id => Object.hasOwn(stubs, id) ? stubs[id] : require(id),
   }, { filename });
   return module.exports;
@@ -49,6 +51,8 @@ const shared = {
   '@/components/Footer': empty,
   '@/components/PublicShell': shell,
   '@/components/BrandMarks': BrandMarks,
+  '@/components/EmailContact': EmailContact,
+  '@/components/Icon': Icon,
 };
 
 function experienceHtml() {
@@ -56,22 +60,24 @@ function experienceHtml() {
     ...shared, './content.json': career, './cv.module.css': css,
     '@/lib/work': { findCaseStudy: slug => registry.caseStudies.find(study => study.slug === slug) },
     '@/lib/company-context': companyContext,
-    '@/components/CvDownload': load('components/CvDownload.tsx').default,
+    '@/components/CvDownload': load('components/CvDownload.tsx', {'@/components/Icon':Icon}).default,
   }).default;
   return renderToStaticMarkup(createElement(Page));
 }
 
-test('the compact CV preserves the full chronology, 25 proof links and accurate work status without unresolved metric headlines', () => {
+test('the Experience document preserves the full chronology, 25 proof links and accurate work status without unresolved metric headlines', () => {
   const html = experienceHtml();
   const visible = textContent(html);
   assert.doesNotMatch(html, /<details\b|<summary\b/);
-  assert.match(html, /<h1>Priyam Sameer<\/h1>/);
+  assert.match(html, /<h1>Experience\.<\/h1>/);
   assert.ok(html.includes(escapeHtml(career.profession)));
   assert.ok(html.includes(escapeHtml(career.location)));
   assert.ok(html.includes(escapeHtml(career.summary)));
   for (const href of [`mailto:${career.contacts.email}`, career.contacts.phoneHref, career.contacts.websiteUrl, career.contacts.linkedinUrl]) assert.ok(html.includes(`href="${escapeHtml(href)}"`), href);
+  assert.match(html, /aria-label="Copy email address"/);
   for (const value of [career.contacts.email, career.contacts.phone, career.contacts.website]) assert.ok(visible.includes(escapeHtml(value)), value);
-  assert.match(html, /href="\/cv\/Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf" download="Priyam_Sameer_CV.pdf"/);
+  const suppliedCv = json('content/cv-download.json');
+  assert.ok(html.includes(`href="${suppliedCv.publicPath}?v=${suppliedCv.sha256.slice(0,12)}" download="Priyam_Sameer_CV.pdf"`));
   assert.doesNotMatch(html, /Across the product lifecycle|What I bring|<figure\b|<video\b/);
   assert.doesNotMatch(visible, /Dates not specified|supplied material|source-reported|direct-report counts|16%|45%|40%|66%|₹5\.5|₹1\.2|3,600\+/i);
   assert.deepEqual(career.experience.map(job => [job.companyId, job.dates]), [
@@ -158,6 +164,9 @@ test('the compact CV preserves the full chronology, 25 proof links and accurate 
   for (const skill of career.skills) assert.ok(html.includes(escapeHtml(skill.description)));
   const ids = Array.from(html.matchAll(/\bid="([^"]+)"/g), match => match[1]);
   assert.equal(ids.length, new Set(ids).size, 'Every CV section anchor remains unique');
+  for (const destination of ['career', 'internship', 'other-contexts', 'education', 'recognition', 'certifications', 'skills']) {
+    assert.match(html, new RegExp(`id="${destination}" tabindex="-1"`), `Keyboard focus follows a jump to ${destination}`);
+  }
 });
 
 test('both learning entries retain issuer, dates and verification links without printing credential identifiers', () => {
@@ -173,8 +182,76 @@ test('both learning entries retain issuer, dates and verification links without 
   assert.doesNotMatch(visible, /Credential ID|UC-[a-f\d-]+|[a-f\d]{8}-(?:[a-f\d]{4}-){3}[a-f\d]{12}/i);
 });
 
+test('CV company groups explain context before remit and use directly named links without duplicate website actions', () => {
+  const html = experienceHtml();
+  for (const job of career.experience) {
+    const start = html.indexOf(`id="${job.companyId}"`);
+    const account = html.slice(start, html.indexOf('</article>', start));
+    const heading = account.match(/<h3\b[^>]*>([\s\S]*?)<\/h3>/)?.[1];
+    assert.ok(heading, `${job.company}: one named company heading`);
+    const company = companyContext.getCompanyContext(job.companyId);
+    const contextPosition = account.indexOf(escapeHtml(job.companyDescription));
+    assert.ok(contextPosition > account.indexOf('</h3>'), `${job.company}: context follows company identity`);
+    assert.ok(contextPosition < account.indexOf(escapeHtml(job.title)), `${job.company}: context precedes the personal role`);
+    assert.ok(contextPosition < account.indexOf(escapeHtml(job.responsibilities[0].text)), `${job.company}: company and contribution are distinct`);
+    for (const [index,website] of company.websites.entries()) {
+      assert.equal(occurrences(account, `href="${website.href}"`), 1, `${website.href}: one company destination`);
+      const name = website.label.replace(/\s+website$/i, '');
+      const identity = index === 0 ? heading : account.match(/<div class="productLinks">([\s\S]*?)<\/div>/)?.[1];
+      assert.ok(identity?.includes(`href="${website.href}"`), `${name}: one direct company or product website action`);
+      assert.ok(textContent(identity).includes(escapeHtml(name)), name);
+      assert.ok(!textContent(account).includes(escapeHtml(`${name} website`)), `${name}: no duplicate website label`);
+    }
+    if (job.companyId === 'urbankhet') assert.doesNotMatch(heading, /<a\b/, 'UrbanKhet has no invented company website');
+    assert.match(account, />Selected work<\/p>/, `${job.company}: named evidence is visibly grouped`);
+    for (const proof of job.cases) assert.ok(account.indexOf(escapeHtml(proof.label)) > contextPosition, `${proof.label}: proof stays within its company group`);
+  }
+  for (const [name, href] of [[career.internship.company, career.internship.website], [career.education.institution, career.education.website]]) {
+    assert.equal(occurrences(html, `href="${href}"`), 1, `${name}: one external destination`);
+    const linkedHeading = Array.from(html.matchAll(/<h[34]\b[^>]*>([\s\S]*?)<\/h[34]>/g), match => match[1]).find(heading => heading.includes(`href="${href}"`));
+    assert.ok(linkedHeading && textContent(linkedHeading).includes(escapeHtml(name)), `${name}: name is the direct link`);
+  }
+});
+
+test('Experience has a brief opening, three useful jumps and a company-versus-contribution reading hierarchy',()=>{
+  const html = experienceHtml();
+  const introduction = html.match(/<header class="introduction">([\s\S]*?)<\/header>/)?.[1];
+  assert.ok(introduction);
+  assert.ok(introduction.includes('Download CV'));
+  assert.ok(introduction.includes(escapeHtml(career.summary)));
+  assert.doesNotMatch(introduction, /Priyam Sameer<\/h1>|mailto:|tel:|Copy email|LinkedIn|<nav\b/);
+  assert.ok(html.indexOf('Download CV')<html.indexOf('id="career"'));
+  const navigation = html.match(/<nav class="pageNav"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
+  assert.equal((navigation.match(/<a\b/g)||[]).length,3);
+  for(const id of ['career','background','certifications']) assert.ok(navigation.includes(`href="#${id}"`));
+  for(const job of career.experience){
+    const start = html.indexOf(`id="${job.companyId}"`);
+    const entry = html.slice(start,html.indexOf('</article>',start));
+    assert.ok(entry.indexOf('class="companyRail"')<entry.indexOf('class="workAccount"'));
+    assert.ok(entry.indexOf(escapeHtml(job.companyDescription))<entry.indexOf(escapeHtml(job.responsibilities[0].text)));
+    if(job.progression.length>1){
+      const roles = entry.match(/<ol class="roles"[^>]*>([\s\S]*?)<\/ol>/)?.[1];
+      const current = job.progression[job.progression.length-1];
+      assert.ok(roles.indexOf(escapeHtml(current.title))<roles.indexOf(escapeHtml(job.progression[0].title)),`${job.company}: current role leads`);
+      for(const role of job.progression) assert.equal(occurrences(roles,`class="roleTitle">${escapeHtml(role.title)}</`),1,`${job.company}: no duplicated role heading`);
+    }
+  }
+  for(const job of career.experience){
+    const start = html.indexOf(`id="${job.companyId}-responsibilities"`);
+    const account = html.slice(start,html.indexOf('</section>',start));
+    const heading = account.match(/<h4[^>]*>([\s\S]*?)<\/h4>/)?.[1];
+    assert.equal(heading,escapeHtml(job.title),`${job.company}: current role leads the contribution column`);
+    assert.ok(account.indexOf('</h4>')<account.indexOf('<ul class="responsibilities">'));
+  }
+  assert.match(html, /<div class="backgroundGrid">/);
+  assert.match(html, /<div class="learningGrid">/);
+  assert.ok(html.indexOf('id="background"')<html.indexOf('id="education"'));
+  assert.ok(html.indexOf('id="education"')<html.indexOf('id="recognition"'));
+  assert.ok(html.indexOf('class="contactRecord"')>html.indexOf('id="skills"'));
+});
+
 test('contact offers four existing channels in a labelled native dialog', () => {
-  const Contact = load('components/ContactChooser.tsx', { './contact-chooser.module.css': css }).default;
+  const Contact = load('components/ContactChooser.tsx', { './contact-chooser.module.css': css, './EmailContact': EmailContact, '@/components/Icon':Icon }).default;
   const html = renderToStaticMarkup(createElement(Contact));
   assert.match(html, /<button[^>]+aria-label="Contact Priyam"[^>]+aria-haspopup="dialog"[^>]+aria-expanded="false"/);
   assert.match(html, /<dialog[^>]+aria-labelledby="[^"]+"[^>]+aria-describedby="[^"]+"/);
@@ -182,11 +259,13 @@ test('contact offers four existing channels in a labelled native dialog', () => 
   assert.match(html, /aria-label="Close contact options"/);
   for (const href of ['mailto:Priyam.Sameer.95@gmail.com', 'https://www.linkedin.com/in/priyam-sameer', 'https://wa.me/918238452277', 'tel:+918238452277']) assert.ok(html.includes(`href="${href}"`), href);
   assert.equal((html.match(/<a\b/g) || []).length, 4);
+  assert.match(html, /aria-label="Copy email address"/);
+  for (const anchor of html.matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/g)) assert.doesNotMatch(anchor[1], /<button\b/);
   assert.equal((html.match(/rel="noopener noreferrer"/g) || []).length, 2);
 });
 
 test('original media source links retain provenance and reject unsafe source URLs', () => {
-  const Media = load('components/work/Media.tsx', { './work.module.css': css }).default;
+  const Media = load('components/work/Media.tsx', { './work.module.css': css, '@/components/Icon':Icon }).default;
   const image = { id: 'original-photo', kind: 'image', category: 'photograph', src: '/work/original.jpg', alt: 'Company farm photograph', width: 1280, height: 960, caption: 'Original company image; capture date unspecified.', provenance: { kind: 'historical', label: 'UrbanKhet LinkedIn company page', sourceUrl: 'https://www.linkedin.com/company/khet-inc/' } };
   const html = renderToStaticMarkup(createElement(Media, { media: image }));
   assert.match(html, /href="https:\/\/www.linkedin.com\/company\/khet-inc\/" target="_blank" rel="noopener noreferrer"/);
@@ -199,8 +278,9 @@ test('original media source links retain provenance and reject unsafe source URL
 });
 
 test('six paintings retain original source notes while edited public notes and detail thumbnails stay accessible', async () => {
-  const Media = load('components/work/Media.tsx', { './work.module.css': css }).default;
-  const ArtGallery = load('components/art/ArtGallery.tsx', { '@/components/work/Media': Media, './art-gallery.module.css': css }).default;
+  const Media = load('components/work/Media.tsx', { './work.module.css': css, '@/components/Icon':Icon }).default;
+  const mediaProps = [];
+  const ArtGallery = load('components/art/ArtGallery.tsx', { '@/components/work/Media': props => { mediaProps.push(props); return createElement(Media,props); }, './art-gallery.module.css': css, '@/components/Icon':Icon }).default;
   const Page = load('app/art/page.tsx', {
     ...shared, './art.module.css': css,
     '@/lib/db': { publicDb: () => assert.fail('The supplied art portfolio must work without a database') },
@@ -216,6 +296,7 @@ test('six paintings retain original source notes while edited public notes and d
   assert.deepEqual(art.works.map(work => work.id), Object.keys(originalArtistNotes));
   for (const work of art.works) {
     assert.ok(html.includes(`id="${work.id}"`));
+    assert.ok(html.includes(`id="${work.id}" tabindex="-1"`), `Painting jump destination is focusable: ${work.id}`);
     assert.ok(html.includes(escapeHtml(work.medium)));
     assert.ok(html.includes(escapeHtml(work.dimensions)));
     assert.equal(work.originalStatement, originalArtistNotes[work.id], `Unedited source note is retained: ${work.title}`);
@@ -224,7 +305,9 @@ test('six paintings retain original source notes while edited public notes and d
     if (work.originalStatement !== work.statement) assert.ok(!html.includes(escapeHtml(work.originalStatement)), `Do not repeat the unedited source note in public: ${work.title}`);
     assert.ok(html.includes(`href="#${work.id}"`), `Painting index reaches the work: ${work.title}`);
     for (const image of [work.image, ...work.detailImages]) {
-      assert.ok(html.includes(`src="${image.previewSrc || image.src}"`), image.src);
+      const displayed = mediaProps.find(props => props.media.src === image.src);
+      assert.ok(displayed, `Full-size original stays available to enlargement: ${image.src}`);
+      assert.ok(html.includes(`src="${escapeHtml(displayed.previewSrc || image.src)}"`), image.src);
       assert.ok(html.includes(`alt="${escapeHtml(image.alt)}" width="${image.width}" height="${image.height}"`), image.alt);
       assert.ok(html.includes(`aria-label="Enlarge image: ${escapeHtml(image.alt)}"`), `Enlargement for ${image.alt}`);
     }
@@ -232,4 +315,22 @@ test('six paintings retain original source notes while edited public notes and d
   assert.equal((html.match(/>Detail<\/figcaption>/g) || []).length, 6, 'Each painting has a labelled detail thumbnail');
   assert.match(html, /Talk about a painting/);
   assert.doesNotMatch(html, /ANNA|anna-cover|From the portfolio cover|Not for Sale/);
+});
+
+test('additional Art reserves known image proportions without inventing missing source dimensions', async () => {
+  const Page = load('app/art/page.tsx', {
+    ...shared, './art.module.css': css,
+    '@/lib/db': { publicDb: async () => ({ rows: [
+      { id: 'known-painting', title: 'Known painting', slug: 'known-painting', body_markdown: null, media: [{ kind: 'image', blob_url: '/known.webp', alt_text: 'A portrait painting', width: 600, height: 900 }] },
+      { id: 'legacy-painting', title: 'Legacy painting', slug: 'legacy-painting', body_markdown: null, media: [{ kind: 'image', blob_url: '/legacy.webp', alt_text: null, width: null, height: null }] },
+    ] }) },
+    '@/lib/content': { contentExcerpt: value => value || '' },
+    '@/components/art/ArtGallery': empty,
+    '@/content/art/works': { artCollections: [], artworks: [] },
+  }, { POSTGRES_URL: 'configured' }).default;
+  const html = renderToStaticMarkup(await Page());
+  assert.match(html, /class="additionalImage" style="aspect-ratio:600 \/ 900"/);
+  assert.match(html, /src="\/known.webp" alt="A portrait painting" width="600" height="900" loading="lazy" decoding="async"/);
+  assert.match(html, /class="additionalImage"><img src="\/legacy.webp" alt="Legacy painting" loading="lazy" decoding="async"/);
+  assert.doesNotMatch(html, /eslint-disable/);
 });

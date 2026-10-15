@@ -2,7 +2,7 @@
 .identity { display: inline-flex; width: fit-content; align-items: center; gap: .8rem; min-height: 44px; font-size: 1.35rem; font-weight: 600; text-decoration: none; letter-spacing: -.03em; }
 .monogram { display: inline-flex; align-items: center; justify-content: center; width: 4rem; height: 4rem; flex-shrink: 0; border: 1px solid var(--ink); border-radius: 50%; font-size: 1.7rem; font-weight: 550; }
 .navigation { display: flex; flex-wrap: wrap; align-items: center; justify-content: end; gap: .35rem 1.1rem; }
-.navigation a { display: inline-flex; align-items: center; min-height: 44px; font-size: .9rem; text-decoration: none; }
+.navigation a { display: inline-flex; align-items: center; min-height: var(--target-size); min-width: var(--target-size); font-size: .9rem; text-decoration: none; }
 .navigation a[aria-current='page'] { font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .55em; }
 .navigation a:hover { text-decoration: underline; text-underline-offset: .55em; }
 .headerActions { display: flex; flex-wrap: wrap; gap: .65rem; }
@@ -30,19 +30,25 @@
 @media (max-width: 700px) {
   .header { grid-template-columns: 1fr auto; gap: .65rem; padding-bottom: 1rem; margin-bottom: 2rem; }
   .identity { font-size: 1.2rem; gap: .6rem; }
+  .navigation a, .menuButton, .cvButton, .contactButton { font-size: 1rem; }
   .monogram { width: 3rem; height: 3rem; font-size: 1.3rem; }
-  .menuButton { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; padding: .4rem .1rem .4rem .5rem; font-size: .875rem; }
+  .menuButton { display: inline-flex; align-items: center; gap: .5rem; min-height: var(--target-size); padding: .4rem .1rem .4rem .5rem; font-size: 1rem; }
   .navigation { grid-column: 1 / -1; grid-row: 2; justify-content: start; padding: .5rem 0; gap: .35rem 1.3rem; }
   .navigation[data-open='false'] { display: none; }
   .headerActions { grid-column: 1 / -1; gap: .65rem; }
-  .cvButton, .contactButton { font-size: .875rem; padding: .6rem .8rem; }
+  .cvButton, .contactButton { font-size: 1rem; padding: .6rem .8rem; }
   .contactLong { display: none; }
   .contactShort { display: inline; }
   .footer { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 3rem; padding-top: 2rem; }
   .footerSide { justify-self: start; }
-  .email { font-size: .9rem; }
+  .email, .footerLabel, .footerSide > p, .connections a, .footerSide .copyright { font-size: 1rem; }
 }
 @media (max-width: 380px) {
   .identity { font-size: 1.05rem; gap: .45rem; }
   .monogram { width: 3rem; height: 3rem; font-size: 1.3rem; }
+  .headerActions { gap: var(--space-target); }
+  .cvButton, .contactButton { padding-inline: .55rem; }
 }
+
+.compactFooter { max-width:76rem; margin:2rem auto 0; padding-top:1.5rem; border-top:1px solid var(--rule); color:var(--muted); font-size:.875rem; line-height:1.6; }
+@media(max-width:767px) { .compactFooter { font-size:1rem; } }

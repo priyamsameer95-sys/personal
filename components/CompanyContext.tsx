@@ -1,3 +1,4 @@
+import Icon from '@/components/Icon';
 import BrandMarks from './BrandMarks';
 import { getCompanyContext, type CompanyContextData } from '@/lib/company-context';
 import styles from './company-context.module.css';
@@ -31,7 +32,7 @@ export default function CompanyContext({ companyId, compact = false, showIdentit
     </div>}
     <div className={styles.description}>
       <CompanyDescription company={company} />
-      {!!company.websites.length && <div className={styles.websites}>{company.websites.map(website => <a key={website.href} href={website.href} target="_blank" rel="noopener noreferrer">{website.label}<span aria-hidden="true"> ↗</span><span className={styles.visuallyHidden}> (opens in a new tab)</span></a>)}</div>}
+      {!!company.websites.length && <div className={styles.websites}>{company.websites.map(website => <a key={website.href} href={website.href} target="_blank" rel="noopener noreferrer">{website.label}<span aria-hidden="true"> <Icon name="arrow-up-right" /></span><span className={styles.visuallyHidden}> (opens in a new tab)</span></a>)}</div>}
     </div>
   </div>;
 }

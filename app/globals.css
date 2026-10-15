@@ -5,7 +5,7 @@
 :root {
   --paper: #faf7f0;
   --paper-soft: #f1ede4;
-  --ink: #191714;
+  --ink: #171717;
   --muted: #625e56;
   --ink-muted: var(--muted);
   --rule: #ddd7cb;
@@ -15,26 +15,40 @@
   --colour-lime: #c5e875;
   --colour-yellow: #ffe348;
   --font-editorial: Georgia, 'Times New Roman', serif;
+  --target-size: 44px;
+  --space-target: 8px;
+  --focus-ring: 2px solid var(--ink);
+  --motion-fast: 160ms;
 }
 
 @layer base {
   html { font-size: 16px; scroll-padding-top: 2rem; }
-  body { background: #eee9df; color: var(--ink); font-family: var(--font-geist), system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--font-geist), system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
   code, pre { font-family: var(--font-geist-mono), ui-monospace, monospace; }
   a { color: inherit; }
   img { max-width: 100%; }
+  button, a, input, select, textarea { touch-action: manipulation; }
+  button:not(:disabled), [role='button']:not([aria-disabled='true']), label[for], summary, select { cursor: pointer; }
+  button:disabled, [aria-disabled='true'] { cursor: not-allowed; }
+  h1, h2, h3 { text-wrap: balance; }
+  [id] { scroll-margin-top: 2rem; }
   ::selection { background: var(--ink); color: var(--paper); }
-  :focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+  :focus-visible { outline: var(--focus-ring); outline-offset: 5px; }
 }
+
+.ui-icon { display: inline-block; width: 1.15em; height: 1.15em; flex: 0 0 auto; vertical-align: -.18em; }
+.public-prose { min-width: 0; overflow-wrap: anywhere; }
+.public-prose pre { overflow-wrap: normal; }
+.public-record { min-width: 0; overflow-wrap: anywhere; }
 
 .skip-link { position: fixed; top: 1rem; left: 1rem; z-index: 100; transform: translateY(-200%); background: var(--ink); color: var(--paper); padding: .8rem 1rem; }
 .skip-link:focus { transform: translateY(0); }
-.peel-canvas { position: relative; isolation: isolate; min-height: 100svh; max-width: 1560px; margin-inline: auto; padding: 12px; }
+.peel-canvas { position: relative; isolation: isolate; min-height: 100svh; max-width: 1600px; margin-inline: auto; padding: 8px; }
 .peel-underlay { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
 .peel-underlay svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.peel-sheet { position: relative; min-height: calc(100svh - 24px); background: var(--paper); border: 1px solid #19171433; }
+.peel-sheet { position: relative; min-height: calc(100svh - 16px); background: var(--paper); border: 1px solid #17171726; }
 .peel-content { position: relative; z-index: 1; padding: clamp(1.25rem, 3vw, 3.5rem); margin-inline: auto; }
-.peel-corner { position: absolute; top: -1px; right: -1px; width: 72px; height: 72px; background: linear-gradient(135deg, var(--paper) 48%, #cec8bb 49%, #fffdf9 70%, var(--colour-yellow) 71%); clip-path: polygon(0 0, 100% 0, 100% 100%); pointer-events: none; }
+.peel-corner { position: absolute; top: -1px; right: -1px; width: 44px; height: 44px; background: linear-gradient(135deg, var(--paper) 48%, #cec8bb 49%, #fffdf9 70%, var(--colour-yellow) 71%); clip-path: polygon(0 0, 100% 0, 100% 100%); pointer-events: none; }
 .ink-button { display: inline-flex; align-items: center; justify-content: center; gap: .75rem; min-height: 48px; border: 1px solid var(--ink); border-radius: .65rem; background: var(--ink); color: var(--paper); padding: .75rem 1.2rem; font-size: .9rem; font-weight: 500; text-decoration: none; transition: border-radius 160ms ease-out, background-color 160ms ease-out, color 160ms ease-out; }
 .ink-button:active, .ink-button:focus-visible { border-radius: 2rem; }
 .ink-button:hover { background: var(--paper); color: var(--ink); }
@@ -48,11 +62,12 @@
 /* Legacy page-wide animations remain disabled; Home uses scoped, accessible entry motion. */
 .animate-fade-in-up { animation: none; opacity: 1; transform: none; }
 @media (max-width: 767px) {
-  .peel-canvas { padding: 8px; }
-  .peel-sheet { min-height: calc(100svh - 16px); }
+  .peel-canvas { padding: 5px; }
+  .peel-sheet { min-height: calc(100svh - 10px); }
   .peel-content { padding: 1.25rem; }
-  .peel-corner { width: 40px; height: 40px; }
+  .peel-corner { width: 28px; height: 28px; }
   .peel-study-caption { align-items: start; flex-wrap: wrap; }
+  .ink-button, .ink-link { font-size: 1rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

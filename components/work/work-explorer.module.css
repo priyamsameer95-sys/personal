@@ -1,42 +1,58 @@
-.pageIntro { max-width: 54rem; margin-bottom: 1rem; }
-.pageIntro h1 { font-family: var(--font-editorial, Georgia, serif); font-size: clamp(3rem, 5vw, 4.6rem); line-height: 1.06; letter-spacing: -.04em; font-weight: 400; margin: 0 0 .75rem; color: var(--ink, #191714); }
-.pageIntro > p:last-child { font-size: 1rem; line-height: 1.65; color: var(--muted, #625e56); max-width: 70ch; }
-.explorer { min-width: 0; }
-.companyNavigation { display: flex; flex-wrap: wrap; gap: .3rem 2rem; padding: .4rem 0 .75rem; border-bottom: 1px solid var(--rule); margin-bottom: 2rem; scroll-margin-top: 2rem; }
-.companyNavigation a { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; font-size: .95rem; text-underline-offset: .25em; }
-.companyNavigation a:hover { text-decoration: underline; }
-.companySection { margin-bottom: 4rem; scroll-margin-top: 2rem; min-width: 0; }
-.companySection:focus, .experienceBridge:focus, .companyNavigation:focus { outline: none; }
-.companyHeader { margin-bottom: 1.5rem; }
-.companyHeader h2 { margin: 0; color: var(--ink, #191714); font-size: clamp(1.15rem, 1.35vw, 1.35rem); line-height: 1.3; letter-spacing: -.025em; font-weight: 550; }
-.selectedProjects { border-bottom: 1px solid var(--rule); }
-.selectedProjects > article:first-child { border-top: 1px solid var(--rule); padding-top: 1.5rem; }
-.productStack { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.6fr); gap: 2.5rem; padding: 1.5rem 0; border-bottom: 1px solid var(--rule); }
-.productStack h3 { font-size: 1.1rem; font-weight: 550; letter-spacing: -.025em; line-height: 1.5; margin: 0; }
-.productStack p { max-width: 64ch; font-size: .95rem; line-height: 1.65; color: var(--muted); margin: 0; }
-.productStack ul { display: flex; flex-wrap: wrap; gap: .15rem 1.3rem; list-style: none; padding: 0; margin: .6rem 0 0; }
-.productStack li { min-width: 0; }
-.productStack a { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; font-size: .9rem; text-underline-offset: .25em; }
-.productStack a:hover { text-decoration-thickness: 2px; }
-.productStack a:focus-visible, .companyNavigation a:focus-visible, .experienceBridge a:focus-visible { outline: 3px solid #2657ef; outline-offset: 4px; }
-.experienceBridge { border-top: 1px solid var(--rule); padding-top: 1.5rem; margin-top: 1rem; scroll-margin-top: 2rem; }
-.experienceBridge h2 { font-size: 1.35rem; font-weight: 550; line-height: 1.35; letter-spacing: -.025em; margin-bottom: .65rem; }
-.experienceBridge > p { max-width: 66ch; font-size: .95rem; line-height: 1.7; color: var(--muted); }
+.pageIntro { max-width: 76rem; margin: 0 auto; padding: clamp(3rem, 5vw, 5rem) 0 2.5rem; }
+.pageIntro h1 { margin: 0 0 1.25rem; color: var(--ink); font-size: clamp(2.75rem, 5.2vw, 4.75rem); font-weight: 500; letter-spacing: -.05em; line-height: 1.08; text-wrap: balance; }
+.pageIntro > p { max-width: 48ch; color: var(--muted); font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.65; text-wrap: pretty; }
+.explorer { min-width: 0; max-width: 76rem; margin-inline: auto; }
+.companyNavigation { display: flex; flex-wrap: wrap; gap: var(--space-target, 8px) 2rem; padding: 0 0 1.5rem; border-bottom: 1px solid var(--rule); scroll-margin-top: 2rem; }
+.companyNavigation a { display: inline-flex; align-items: center; gap: .75rem; min-height: var(--target-size, 44px); font-size: 1rem; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: .35em; }
+.companyNavigation a:hover { text-decoration-color: var(--ink); }
+.companySection { min-width: 0; padding-top: 3rem; margin-bottom: 5rem; scroll-margin-top: 2rem; }
+.companySection + .companySection { border-top: 1px solid var(--rule); padding-top: 4rem; }
+.companyHeader { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: center; gap: 2rem 4rem; margin-bottom: 2.5rem; }
+.companyIdentity { min-width: 0; }
+.companyLink { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.5rem; width: fit-content; max-width: 100%; color: var(--ink); text-decoration: none; }
+.companyLink > div { margin: 0; }
+.companyLink h2 { display: inline-flex; align-items: center; gap: .65rem; margin: 0; font-size: 1.5rem; font-weight: 500; letter-spacing: -.025em; line-height: 1.35; }
+a.companyLink:hover h2 { text-decoration: underline; text-underline-offset: .25em; }
+.companyIdentity > p { margin-top: .5rem; color: var(--muted); font-size: 1rem; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.companyAccount p { max-width: 56ch; margin: 0; font-size: 1rem; line-height: 1.75; text-wrap: pretty; }
+.companyAccount p + p { margin-top: .65rem; color: var(--muted); }
+.companyProjects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 2.5rem; }
+.projectTarget { position: relative; min-width: 0; scroll-margin-top: 2rem; }
+.projectLead { grid-column: 1 / -1; }
+.projectTarget:target { outline: var(--focus-ring, 2px solid var(--ink)); outline-offset: 7px; border-radius: .75rem; }
+.companySection:focus-visible, .projectTarget:focus-visible, .experienceBridge:focus-visible, .companyNavigation:focus-visible { outline: var(--focus-ring, 2px solid var(--ink)); outline-offset: 7px; }
+.anchorAlias { position: absolute; top: 0; left: 0; scroll-margin-top: 2rem; }
+.productStack { margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); }
+.productStack > h3 { margin: 0 0 1.5rem; font-size: 1.35rem; line-height: 1.4; font-weight: 500; letter-spacing: -.02em; }
+.supportingGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem; }
+.supportingCard { display: block; min-width: 0; color: var(--ink); text-decoration: none; }
+.supportingImage { display: grid; place-items: center; aspect-ratio: 16 / 10; padding: 1rem; background: var(--paper-soft); border: 1px solid var(--rule); border-radius: .75rem; overflow: hidden; }
+.supportingImage img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+.supportingCard h4 { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin: 1.1rem 0 .4rem; font-size: 1.25rem; font-weight: 500; line-height: 1.4; letter-spacing: -.02em; }
+.supportingCard:hover h4 { text-decoration: underline; text-underline-offset: .25em; }
+.supportingCard p { max-width: 48ch; margin: 0; font-size: 1rem; line-height: 1.7; }
+.supportingCard > span { display: block; margin-top: .65rem; font-size: .875rem; line-height: 1.6; color: var(--muted); }
+.experienceBridge { border-top: 1px solid var(--rule); padding-top: 2.5rem; scroll-margin-top: 2rem; }
+.experienceBridge h2 { margin: 0 0 .75rem; font-size: 1.5rem; font-weight: 500; line-height: 1.35; letter-spacing: -.025em; }
+.experienceBridge > p { max-width: 66ch; font-size: 1rem; line-height: 1.7; color: var(--muted); }
 .experienceBridge > p a { color: var(--ink); text-underline-offset: .25em; }
-.experienceBridge nav { display: flex; flex-wrap: wrap; gap: .2rem 1.5rem; margin-top: .65rem; }
-.experienceBridge nav a { display: inline-flex; align-items: center; min-height: 44px; gap: .4rem; color: var(--muted); font-size: .85rem; text-underline-offset: .25em; scroll-margin-top: 2rem; }
-@media (max-width: 899px) {
-  .productStack { grid-template-columns: 1fr; gap: .7rem; }
+.experienceBridge nav { display: flex; flex-wrap: wrap; gap: var(--space-target, 8px) 1.75rem; margin-top: 1rem; }
+.experienceBridge nav a { display: inline-flex; align-items: center; min-height: var(--target-size, 44px); gap: .5rem; color: var(--muted); font-size: 1rem; text-underline-offset: .25em; scroll-margin-top: 2rem; }
+@media (max-width: 900px) { .companyHeader { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; } .companyProjects, .supportingGrid { gap: 2rem; } }
+@media (max-width: 700px) {
+  .pageIntro { padding: 2rem 0 1.5rem; }
+  .pageIntro > p { font-size: 1rem; }
+  .companyNavigation { gap: var(--space-target, 8px) .75rem; padding-bottom: 1rem; }
+  .companyNavigation a { gap: .4rem; }
+  .companySection { padding-top: 1.5rem; margin-bottom: 3rem; }
+  .companySection + .companySection { padding-top: 3rem; }
+  .companyHeader { gap: 1rem; margin-bottom: 1.5rem; }
+  .companyLink { flex-wrap: nowrap; gap: .5rem 1.25rem; }
+  .companyIdentity .companyLink > div { --brand-slot-width: 132px; --brand-slot-height: 88px; }
+  .companyLink h2 { font-size: 1.25rem; }
+  .companyProjects, .supportingGrid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .productStack { margin-top: 2.5rem; padding-top: 2rem; }
+  .supportingCard > span { font-size: 1rem; }
+  .experienceBridge { padding-top: 2rem; }
 }
-@media (max-width: 760px) {
-  .pageIntro h1 { font-size: clamp(2.4rem, 7vw, 3.1rem); }
-  .companyNavigation { gap: .3rem 1.25rem; margin-bottom: 1.5rem; }
-  .companyHeader { margin-bottom: 1.25rem; }
-  .companySection { margin-bottom: 3rem; }
-}
-@media print { .companyNavigation { display: none; } .selectedProjects > article { break-inside: avoid; } }
-.pathHeader { max-width:78ch; margin-bottom:1.5rem; }
-.pathHeader h2 { font-size:clamp(1.6rem,2.6vw,2.2rem); line-height:1.25; font-weight:550; letter-spacing:-.035em; margin:0 0 .7rem; }
-.pathHeader p,.remit { font-size:.95rem; line-height:1.7; color:var(--muted); margin:0 0 1.5rem; }
-.remit { max-width:80ch; padding:1rem 0; border-top:1px solid var(--rule); }
-.remit a { color:var(--ink); text-underline-offset:.25em; }
+@media print { .companyNavigation { display: none; } .companyProjects { display: block; } .projectTarget { margin-bottom: 2rem; } }

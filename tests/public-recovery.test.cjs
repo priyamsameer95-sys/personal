@@ -6,6 +6,7 @@ const vm = require('node:vm');
 const ts = require('typescript');
 const { createElement } = require('react');
 const { renderToStaticMarkup } = require('react-dom/server');
+const EmailContact = require('./helpers/email-contact.cjs');
 
 const css = new Proxy({}, { get: (_, name) => name === '__esModule' ? false : String(name) });
 const shell = ({ children }) => createElement('div', null, children);
@@ -25,12 +26,13 @@ function loadPage(filename, env, db, extra = {}) {
     '@/components/Header': empty,
     '@/components/Footer': empty,
     '@/components/PublicShell': shell,
+    '@/components/EmailContact': EmailContact,
     './blog.module.css': css,
     ...extra,
   };
   vm.runInNewContext(outputText, {
     module, exports: module.exports, process: { env }, console: { error() {} },
-    require: name => Object.prototype.hasOwnProperty.call(stubs, name) ? stubs[name] : require(name),
+    require: name => name === '@/components/Icon' ? require('./helpers/icon.cjs') : Object.prototype.hasOwnProperty.call(stubs, name) ? stubs[name] : require(name),
   }, { filename });
   return module.exports;
 }
@@ -45,17 +47,28 @@ test('Writing distinguishes a failed connection from an empty published collecti
 
   const connected = loadPage('app/blog/page.tsx', { POSTGRES_URL: 'configured' }, async () => ({ rows: [] }));
   const emptyHtml = renderToStaticMarkup(await connected.default());
-  assert.match(emptyHtml, /Start with a decision/);
+  assert.match(emptyHtml, /No essays published yet/);
   assert.doesNotMatch(emptyHtml, /temporarily unavailable/);
 });
 
 test('unconfigured Writing retains an honest case-led holding page without querying', async () => {
   const page = loadPage('app/blog/page.tsx', { NODE_ENV: 'production' }, () => assert.fail('Unconfigured Writing must not query'));
   const html = renderToStaticMarkup(await page.default());
-  assert.match(html, /Start with a decision/);
+  assert.match(html, /No essays published yet/);
   assert.match(html, /<h1>Writing\.<\/h1>/);
   assert.match(html, /href="\/product\/cashkaro-college-money-education-loans"/);
-  assert.doesNotMatch(html, /temporarily unavailable|No essays|subscribe/i);
+  assert.doesNotMatch(html, /temporarily unavailable|subscribe/i);
+});
+
+test('published Writing presents articles rather than the empty collection introduction', async () => {
+  const page = loadPage('app/blog/page.tsx', { POSTGRES_URL: 'configured' }, async () => ({ rows: [{
+    id: 'first-essay', title: 'A product decision', slug: 'a-product-decision', summary: 'The context behind a choice.', body_markdown: null, created_at: '2026-10-13T12:00:00Z',
+  }] }));
+  const html = renderToStaticMarkup(await page.default());
+  assert.match(html, /Notes on product decisions, building and business/);
+  assert.match(html, /href="\/blog\/a-product-decision"/);
+  assert.match(html, /The context behind a choice/);
+  assert.doesNotMatch(html, /No essays published yet|For now, the clearest account|Try again/);
 });
 
 test('unknown public detail routes use 404 before touching an unconfigured database', async () => {

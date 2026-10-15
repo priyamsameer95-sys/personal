@@ -1,5 +1,37 @@
 import type { CaseStudy, CaseStudyMedia, CaseStudyPresentation } from './work-types';
 
+const caseDisplayTitles: Readonly<Record<string, string>> = {
+  'cashkaro-personal-loan-marketplace': 'Personal-loan marketplace',
+  'cashkaro-college-money-education-loans': 'College.money education loans',
+  'cashkaro-eduloans-policy-workflow': 'EduLoans reviewer workspace',
+  'cashkaro-lender-integration-operations': 'Lender integrations',
+  'cashkaro-lending-mcp-feedback': 'Lending policy via MCP',
+  'credflow-kuberx-launch': 'KuberX launch',
+  'credflow-pay-via-credit-card': 'KuberX credit-card payments',
+  'absolute-silkroute-marketplace': 'SilkRoute commodity trading',
+  'absolute-trade-payments-erp': 'Trade payments and ERP',
+  'absolute-rural-credit-uli': 'RiskStac and ULI',
+  'absolute-ondc-credit-infrastructure': 'ONDC credit infrastructure',
+  'absolute-upaj-farmer-experience': 'Upaj farmer experience',
+  'absolute-farm-os-iot-gis': 'Farm OS monitoring',
+  'absolute-crop-health-ai': 'Crop-health AI',
+  'absolute-rainfall-grid-insurance': 'Rainfall data and insurance',
+  'absolute-upaj-international': 'Upaj in Brazil and Malaysia',
+  'absolute-agri-input-institutional-commerce': 'Agri-input institutional commerce',
+  'absolute-supporting-portfolio': 'Absolute portfolio archive',
+  'urbankhet-farm-to-fork': 'UrbanKhet farm to customer',
+  'urbankhet-covid-pivot': 'UrbanKhet COVID pivot',
+  'urbankhet-incubation-funding': 'UrbanKhet venture support',
+  'water-farmers-aquaponics': 'Water Farmers aquaponics',
+  'gujarat-action-group-covid-resource-database': 'COVID resource database',
+  'independent-founder-advisory': 'Founder advisory',
+  'cept-football-creative-practice': 'Football and painting',
+};
+
+export function getCaseDisplayTitle(study: Pick<CaseStudy, 'slug' | 'title'> & { visualSummary?: Pick<NonNullable<CaseStudy['visualSummary']>, 'title'> }): string {
+  return caseDisplayTitles[study.slug] || study.visualSummary?.title || study.title;
+}
+
 export function featuredCaseStudies<T extends { featuredOrder?: number }>(studies: readonly T[]): T[] {
   return studies.filter(study => Number.isFinite(study.featuredOrder) && study.featuredOrder! > 0)
     .sort((a, b) => a.featuredOrder! - b.featuredOrder!);

@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { readFileSync } = require('node:fs');
+const { readFileSync, existsSync } = require('node:fs');
 const { readdirSync } = require('node:fs');
 const { createHash } = require('node:crypto');
 const path = require('node:path');
 const vm = require('node:vm');
 const ts = require('typescript');
+const EmailContact = require('./helpers/email-contact.cjs');
 
 const source = readFileSync(path.join(__dirname, '../lib/content.ts'), 'utf8');
 const { outputText } = ts.transpileModule(source, {
@@ -61,21 +62,28 @@ test('public hosting permits the supplied CV and keeps source documents and arch
   assert.deepEqual(retired, [], `Retired files must not be publicly hosted: ${retired.join(', ')}`);
 });
 
-test('the CV download serves the audit-aligned PDF and retains a direct download action', () => {
+test('every CV download serves the exact supplied PDF with a content version for cached browsers', () => {
   const bytes = readFileSync(path.join(__dirname, '../public/cv/Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf'));
-  const baseline = JSON.parse(readFileSync(path.join(__dirname, '../audit/2026-10-15/source-manifest.json')));
-  assert.notEqual(createHash('sha256').update(bytes).digest('hex'), baseline.originalCvSha256, 'Audit required a new readable CV rather than the compressed original');
-  assert.ok(bytes.length > 8000, 'The downloadable document is populated');
+  const supplied = JSON.parse(readFileSync(path.join(__dirname, '../content/cv-download.json')));
+  const approvedHash = '3a93c23d5b3ff90ead273b1ea1e6812e885df105bef525d638fb8fbe244ac713';
+  assert.equal(supplied.sourceFile, 'Priyam_Sameer_Zero_to_One_Product_Manager_CV (4).pdf');
+  assert.equal(supplied.sha256, approvedHash, 'The manifest records the supplied source rather than a generated replacement');
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), approvedHash, 'Public PDF must match the uploaded source byte for byte');
+  assert.equal(bytes.length, 126576);
+  assert.equal(bytes.length, supplied.bytes);
   assert.equal(bytes.subarray(0, 5).toString(), '%PDF-');
+  assert.equal(existsSync(path.join(__dirname, '../scripts/build-cv.py')), false, 'An obsolete generator must not overwrite the supplied PDF');
   const { outputText: componentJs } = ts.transpileModule(readFileSync(path.join(__dirname, '../components/CvDownload.tsx'), 'utf8'), {
-    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, jsx: ts.JsxEmit.ReactJSX },
+    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, jsx: ts.JsxEmit.ReactJSX, esModuleInterop:true },
   });
   const componentModule = { exports: {} };
-  vm.runInNewContext(componentJs, { module: componentModule, exports: componentModule.exports, require });
+  vm.runInNewContext(componentJs, { module: componentModule, exports: componentModule.exports, require: id => id === '@/components/Icon' ? require('./helpers/icon.cjs') : require(id) });
   const { createElement } = require('react');
   const { renderToStaticMarkup } = require('react-dom/server');
   const html = renderToStaticMarkup(createElement(componentModule.exports.default));
-  assert.match(html, /href="\/cv\/Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf" download="Priyam_Sameer_CV.pdf"/);
+  const expectedUrl = `${supplied.publicPath}?v=${approvedHash.slice(0,12)}`;
+  assert.equal(componentModule.exports.CV_DOWNLOAD_URL,expectedUrl);
+  assert.ok(html.includes(`href="${expectedUrl}" download="Priyam_Sameer_CV.pdf"`));
   assert.match(html, />Download CV/);
 });
 
@@ -101,7 +109,7 @@ test('the actual public renderer outputs Markdown without executable HTML or lin
   vm.runInNewContext(componentJs, {
     module: componentModule,
     exports: componentModule.exports,
-    require: id => id === '@/lib/content' ? moduleContext.exports : require(id),
+    require: id => id === '@/lib/content' ? moduleContext.exports : id === './EmailContact' ? EmailContact : require(id),
   });
   const html = renderToStaticMarkup(createElement(componentModule.exports.default, {
     source: '# A heading\n\n- One\n- Two\n\n**Bold** and [safe](https://example.com) and [unsafe](javascript:alert) and [PDF source](/work/source.pdf)\n\n<script>alert(1)</script>\n\n| A | B |\n| - | - |\n| 1 | 2 |',

@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-10-15T19:11:13.752Z",
+  "origin": "http://127.0.0.1:3000",
+  "routes": {
+    "publicPages": 5,
+    "canonicalCases": 25,
+    "referencePages": 25,
+    "permanentAliases": 20,
+    "linkedAdditionalPages": 0,
+    "expected404": 12
+  },
+  "anchors": {
+    "baselineSections": 221,
+    "publicSections": 220,
+    "internalSectionsExcluded": 1,
+    "baselineSectionFragments": 713,
+    "currentSectionFragments": 722,
+    "preAuditChapterFragments": 109,
+    "legacyStructuralFragments": 325,
+    "uniqueInternalLinkTargets": 271
+  },
+  "evidence": {
+    "baselineMediaEntries": 121,
+    "baselineUniqueAssets": 113,
+    "currentMediaEntries": 122,
+    "mediaCaptions": 122,
+    "videoPosters": 10,
+    "captionTracks": 0,
+    "distinctVideos": 10,
+    "paintings": 6,
+    "paintingDetails": 6
+  },
+  "assets": {
+    "uniqueURLs": 247,
+    "totalBytesVerified": 58053480,
+    "publicFilesInspected": 158,
+    "cvSHA256": "2a8e04a88736df3f7db72d2a198d0ae9f38bd8975ef2d55477ae08dcd28a59c9",
+    "cvMatchesCurrentLocalBinary": true,
+    "cvUpdatedFromArchivedOriginal": true
+  },
+  "failureCount": 0,
+  "provenance": {
+    "sourceManifest": "audit/2026-10-15/source-manifest.json",
+    "sourceManifestSHA256": "a0df8151b3a9976236ef9c5224b73a904ca72f68c64b1ef9ad2be4dd7b323396",
+    "preAuditChapterSource": "source-manifest chapterAnchors",
+    "privateBackupCompared": true
+  },
+  "notices": [
+    "HTTP checks cannot verify browser layout, client-side fragment forwarding, playback, focus or keyboard interaction."
+  ],
+  "failures": []
+}

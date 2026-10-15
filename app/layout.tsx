@@ -19,7 +19,8 @@ const geistMono = localFont({
 
 const siteAddress = process.env.NEXT_PUBLIC_SITE_URL
   || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined)
-  || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined);
+  || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined)
+  || 'https://www.priyamsameer.com';
 
 export const metadata: Metadata = {
   ...(siteAddress ? { metadataBase: new URL(siteAddress) } : {}),
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Priyam Sameer — Product Leader & Former Founder",
     description: "Product work and experience across lending, agricultural technology and marketplaces.",
   },

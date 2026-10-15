@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ConfirmDialog, Toast } from './shared';
+import Icon from '@/components/Icon';
 
 interface ContentLibraryProps {
   type: 'cv' | 'art' | 'work' | 'blog';
@@ -76,7 +77,7 @@ export default function ContentLibrary({ type, onEdit, refreshTrigger }: Content
   };
 
   if (isLoading) {
-    return <div className="text-center p-8 text-[#8C8C8C]">Loading...</div>;
+    return <div className="text-center p-8 text-base text-[#625e56]" role="status">Loading…</div>;
   }
 
   if (error) {
@@ -88,7 +89,7 @@ export default function ContentLibrary({ type, onEdit, refreshTrigger }: Content
 
   if (items.length === 0) {
     return (
-      <div className="text-center p-12 border-2 border-dashed border-[#E5E5E5] rounded-xl text-[#8C8C8C] mt-8">
+      <div className="text-center p-12 text-base border-2 border-dashed border-[#E5E5E5] rounded-xl text-[#625e56] mt-8">
         No {type.toUpperCase()} items found. Create one using the form.
       </div>
     );
@@ -120,65 +121,66 @@ export default function ContentLibrary({ type, onEdit, refreshTrigger }: Content
             <div className="w-16 h-16 bg-[#FAFAFA] rounded-lg shrink-0 overflow-hidden flex items-center justify-center border border-[#E5E5E5]">
               {item.media?.[0] ? (
                 item.media[0].kind === 'image' ? (
-                  <img src={item.media[0].blob_url} alt="" className="w-full h-full object-cover" />
+                  <img src={item.media[0].blob_url} alt="" width={64} height={64} loading="lazy" className="w-full h-full object-cover" />
                 ) : (
-                  <span className="material-symbols-rounded text-[#8C8C8C]">picture_as_pdf</span>
+                  <Icon name="file" className="text-[#625e56]" />
                 )
               ) : (
-                <span className="material-symbols-rounded text-[#8C8C8C]">draft</span>
+                <Icon name="file" className="text-[#625e56]" />
               )}
             </div>
 
             {/* Info */}
             <div className="flex-1 min-w-0 flex flex-col justify-center">
               <h4 className="font-semibold text-[#1A1A1A] truncate">{item.title}</h4>
-              <div className="flex items-center gap-3 text-xs mt-1">
+              <div className="flex flex-wrap items-center gap-2 text-base sm:text-xs mt-1">
                 <span className={`font-mono px-2 py-0.5 rounded-full ${
                   item.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800'
                 }`}>
                   {item.status}
                 </span>
-                <span className="text-[#8C8C8C]">
+                <span className="text-[#625e56]">
                   {new Date(item.updated_at).toLocaleDateString()}
                 </span>
                 {item.type === 'art' && (
-                  <span className="text-[#8C8C8C]">Order: {item.sort_order}</span>
+                  <span className="text-[#625e56]">Order: {item.sort_order}</span>
                 )}
               </div>
             </div>
 
             {/* Actions */}
-            <div className="flex w-full sm:w-auto justify-end items-center gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100 transition-opacity">
+            <div className="flex w-full sm:w-auto justify-end items-center gap-2">
               <button 
+                type="button"
                 onClick={() => handleToggleStatus(item)}
                 disabled={isProcessing}
                 aria-label={`${item.status === 'published' ? 'Unpublish' : 'Publish'} ${item.title}`}
                 className="min-h-11 min-w-11 p-2 text-[#525252] hover:text-[#1A1A1A] hover:bg-[#FAFAFA] rounded-lg transition disabled:opacity-50"
                 title={item.status === 'published' ? 'Unpublish' : 'Publish'}
               >
-                <span className="material-symbols-rounded text-[20px]">
-                  {item.status === 'published' ? 'visibility_off' : 'visibility'}
-                </span>
+                <Icon name="eye" />
               </button>
               
               <button 
+                type="button"
                 onClick={() => onEdit(item)}
                 disabled={isProcessing}
                 aria-label={`Edit ${item.title}`}
                 className="min-h-11 min-w-11 p-2 text-[#525252] hover:text-blue-600 hover:bg-blue-50 rounded-lg transition disabled:opacity-50"
                 title="Edit"
               >
-                <span className="material-symbols-rounded text-[20px]">edit</span>
+                <Icon name="edit" />
               </button>
               
               <button 
+                type="button"
                 onClick={() => setDeleteConfirmId(item.id)}
                 disabled={isProcessing}
                 aria-label={`Delete ${item.title}`}
                 className="min-h-11 min-w-11 p-2 text-[#525252] hover:text-red-600 hover:bg-red-50 rounded-lg transition disabled:opacity-50"
                 title="Delete"
               >
-                <span className="material-symbols-rounded text-[20px]">delete</span>
+                <Icon name="trash" />
               </button>
             </div>
           </div>

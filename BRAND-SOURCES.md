@@ -47,3 +47,5 @@ UrbanKhet’s [original LinkedIn company page](https://www.linkedin.com/company/
 ## Current display choice — 14 October 2026
 
 At the owner's request, CashKaro and Absolute are the sole identity marks for their company groups. BankKaro and Upaj logo files retain their original bytes and provenance but are no longer displayed by company or case identities. Original source screenshots/videos remain unchanged. CredFlow's mark and career record remain on Experience and its case pages; the homepage career overview omits it.
+
+Absolute uses the original vector wordmark on transparency, rendered in black with CSS `brightness(0)` for the cream surface. It has no dark backing or image-box padding; the original path artwork and proportions remain intact.

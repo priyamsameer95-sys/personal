@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { upload } from '@vercel/blob/client';
 import { WordCounter, ProgressBar, Toast } from './shared';
+import Icon from '@/components/Icon';
 import dynamic from 'next/dynamic';
 import '@uiw/react-md-editor/markdown-editor.css';
 
@@ -30,6 +31,7 @@ interface ImageItem {
 }
 
 export default function BlogForm({ editItem, onSuccess, onDirtyChange }: BlogFormProps) {
+  const formId = React.useId();
   const [title, setTitle] = useState(editItem?.title || '');
   const [summary, setSummary] = useState(editItem?.summary || '');
   const [bodyMarkdown, setBodyMarkdown] = useState(editItem?.body_markdown || '');
@@ -212,59 +214,66 @@ export default function BlogForm({ editItem, onSuccess, onDirtyChange }: BlogFor
         <h2 className="text-xl font-bold text-[#1A1A1A]">Blog Post</h2>
         
         <div>
-          <label className="block text-sm font-semibold text-[#525252] mb-1">Title</label>
+          <label htmlFor={`${formId}-title`} className="block text-base sm:text-sm font-semibold text-[#525252] mb-1">Title</label>
           <input 
+            id={`${formId}-title`}
+            name="blog-title"
             type="text" 
             value={title} 
             onChange={e => setTitle(e.target.value)}
-            className="w-full p-3 border border-[#E5E5E5] rounded-xl bg-[#FAFAFA] text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]"
+            className="w-full min-h-11 p-3 text-base border border-[#E5E5E5] rounded-xl bg-[#FAFAFA] text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]"
             placeholder="Post title"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-[#525252] mb-1">Summary (excerpt)</label>
+          <label htmlFor={`${formId}-summary`} className="block text-base sm:text-sm font-semibold text-[#525252] mb-1">Summary (excerpt)</label>
           <textarea 
+            id={`${formId}-summary`}
+            name="blog-summary"
             value={summary} 
             onChange={e => setSummary(e.target.value)}
-            className="w-full p-3 border border-[#E5E5E5] rounded-xl bg-[#FAFAFA] text-[#1A1A1A] min-h-[80px] focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]"
+            className="w-full p-3 text-base border border-[#E5E5E5] rounded-xl bg-[#FAFAFA] text-[#1A1A1A] min-h-[80px] focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]"
             placeholder="A short summary for the blog list page..."
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-[#525252] mb-2 flex justify-between">
+          <p className="text-base sm:text-sm font-semibold text-[#525252] mb-2">
             <span>Images ({images.length}/3)</span>
-          </label>
+          </p>
           
           <div className="space-y-3">
             {images.map((img, i) => (
-              <div key={img.id || img.previewUrl} className="flex gap-4 p-3 border border-[#E5E5E5] rounded-xl bg-white items-center">
-                <div className="flex flex-col gap-1">
-                  <button onClick={() => moveImage(i, -1)} disabled={i === 0} className="text-[#8C8C8C] hover:text-[#1A1A1A] disabled:opacity-30">
-                    <span className="material-symbols-rounded">keyboard_arrow_up</span>
+              <div key={img.id || img.previewUrl} className="grid grid-cols-[44px_minmax(0,1fr)_44px] gap-3 p-3 border border-[#E5E5E5] rounded-xl bg-white sm:flex sm:gap-4 sm:items-center">
+                <div className="col-start-1 row-start-1 flex flex-col gap-2">
+                  <button type="button" aria-label={`Move image ${i + 1} earlier`} onClick={() => moveImage(i, -1)} disabled={i === 0} className="inline-flex min-h-11 min-w-11 items-center justify-center text-[#625e56] hover:text-[#1A1A1A] disabled:opacity-30">
+                    <Icon name="arrow-up" />
                   </button>
-                  <button onClick={() => moveImage(i, 1)} disabled={i === images.length - 1} className="text-[#8C8C8C] hover:text-[#1A1A1A] disabled:opacity-30">
-                    <span className="material-symbols-rounded">keyboard_arrow_down</span>
+                  <button type="button" aria-label={`Move image ${i + 1} later`} onClick={() => moveImage(i, 1)} disabled={i === images.length - 1} className="inline-flex min-h-11 min-w-11 items-center justify-center text-[#625e56] hover:text-[#1A1A1A] disabled:opacity-30">
+                    <Icon name="arrow-down" />
                   </button>
                 </div>
                 
-                <div className="w-24 h-24 bg-[#FAFAFA] rounded-lg overflow-hidden shrink-0 flex items-center justify-center border border-[#E5E5E5]">
-                  <img src={img.previewUrl} alt="Thumbnail" className="max-w-full max-h-full object-contain" />
+                <div className="col-start-2 row-start-1 w-20 h-20 sm:w-24 sm:h-24 bg-[#FAFAFA] rounded-lg overflow-hidden shrink-0 flex items-center justify-center border border-[#E5E5E5]">
+                  <img src={img.previewUrl} alt={img.alt_text || `Blog image ${i + 1} preview`} width={img.width} height={img.height} className="max-w-full max-h-full object-contain" />
                 </div>
                 
-                <div className="flex-1 space-y-2">
+                <div className="col-span-3 row-start-2 min-w-0 flex-1 space-y-2">
+                  <label htmlFor={`${formId}-image-${i}-alt`} className="block text-base sm:text-sm font-medium text-[#525252]">Image {i + 1} description</label>
                   <input 
+                    id={`${formId}-image-${i}-alt`}
+                    name={`blog-image-${i}-alt`}
                     type="text" 
                     placeholder="Alt text" 
                     value={img.alt_text}
                     onChange={e => updateImage(i, 'alt_text', e.target.value)}
-                    className="w-full p-2 text-sm border border-[#E5E5E5] rounded-lg bg-[#FAFAFA]"
+                    className="w-full min-h-11 p-2 text-base border border-[#E5E5E5] rounded-lg bg-[#FAFAFA]"
                   />
                 </div>
                 
-                <button onClick={() => removeImage(i)} className="text-red-500 hover:text-red-700 shrink-0 p-2">
-                  <span className="material-symbols-rounded">delete</span>
+                <button type="button" aria-label={`Remove image ${i + 1}`} onClick={() => removeImage(i)} className="col-start-3 row-start-3 inline-flex min-h-11 min-w-11 items-center justify-center text-red-600 hover:text-red-700 shrink-0 p-2">
+                  <Icon name="trash" />
                 </button>
               </div>
             ))}
@@ -276,12 +285,13 @@ export default function BlogForm({ editItem, onSuccess, onDirtyChange }: BlogFor
                   accept="image/jpeg,image/png,image/webp"
                   multiple
                   onChange={handleImageSelect}
-                  className="hidden"
-                  id="blog-image-upload"
+                  className="sr-only peer"
+                  id={`${formId}-image-upload`}
+                  name="blog-images"
                 />
-                <label htmlFor="blog-image-upload" className="cursor-pointer flex items-center justify-center gap-2">
-                  <span className="material-symbols-rounded text-xl text-[#8C8C8C]">add_photo_alternate</span>
-                  <span className="text-[#1A1A1A] font-semibold text-sm">Add Image (Optional)</span>
+                <label htmlFor={`${formId}-image-upload`} className="cursor-pointer flex min-h-11 items-center justify-center gap-2 rounded-md peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-[#1A1A1A]">
+                  <Icon name="image" className="text-[#625e56]" />
+                  <span className="text-[#1A1A1A] font-semibold text-base">Add Image (Optional)</span>
                 </label>
               </div>
             )}
@@ -290,12 +300,14 @@ export default function BlogForm({ editItem, onSuccess, onDirtyChange }: BlogFor
 
         <div>
           <div className="w-full bg-white rounded-xl overflow-hidden" data-color-mode="light">
+            <label htmlFor={`${formId}-body`} className="mb-2 block text-base sm:text-sm font-semibold text-[#525252]">Essay (Markdown)</label>
             <MDEditor
               value={bodyMarkdown}
               onChange={(val) => setBodyMarkdown(val || '')}
               height={500}
               preview="live"
               hideToolbar={false}
+              textareaProps={{ id: `${formId}-body`, name: 'blog-body', style: { fontSize: 16 } }}
               className="border border-[#E5E5E5] !shadow-none"
             />
           </div>
@@ -309,16 +321,18 @@ export default function BlogForm({ editItem, onSuccess, onDirtyChange }: BlogFor
 
       <div className="flex gap-3 pt-6 border-t border-[#E5E5E5]">
         <button 
+          type="button"
           onClick={() => handleSubmit('draft')}
           disabled={isUploading}
-          className="px-6 py-3 bg-[#FAFAFA] border border-[#E5E5E5] text-[#1A1A1A] font-semibold rounded-xl hover:bg-[#E5E5E5] transition flex-1 disabled:opacity-50"
+          className="min-h-11 px-6 py-3 text-base bg-[#FAFAFA] border border-[#E5E5E5] text-[#1A1A1A] font-semibold rounded-xl hover:bg-[#E5E5E5] transition-colors flex-1 disabled:opacity-50"
         >
           Save Draft
         </button>
         <button 
+          type="button"
           onClick={() => handleSubmit('published')}
           disabled={isUploading}
-          className="px-6 py-3 bg-[#1A1A1A] text-white font-semibold rounded-xl hover:bg-black transition flex-1 shadow-material-hover disabled:opacity-50"
+          className="min-h-11 px-6 py-3 text-base bg-[#1A1A1A] text-white font-semibold rounded-xl hover:bg-black transition-colors flex-1 shadow-material-hover disabled:opacity-50"
         >
           Publish Post
         </button>

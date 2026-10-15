@@ -1,3 +1,4 @@
+import Icon from '@/components/Icon';
 import type { Metadata } from 'next';
 import { publicDb as db } from '@/lib/db';
 import { contentExcerpt } from '@/lib/content';
@@ -19,8 +20,8 @@ interface ContentItem {
 export const metadata: Metadata = {
   title: 'Writing',
   description: 'For now, the clearest account of Priyam Sameer’s product thinking is in the work itself: the problem, the decision and what followed.',
-  openGraph: { title: 'Writing — Priyam Sameer', description: 'Start with the decisions behind my work.' },
-  twitter: { title: 'Writing — Priyam Sameer', description: 'Start with the decisions behind my work.' },
+  openGraph: { title: 'Writing — Priyam Sameer', description: 'Start with the decisions behind my work.', images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Priyam Sameer — product leadership' }] },
+  twitter: { card: 'summary_large_image', images: ['/twitter-image'], title: 'Writing — Priyam Sameer', description: 'Start with the decisions behind my work.' },
 };
 
 export const revalidate = 0;
@@ -52,7 +53,7 @@ export default async function BlogPage() {
         <main id="main-content" className={styles.page}>
           <header className={styles.intro}>
             <h1>Writing.</h1>
-            <p>For now, the clearest account of my product thinking is in the work itself.</p>
+            <p>{items.length > 0 ? 'Notes on product decisions, building and business.' : 'For now, the clearest account of my product thinking is in the work itself.'}</p>
           </header>
 
           {unavailable ? (
@@ -60,15 +61,15 @@ export default async function BlogPage() {
               <h2 id="writing-unavailable-title">Writing is temporarily unavailable.</h2>
               <p>The articles couldn’t load. You can try again or explore the case studies.</p>
               <div className={styles.actions}>
-                <a href="/blog">Try again <span aria-hidden="true">↗</span></a>
-                <Link href="/product">Explore my work <span aria-hidden="true">↗</span></Link>
+                <a href="/blog">Try again <span aria-hidden="true"><Icon name="arrow-up-right" /></span></a>
+                <Link href="/product">Explore my work <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link>
               </div>
             </section>
           ) : items.length === 0 ? (
             <section className={styles.empty} aria-labelledby="writing-empty-title">
-              <h2 id="writing-empty-title">Start with a decision.</h2>
+              <h2 id="writing-empty-title">No essays published yet.</h2>
               <p>Read how an education-loan enquiry becomes a prepared application, or how a shared partner workflow makes room for different lender rules.</p>
-              <div className={styles.actions}><Link href="/product/cashkaro-college-money-education-loans">Education lending <span aria-hidden="true">↗</span></Link><Link href="/product/cashkaro-lender-integration-operations">Lender integrations <span aria-hidden="true">↗</span></Link><Link href="/product">Selected work <span aria-hidden="true">↗</span></Link></div>
+              <div className={styles.actions}><Link href="/product/cashkaro-college-money-education-loans">Education lending <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link><Link href="/product/cashkaro-lender-integration-operations">Lender integrations <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link><Link href="/product">Selected work <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link></div>
             </section>
           ) : (
             <div className={styles.essays}>
@@ -81,7 +82,7 @@ export default async function BlogPage() {
                       {new Date(post.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })}
                     </time>
                     <Link href={href} className={styles.titleLink}>
-                      <h2>{post.title} <span aria-hidden="true">↗</span></h2>
+                      <h2>{post.title} <span aria-hidden="true"><Icon name="arrow-up-right" /></span></h2>
                     </Link>
                     {excerpt && <p>{excerpt}</p>}
                   </article>

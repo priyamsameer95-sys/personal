@@ -36,7 +36,9 @@ const studies = registry.caseStudies.filter(study => study.status !== 'draft');
 const studiesBySlug = new Map(studies.map(study => [study.slug, study]));
 const art = readJSON('content/art/works.json');
 const cv = readJSON('app/cv/content.json');
-const cvPath = '/cv/Priyam_Sameer_Zero_to_One_Product_Manager_CV.pdf';
+const suppliedCv = readJSON('content/cv-download.json');
+const cvPath = suppliedCv.publicPath;
+const cvDownloadUrl = `${cvPath}?v=${suppliedCv.sha256.slice(0, 12)}`;
 const publicPages = ['/', '/product', '/cv', '/blog', '/art'];
 const canonicalPaths = studies.map(study => `/product/${study.slug}`);
 const referencePaths = studies.map(study => `/product/${study.slug}/references`);
@@ -119,7 +121,7 @@ function inspectPage(route, html) {
   requireThat(!parsed.duplicateIds.length, 'html', route, 'Duplicate IDs.', parsed.duplicateIds);
   requireThat(!parsed.tags.some(tag => tag.name === 'details'), 'html', route, 'A public details disclosure remains.');
   const links = parsed.tags.filter(tag => tag.name === 'a');
-  requireThat(links.some(tag => tag.attrs.href === cvPath && Object.hasOwn(tag.attrs, 'download')), 'downloads', route, 'Current CV download action is missing.');
+  requireThat(links.some(tag => tag.attrs.href === cvDownloadUrl && Object.hasOwn(tag.attrs, 'download')), 'downloads', route, 'Current versioned CV download action is missing.');
   for (const tag of parsed.tags) {
     for (const name of ['src', 'poster']) if (tag.attrs[name]) addAsset(tag.attrs[name], `${route}: ${tag.name}[${name}]`, route);
     for (const candidate of (tag.attrs.srcset || '').split(',')) if (candidate.trim()) addAsset(candidate.trim().split(/\s+/)[0], `${route}: srcset`, route);
@@ -132,6 +134,7 @@ function inspectPage(route, html) {
     if (tag.attrs.target === '_blank') requireThat(/\bnoopener\b/.test(tag.attrs.rel || '') && /\bnoreferrer\b/.test(tag.attrs.rel || ''), 'links', route, 'New-tab link lacks safe rel attributes.', href);
     const isCV = local?.pathname === cvPath;
     if (Object.hasOwn(tag.attrs, 'download') || documentOrVideo.test(href)) requireThat(isCV, 'downloads', route, 'A separate document/video download action remains.', href);
+    if (isCV) requireThat(`${local.pathname}${local.search}` === cvDownloadUrl && Object.hasOwn(tag.attrs, 'download'), 'downloads', route, 'A CV control does not use the single source-versioned download.', href);
     if (href && local && !assetExtension.test(href) && !href.startsWith('/_next/')) addNavigation(href, route);
   }
   for (const match of html.matchAll(/url\(\s*["']?([^\s"')]+)["']?\s*\)/gi)) addAsset(decodeHTML(match[1]), `${route}: CSS url`, route);
@@ -221,7 +224,11 @@ for (const work of art.works) {
   for (const image of work.detailImages || []) { stats.artworkDetails++; addAsset(image.src, `${work.id}: artwork detail`); }
 }
 for (const match of fs.readFileSync(path.join(repo, 'lib/brands.ts'), 'utf8').matchAll(/\bsrc:\s*['"]([^'"]+)['"]/g)) addAsset(match[1], 'brand registry');
-addAsset(cvPath, 'current CV download');
+requireThat(suppliedCv.sourceFile === 'Priyam_Sameer_Zero_to_One_Product_Manager_CV (4).pdf' && /^[a-f\d]{64}$/.test(suppliedCv.sha256) && suppliedCv.bytes === 126576 && suppliedCv.pageCount === 1, 'cv', 'source-manifest', 'Uploaded CV source identity is missing or invalid.');
+for (const url of [cvPath, cvDownloadUrl]) {
+  addAsset(url, url === cvPath ? 'canonical CV compatibility route' : 'current versioned CV download');
+  assets.get(url)?.expectedHashes.add(suppliedCv.sha256);
+}
 
 const forbiddenFiles = /\.(?:pdf|docx?|pptx?|xlsx?|zip|7z|rar|tar|gz|csv|sqlite|db|env|txt)(?:\.part-\d+)?$/i;
 const originalUrbanHash = '183cf980176ce7ec09d0b74859f69b53526791370f6340b9e8bdd6813ac6f4d3';
@@ -298,11 +305,18 @@ if (cvPage) {
   for (const id of contextIds) requireThat(cvPage.ids.has(id), 'cv', `#${id}`, 'CV context/compatibility anchor is missing.');
 }
 const artPage = htmlPages.get('/art');
+function hasOriginalOrOptimizedImage(sources, original) {
+  if (sources.has(original)) return true;
+  return [...sources].some(source => {
+    const url = localURL(source);
+    return url?.pathname === '/_next/image' && url.searchParams.get('url') === original;
+  });
+}
 requireThat(art.works.length === 6, 'art', 'registry', 'Expected six paintings.');
 if (artPage) for (const work of art.works) {
   requireThat(artPage.ids.has(work.id), 'art', work.id, 'Painting anchor is missing.');
   requireThat(artPage.media.has(work.image.previewSrc || work.image.src), 'art', work.id, 'Painting preview is missing.');
-  for (const image of work.detailImages || []) requireThat(artPage.media.has(image.src), 'art', work.id, 'Painting detail thumbnail is missing.', image.src);
+  for (const image of work.detailImages || []) requireThat(hasOriginalOrOptimizedImage(artPage.media, image.src), 'art', work.id, 'Painting detail thumbnail is missing.', image.src);
   requireThat(artPage.text.includes(normalizeText(work.medium)) && artPage.text.includes(normalizeText(work.dimensions)), 'art', work.id, 'Artwork medium/dimensions are missing.');
 }
 
@@ -380,9 +394,10 @@ while ([...assets.values()].some(asset => !asset.checked)) {
         requireThat(partial.status === 206 && head.length === 32 && head.equals(localBytes.subarray(0, 32)) && partial.headers.get('content-range') === `bytes 0-31/${localBytes.length}`, 'video', value, 'Video byte-range delivery is incorrect.', { status: partial.status, bytes: head.length, contentRange: partial.headers.get('content-range') });
       }
     }
-    if (value === cvPath) {
-      requireThat(bytes.subarray(0, 5).toString() === '%PDF-' && bytes.length > 8000, 'cv', value, 'CV is not a nonempty PDF.');
-      asset.updatedFromArchivedOriginal = asset.sha256 !== manifest.originalCvSha256;
+    if (new URL(value, origin).pathname === cvPath) {
+      requireThat(bytes.subarray(0, 5).toString() === '%PDF-' && bytes.length === suppliedCv.bytes, 'cv', value, 'CV is not the complete supplied PDF.');
+      asset.matchesSuppliedSource = asset.sha256 === suppliedCv.sha256;
+      requireThat(asset.matchesSuppliedSource, 'cv', value, 'Downloaded CV differs from the exact uploaded source.', { expected: suppliedCv.sha256, actual: asset.sha256 });
     }
     if (extension === '.css' && response.status === 200) {
       const css = bytes.toString('utf8');
@@ -409,7 +424,7 @@ const summary = {
   routes: { publicPages: publicPages.length, canonicalCases: canonicalPaths.length, referencePages: referencePaths.length, permanentAliases: aliases.size, linkedAdditionalPages: extraRoutes.length, expected404: unavailable.length },
   anchors: { baselineSections: stats.baselineSections, publicSections: stats.publicSections, internalSectionsExcluded: stats.internalSectionsExcluded, baselineSectionFragments: stats.baselineSectionFragments, currentSectionFragments: stats.currentSectionFragments, preAuditChapterFragments: stats.legacyChapterFragments, legacyStructuralFragments: stats.legacyStructuralFragments, uniqueInternalLinkTargets: navigation.size },
   evidence: { baselineMediaEntries: stats.baselineMediaEntries, baselineUniqueAssets: baselineAssetPaths.size, currentMediaEntries: stats.mediaEntries, mediaCaptions: stats.mediaCaptionEntries, videoPosters: stats.videoPosters, captionTracks: stats.captionTracks, distinctVideos: stats.videos, paintings: art.works.length, paintingDetails: stats.artworkDetails },
-  assets: { uniqueURLs: assets.size, totalBytesVerified: stats.bytesVerified, publicFilesInspected: publicFiles, cvSHA256: assets.get(cvPath)?.sha256, cvMatchesCurrentLocalBinary: Boolean(assets.get(cvPath)?.sha256) && assets.get(cvPath)?.sha256 === assets.get(cvPath)?.localSha256, cvUpdatedFromArchivedOriginal: assets.get(cvPath)?.updatedFromArchivedOriginal },
+  assets: { uniqueURLs: assets.size, totalBytesVerified: stats.bytesVerified, publicFilesInspected: publicFiles, cvSHA256: assets.get(cvDownloadUrl)?.sha256, cvCanonicalSHA256: assets.get(cvPath)?.sha256, cvMatchesCurrentLocalBinary: Boolean(assets.get(cvDownloadUrl)?.sha256) && assets.get(cvDownloadUrl)?.sha256 === assets.get(cvDownloadUrl)?.localSha256, cvMatchesSuppliedSource: assets.get(cvPath)?.matchesSuppliedSource === true && assets.get(cvDownloadUrl)?.matchesSuppliedSource === true, cvSourceFilename: suppliedCv.sourceFile, cvVersionedURL: cvDownloadUrl },
   failureCount: failures.length,
 };
 const report = {

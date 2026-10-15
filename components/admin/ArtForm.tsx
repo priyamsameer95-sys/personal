@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { upload } from '@vercel/blob/client';
 import { WordCounter, ProgressBar, Toast } from './shared';
+import Icon from '@/components/Icon';
 
 interface ArtFormProps {
   editItem?: any;
@@ -12,6 +13,7 @@ interface ArtFormProps {
 }
 
 export default function ArtForm({ editItem, onSuccess, onDirtyChange }: ArtFormProps) {
+  const formId = React.useId();
   const [title, setTitle] = useState(editItem?.title || '');
   const [bodyMarkdown, setBodyMarkdown] = useState(editItem?.body_markdown || '');
   const [sortOrder, setSortOrder] = useState(editItem?.sort_order || 0);
@@ -129,28 +131,31 @@ export default function ArtForm({ editItem, onSuccess, onDirtyChange }: ArtFormP
         <h2 className="text-xl font-bold text-[#1A1A1A]">Artwork Details</h2>
         
         <div>
-          <label className="block text-sm font-semibold text-[#525252] mb-1">Title</label>
+          <label htmlFor={`${formId}-title`} className="block text-base sm:text-sm font-semibold text-[#525252] mb-1">Title</label>
           <input 
+            id={`${formId}-title`}
+            name="art-title"
             type="text" 
             value={title} 
             onChange={e => setTitle(e.target.value)}
-            className="w-full p-3 border border-[#E5E5E5] rounded-xl bg-[#FAFAFA] text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]"
+            className="w-full min-h-11 p-3 text-base border border-[#E5E5E5] rounded-xl bg-[#FAFAFA] text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]"
             placeholder="Artwork title"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-[#525252] mb-1">Image (Required)</label>
+          <p className="block text-base sm:text-sm font-semibold text-[#525252] mb-1">Image (Required)</p>
           {previewUrl ? (
             <div className="space-y-3">
               <div className="relative aspect-video bg-[#E5E5E5] rounded-xl overflow-hidden flex items-center justify-center">
-                <img src={previewUrl} alt="Preview" className="max-w-full max-h-full object-contain" />
+                <img src={previewUrl} alt={title ? `${title} preview` : 'Selected artwork preview'} width={imageMeta?.width} height={imageMeta?.height} className="max-w-full max-h-full object-contain" />
               </div>
-              <div className="flex justify-between items-center text-sm text-[#8C8C8C]">
+              <div className="flex flex-wrap justify-between items-center gap-2 text-base sm:text-sm text-[#625e56]">
                 <span>{imageMeta ? `${imageMeta.width}x${imageMeta.height} (${imageMeta.orientation})` : ''}</span>
                 <button 
+                  type="button"
                   onClick={() => { setImageFile(null); setPreviewUrl(null); setExistingImage(null); }}
-                  className="text-[#1A1A1A] underline font-medium"
+                  className="min-h-11 px-2 text-[#1A1A1A] underline font-medium"
                 >
                   Remove & Replace
                 </button>
@@ -162,37 +167,42 @@ export default function ArtForm({ editItem, onSuccess, onDirtyChange }: ArtFormP
                 type="file" 
                 accept="image/jpeg,image/png,image/webp"
                 onChange={handleImageSelect}
-                className="hidden"
-                id="art-image-upload"
+                className="sr-only peer"
+                id={`${formId}-image-upload`}
+                  name="art-images"
               />
-              <label htmlFor="art-image-upload" className="cursor-pointer flex flex-col items-center gap-2">
-                <span className="material-symbols-rounded text-4xl text-[#8C8C8C]">image</span>
+              <label htmlFor={`${formId}-image-upload`} className="cursor-pointer flex min-h-11 flex-col items-center gap-2 rounded-md peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-[#1A1A1A]">
+                <Icon name="image" className="text-[#625e56]" />
                 <span className="text-[#1A1A1A] font-semibold">Click to upload artwork</span>
-                <span className="text-sm text-[#8C8C8C]">JPG, PNG, WEBP up to 25MB</span>
+                <span className="text-base sm:text-sm text-[#625e56]">JPG, PNG, WEBP up to 25MB</span>
               </label>
             </div>
           )}
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-[#525252] mb-1">Description (Markdown)</label>
+          <label htmlFor={`${formId}-description`} className="block text-base sm:text-sm font-semibold text-[#525252] mb-1">Description (Markdown)</label>
           <textarea 
+            id={`${formId}-description`}
+            name="art-description"
             value={bodyMarkdown} 
             onChange={e => setBodyMarkdown(e.target.value)}
-            className="w-full p-3 border border-[#E5E5E5] rounded-xl bg-[#FAFAFA] text-[#1A1A1A] min-h-[150px] focus:outline-none focus:ring-2 focus:ring-[#1A1A1A] font-sans"
+            className="w-full p-3 text-base border border-[#E5E5E5] rounded-xl bg-[#FAFAFA] text-[#1A1A1A] min-h-[150px] focus:outline-none focus:ring-2 focus:ring-[#1A1A1A] font-sans"
             placeholder="Tell the story behind this piece..."
           />
           <WordCounter text={bodyMarkdown} limit={500} />
         </div>
 
         <div className="grid grid-cols-2 gap-4 pt-4">
-          <div>
-            <label className="block text-sm font-semibold text-[#525252] mb-1">Sort Order</label>
+          <div className="col-span-2 sm:col-span-1">
+            <label htmlFor={`${formId}-sort`} className="block text-base sm:text-sm font-semibold text-[#525252] mb-1">Sort Order</label>
             <input 
+              id={`${formId}-sort`}
+              name="art-sort-order"
               type="number" 
               value={sortOrder} 
               onChange={e => setSortOrder(parseInt(e.target.value) || 0)}
-              className="w-full p-3 border border-[#E5E5E5] rounded-xl bg-[#FAFAFA] text-[#1A1A1A]"
+              className="w-full min-h-11 p-3 text-base border border-[#E5E5E5] rounded-xl bg-[#FAFAFA] text-[#1A1A1A]"
             />
           </div>
         </div>
@@ -206,16 +216,18 @@ export default function ArtForm({ editItem, onSuccess, onDirtyChange }: ArtFormP
 
       <div className="flex gap-3 pt-6 border-t border-[#E5E5E5]">
         <button 
+          type="button"
           onClick={() => handleSubmit('draft')}
           disabled={isUploading}
-          className="px-6 py-3 bg-[#FAFAFA] border border-[#E5E5E5] text-[#1A1A1A] font-semibold rounded-xl hover:bg-[#E5E5E5] transition flex-1 disabled:opacity-50"
+          className="min-h-11 px-6 py-3 text-base bg-[#FAFAFA] border border-[#E5E5E5] text-[#1A1A1A] font-semibold rounded-xl hover:bg-[#E5E5E5] transition-colors flex-1 disabled:opacity-50"
         >
           Save Draft
         </button>
         <button 
+          type="button"
           onClick={() => handleSubmit('published')}
           disabled={isUploading}
-          className="px-6 py-3 bg-[#1A1A1A] text-white font-semibold rounded-xl hover:bg-black transition flex-1 shadow-material-hover disabled:opacity-50"
+          className="min-h-11 px-6 py-3 text-base bg-[#1A1A1A] text-white font-semibold rounded-xl hover:bg-black transition-colors flex-1 shadow-material-hover disabled:opacity-50"
         >
           Publish Art
         </button>

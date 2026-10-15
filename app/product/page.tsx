@@ -3,31 +3,26 @@ import { groupCaseStudies } from '@/lib/work';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PublicShell from '@/components/PublicShell';
-import WorkExplorer from '@/components/work/WorkExplorer';
+import WorkExplorer, { prepareWorkGroups } from '@/components/work/WorkExplorer';
 import explorerStyles from '@/components/work/work-explorer.module.css';
 
 export const metadata: Metadata = {
   title: 'Selected Work',
-  description: 'Choose a product problem: lending journeys, partner platforms, applied AI or operating a business. Eight cases explain Priyam’s responsibility, decisions and what followed.',
-  openGraph: { title: 'Selected Work — Priyam Sameer', description: 'Lending journeys, shared policy systems and agricultural products, with visible evidence and personal ownership.' },
-  twitter: { title: 'Selected Work — Priyam Sameer', description: 'Lending journeys, shared policy systems and agricultural products, with visible evidence and personal ownership.' },
+  description: 'Product work at CashKaro, Absolute and UrbanKhet: lending journeys, AI review, partner APIs, agriculture and founder operations. Decisions, visual evidence and direct product references.',
+  openGraph: { title: 'Selected Work — Priyam Sameer', description: 'Lending journeys, shared policy systems and agricultural products, with visible evidence and personal ownership.', images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Priyam Sameer — product leadership' }] },
+  twitter: { card: 'summary_large_image', images: ['/twitter-image'], title: 'Selected Work — Priyam Sameer', description: 'Lending journeys, shared policy systems and agricultural products, with visible evidence and personal ownership.' },
 };
 
 export const revalidate = 0;
 
 export default function ProductWorkPage() {
-  const groups = groupCaseStudies().map(({ company, studies }) => ({
-    company,
-    studies: studies.map(({ id, slug, companyId, title, summary, role, period, workType, visualSummary, media, heroMediaId, primaryMediaIds, featuredOrder, outcomes }) => ({
-      id, slug, companyId, title, summary, role, period, workType, visualSummary, media, heroMediaId, primaryMediaIds, featuredOrder, outcomes,
-    })),
-  }));
+  const groups = prepareWorkGroups(groupCaseStudies());
   return <PublicShell>
     <Header />
-    <main id="main-content" className="animate-fade-in-up">
+    <main id="main-content">
       <header className={explorerStyles.pageIntro}>
-        <h1>The decisions behind the products.</h1>
-        <p>Lending, marketplaces and agricultural products. Each case follows a problem, the decisions I contributed to and what happened next. Start with the problem closest to yours.</p>
+        <h1>Selected work.</h1>
+        <p>Lending, agriculture and founder work.</p>
       </header>
       <WorkExplorer groups={groups} />
     </main>

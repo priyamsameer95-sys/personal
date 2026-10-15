@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Icon from '@/components/Icon';
 
 export default function AdminLoginPage() {
   const [password, setPassword] = useState('');
@@ -38,7 +39,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <main id="main-content" className="min-h-screen flex items-center justify-center px-6 bg-system-bg">
+    <main id="main-content" className="min-h-dvh flex items-center justify-center px-4 py-6 bg-system-bg">
       <div className="w-full max-w-[400px] py-12 px-8 bg-white border border-[#E5E5E5] rounded-2xl shadow-sm">
         <header className="mb-8 text-center">
           <h1 className="font-mono text-[11px] font-bold tracking-[0.15em] uppercase text-[#1A1A1A] mb-2">
@@ -54,6 +55,7 @@ export default function AdminLoginPage() {
             <div
               className="p-3 text-sm rounded-lg bg-red-50 border border-red-200 text-red-600 font-medium"
               role="alert"
+              id="login-error"
             >
               {error}
             </div>
@@ -76,6 +78,8 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
+                aria-invalid={Boolean(error)}
+                aria-describedby={error ? 'login-error' : undefined}
                 className="w-full min-h-[48px] px-4 pr-12 text-base bg-white border border-[#CCCCCC] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1A1A1A] focus:border-transparent transition"
               />
               <button
@@ -83,11 +87,10 @@ export default function AdminLoginPage() {
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={loading}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-pressed={showPassword}
                 className="absolute right-1 top-1/2 -translate-y-1/2 inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-[#625e56] hover:text-[#1A1A1A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
               >
-                <span className="material-symbols-rounded block text-lg select-none">
-                  {showPassword ? 'visibility_off' : 'visibility'}
-                </span>
+                <Icon name={showPassword ? 'eye-off' : 'eye'} />
               </button>
             </div>
           </div>

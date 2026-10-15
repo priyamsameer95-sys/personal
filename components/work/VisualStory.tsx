@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import type { CaseStudyChart, CaseStudyVisualSummary } from '@/lib/work-types';
 import styles from './visual-story.module.css';
 
@@ -35,11 +36,19 @@ export function Chart({ chart, compact = false }: { chart: CaseStudyChart; compa
         {values.map((item, index) => <circle key={index} cx="60" cy="60" r="44" fill="none" stroke={colours[index % colours.length]} strokeWidth="13" pathLength="100" strokeDasharray={`${item.value} ${100 - item.value}`} strokeDashoffset={-values.slice(0, index).reduce((sum, previous) => sum + previous.value, 0)} transform="rotate(-90 60 60)" />)}
         <text x="60" y="65" textAnchor="middle">{formatChartValue(values[0].value, '%')}</text>
       </svg>
-      <dl className={styles.legend}>{values.map((item, index) => <div key={index}><dt><span className={styles.colourKey} style={{ backgroundColor: colours[index % colours.length] }} aria-hidden="true" />{item.label}</dt><dd>{formatChartValue(item.value, chart.unit)}</dd></div>)}</dl>
-    </div> : isComparison ? <><ul className={styles.comparison}>{values.map((item, index) => <li key={index}>
-      <div className={styles.barLabel}><span>{item.label}</span><strong>{formatChartValue(item.value, chart.unit)}</strong></div>
-      <div className={styles.barTrack} aria-hidden="true"><span style={{ width: `${item.value / maximum * 100}%`, backgroundColor: index === values.length - 1 ? colours[0] : colours[1] }} /></div>
-    </li>)}</ul><p className={styles.chartScale} aria-hidden="true"><span>0</span><span>{formatChartValue(maximum, chart.unit)}</span></p></> : <dl className={styles.metrics}>{values.map((item, index) => <div key={index} style={{ borderColor: colours[index % colours.length] }}><dt>{item.label}</dt><dd>{metricValue(item.value, chart.unit) !== formatChartValue(item.value, chart.unit) ? <abbr title={formatChartValue(item.value, chart.unit)}>{metricValue(item.value, chart.unit)}</abbr> : formatChartValue(item.value, chart.unit)}</dd></div>)}</dl>}
+      <table className={styles.legend}>
+        <caption className="sr-only">{chart.title}: data</caption>
+        <thead className="sr-only"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead>
+        <tbody>{values.map((item, index) => <tr key={index}><th scope="row"><span className={styles.colourKey} style={{ backgroundColor: colours[index % colours.length] }} aria-hidden="true" />{item.label}</th><td>{formatChartValue(item.value, chart.unit)}</td></tr>)}</tbody>
+      </table>
+    </div> : isComparison ? <><table className={styles.comparison}>
+      <caption className="sr-only">{chart.title}: data</caption>
+      <thead className="sr-only"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead>
+      <tbody>{values.map((item, index) => <Fragment key={index}>
+        <tr><th scope="row">{item.label}</th><td><strong>{formatChartValue(item.value, chart.unit)}</strong></td></tr>
+        <tr className={styles.barRow} aria-hidden="true"><td colSpan={2}><div className={styles.barTrack}><span style={{ width: `${item.value / maximum * 100}%`, backgroundColor: index === values.length - 1 ? colours[0] : colours[3] }} /></div></td></tr>
+      </Fragment>)}</tbody>
+    </table><p className={styles.chartScale} aria-hidden="true"><span>0</span><span>{formatChartValue(maximum, chart.unit)}</span></p></> : <dl className={styles.metrics}>{values.map((item, index) => <div key={index} style={{ borderColor: colours[index % colours.length] }}><dt>{item.label}</dt><dd>{metricValue(item.value, chart.unit) !== formatChartValue(item.value, chart.unit) ? <abbr title={formatChartValue(item.value, chart.unit)}>{metricValue(item.value, chart.unit)}</abbr> : formatChartValue(item.value, chart.unit)}</dd></div>)}</dl>}
     <p className={styles.chartNote}>{chart.note}</p>
   </figure>;
 }

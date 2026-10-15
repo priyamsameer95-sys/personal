@@ -1,3 +1,4 @@
+import Icon from '@/components/Icon';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -16,7 +17,7 @@ export default function NotFoundPage() {
           The link may have changed, or this page is no longer available. You can explore my work or return to the homepage.
         </p>
         <div className="flex flex-wrap items-center gap-4">
-          <Link href="/" className="ink-button">Back to home <span aria-hidden="true">→</span></Link>
+          <Link href="/" className="ink-button">Back to home <span aria-hidden="true"><Icon name="arrow-right" /></span></Link>
           <Link href="/product" className="inline-flex min-h-11 items-center text-sm text-system-primary underline underline-offset-4">
             Explore my work
           </Link>

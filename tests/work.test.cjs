@@ -7,6 +7,8 @@ const { createHash } = require('node:crypto');
 const ts = require('typescript');
 const { createElement } = require('react');
 const { renderToStaticMarkup } = require('react-dom/server');
+const EmailContact = require('./helpers/email-contact.cjs');
+const Icon = require('./helpers/icon.cjs');
 
 const root = path.join(__dirname, '..');
 const escaped=text=>text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');
@@ -48,8 +50,8 @@ function load(relativePath, stubs = {}, env = {}, globals = {}) {
   });
   const moduleContext = { exports: {} };
   vm.runInNewContext(outputText, {
-    module: moduleContext, exports: moduleContext.exports,
-    require: id => Object.prototype.hasOwnProperty.call(stubs, id) ? stubs[id] : require(id),
+    module: moduleContext, exports: moduleContext.exports, URL,
+    require: id => Object.prototype.hasOwnProperty.call(stubs, id) ? stubs[id] : id === '@/components/EmailContact' ? EmailContact : id === '@/components/Icon' ? Icon : id === '@/lib/product-links' ? load('lib/product-links.ts') : require(id),
     process: { env }, console: { error() {} }, ...globals,
   }, { filename: relativePath });
   return moduleContext.exports;
@@ -75,6 +77,7 @@ function caseRenderer(registry = fixture, references = false, observeNavigation)
     '@/lib/work-presentation': load('lib/work-presentation.ts'),
     './work.module.css': css, './Media': media, './CaseStudyNavigation': { ...navigation, __esModule: true, default: props => { observeNavigation?.(props); return createElement(navigation.default, props); } }, './VisualStory': visual,
     '@/components/BrandMarks': brandMarks, '@/lib/brands': brands,
+    '@/components/EmailContact': EmailContact,
   }, {}, { URL });
   return references ? rendered.CaseStudyReferences : rendered.default;
 }
@@ -171,14 +174,14 @@ test('only selected main artifacts follow their explanatory account; full tables
   const html = renderToStaticMarkup(createElement(caseRenderer(), { study: item }));
   const chapter = html.slice(html.indexOf('id="chapter-contract"'));
   assert.ok(chapter.indexOf('Inspect the handoff boundary') < chapter.indexOf('src="/work/contract-diagram.svg"'));
-  assert.ok(chapter.indexOf('src="/work/contract-diagram.svg"') < chapter.indexOf('<table>'));
+  assert.ok(chapter.indexOf('src="/work/contract-diagram.svg"') < chapter.indexOf('<table'));
   assert.match(chapter, /Authored reference design; implementation unverified\./);
   const unselected = { ...item, presentation: { ...item.presentation, decisionBeats: [{...item.presentation.decisionBeats[0], mainTableCaptions: [], mainMediaIds: []}] } };
   const main = renderToStaticMarkup(createElement(caseRenderer(), { study: unselected }));
   const references = renderToStaticMarkup(createElement(caseRenderer(fixture, true), { study: unselected }));
   assert.doesNotMatch(main, /src="\/work\/contract-diagram.svg"|Decision comparison/);
   assert.match(references, /src="\/work\/contract-diagram.svg"/);
-  assert.match(references, /<caption>Decision comparison<\/caption>/);
+  assert.match(references, /<caption><span>Decision comparison<\/span><\/caption>/);
 });
 
 test('note and archive formats permit variable beats and no fallback hero or empty metric cards', () => {
@@ -206,6 +209,45 @@ test('selected media stays inline with accessible enlargement and user-initiated
   assert.match(html, /<video[^>]+controls=""[^>]+controlsList="nodownload"[^>]+playsinline=""[^>]+preload="none"/);
   assert.match(html, /<track[^>]+kind="captions"/);
   assert.doesNotMatch(html, /autoplay|<details|<summary|<a[^>]+href="\/work\/(?:screen.webp|demo.mp4)"/i);
+});
+
+test('enlarged images expose caption, source and zoom state to keyboard and assistive readers', () => {
+  for (const actualSize of [false, true]) {
+    let stateIndex = 0;
+    const Media = load('components/work/Media.tsx', {
+      './work.module.css': css,
+      react: { ...require('react'), useState: () => [stateIndex++ === 0 ? true : actualSize, () => {}] },
+    }).default;
+    const media = { ...study.media[0], provenance: { ...study.media[0].provenance, sourceUrl: 'https://example.org/original' } };
+    const html = renderToStaticMarkup(createElement(Media, { media }));
+    const dialog = html.match(/<dialog[^>]+aria-describedby="([^"]+)"/);
+    assert.ok(dialog, 'The modal is associated with its own caption');
+    assert.ok(html.includes(`id="${dialog[1]}"`));
+    assert.match(html, /tabindex="0" role="region" aria-label="Image caption and source"/);
+    assert.match(html, /href="https:\/\/example.org\/original" target="_blank" rel="noopener noreferrer"/);
+    assert.ok(html.includes(`aria-pressed="${actualSize}"`));
+    assert.match(html, actualSize ? /Actual size image; scroll to see the full image/ : /Enlarged image, fitted to the screen/);
+    assert.match(html, /data-icon="close"/);
+    assert.match(html, /Original product capture · 2024/);
+  }
+});
+
+test('reviewed product destinations are named in their case opening before the primary evidence', () => {
+  const registry = JSON.parse(readFileSync(path.join(root, 'content/work/case-studies.json'), 'utf8'));
+  const { productLinks } = load('lib/product-links.ts');
+  for (const [slug, destination] of Object.entries(productLinks)) {
+    const item = registry.caseStudies.find(item => item.slug === slug);
+    assert.ok(item, slug);
+    const html = renderToStaticMarkup(createElement(caseRenderer(registry), { study: item }));
+    const opening = html.slice(html.indexOf('<header'), html.indexOf('id="product-reference"'));
+    assert.ok(opening.includes(`href="${destination.href}" target="_blank" rel="noopener noreferrer"`));
+    assert.ok(opening.includes(escaped(destination.label)), `${slug}: its actual product name is visible`);
+    assert.match(opening, /\(opens in a new tab\)/);
+    assert.match(destination.href, /^https:\/\//);
+    assert.equal((opening.split(`href="${destination.href}"`).length - 1), 1);
+  }
+  const unmapped = renderToStaticMarkup(createElement(caseRenderer(), { study }));
+  assert.doesNotMatch(unmapped, /class="productLink"/);
 });
 
 test('proposal status, custom scope headings and legacy records render without implied deployment', () => {
@@ -251,6 +293,21 @@ test('donuts render only explicit percent partitions and retain their implied-re
   assert.match(html, /not separately measured/);
   for (const invalid of [{ ...chart, values: [{ label: 'Retention lift', value: 40 }] }, { ...chart, unit: 'users' }, { ...chart, values: [{ label: 'One', value: -40 }, { label: 'Other', value: 140 }] }]) {
     assert.doesNotMatch(renderToStaticMarkup(createElement(Chart, { chart: invalid })), /<circle|<svg/);
+  }
+});
+
+test('comparison and part-to-whole charts expose exact labelled values as native table data', () => {
+  const { Chart } = visualRenderer();
+  for (const chart of [study.visualSummary.charts[0], { id: 'partition', title: 'Application share', kind: 'donut', unit: '%', values: [{ label: 'Application', value: 40 }, { label: 'Remainder (implied)', value: 60 }], note: 'The remainder is implied, not separately measured.' }]) {
+    const html = renderToStaticMarkup(createElement(Chart, { chart }));
+    assert.match(html, /<table\b/);
+    assert.ok(html.includes(`${escaped(chart.title)}: data</caption>`));
+    assert.match(html, /<th scope="col">Measure<\/th><th scope="col">Value<\/th>/);
+    for (const item of chart.values) {
+      assert.ok(html.includes(`scope="row">${item.label}</th>`) || html.includes(`${item.label}</th>`), item.label);
+      assert.ok(html.includes(`${item.value}%`), 'Values retain their actual unit');
+    }
+    assert.ok(html.includes(escaped(chart.note)), 'Data keeps its measurement qualification');
   }
 });
 
@@ -559,7 +616,7 @@ test('main accounts are selective; references retain every public source fact, t
       for(const paragraph of section.body) assert.ok(refs.includes(escaped(paragraph)),`${item.slug}: reference paragraph lost ${section.id}`);
       for(const bullet of section.bullets||[]) assert.ok(refs.includes(escaped(bullet)),`${item.slug}: reference bullet lost ${section.id}`);
       for(const table of section.tables||[]){
-        assert.ok(refs.includes(`<caption>${escaped(table.caption)}</caption>`),`${item.slug}: reference table lost ${table.caption}`);
+        assert.ok(refs.includes(`<caption><span>${escaped(table.caption)}</span></caption>`),`${item.slug}: reference table lost ${table.caption}`);
         for(const row of table.rows) for(const cell of row) assert.ok(refs.includes(escaped(cell)),`${item.slug}: reference table cell lost`);
       }
       if(section.source){
@@ -593,6 +650,24 @@ test('explicit media selection permits no hero and never falls back to unrelated
   assert.equal(getPrimaryMedia({...study,primaryMediaIds:['screen','screen']}).length,1);
   assert.equal(mediaGroupTitle({kind:'image',category:'prototype-screenshot'}),'Original interaction prototype');
   assert.equal(mediaGroupTitle({kind:'image',category:'photograph'}),'Company photograph');
+});
+
+test('all retained cases have concise product display names without rewriting source titles or metadata',()=>{
+  const data=JSON.parse(readFileSync(path.join(root,'content/work/case-studies.json'),'utf8'));
+  const {getCaseDisplayTitle}=load('lib/work-presentation.ts');
+  const before=JSON.stringify(data);
+  const Main=caseRenderer(data),References=caseRenderer(data,true);
+  for(const item of data.caseStudies){
+    const title=getCaseDisplayTitle(item);
+    assert.ok(title.trim()&&title.split(/\s+/).length<=6,`${item.slug}: concise title`);
+    for(const Component of [Main,References]){
+      const html=renderToStaticMarkup(createElement(Component,{study:item}));
+      assert.ok(html.includes(`>${escaped(title)}</h1>`),`${item.slug}: consistent display title`);
+    }
+  }
+  assert.equal(JSON.stringify(data),before);
+  assert.equal(getCaseDisplayTitle({slug:'unknown',title:'Fallback title'}),'Fallback title');
+  assert.equal(getCaseDisplayTitle({slug:'unknown',title:'Fallback title',visualSummary:{title:'Existing visual title'}}),'Existing visual title');
 });
 
 test('one selected lead and decision artifacts are visible; unselected archive media stays off main',()=>{
@@ -658,6 +733,22 @@ test('compact shared media omits long descriptions without hiding controls or pr
   assert.match(html, /<video/);
   assert.match(html, /A recorded walkthrough/);
   assert.doesNotMatch(html, /A description of the walkthrough|<details|<summary/);
+});
+
+test('detailed evidence exposes video descriptions and puts useful chapter navigation before the records', () => {
+  const html = renderToStaticMarkup(createElement(caseRenderer(fixture, true), {study}));
+  const video = html.match(/<video[^>]+aria-describedby="([^"]+)"/);
+  assert.ok(video, 'video is associated with its caption and visible description');
+  for (const id of video[1].split(' ')) assert.ok(html.includes(`id="${id}"`));
+  assert.ok(html.includes(study.media[1].transcript));
+  assert.ok(html.indexOf('href="#reference-record"') < html.indexOf('id="reference-record"'));
+  assert.match(html, /href="#reference-record">Detailed source record<\/a>/);
+  assert.match(html, /<table class="narrowTable"><caption><span>Decision comparison/);
+  assert.doesNotMatch(html, /<details|<summary/);
+
+  const Media = load('components/work/Media.tsx', {'./work.module.css':css}).default;
+  const image = renderToStaticMarkup(createElement(Media, {media:study.media[0],priority:true}));
+  assert.match(image, /loading="eager"/);
 });
 
 
