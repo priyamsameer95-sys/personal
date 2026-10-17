@@ -2,27 +2,355 @@
   "owner": "priyamsameer95-sys",
   "reviewedAt": "2026-10-18",
   "groups": [
-    { "id": "ai-lending", "title": "AI & lending", "description": "Working through audio, conversations and lending decisions in code." },
-    { "id": "tools-experiments", "title": "Tools & experiments", "description": "Small browser tools, useful utilities and things built for the joy of trying." },
-    { "id": "notes-repositories", "title": "Portfolio & build notes", "description": "The site itself, the build log and early repository starting points." }
+    {
+      "id": "ai-lending",
+      "title": "AI & audio orchestration",
+      "description": "Typed interfaces, conversational workflows and content-to-speech pipelines.",
+      "navTitle": "AI & audio"
+    },
+    {
+      "id": "decision-systems",
+      "title": "Lending & financial decision systems",
+      "description": "Callable policy, deterministic rules, operational workflows and explicit financial models.",
+      "navTitle": "Lending & fintech"
+    },
+    {
+      "id": "tools-experiments",
+      "title": "Local-first developer tools",
+      "description": "Structural inference, streaming transformation and visual debugging in the browser.",
+      "navTitle": "Developer tools"
+    },
+    {
+      "id": "creative-web",
+      "title": "Creative browser experiences",
+      "description": "Procedural generation, reproducible game mechanics and interaction-led discovery.",
+      "navTitle": "Creative web"
+    },
+    {
+      "id": "notes-repositories",
+      "title": "Build systems & exploration",
+      "description": "Publishing infrastructure, build provenance and the starting points for future experiments.",
+      "navTitle": "Build notes"
+    }
   ],
   "projects": [
-    { "name": "THEYA.AUDIO", "title": "THEYA.Audio", "group": "ai-lending", "kind": "Audio prototype", "language": "Python", "description": "Turn webpages into podcast-style audio with sentence highlighting.", "sourcePath": "pyproject.toml" },
-    { "name": "mcp-el", "title": "EduLoans MCP", "group": "ai-lending", "kind": "MCP server prototype", "language": "TypeScript", "description": "Expose education-loan profile evaluation, lender rules and university lookup as callable tools.", "sourcePath": "README.md" },
-    { "name": "V1.03-Chat-eduloans", "title": "EduLoans interaction workspace", "group": "ai-lending", "kind": "Interaction prototype", "language": "JavaScript", "description": "Student intake, partner handoffs and reviewer case inspection. The portfolio walkthrough uses sample records and scripted responses.", "casePath": "/product/cashkaro-eduloans-policy-workflow" },
-    { "name": "edulaons", "title": "EduLoans lender matching", "group": "ai-lending", "kind": "Lending prototype", "language": "TypeScript", "description": "A React lending application with a documented rule engine for university matching, eligibility gates and intake timelines.", "sourcePath": "BRE_Documentation.md" },
-    { "name": "hr-screening101", "title": "Voice screening", "group": "ai-lending", "kind": "Conversation prototype", "language": "TypeScript", "description": "An HR call workflow documenting Twilio telephony, ElevenLabs conversations and structured post-call analysis.", "sourcePath": "ARCHITECTURE.md" },
-    { "name": "rocket-card-finder", "title": "Rocket Card Finder", "group": "ai-lending", "kind": "Fintech prototype", "language": "TypeScript", "description": "A credit-card discovery interface with card listings, individual card pages and a Card Genius flow.", "sourcePath": "src/pages" },
-    { "name": "2026-08-22-json-atlas", "title": "JSON Atlas", "group": "tools-experiments", "kind": "Developer tool", "language": "JavaScript", "description": "Generate TypeScript interfaces, Python dataclasses and Go structs from a JSON payload in the browser.", "sourcePath": "README.md" },
-    { "name": "magic-text-matcher", "title": "Magic Text Matcher", "group": "tools-experiments", "kind": "Browser tool", "language": "HTML", "description": "Test regular expressions with visual matches and colour-coded capture groups, using local browser processing.", "sourcePath": "README.md", "demoUrl": "https://priyamsameer95-sys.github.io/magic-text-matcher/" },
-    { "name": "2026-08-22-equity-simulator", "title": "EquitySim", "group": "tools-experiments", "kind": "Fintech experiment", "language": "HTML", "description": "Explore how exit value, funding and ownership change an illustrative equity payout waterfall.", "sourcePath": "README.md" },
-    { "name": "2026-08-22-csv-streamer", "title": "StreamCSV", "group": "tools-experiments", "kind": "Data utility", "language": "JavaScript", "description": "A browser-based CSV-to-JSON converter designed around reading files in chunks rather than uploading them.", "sourcePath": "README.md" },
-    { "name": "2026-08-22-color-palette-gen", "title": "Colour Palette Generator", "group": "tools-experiments", "kind": "Design tool", "language": "JavaScript", "description": "Generate a five-colour palette with the spacebar, then click a colour to copy its hex value.", "sourcePath": "README.md" },
-    { "name": "2026-08-22-tv-surf", "title": "TV Surf", "group": "tools-experiments", "kind": "Web experiment", "language": "HTML", "description": "A channel-surfing experiment that drops into YouTube videos at different points, inspired by 1990s television.", "sourcePath": "README.md" },
-    { "name": "2026-08-22-scrambl", "title": "Scrambl", "group": "tools-experiments", "kind": "Daily word game", "language": "JavaScript", "description": "Unscramble 18 words against the clock, with a date-seeded puzzle shared by everyone that day.", "sourcePath": "README.md" },
-    { "name": "personal", "title": "This portfolio", "group": "notes-repositories", "kind": "Portfolio", "language": "TypeScript", "description": "The Next.js source for this website: product work, career history, paintings and the CV download flow.", "sourcePath": "README.md" },
-    { "name": "daily-build-log", "title": "Daily Build Log", "group": "notes-repositories", "kind": "Project log", "language": null, "description": "A dated index of the smaller software projects, with descriptions and links to their repositories.", "sourcePath": "BUILD_LOG.md" },
-    { "name": "small-tools-", "title": "Small Tools", "group": "notes-repositories", "kind": "Empty repository", "language": null, "description": "A starting point for everyday personal tools. No source files were present when reviewed." },
-    { "name": "gpttest", "title": "GPT Test", "group": "notes-repositories", "kind": "Empty repository", "language": null, "description": "An empty repository when reviewed; included here as part of the complete public GitHub index." }
+    {
+      "name": "THEYA.AUDIO",
+      "title": "THEYA.Audio",
+      "group": "ai-lending",
+      "kind": "Audio prototype",
+      "language": "Python",
+      "description": "A content-to-audio pipeline combining article extraction, structured sentence segmentation and neural text-to-speech behind a typed FastAPI interface.",
+      "sourcePath": "app/main.py",
+      "pitch": "Turn passive reading into a sentence-aware listening experience.",
+      "technicalTags": [
+        "FastAPI + Pydantic",
+        "TTS orchestration",
+        "HTTP streaming"
+      ],
+      "logic": {
+        "label": "Processing pipeline",
+        "expression": "URL / text → extract → segment → synthesize → stream"
+      }
+    },
+    {
+      "name": "hr-screening101",
+      "title": "Conversational Voice Screening",
+      "group": "ai-lending",
+      "kind": "Conversation prototype",
+      "language": "TypeScript",
+      "description": "A documented event-driven architecture connecting Twilio telephony, ElevenLabs conversational AI, WebSocket sessions and post-call information extraction.",
+      "sourcePath": "ARCHITECTURE.md",
+      "pitch": "Connect campaign context to a structured voice conversation.",
+      "technicalTags": [
+        "WebSocket orchestration",
+        "Context-aware prompts",
+        "Structured extraction"
+      ],
+      "logic": {
+        "label": "Documented workflow",
+        "expression": "campaign context → call → voice session → structured response"
+      }
+    },
+    {
+      "name": "mcp-el",
+      "title": "EduLoans MCP Decision Gateway",
+      "group": "decision-systems",
+      "kind": "MCP server prototype",
+      "language": "TypeScript",
+      "description": "A documented nine-tool MCP interface for education-loan profile scoring, eligibility pre-checks and university lookup, using schema-validated inputs and stdio transport.",
+      "sourcePath": "README.md",
+      "pitch": "Make lending policy callable, inspectable and reusable.",
+      "technicalTags": [
+        "Model Context Protocol",
+        "JSON Schema contracts",
+        "Deterministic scoring"
+      ],
+      "logic": {
+        "label": "Documented scoring model",
+        "expression": "S = 0.10U + 0.70A + 0.20C",
+        "note": "U: university, A: academics, C: co-applicant. A rule-based pre-check, not a loan approval."
+      }
+    },
+    {
+      "name": "V1.03-Chat-eduloans",
+      "title": "EduLoans Decision Workspace",
+      "group": "decision-systems",
+      "kind": "Interaction prototype",
+      "language": "JavaScript",
+      "description": "An interaction prototype spanning student intake, partner handoffs, document uncertainty and confirmation before reviewer actions. The portfolio walkthrough uses sample records and scripted responses.",
+      "casePath": "/product/cashkaro-eduloans-policy-workflow",
+      "pitch": "Bring policy inspection and human verification into one operational workspace.",
+      "technicalTags": [
+        "Human-in-the-loop review",
+        "Role-based journeys",
+        "Policy inspection"
+      ],
+      "logic": {
+        "label": "Scripted interaction model",
+        "expression": "intake → documents → verification → policy pre-check → reviewer action"
+      }
+    },
+    {
+      "name": "edulaons",
+      "title": "EduLoans Deterministic Matching",
+      "group": "decision-systems",
+      "kind": "Lending prototype",
+      "language": "TypeScript",
+      "description": "A React application with a documented Supabase rule engine combining university matching, eligibility knockouts, course multipliers and intake-urgency adjustments.",
+      "sourcePath": "BRE_Documentation.md",
+      "pitch": "Translate lender policy into explainable product decisions.",
+      "technicalTags": [
+        "Rules-as-data",
+        "Supabase Edge Functions",
+        "Explainable eligibility"
+      ],
+      "logic": {
+        "label": "Documented score model",
+        "expression": "score = clamp(university × course + urgency, 0, 100)",
+        "note": "University score, course multiplier and urgency adjustment; eligibility knockouts are evaluated separately."
+      }
+    },
+    {
+      "name": "rocket-card-finder",
+      "title": "Rocket Card Intelligence",
+      "group": "decision-systems",
+      "kind": "Fintech prototype",
+      "language": "TypeScript",
+      "description": "A React product-discovery prototype combining bank, network and fee filters with spending-profile inputs, comparison controls and API-driven savings results.",
+      "sourcePath": "src/pages/CardListing.tsx",
+      "pitch": "Turn spending patterns into a more informed card-discovery journey.",
+      "technicalTags": [
+        "Faceted discovery",
+        "Spending-profile inputs",
+        "API-backed comparison"
+      ],
+      "logic": {
+        "label": "Discovery workflow",
+        "expression": "spending profile + eligibility inputs → API results → comparison",
+        "note": "The repository shows the discovery interface; savings calculations depend on the connected service."
+      }
+    },
+    {
+      "name": "2026-08-22-equity-simulator",
+      "title": "EquitySim — Exit Economics",
+      "group": "decision-systems",
+      "kind": "Fintech experiment",
+      "language": "HTML",
+      "description": "An interactive preference-first payout model connecting exit proceeds, invested capital, preference multiples and common-pool ownership to a Chart.js allocation view.",
+      "sourcePath": "script.js",
+      "pitch": "Make the liquidation-preference hurdle visible before the headline exit value.",
+      "technicalTags": [
+        "Scenario modelling",
+        "Liquidation preferences",
+        "Reactive visualization"
+      ],
+      "logic": {
+        "label": "Simplified payout model",
+        "expression": "payout = max(0, exit − funding × preference) × ownership",
+        "note": "Ownership is a fraction of the remaining common pool. Excludes conversion, dilution and tax."
+      }
+    },
+    {
+      "name": "2026-08-22-json-atlas",
+      "title": "JSON Atlas — Structural Codegen",
+      "group": "tools-experiments",
+      "kind": "Developer tool",
+      "language": "JavaScript",
+      "description": "A local-first structural inference pipeline that recursively builds a type registry from JSON and emits TypeScript interfaces, Python dataclasses and Go structs.",
+      "sourcePath": "script.js",
+      "pitch": "Move from an unfamiliar API payload to typed language models.",
+      "technicalTags": [
+        "Recursive type inference",
+        "Intermediate type registry",
+        "Multi-language emitters"
+      ],
+      "logic": {
+        "label": "Code-generation pipeline",
+        "expression": "JSON → inferred structure → type registry → TypeScript / Python / Go"
+      }
+    },
+    {
+      "name": "magic-text-matcher",
+      "title": "Magic Text Matcher — Visual Regex",
+      "group": "tools-experiments",
+      "kind": "Browser tool",
+      "language": "HTML",
+      "description": "An ECMAScript regex workbench with live match enumeration, capture-group highlighting, escaped HTML rendering and synchronized text overlays.",
+      "sourcePath": "script.js",
+      "demoUrl": "https://priyamsameer95-sys.github.io/magic-text-matcher/",
+      "pitch": "Make pattern behaviour visible as the expression changes.",
+      "technicalTags": [
+        "RegExp compilation",
+        "Capture-group visualization",
+        "Local execution"
+      ],
+      "logic": {
+        "label": "Matching mechanism",
+        "expression": "matches = text.matchAll(RegExp(pattern, flags))",
+        "note": "Global matching feeds the visual layer; complex nested capture rendering remains limited."
+      }
+    },
+    {
+      "name": "2026-08-22-csv-streamer",
+      "title": "StreamCSV — Browser Data Pipeline",
+      "group": "tools-experiments",
+      "kind": "Data utility",
+      "language": "JavaScript",
+      "description": "A chunk-oriented CSV-to-JSON experiment using File.stream(), TextDecoderStream, incremental progress accounting and Blob-based export.",
+      "sourcePath": "script.js",
+      "pitch": "Transform files without making an upload the first step.",
+      "technicalTags": [
+        "Web Streams API",
+        "Incremental decoding",
+        "Client-side transformation"
+      ],
+      "logic": {
+        "label": "Progress model",
+        "expression": "progress% = 100 × processed bytes / file bytes",
+        "note": "The current delimiter parser is simple; quoted CSV fields need additional handling."
+      }
+    },
+    {
+      "name": "2026-08-22-color-palette-gen",
+      "title": "Procedural Colour Palette Generator",
+      "group": "creative-web",
+      "kind": "Design tool",
+      "language": "JavaScript",
+      "description": "A lightweight procedural interface that generates five random HEX swatches, with direct clipboard transfer and immediate interaction feedback.",
+      "sourcePath": "script.js",
+      "pitch": "Compress colour exploration into a spacebar press and a click.",
+      "technicalTags": [
+        "Procedural generation",
+        "HEX colour encoding",
+        "Clipboard API"
+      ],
+      "logic": {
+        "label": "Colour-generation logic",
+        "expression": "colour = HEX(floor(random() × 16,777,215))",
+        "note": "Five independently generated swatches; space regenerates and click copies."
+      }
+    },
+    {
+      "name": "2026-08-22-tv-surf",
+      "title": "TV Surf — Stochastic Discovery",
+      "group": "creative-web",
+      "kind": "Web experiment",
+      "language": "HTML",
+      "description": "A keyboard-driven channel-surfing experiment using curated video pools, randomized entry points, iframe orchestration and a transitional on-screen display.",
+      "sourcePath": "index.html",
+      "pitch": "Recreate the serendipity of joining a programme already in progress.",
+      "technicalTags": [
+        "Stochastic content entry",
+        "Iframe orchestration",
+        "Keyboard interaction"
+      ],
+      "logic": {
+        "label": "Playback-entry model",
+        "expression": "start second = floor(random() × 300)"
+      }
+    },
+    {
+      "name": "2026-08-22-scrambl",
+      "title": "Scrambl — Deterministic Daily Play",
+      "group": "creative-web",
+      "kind": "Daily word game",
+      "language": "JavaScript",
+      "description": "A date-seeded word game combining a Mulberry32 pseudorandom generator, seeded Fisher–Yates shuffling, timed letter assembly and shareable results.",
+      "sourcePath": "script.js",
+      "pitch": "Use a reproducible daily challenge to make an individual game shareable.",
+      "technicalTags": [
+        "Seeded pseudorandomness",
+        "Fisher–Yates shuffle",
+        "Reproducible game state"
+      ],
+      "logic": {
+        "label": "Calendar-seed model",
+        "expression": "seed = year × 10,000 + month × 100 + day",
+        "note": "The calendar date seeds an 18-word challenge; each word has a 10-second timer."
+      }
+    },
+    {
+      "name": "personal",
+      "title": "Portfolio Publishing Platform",
+      "group": "notes-repositories",
+      "kind": "Portfolio",
+      "language": "TypeScript",
+      "description": "A Next.js implementation combining server rendering, cache-revalidated repository discovery, structured search metadata and PostgreSQL-backed CV-interest capture.",
+      "sourcePath": "README.md",
+      "pitch": "Treat the portfolio as a product surface with a coherent publishing system.",
+      "technicalTags": [
+        "Next.js SSR / ISR",
+        "Structured data",
+        "PostgreSQL persistence"
+      ],
+      "logic": {
+        "label": "Publishing model",
+        "expression": "authored content + public repositories → rendered pages → cached delivery"
+      }
+    },
+    {
+      "name": "daily-build-log",
+      "title": "Daily Build Provenance Ledger",
+      "group": "notes-repositories",
+      "kind": "Project log",
+      "language": null,
+      "description": "A lightweight Markdown registry organizing the daily-build practice into dated project records with categories, descriptions and repository references.",
+      "sourcePath": "BUILD_LOG.md",
+      "pitch": "Keep each experiment attached to a date, purpose and source.",
+      "technicalTags": [
+        "Build provenance",
+        "Project taxonomy",
+        "Markdown registry"
+      ],
+      "logic": {
+        "label": "Record schema",
+        "expression": "date + project + category + description + repository"
+      }
+    },
+    {
+      "name": "small-tools-",
+      "title": "Small Tools — Exploration Backlog",
+      "group": "notes-repositories",
+      "kind": "Empty repository",
+      "language": null,
+      "description": "An idea-stage workspace for everyday personal utilities. The repository is currently empty; implementation has not been published.",
+      "pitch": "A home for the next small, useful tool.",
+      "technicalTags": [
+        "Idea-stage workspace"
+      ]
+    },
+    {
+      "name": "gpttest",
+      "title": "GPT Test — Experiment Starting Point",
+      "group": "notes-repositories",
+      "kind": "Empty repository",
+      "language": null,
+      "description": "An early experiment placeholder awaiting a published implementation. The repository is currently empty.",
+      "pitch": "A starting point for the next experiment.",
+      "technicalTags": [
+        "Idea-stage workspace"
+      ]
+    }
   ]
 }

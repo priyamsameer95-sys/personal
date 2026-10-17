@@ -8,7 +8,7 @@ import { getGithubProjects, githubGroups, githubProfileUrl } from '@/lib/github-
 import { absoluteUrl, breadcrumbs, pageMetadata, serializeJsonLd } from '@/lib/seo';
 import styles from './github.module.css';
 
-const description = 'Explore Priyam Sameer’s public GitHub projects: education-loan prototypes, MCP tools, webpage-to-audio, browser utilities and creative experiments.';
+const description = 'Explore Priyam Sameer’s applied AI, MCP decision systems, fintech models and local-first developer tools, with architecture, algorithms and source code.';
 export const metadata: Metadata = pageMetadata({ path: '/github', title: 'GitHub projects', description });
 export const revalidate = 3600;
 
@@ -24,21 +24,25 @@ export default async function GithubProjectsPage() {
     <Header />
     <main id="main-content" className={styles.page}>
       <header className={styles.intro}>
-        <div><h1>GitHub projects.</h1><p>Code for lending, audio and everyday tools.</p></div>
+        <div><h1>GitHub projects.</h1><p>Applied AI, decision systems and product engineering.</p></div>
         <div className={styles.profile}><p>{projects.length} public repositories</p><a href={githubProfileUrl} target="_blank" rel="noopener noreferrer">GitHub profile <Icon name="arrow-up-right" /><span className="sr-only"> (opens in a new tab)</span></a></div>
       </header>
-      <nav className={styles.index} aria-label="Project categories">{groups.map(group => <a key={group.id} href={`#${group.id}`}>{group.title}<span>{group.projects.length}</span></a>)}</nav>
+      <nav className={styles.index} aria-label="Project categories">{groups.map(group => <a key={group.id} href={`#${group.id}`}>{group.navTitle || group.title}<span>{group.projects.length}</span></a>)}</nav>
       {groups.map(group => <section key={group.id} id={group.id} tabIndex={-1} className={styles.group} aria-labelledby={`${group.id}-title`}>
         <header className={styles.groupHeading}><h2 id={`${group.id}-title`}>{group.title}</h2><p>{group.description}</p></header>
         <div className={styles.projects}>{group.projects.map(project => <article key={project.name} className={styles.project}>
           <div className={styles.meta}><span>{project.kind}</span>{project.language && <span>{project.language}</span>}</div>
           <h3>{project.title}</h3>
+          {project.pitch && <p className={styles.pitch}>{project.pitch}</p>}
           <p className={styles.description}>{project.description}</p>
+          {project.technicalTags && <ul className={styles.technicalTags} aria-label="Technical capabilities">{project.technicalTags.map(tag => <li key={tag}>{tag}</li>)}</ul>}
+          {project.logic && <dl className={styles.logic}><dt>{project.logic.label}</dt><dd><code>{project.logic.expression}</code>{project.logic.note && <p>{project.logic.note}</p>}</dd></dl>}
           <p className={styles.repoName}>{project.name}</p>
           <div className={styles.actions}>
             <a href={project.url} target="_blank" rel="noopener noreferrer">View repository<Icon name="arrow-up-right" /><span className="sr-only"> (opens in a new tab)</span></a>
             {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">Try the tool<Icon name="arrow-up-right" /><span className="sr-only"> (opens in a new tab)</span></a>}
             {project.casePath && <Link href={project.casePath}>See the walkthrough<Icon name="arrow-up-right" /></Link>}
+            {project.sourcePath && <a href={`${project.url}/blob/main/${project.sourcePath.split('/').map(encodeURIComponent).join('/')}`} target="_blank" rel="noopener noreferrer">Inspect the logic<Icon name="arrow-up-right" /><span className="sr-only"> (opens in a new tab)</span></a>}
           </div>
         </article>)}</div>
       </section>)}

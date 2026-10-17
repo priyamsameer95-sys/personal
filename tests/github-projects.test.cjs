@@ -79,8 +79,28 @@ test('the page exposes every repository openly with canonical metadata and real 
   assert.match(html, /17 public repositories/);
   assert.match(html, /Try the tool/);
   assert.match(html, /See the walkthrough/);
+  assert.match(html, /Inspect the logic/);
+  assert.equal((html.match(/<dl/g) || []).length, 15, 'Implemented/documented projects expose their mechanisms; empty workspaces do not invent one');
   assert.doesNotMatch(html, /<details|hidden=|aria-hidden="true"/);
   for (const project of snapshot.projects) assert.ok(html.includes(`href="https://github.com/${snapshot.owner}/${encodeURIComponent(project.name)}"`));
   const data = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m => JSON.parse(m[1]));
   assert.equal(data[0].mainEntity.numberOfItems, 17);
+});
+
+test('project taxonomy follows product type while preserving the original category anchors', () => {
+  const { classifyGithubProject } = fixture().load('lib/github-projects.ts');
+  for (const [name, category] of [['loan-policy', 'decision-systems'], ['podcast-studio', 'ai-lending'], ['json-parser', 'tools-experiments'], ['daily-puzzle', 'creative-web'], ['build-log', 'notes-repositories']]) assert.equal(classifyGithubProject(name), category);
+  assert.equal(snapshot.groups.length, 5);
+  for (const anchor of ['ai-lending', 'tools-experiments', 'notes-repositories']) assert.ok(snapshot.groups.some(group => group.id === anchor));
+  for (const project of snapshot.projects) {
+    assert.ok(project.pitch && project.technicalTags?.length, `${project.name} has a value proposition and technical scope`);
+    if (project.logic) assert.ok(project.sourcePath || project.casePath, `${project.name} has an inspectable basis for its mechanism`);
+  }
+  const equity = snapshot.projects.find(p => p.name === '2026-08-22-equity-simulator');
+  assert.match(equity.logic.note, /common pool.*conversion, dilution and tax/);
+  const csv = snapshot.projects.find(p => p.name === '2026-08-22-csv-streamer');
+  assert.match(csv.logic.note, /quoted CSV fields/);
+  const mcp = snapshot.projects.find(p => p.name === 'mcp-el');
+  assert.match(mcp.logic.label, /Documented/);
+  assert.match(mcp.logic.note, /not a loan approval/);
 });

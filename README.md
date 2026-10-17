@@ -89,8 +89,8 @@ Keep actual credentials in ignored environment files or hosting settings. `.env.
 
 ### GitHub projects
 
-`/github` lists every public repository owned by `priyamsameer95-sys`, grouped into AI/lending, tools/experiments and portfolio/build notes. The header and homepage link to it.
+`/github` lists every public repository owned by `priyamsameer95-sys`, grouped by AI/audio orchestration, financial decision systems, local-first developer tools, creative browser experiences and build infrastructure. The header and homepage link to it.
 
 - Public GitHub discovery is cached for one hour and uses no credentials. Private and foreign-owned repositories are excluded.
 - `content/github-projects.json` holds the reviewed descriptions, ordering, genuine demo/walkthrough links and a complete public fallback snapshot. Update this file to curate new projects; uncurated public repositories still appear automatically.
-- Descriptions are grounded in repository READMEs/source documents; prototype and empty-repository labels are explicit. The catalogue does not execute external project code or assert production results.
+- Descriptions are grounded in repository READMEs/source documents; prototype and empty-repository labels are explicit. Technical pitches include source-backed mechanisms and explicitly scoped models. The catalogue does not execute external project code or assert production results.
