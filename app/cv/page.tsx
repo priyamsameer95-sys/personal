@@ -53,13 +53,13 @@ export default function ExperiencePage() {
           <h1>Experience.</h1>
           <p className={styles.summary}>{content.summary}</p>
         </div>
-        <CvDownload className="ink-button" />
+        <div className={styles.cvAction}><CvDownload className="ink-button" /></div>
       </header>
 
       <nav className={styles.pageNav} aria-label="On this page">
         <a href="#career">Career</a>
         <a href="#background">Background</a>
-        <a href="#certifications">Learning & capabilities</a>
+        <a href="#certifications">Learning</a>
       </nav>
 
       <Section id="career" title="Career">

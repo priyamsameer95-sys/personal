@@ -12,8 +12,9 @@ import BrandMarks from '@/components/BrandMarks';
 import styles from './home.module.css';
 import { pageMetadata, profileStructuredData, serializeJsonLd } from '@/lib/seo';
 
-const description = 'From founding UrbanKhet to leading lending products at CashKaro. Explore Priyam Sameer’s product work, decisions, prototypes and paintings.';
-export const metadata: Metadata = pageMetadata({ path: '/', title: 'Priyam Sameer — Product leader & former founder', description });
+const description = 'Agriculture, AI and fintech. Explore Priyam Sameer’s work across crop-health tools, lending journeys, policy systems and a founder-led produce business.';
+const title = 'Priyam Sameer — Agriculture, AI & fintech';
+export const metadata: Metadata = pageMetadata({ path: '/', title, description });
 function asset(slug: string, id: string): CaseStudyMedia | undefined {
   return findCaseStudy(slug)?.media.find(media => media.id === id);
 }
@@ -25,13 +26,12 @@ export default function HomePage() {
   const prototype = asset('cashkaro-eduloans-policy-workflow', 'eduloans-prototype-inspector');
   const mcp = asset('cashkaro-lending-mcp-feedback', 'lending-mcp-proposal');
   return <PublicShell>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(profileStructuredData('/', 'Priyam Sameer — Product leader & former founder', description)) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(profileStructuredData('/', title, description)) }} />
     <Header wordmarkOnly />
     <main id="main-content"><HomeMotion>
       <section className={styles.hero} aria-labelledby="intro-title">
         <div className={styles.introduction}>
-          <h1 id="intro-title" data-entry>From fresh produce<br />to lending products.</h1>
-          <p>I’m General Manager at CashKaro, leading lending products, partnerships and P&amp;L. I founded UrbanKhet.</p>
+          <h1 id="intro-title" data-entry><span>Agriculture.</span><span>AI.</span><span>Fintech.</span></h1>
           <a href="#selected-work" className={styles.workAction}>Explore my work <span aria-hidden="true"><Icon name="arrow-down" /></span></a>
         </div>
         <figure className={styles.personalArt}>
@@ -39,7 +39,7 @@ export default function HomePage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/art/priyam/tumult-preview.webp" alt="Tumult — my painting in yellow, teal and black" width={785} height={1000} loading="eager" decoding="async" />
           </Link>
-          <figcaption>I also paint. <Link href="/art#tumult">Tumult</Link>.</figcaption>
+          <figcaption><Link href="/art#tumult">Tumult</Link><span>Original painting.</span></figcaption>
         </figure>
         <p className={styles.location}>Based in Bengaluru.</p>
       </section>
@@ -55,24 +55,26 @@ export default function HomePage() {
           <div className={styles.account}>
             <div className={styles.projectMeta}><BrandMarks companyId="cashkaro" small /><span>Delivered work</span></div><h3 id="college-title">College.money</h3>
             <p className={styles.decision}>Prepare a case a lender can assess.</p>
+          </div>
+          <div className={styles.collegeEvidence}>{college && <Media media={{ ...college, caption: 'Public student-loan entry point.' }} compact />}</div>
+          <div className={styles.account}>
             <p>I connected student information, documents, pre-checks and routing. I owned the lending journey, partner commercials and operations.</p>
             <Link href="/product/cashkaro-college-money-education-loans" className={styles.caseLink}>Read the case <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link>
           </div>
-          <div className={styles.collegeEvidence}>{college && <Media media={{ ...college, caption: 'Public student-loan entry point.' }} compact />}</div>
         </article>
         <div className={styles.experimentPair}>
           <article className={`${styles.projectCard} ${styles.prototypeCard}`} aria-labelledby="prototype-title">
             <header className={styles.projectHeading}><p>Interaction prototype</p><h3 id="prototype-title">EduLoans reviewer workspace</h3></header>
             <p className={styles.decision}>Missing policy must stay visible.</p>
-            <p>I authored the rule model and review journeys. Unconfirmed thresholds remain release restrictions; uncertain documents require human verification. It uses sample records and scripted responses.</p>
             {prototype && <Media media={prototype} compact />}
+            <p>I authored the rule model and review journeys. Unconfirmed thresholds remain release restrictions; uncertain documents require human verification. It uses sample records and scripted responses.</p>
             <Link href="/product/cashkaro-eduloans-policy-workflow" className={styles.caseLink}>Inspect the prototype <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link>
           </article>
           <article className={`${styles.projectCard} ${styles.mcpCard}`} aria-labelledby="mcp-title">
             <header className={styles.projectHeading}><p>Design proposal</p><h3 id="mcp-title">Lending policy through MCP</h3></header>
             <p className={styles.decision}>Separate evaluation from policy changes.</p>
-            <p>I proposed shared, versioned evaluation for two rule engines. Feedback enters review; policy changes require separate approval. A conventional service API remains an alternative.</p>
             {mcp && <Media media={mcp} compact />}
+            <p>I proposed shared, versioned evaluation for two rule engines. Feedback enters review; policy changes require separate approval. A conventional service API remains an alternative.</p>
             <Link href="/product/cashkaro-lending-mcp-feedback" className={styles.caseLink}>Read the proposed design <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link>
           </article>
         </div>

@@ -1,66 +1,67 @@
-.preview { display: flex; flex-direction: column; height: 100%; min-width: 0; background: var(--paper); border: 1px solid var(--rule); border-radius: .75rem; overflow: hidden; }
-.evidence { min-width: 0; padding: 1.25rem 1.25rem 0; }
-.evidence figure { margin: 0; }
-.evidence figure > button { display: grid; place-items: center; width: 100%; aspect-ratio: 16 / 10; padding: .75rem; border: 0; border-radius: .35rem; background: var(--paper-soft); }
-.evidence figure > button > img { display: block; width: 100%; height: 100%; min-height: 0; max-height: none; object-fit: contain; object-position: center; }
-.evidence figcaption { margin-top: .75rem; font-size: .875rem; line-height: 1.6; }
-.story { display: flex; flex: 1; flex-direction: column; min-width: 0; padding: 1.75rem; }
-.projectHeading { min-width: 0; }
-.preview > .projectHeading { padding: 1.75rem 1.75rem 0; }
-.preview > .projectHeading h3 { margin-bottom: 0; }
-.brand { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-target, 8px) 1rem; margin-bottom: .65rem; }
-.brand > p { margin: 0; color: var(--muted); font-size: .875rem; line-height: 1.6; }
+.preview {
+  --preview-space: clamp(1.25rem, 2.6vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-top: var(--preview-space);
+  border-top: 1px solid var(--rule);
+  color: var(--ink);
+}
+.projectHeading, .evidence, .story, .account { min-width: 0; }
+.brand { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-target) 1rem; margin-bottom: .65rem; }
 .brand > div { margin: 0; }
-.projectHeading h3 { margin: 0 0 1rem; font-size: clamp(1.6rem, 2.5vw, 2.1rem); font-weight: 500; line-height: 1.2; letter-spacing: -.035em; text-wrap: balance; }
-.projectHeading h3:focus-visible { outline: none; box-shadow: -3px 0 0 var(--ink); padding-left: .75rem; margin-left: -.75rem; }
-.account { display: flex; flex: 1; flex-direction: column; min-width: 0; }
-.decision { max-width: 40ch; margin: 0 0 .85rem; font-size: 1.2rem; line-height: 1.5; font-weight: 500; text-wrap: pretty; }
+.brand > p { margin: 0; color: var(--muted); font-size: .9375rem; line-height: 1.6; }
+.projectHeading h3 { max-width: 24ch; margin: 0; font-size: clamp(1.75rem, 2.8vw, 2.75rem); font-weight: 500; line-height: 1.15; letter-spacing: -.04em; text-wrap: balance; overflow-wrap: break-word; }
+.projectHeading h3:focus-visible { outline: var(--focus-ring); outline-offset: 5px; }
+.evidence { padding: 1rem; background: var(--paper-soft); border-radius: .25rem; }
+.evidence figure { margin: 0; }
+/* Intrinsic image dimensions must never enlarge a fixed preview frame. */
+.evidence figure > button { position: relative; display: block; width: 100%; aspect-ratio: 16 / 10; padding: 0; border: 0; background: transparent; }
+.evidence figure > button > img { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; min-height: 0; object-fit: contain; object-position: center; }
+.evidence figcaption, .companion figcaption { margin-top: .85rem; font-size: .9375rem; line-height: 1.6; }
+.story { padding-top: 1.25rem; }
+.account { display: flex; flex-direction: column; }
+.decision { max-width: 36ch; margin: 0 0 .8rem; font-size: clamp(1.125rem, 1.5vw, 1.3rem); line-height: 1.5; font-weight: 500; text-wrap: pretty; }
 .summary { max-width: 55ch; margin: 0; font-size: 1rem; line-height: 1.75; text-wrap: pretty; }
-.actions { display: flex; flex-wrap: wrap; gap: var(--space-target, 8px) 1.5rem; margin-top: auto; padding-top: 1.25rem; }
-.actions a { min-height: var(--target-size, 44px); font-size: 1rem; }
-.actions a > span[aria-hidden] { display: inline-flex; transition: transform var(--motion-fast, 160ms) ease-out; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-target) 1.5rem; margin-top: 1.1rem; }
+.actions a { min-height: var(--target-size); font-size: 1rem; }
+.actions a > span[aria-hidden] { display: inline-flex; transition: transform var(--motion-fast) ease-out; }
 .actions a:hover > span[aria-hidden], .actions a:focus-visible > span[aria-hidden] { transform: translate(2px, -2px); }
-.lead { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-areas: 'evidence heading' 'evidence story'; grid-template-rows: auto 1fr; align-items: start; }
-.lead > .projectHeading { grid-area: heading; padding: 2rem 2rem 0 0; }
-.lead .evidence { grid-area: evidence; padding: 1.75rem; }
-.lead .story { grid-area: story; padding: 1rem 2rem 2rem 0; }
-.lead .projectHeading h3 { font-size: clamp(1.9rem, 3vw, 2.7rem); }
-.diagram .evidence { padding: 1.25rem 1.75rem 0; }
-.diagram .evidence figure > button { aspect-ratio: auto; padding: 1rem; }
-.diagram .evidence figure > button > img { height: auto; max-height: none; }
-.diagram .story { max-width: 75ch; padding: 1.75rem; }
-.portraitLead { grid-template-columns: minmax(0, 1fr) minmax(15rem, 18rem); grid-template-areas: 'heading evidence' 'story evidence' 'companion evidence'; grid-template-rows: auto auto 1fr; gap: 0 3rem; padding: 2rem; height: auto; border: 0; border-block: 1px solid var(--rule); border-radius: 0; overflow: visible; }
-.portraitLead > .projectHeading { padding: 0; }
-.portraitLead .story { padding: 1rem 0 1.75rem; }
+.lead, .diagram { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.3fr); grid-template-rows: auto 1fr; grid-template-areas: 'heading evidence' 'story evidence'; align-items: start; gap: 0 clamp(2rem, 4vw, 4rem); }
+.lead > .projectHeading, .diagram > .projectHeading { grid-area: heading; }
+.lead .evidence, .diagram .evidence { grid-area: evidence; }
+.lead .story, .diagram .story { grid-area: story; }
+.portraitLead { grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem); grid-template-areas: 'heading evidence' 'story evidence' 'companion evidence'; grid-template-rows: auto auto 1fr; gap: 0 clamp(2rem, 5vw, 5rem); }
 .portraitLead .evidence { padding: 0; background: transparent; }
 .portraitLead .evidence figure > video { display: block; width: 100%; height: auto; max-height: none; aspect-ratio: 332 / 720; object-fit: cover; margin: 0; }
+.portraitLead .story { padding-bottom: 1.75rem; }
 .portraitLead .account { max-width: 36rem; }
-.companion { grid-area: companion; width: min(100%, 19rem); min-width: 0; }
+.companion { grid-area: companion; width: min(100%, 23rem); min-width: 0; }
 .companion figure { margin: 0; }
-.companion figure > button { display: block; padding: 0; width: 100%; border: 0; background: transparent; }
+.companion figure > button { display: block; width: 100%; padding: 0; border: 0; background: transparent; }
 .companion figure > button > img { display: block; width: 100%; height: auto; max-height: none; }
-.companion figcaption { margin-top: .75rem; font-size: .875rem; line-height: 1.6; }
-.textOnly, .lead.textOnly { display: block; }
+.textOnly, .lead.textOnly, .diagram.textOnly { display: block; }
 .textOnly .story { max-width: 70ch; }
-@media (max-width: 1050px) { .lead { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } .lead .evidence { padding: 1.25rem; } .lead > .projectHeading { padding: 1.5rem 1.5rem 0 0; } .lead .story { padding: 1rem 1.5rem 1.5rem 0; } }
-@media (min-width: 701px) and (max-width: 1050px) { .portraitLead { grid-template-columns: minmax(0, 1fr) minmax(14rem, 16rem); gap: 0 2rem; padding: 1.5rem; } .portraitLead > .projectHeading, .portraitLead .evidence { padding: 0; } .portraitLead .story { padding: 1rem 0 1.5rem; } }
-@media (max-width: 700px) {
-  .lead { display: flex; }
-  .evidence, .lead .evidence { padding: 1rem 1rem 0; }
-  .diagram .evidence { padding: 1rem 1rem 0; }
-  .diagram .evidence figure > button { padding: .5rem; }
-  .evidence figure > button { padding: .5rem; }
-  .story, .lead .story, .diagram .story { padding: 1.5rem 1.25rem; }
-  .projectHeading h3, .lead .projectHeading h3 { font-size: 1.75rem; }
-  .preview > .projectHeading, .lead > .projectHeading { padding: 1.5rem 1.25rem 0; }
-  .brand > p, .evidence figcaption { font-size: 1rem; }
-  .decision { font-size: 1.15rem; }
-  .portraitLead { padding: 1.25rem; }
-  .portraitLead > .projectHeading { padding: 0; }
-  .portraitLead .evidence { width: min(100%, 18rem); margin: 1.5rem auto 0; padding: 0; }
-  .portraitLead .story { padding: 1.5rem 0; }
-  .companion { width: min(100%, 22rem); margin-inline: auto; }
-  .companion figcaption { font-size: 1rem; }
+@media (max-width: 960px) {
+  .lead, .diagram { display: flex; align-items: stretch; gap: 0; }
+  .projectHeading { margin-bottom: 1.25rem; }
+  .portraitLead .evidence { width: min(100%, 18rem); margin-inline: auto; }
+  .companion { margin-inline: auto; }
+  .portraitLead { grid-template-columns: minmax(0, 1fr) minmax(12rem, 15rem); gap: 0 2rem; }
 }
-@media (prefers-reduced-motion: reduce) { .actions a > span[aria-hidden] { transition: none; } .actions a:hover > span[aria-hidden], .actions a:focus-visible > span[aria-hidden] { transform: none; } }
-@media print { .preview { break-inside: avoid; } .lead { display: block; } }
+@media (max-width: 760px) {
+  .lead, .diagram { display: flex; align-items: stretch; gap: 0; }
+  .projectHeading { margin-bottom: 1.25rem; }
+  .projectHeading h3 { font-size: clamp(1.75rem, 6vw, 2.3rem); }
+  .brand > p, .evidence figcaption, .companion figcaption { font-size: 1rem; }
+  .evidence { padding: .75rem; }
+  .story { padding-top: 1.25rem; }
+  .portraitLead .evidence { width: min(100%, 17rem); margin-inline: auto; }
+  .portraitLead .story { padding-bottom: 1.75rem; }
+  .companion { width: min(100%, 24rem); margin-inline: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .actions a > span[aria-hidden] { transition: none; }
+  .actions a:hover > span[aria-hidden], .actions a:focus-visible > span[aria-hidden] { transform: none; }
+}
+@media print { .preview { break-inside: avoid; } .lead, .diagram { display: block; } }

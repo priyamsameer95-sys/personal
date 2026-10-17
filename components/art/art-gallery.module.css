@@ -1,65 +1,76 @@
 .gallery { min-width: 0; scroll-margin-top: 2rem; }
-.index { display: flex; flex-wrap: wrap; gap: .25rem 1.75rem; padding: 0 0 2rem; border-bottom: 1px solid var(--rule); }
-.indexWork, .collectionLink { display: inline-flex; align-items: center; min-width: var(--target-size); min-height: var(--target-size); color: var(--muted); font-size: .9375rem; line-height: 1.4; text-decoration: none; text-underline-offset: .3em; cursor: pointer; transition: color var(--motion-fast) ease-out; }
+.index { display: flex; flex-wrap: wrap; gap: var(--space-target) 2rem; padding: .5rem 0 1rem; border-bottom: 1px solid var(--rule); }
+.indexWork, .collectionLink { display: inline-flex; align-items: center; min-width: var(--target-size); min-height: var(--target-size); color: var(--muted); font-size: 1rem; line-height: 1.4; text-decoration: none; text-underline-offset: .3em; cursor: pointer; transition: color var(--motion-fast) ease-out; }
 .indexWork:hover, .collectionLink:hover { color: var(--ink); text-decoration: underline; }
 .indexWork:focus-visible, .collectionLink:focus-visible, .collection:focus-visible, .work:focus-visible, .gallery:focus-visible, .backToOverview:focus-visible { outline: var(--focus-ring); outline-offset: 4px; }
 .collectionLink { width: 100%; }
 .collection { min-width: 0; scroll-margin-top: 2rem; }
 .collection + .collection { border-top: 1px solid var(--rule); }
 .collectionHeader { padding: 3rem 0 0; }
-.collectionHeader h2 { font-size: 1.5rem; font-weight: 500; line-height: 1.3; letter-spacing: -.025em; }
-.collectionHeader p { max-width: 48ch; margin-top: .6rem; font-size: 1rem; line-height: 1.7; color: var(--muted); }
+.collectionHeader h2 { font-size: var(--type-subtitle, 1.75rem); font-weight: 500; line-height: 1.3; letter-spacing: -.025em; }
+.collectionHeader p { max-width: 60ch; margin-top: .75rem; font-size: 1rem; line-height: 1.7; color: var(--muted); }
 .works { display: grid; grid-template-columns: minmax(0, 1fr); }
-.work { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, .8fr); grid-template-areas: "painting caption" "painting notes"; grid-template-rows: auto 1fr; column-gap: clamp(2rem, 5vw, 5rem); row-gap: 1.5rem; min-width: 0; padding: clamp(3rem, 5.5vw, 5rem) 0; scroll-margin-top: 2rem; }
+.work { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, .85fr); grid-template-areas: 'painting caption' 'painting notes'; grid-template-rows: auto 1fr; column-gap: var(--layout-gap, 3rem); row-gap: 1.5rem; min-width: 0; padding: var(--section-space, 5rem) 0; scroll-margin-top: 2rem; }
 .work + .work { border-top: 1px solid var(--rule); }
-.painting { grid-area: painting; min-width: 0; align-self: start; background: #f0ece3; }
+.painting { grid-area: painting; min-width: 0; align-self: start; background: var(--paper-soft); }
 .painting > figure > button, .detail figure > button { border: 0; border-radius: 0; background: transparent; }
-.painting > figure > button { display: flex; align-items: center; justify-content: center; width: 100%; aspect-ratio: 6 / 5; min-width: 0; padding: clamp(1rem, 2.5vw, 2.5rem); }
-.painting > figure > button > img { display: block; width: 100%; height: 100%; max-height: 100%; object-fit: contain; }
+/* The painting sets its own height: portrait works never shrink into a landscape crop. */
+.painting > figure > button { display: flex; align-items: center; justify-content: center; width: 100%; min-width: 0; padding: clamp(1rem, 2.25vw, 2rem); }
+.painting > figure > button > img { display: block; width: 100%; height: auto; max-height: 42rem; object-fit: contain; }
 .painting > figure > button > span { bottom: .75rem; right: .75rem; border-radius: .2rem; }
 .caption { grid-area: caption; min-width: 0; padding-top: .1rem; overflow-wrap: anywhere; }
-.caption h3 { color: var(--ink); font-size: clamp(1.75rem, 2.8vw, 2.5rem); font-weight: 500; line-height: 1.12; letter-spacing: -.045em; text-wrap: balance; }
-.metadata { margin-top: .75rem; max-width: 28ch; font-size: .9375rem; line-height: 1.65; color: var(--muted); }
-.description { max-width: 38ch; margin-top: .75rem; font-size: 1rem; line-height: 1.7; color: var(--muted); }
+.caption h3 { color: var(--ink); font-size: var(--type-title, clamp(1.875rem, 3vw, 3rem)); font-weight: 500; line-height: 1.12; letter-spacing: -.045em; text-wrap: balance; }
+.metadata { margin-top: .8rem; max-width: 32ch; font-size: 1rem; line-height: 1.65; color: var(--muted); }
+.description { max-width: 42ch; margin-top: .75rem; font-size: 1rem; line-height: 1.7; color: var(--muted); }
 .notes { grid-area: notes; display: grid; align-content: start; gap: 2rem; min-width: 0; }
-.statement { max-width: 38ch; min-width: 0; font-size: 1rem; line-height: 1.75; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
-.statement h4 { margin: 0 0 .6rem; color: var(--muted); font-size: .8125rem; font-weight: 400; }
-.statement p + p { margin-top: .8rem; }
+.statement { max-width: 42ch; min-width: 0; font-size: var(--type-body, 1.0625rem); line-height: 1.75; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
+.statement h4 { margin: 0 0 .65rem; color: var(--muted); font-size: 1rem; font-weight: 400; }
+.statement p + p { margin-top: .85rem; }
 .detailImages { display: grid; gap: 1.5rem; min-width: 0; }
-.detail { min-width: 0; max-width: 17.5rem; }
+.detail { min-width: 0; max-width: 15rem; }
 .detail figure { margin: 0; }
 .detail figure > button { min-width: var(--target-size); min-height: var(--target-size); }
-.detail figure > button > img { display: block; width: 100%; height: auto; max-height: 20rem; margin: 0; object-fit: contain; object-position: left center; }
-.detail figure > button > span { bottom: .5rem; right: .5rem; font-size: .8125rem; }
-.detail figure > figcaption { margin-top: .5rem; font-size: .8125rem; line-height: 1.5; }
+.detail figure > button > img { display: block; width: 100%; height: auto; max-height: 24rem; margin: 0; object-fit: contain; object-position: left center; }
+.detail figure > button > span { bottom: .5rem; right: .5rem; font-size: .9375rem; }
+.detail figure > figcaption { margin-top: .65rem; font-size: 1rem; line-height: 1.5; }
 .collectionEnd { display: flex; align-items: center; justify-content: space-between; gap: 1rem 3rem; padding: 0 0 3rem; }
-.collectionEnd > p { color: var(--muted); font-size: .875rem; line-height: 1.6; }
-.backToOverview { display: inline-flex; align-items: center; gap: .65rem; flex-shrink: 0; min-height: var(--target-size); min-width: var(--target-size); font-size: .875rem; text-decoration: underline; text-underline-offset: .3em; cursor: pointer; }
+.collectionEnd > p { max-width: 55ch; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+.backToOverview { display: inline-flex; align-items: center; gap: .65rem; flex-shrink: 0; min-height: var(--target-size); min-width: var(--target-size); font-size: 1rem; text-decoration: underline; text-underline-offset: .3em; cursor: pointer; }
 .backToOverview:hover { text-decoration-thickness: 2px; }
-@media (max-width: 900px) {
-  .work { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: 2rem; }
-  .notes { gap: 1.5rem; }
-  .detail { max-width: 13rem; }
+
+/* A tablet gets a full-width painting, then a readable note and close-up together. */
+@media (max-width: 1119px) {
+  .work { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'caption' 'painting' 'notes'; gap: 2rem; }
+  .caption { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .6rem 2rem; }
+  .metadata { margin-top: 0; max-width: none; }
+  .description { flex-basis: 100%; max-width: 60ch; }
+  .painting > figure > button { padding: 2rem; }
+  .painting > figure > button > img { max-height: 40rem; }
+  .notes { grid-template-columns: minmax(0, 1fr) 15rem; gap: clamp(2rem, 5vw, 4rem); }
+  .statement { max-width: 60ch; }
+  .detail { max-width: 15rem; }
 }
 @media (max-width: 767px) {
-  .index { column-gap: 1.25rem; padding-bottom: 1.5rem; }
-  .indexWork, .collectionLink, .metadata, .description, .statement, .statement h4, .detail figure > button > span, .detail figure > figcaption, .collectionEnd > p, .backToOverview { font-size: 1rem; }
+  .index { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .25rem 1rem; padding-bottom: 1rem; }
+  .collectionLink { grid-column: 1 / -1; }
   .collectionHeader { padding-top: 2rem; }
-  .work { grid-template-columns: minmax(0, 1fr); grid-template-areas: "caption" "painting" "notes"; gap: 1.5rem; padding: 2.5rem 0 3rem; }
-  .caption h3 { font-size: 2rem; }
-  .metadata { margin-top: .5rem; max-width: none; }
-  .painting > figure > button { padding: 1rem; }
-  .painting > figure > button > span { bottom: .5rem; right: .5rem; font-size: 1rem; }
-  .notes { grid-template-columns: minmax(0, 1.3fr) minmax(0, .8fr); gap: 1.5rem; }
-  .statement { max-width: 42ch; }
-  .detail { max-width: 100%; }
-  .detail figure > button > img { max-height: 17rem; }
+  .work { gap: 1.5rem; padding-block: 3rem; }
+  .painting > figure > button { padding: 1.25rem; }
+  .notes { grid-template-columns: minmax(0, 1fr) 12rem; gap: 1.5rem; }
+  .detail { max-width: 12rem; }
   .collectionEnd { align-items: flex-start; flex-direction: column; gap: .5rem; padding-bottom: 2.5rem; }
 }
-@media (max-width: 520px) {
-  .notes { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
-  .detail { max-width: 12rem; }
-  .detail figure > button > img { max-height: 18rem; }
+@media (max-width: 599px) {
+  .index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .caption { display: block; }
+  .caption h3 { font-size: 2rem; }
+  .metadata { margin-top: .6rem; }
+  .painting > figure > button { padding: 1rem; }
+  .painting > figure > button > span { bottom: .5rem; right: .5rem; font-size: 1rem; }
+  .notes { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+  .statement { max-width: 48ch; }
+  .detail { max-width: 14rem; }
+  .detail figure > button > span { font-size: 1rem; }
 }
 @media (prefers-reduced-motion: reduce) { .indexWork, .collectionLink { transition: none; } }
 @media print { .index, .backToOverview { display: none; } .works { display: block; } .work { break-inside: avoid; } }

@@ -23,6 +23,7 @@ function SectionAnchors({ section }: { section: CaseStudySection }) {
 }
 function Tables({ sections, captions }: { sections: CaseStudySection[]; captions?: string[] }) {
   return <>{sections.flatMap(section => section.tables || []).filter(table => !captions || captions.includes(table.caption)).map((table, index) => <div key={`${table.caption}-${index}`} className={styles.tableBlock}>
+    {table.headers.length > 2 && <p className={styles.tableHint}>Scroll across to see every column. <Icon name="arrow-right" /></p>}
     <div className={styles.tableScroll} tabIndex={0} role="region" aria-label={table.caption}><table className={table.headers.length <= 2 ? styles.narrowTable : undefined}><caption><span>{table.caption}</span></caption><thead><tr>{table.headers.map((header, column) => <th key={column} scope="col">{header}</th>)}</tr></thead><tbody>{table.rows.map((row, rowIndex) => <tr key={rowIndex}>{row.map((cell, column) => <td key={column}>{cell}</td>)}</tr>)}</tbody></table></div>
     {table.note && <p className={styles.tableNote}>{table.note}</p>}
   </div>)}</>;
@@ -59,6 +60,7 @@ export default function CaseStudy({ study }: { study: CaseStudyData }) {
   const beats = presentation.decisionBeats.filter(group => group.sectionIds.some(id => sectionById.has(id)));
   const mainIds = new Set(['problem', 'results', ...beats.flatMap(group => group.sectionIds)]);
   const primary = getPrimaryMedia(study).slice(0, 1);
+  const portraitPrimary = primary[0]?.kind === 'video' && primary[0].frame === 'portrait';
   const usedMedia = new Set(primary.map(media => media.src));
   const usedParagraphs = new Set<string>();
   const paragraphs = (items: string[]) => items.filter(text => { const key = text.replace(/\s+/g, ' ').trim(); if (!key || usedParagraphs.has(key)) return false; usedParagraphs.add(key); return true; });
@@ -77,8 +79,8 @@ export default function CaseStudy({ study }: { study: CaseStudyData }) {
   const related = relatedCaseStudies(study).slice(0, 2);
   const productLink = productLinks[study.slug];
   return <>
-    <Link href={company ? `/product#${company.id}` : '/product'} className={styles.backLink}><Icon name="arrow-left" /> Work{company ? ` / ${company.name}` : ''}</Link>
-    <article id={rootId} className={`${styles.caseStudy}${note ? ` ${styles.backgroundNote}` : ''}`} data-case-section>
+    <div className={styles.backNavigation}><Link href={company ? `/product#${company.id}` : '/product'} className={styles.backLink}><Icon name="arrow-left" /> Work{company ? ` / ${company.name}` : ''}</Link></div>
+    <article id={rootId} className={`${styles.caseStudy}${note ? ` ${styles.backgroundNote}` : ''}${portraitPrimary ? ` ${styles.portraitCase}` : ''}`} data-case-section>
       <header className={styles.caseHeader}>
         <div className={styles.caseIdentity}><BrandMarks brandIds={brandIds} small className={brandIds.length > 1 ? styles.caseBrands : undefined} /><p className={styles.eyebrow}>{workTypeLabels[study.workType]} {!presentation.suppressPeriod && <span>{presentation.periodLabel ? `${presentation.periodLabel}: ` : ''}{study.period}</span>}</p></div>
         <div className={styles.caseTitle}><h1 data-case-heading tabIndex={-1}>{getCaseDisplayTitle(study)}</h1><p className={styles.caseSummary}>{study.visualSummary?.summary || study.summary}</p>{productLink && <a className={styles.productLink} href={productLink.href} target="_blank" rel="noopener noreferrer">{productLink.label} <Icon name="arrow-up-right" /><span className="sr-only"> (opens in a new tab)</span></a>}</div>

@@ -86,11 +86,13 @@ const descendant = (node, parent) => {
 const delivered = ['cashkaro-college-money-education-loans', 'absolute-crop-health-ai', 'urbankhet-farm-to-fork'];
 const exploration = ['cashkaro-eduloans-policy-workflow', 'cashkaro-lending-mcp-feedback'];
 
-test('the introduction establishes the founder-to-lending remit without repeating identity or showing project cards', () => {
+test('the opening establishes agriculture, AI and fintech without a repeated biography or project cards', () => {
   const heading = nodes.find(node => node.tag === 'h1');
-  assert.match(textContent(heading), /fresh produce.*lending products/i);
+  assert.match(textContent(heading), /Agriculture\.\s*AI\.\s*Fintech\./);
+  assert.doesNotMatch(textContent(heading), /fresh produce|lending products/);
   const introduction = ancestor(heading, 'section');
-  for (const meaning of [/founded UrbanKhet/, /General Manager/, /CashKaro/, /lending products/, /partnerships/, /P&amp;L/, /Bengaluru/]) assert.match(textContent(introduction), meaning);
+  assert.match(textContent(introduction), /Bengaluru/);
+  assert.doesNotMatch(textContent(introduction), /I’m|General Manager|I founded|I build/);
   assert.ok(textContent(introduction).split(/\s+/).length < 70, 'The first read stays concise');
   assert.doesNotMatch(textContent(introduction), /Priyam Sameer|Product leader|\bps\./);
   assert.doesNotMatch(html, />ps\.</, 'Home uses the wordmark without a competing monogram');
@@ -254,7 +256,7 @@ test('the hero shows a full original painting and the shared footer offers direc
   const introduction = ancestor(nodes.find(node => node.tag === 'h1'), 'section');
   assert.ok(descendant(painting, introduction), 'The painting is part of the introduction rather than another work card');
   assert.ok(ancestor(painting, 'figure'), 'The full painting keeps its visible caption');
-  assert.match(html, /I also paint/);
+  assert.match(html, /Original painting/);
   const footer = nodes.find(node => node.tag === 'footer');
   assert.ok(footer && footer.start > projectsEnd(), 'The contact invitation follows the work and experience');
   assert.match(content(footer), /mailto:Priyam.Sameer.95@gmail.com/);

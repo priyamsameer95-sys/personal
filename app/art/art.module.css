@@ -1,29 +1,32 @@
 .page { min-width: 0; max-width: 76rem; margin-inline: auto; }
-.intro { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; padding: clamp(3rem, 5vw, 5rem) 0; }
+.intro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: end; gap: 1.5rem var(--layout-gap, 3rem); padding: var(--section-space, clamp(3rem, 6vw, 6rem)) 0; }
 .intro > *, .noteText { min-width: 0; overflow-wrap: anywhere; }
-.intro h1 { margin: 0; color: var(--ink); font-size: clamp(2.75rem, 5.2vw, 4.75rem); font-weight: 500; letter-spacing: -.05em; line-height: 1.08; }
-.intro > p { max-width: 40ch; color: var(--muted); font-size: 1.125rem; line-height: 1.65; }
-.artistNote { padding: clamp(3rem, 5vw, 5rem) 0; border-top: 1px solid var(--rule); scroll-margin-top: 2rem; }
-.noteText { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; }
-.noteText h2 { color: var(--ink); font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -.04em; line-height: 1.2; }
-.statement { max-width: 40ch; font-size: 1.1rem; line-height: 1.8; color: var(--muted); }
+.intro h1 { margin: 0; color: var(--ink); font-size: var(--type-display, clamp(2.5rem, 5vw, 5rem)); font-weight: 500; letter-spacing: -.05em; line-height: 1.08; }
+.intro > p { max-width: 40ch; padding-bottom: .15rem; color: var(--muted); font-size: var(--type-body, 1.125rem); line-height: 1.7; }
+.artistNote { padding: var(--section-space, 5rem) 0; border-top: 1px solid var(--rule); scroll-margin-top: 2rem; }
+.noteText { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: var(--layout-gap, 3rem); }
+.noteText h2 { max-width: 18ch; color: var(--ink); font-size: var(--type-title, clamp(1.875rem, 3vw, 3rem)); font-weight: 500; letter-spacing: -.04em; line-height: 1.2; }
+.statement { max-width: 40ch; font-size: var(--type-body, 1.125rem); line-height: 1.8; color: var(--muted); }
 .contact { display: inline-flex; align-items: center; gap: .75rem; min-height: var(--target-size); min-width: var(--target-size); margin-top: 1.25rem; font-size: 1rem; color: var(--ink); text-decoration: underline; text-underline-offset: .3em; cursor: pointer; }
 .contact:hover { text-decoration-thickness: 2px; }
 .contact:focus-visible, .additionalWork:focus-visible, .artistNote:focus-visible { outline: var(--focus-ring); outline-offset: 4px; }
-.additional { padding: 3rem 0; border-top: 1px solid var(--rule); }
-.additional h2 { font-size: 2rem; font-weight: 500; letter-spacing: -.04em; }
-.additionalGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; margin-top: 2rem; }
+.additional { padding: var(--section-space, 4rem) 0; border-top: 1px solid var(--rule); }
+.additional h2 { font-size: var(--type-title, 2rem); font-weight: 500; letter-spacing: -.04em; }
+.additionalGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem var(--layout-gap, 3rem); margin-top: 2.5rem; }
 .additionalWork { display: block; min-width: 0; min-height: var(--target-size); color: var(--ink); text-decoration: none; overflow-wrap: anywhere; cursor: pointer; }
-.additionalImage { position: relative; aspect-ratio: 4 / 3; background: #f0ece3; }
-.additionalImage img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; padding: 1.5rem; object-fit: contain; }
-.additionalWork h3 { margin-top: 1rem; font-size: 1.5rem; font-weight: 500; line-height: 1.25; letter-spacing: -.025em; text-wrap: balance; }
-.additionalWork p { margin-top: .5rem; font-size: 1rem; line-height: 1.7; color: var(--muted); }
-.additionalWork > span { display: inline-flex; align-items: center; gap: .5rem; min-height: var(--target-size); margin-top: .5rem; font-size: 1rem; text-decoration: underline; text-underline-offset: .3em; }
+.additionalImage { position: relative; aspect-ratio: 4 / 3; background: var(--paper-soft); }
+.additionalImage img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; padding: clamp(1rem, 2vw, 2rem); object-fit: contain; }
+.additionalWork h3 { margin-top: 1rem; font-size: var(--type-subtitle, 1.5rem); font-weight: 500; line-height: 1.3; letter-spacing: -.025em; text-wrap: balance; }
+.additionalWork p { max-width: 55ch; margin-top: .6rem; font-size: 1rem; line-height: 1.7; color: var(--muted); }
+.additionalWork > span { display: inline-flex; align-items: center; gap: .5rem; min-height: var(--target-size); margin-top: .6rem; font-size: 1rem; text-decoration: underline; text-underline-offset: .3em; }
 .additionalWork:hover > span { text-decoration-thickness: 2px; }
 @media (max-width: 767px) {
-  .intro { gap: 1rem; }
-  .intro > p { font-size: 1rem; }
-  .noteText { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
-  .statement { font-size: 1rem; }
-  .additionalGrid { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+  .intro { gap: 1.25rem; padding-block: 2.5rem; }
+  .intro > p { max-width: 25ch; padding: 0; }
+  .noteText { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .additionalGrid { grid-template-columns: minmax(0, 1fr); gap: 2.75rem; }
+}
+@media (max-width: 559px) {
+  .intro { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .intro > p { max-width: none; }
 }
