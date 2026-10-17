@@ -39,7 +39,7 @@ const cv = readJSON('app/cv/content.json');
 const suppliedCv = readJSON('content/cv-download.json');
 const cvPath = suppliedCv.publicPath;
 const cvDownloadUrl = `${cvPath}?v=${suppliedCv.sha256.slice(0, 12)}`;
-const publicPages = ['/', '/product', '/cv', '/blog', '/art'];
+const publicPages = ['/', '/product', '/cv', '/blog', '/art', '/github'];
 const canonicalPaths = studies.map(study => `/product/${study.slug}`);
 const referencePaths = studies.map(study => `/product/${study.slug}/references`);
 const failures = [];

@@ -1,0 +1,28 @@
+{
+  "owner": "priyamsameer95-sys",
+  "reviewedAt": "2026-10-18",
+  "groups": [
+    { "id": "ai-lending", "title": "AI & lending", "description": "Working through audio, conversations and lending decisions in code." },
+    { "id": "tools-experiments", "title": "Tools & experiments", "description": "Small browser tools, useful utilities and things built for the joy of trying." },
+    { "id": "notes-repositories", "title": "Portfolio & build notes", "description": "The site itself, the build log and early repository starting points." }
+  ],
+  "projects": [
+    { "name": "THEYA.AUDIO", "title": "THEYA.Audio", "group": "ai-lending", "kind": "Audio prototype", "language": "Python", "description": "Turn webpages into podcast-style audio with sentence highlighting.", "sourcePath": "pyproject.toml" },
+    { "name": "mcp-el", "title": "EduLoans MCP", "group": "ai-lending", "kind": "MCP server prototype", "language": "TypeScript", "description": "Expose education-loan profile evaluation, lender rules and university lookup as callable tools.", "sourcePath": "README.md" },
+    { "name": "V1.03-Chat-eduloans", "title": "EduLoans interaction workspace", "group": "ai-lending", "kind": "Interaction prototype", "language": "JavaScript", "description": "Student intake, partner handoffs and reviewer case inspection. The portfolio walkthrough uses sample records and scripted responses.", "casePath": "/product/cashkaro-eduloans-policy-workflow" },
+    { "name": "edulaons", "title": "EduLoans lender matching", "group": "ai-lending", "kind": "Lending prototype", "language": "TypeScript", "description": "A React lending application with a documented rule engine for university matching, eligibility gates and intake timelines.", "sourcePath": "BRE_Documentation.md" },
+    { "name": "hr-screening101", "title": "Voice screening", "group": "ai-lending", "kind": "Conversation prototype", "language": "TypeScript", "description": "An HR call workflow documenting Twilio telephony, ElevenLabs conversations and structured post-call analysis.", "sourcePath": "ARCHITECTURE.md" },
+    { "name": "rocket-card-finder", "title": "Rocket Card Finder", "group": "ai-lending", "kind": "Fintech prototype", "language": "TypeScript", "description": "A credit-card discovery interface with card listings, individual card pages and a Card Genius flow.", "sourcePath": "src/pages" },
+    { "name": "2026-08-22-json-atlas", "title": "JSON Atlas", "group": "tools-experiments", "kind": "Developer tool", "language": "JavaScript", "description": "Generate TypeScript interfaces, Python dataclasses and Go structs from a JSON payload in the browser.", "sourcePath": "README.md" },
+    { "name": "magic-text-matcher", "title": "Magic Text Matcher", "group": "tools-experiments", "kind": "Browser tool", "language": "HTML", "description": "Test regular expressions with visual matches and colour-coded capture groups, using local browser processing.", "sourcePath": "README.md", "demoUrl": "https://priyamsameer95-sys.github.io/magic-text-matcher/" },
+    { "name": "2026-08-22-equity-simulator", "title": "EquitySim", "group": "tools-experiments", "kind": "Fintech experiment", "language": "HTML", "description": "Explore how exit value, funding and ownership change an illustrative equity payout waterfall.", "sourcePath": "README.md" },
+    { "name": "2026-08-22-csv-streamer", "title": "StreamCSV", "group": "tools-experiments", "kind": "Data utility", "language": "JavaScript", "description": "A browser-based CSV-to-JSON converter designed around reading files in chunks rather than uploading them.", "sourcePath": "README.md" },
+    { "name": "2026-08-22-color-palette-gen", "title": "Colour Palette Generator", "group": "tools-experiments", "kind": "Design tool", "language": "JavaScript", "description": "Generate a five-colour palette with the spacebar, then click a colour to copy its hex value.", "sourcePath": "README.md" },
+    { "name": "2026-08-22-tv-surf", "title": "TV Surf", "group": "tools-experiments", "kind": "Web experiment", "language": "HTML", "description": "A channel-surfing experiment that drops into YouTube videos at different points, inspired by 1990s television.", "sourcePath": "README.md" },
+    { "name": "2026-08-22-scrambl", "title": "Scrambl", "group": "tools-experiments", "kind": "Daily word game", "language": "JavaScript", "description": "Unscramble 18 words against the clock, with a date-seeded puzzle shared by everyone that day.", "sourcePath": "README.md" },
+    { "name": "personal", "title": "This portfolio", "group": "notes-repositories", "kind": "Portfolio", "language": "TypeScript", "description": "The Next.js source for this website: product work, career history, paintings and the CV download flow.", "sourcePath": "README.md" },
+    { "name": "daily-build-log", "title": "Daily Build Log", "group": "notes-repositories", "kind": "Project log", "language": null, "description": "A dated index of the smaller software projects, with descriptions and links to their repositories.", "sourcePath": "BUILD_LOG.md" },
+    { "name": "small-tools-", "title": "Small Tools", "group": "notes-repositories", "kind": "Empty repository", "language": null, "description": "A starting point for everyday personal tools. No source files were present when reviewed." },
+    { "name": "gpttest", "title": "GPT Test", "group": "notes-repositories", "kind": "Empty repository", "language": null, "description": "An empty repository when reviewed; included here as part of the complete public GitHub index." }
+  ]
+}

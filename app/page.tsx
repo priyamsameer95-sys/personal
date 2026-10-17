@@ -108,6 +108,10 @@ export default function HomePage() {
         </aside>
       </section>
 
+      <section className={styles.githubBridge} aria-labelledby="github-title">
+        <div><h2 id="github-title">On GitHub.</h2><p>Lending prototypes, audio experiments and small tools. The code and build notes live here.</p></div>
+        <Link href="/github" className={styles.caseLink}>Explore GitHub projects <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link>
+      </section>
       <div className={styles.experienceBridge}>
         <p>Full career, responsibilities, education and certifications.</p>
         <Link href="/cv" className={styles.caseLink}>View experience <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link>

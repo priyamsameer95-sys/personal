@@ -57,8 +57,8 @@ test('canonical origin is stable in previews and invalid configuration cannot ex
 
 test('metadata consistently names the person and publishes absolute canonical and social URLs', async () => {
   const { load } = fixture();
-  const pages = ['app/page.tsx', 'app/product/page.tsx', 'app/cv/page.tsx', 'app/art/page.tsx'];
-  const paths = ['/', '/product', '/cv', '/art'];
+  const pages = ['app/page.tsx', 'app/product/page.tsx', 'app/cv/page.tsx', 'app/art/page.tsx', 'app/github/page.tsx'];
+  const paths = ['/', '/product', '/cv', '/art', '/github'];
   const titles = [];
   const descriptions = [];
   pages.forEach((page, index) => {
@@ -166,7 +166,7 @@ test('sitemap exposes every canonical authored case once and excludes aliases, a
   const { load } = fixture({ db: () => assert.fail('An unconfigured sitemap must not query') });
   const entries = await load('app/sitemap.ts').default();
   const urls = entries.map(entry => entry.url);
-  assert.equal(entries.length, 29, 'Four authored destinations and all 25 canonical cases');
+  assert.equal(entries.length, 30, 'Five authored destinations and all 25 canonical cases');
   assert.equal(new Set(urls).size, entries.length);
   for (const study of registry.caseStudies.filter(study => study.status !== 'draft')) {
     assert.ok(urls.includes(`${origin}/product/${study.slug}`));
@@ -197,5 +197,5 @@ test('sitemap adds only published CMS destinations using actual update dates and
   assert.equal(entries.find(entry => entry.url === `${origin}/art/art-id`).lastModified, undefined);
   assert.equal(entries.filter(entry => entry.url.includes('/product/')).length, 25);
   const failed = fixture({ env: { POSTGRES_URL: 'configured' }, db: async () => { throw new Error('Unavailable'); } });
-  assert.equal((await failed.load('app/sitemap.ts').default()).length, 29);
+  assert.equal((await failed.load('app/sitemap.ts').default()).length, 30);
 });

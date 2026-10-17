@@ -13,7 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const url = absoluteUrl(path);
     urls.set(url, { url, ...(modified && !Number.isNaN(Date.parse(modified)) ? { lastModified: new Date(modified) } : {}) });
   };
-  for (const path of ['/', '/product', '/cv', '/art']) add(path);
+  for (const path of ['/', '/product', '/cv', '/art', '/github']) add(path);
   for (const study of publishedCaseStudies()) add(`/product/${encodeURIComponent(study.slug)}`);
   if (process.env.POSTGRES_URL) {
     try {

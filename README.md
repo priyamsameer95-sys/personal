@@ -86,3 +86,11 @@ The Art registry in `content/art/works.json` contains six named paintings, origi
 - `backend/`: a separate Express/Prisma/AWS S3 service with its own package and data model. The Next.js site does not call this service, and running it is unnecessary for the site preview. Its setup is documented in [`backend/README.md`](backend/README.md).
 
 Keep actual credentials in ignored environment files or hosting settings. `.env.example` contains placeholders only.
+
+### GitHub projects
+
+`/github` lists every public repository owned by `priyamsameer95-sys`, grouped into AI/lending, tools/experiments and portfolio/build notes. The header and homepage link to it.
+
+- Public GitHub discovery is cached for one hour and uses no credentials. Private and foreign-owned repositories are excluded.
+- `content/github-projects.json` holds the reviewed descriptions, ordering, genuine demo/walkthrough links and a complete public fallback snapshot. Update this file to curate new projects; uncurated public repositories still appear automatically.
+- Descriptions are grounded in repository READMEs/source documents; prototype and empty-repository labels are explicit. The catalogue does not execute external project code or assert production results.

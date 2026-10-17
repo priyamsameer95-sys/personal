@@ -11,6 +11,7 @@ import styles from './site-chrome.module.css';
 const navItems = [
   { label: 'Home', path: '/' }, { label: 'Work', path: '/product' },
   { label: 'Experience', path: '/cv' }, { label: 'Art', path: '/art' },
+  { label: 'GitHub', path: '/github' },
 ];
 
 export default function Header({ wordmarkOnly = true }: { wordmarkOnly?: boolean }) {
