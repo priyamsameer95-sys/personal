@@ -1,0 +1,39 @@
+{
+  "repository": "https://github.com/priyamsameer95-sys/2026-08-22-csv-streamer",
+  "sourceCommit": "89b704c7a68a84d9691af3e24e0c07d3d13cd759",
+  "reviewedAt": "2026-10-18",
+  "sourceFiles": [
+    {
+      "path": "LICENSE",
+      "blobSha": "05c6897529629e66bc15272a6276a84c50b853ce",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-csv-streamer/blob/89b704c7a68a84d9691af3e24e0c07d3d13cd759/LICENSE"
+    },
+    {
+      "path": "README.md",
+      "blobSha": "be24040efd20613f3dea803111f98d429bd6a169",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-csv-streamer/blob/89b704c7a68a84d9691af3e24e0c07d3d13cd759/README.md"
+    },
+    {
+      "path": "index.html",
+      "blobSha": "380760e1bcc69f7e46cefec1646ac3da2b6b2495",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-csv-streamer/blob/89b704c7a68a84d9691af3e24e0c07d3d13cd759/index.html"
+    },
+    {
+      "path": "script.js",
+      "blobSha": "ff5ad33c04ff4c0e692e389c0cd061a9e6ca9cab",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-csv-streamer/blob/89b704c7a68a84d9691af3e24e0c07d3d13cd759/script.js"
+    }
+  ],
+  "license": "Original MIT LICENSE copied unchanged.",
+  "changes": [
+    "Original HTML/CSS/JS are bundled inline for a no-same-origin sandbox. Restrictive CSP blocks external connections, frames and media.",
+    "Unverified 1GB/instant/no-crash tagline replaced with parser and in-memory-output limits. Optional ?sample=1 passes a synthetic 250-row File through the actual original parser. Default interface remains empty.",
+    "Demo correction: clear isFirstChunk after the first parsed header so later stream chunks retain every data row. Verified against synthetic multi-chunk input and the 250-row sample export.",
+    "Sandbox keyboard correction: Escape posts only the priyam-demo-close intent to the parent. The parent must verify event.source against the active iframe before closing.",
+    "Accessibility correction: the file drop area is a labelled keyboard button; Enter or Space invokes the original file input chooser, with a visible focus ring.",
+    "Visible native Use sample CSV button runs the same synthetic 250-row File-to-change-to-parser path as ?sample=1. Both upload and sample actions are labelled and keyboard accessible; updated metrics are announced politely. The upload drop area is a real block target without overlapping adjacent controls.",
+    "Mobile-only compatibility CSS at 600px and below preserves desktop styling while fitting the original controls and content within a phone viewport.",
+    "Publishing normalization: trailing whitespace removed; final newline normalized. No logic or layout change."
+  ],
+  "indexSha256": "7edf1b0cd3626b8c68c4408c147b7500431583efded1246ab55d249b664ead42"
+}

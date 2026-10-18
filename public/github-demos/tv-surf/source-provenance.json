@@ -1,0 +1,31 @@
+{
+  "repository": "https://github.com/priyamsameer95-sys/2026-08-22-tv-surf",
+  "sourceCommit": "bf450b362c5441d6014a81c46c6594229c445474",
+  "reviewedAt": "2026-10-18",
+  "sourceFiles": [
+    {
+      "path": "LICENSE",
+      "blobSha": "05c6897529629e66bc15272a6276a84c50b853ce",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-tv-surf/blob/bf450b362c5441d6014a81c46c6594229c445474/LICENSE"
+    },
+    {
+      "path": "README.md",
+      "blobSha": "81ba42dff94dbedbc2c94e9af8487a262ec92777",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-tv-surf/blob/bf450b362c5441d6014a81c46c6594229c445474/README.md"
+    },
+    {
+      "path": "index.html",
+      "blobSha": "f94c4a7523ceaddac373956288c0068be36ec43f",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-tv-surf/blob/bf450b362c5441d6014a81c46c6594229c445474/index.html"
+    }
+  ],
+  "license": "Original MIT LICENSE copied unchanged.",
+  "changes": [
+    "Original HTML/CSS/JS are bundled inline for a no-same-origin sandbox. Restrictive CSP blocks external connections, frames and media.",
+    "Remote YouTube playback and static GIF are removed. Original channel controls and OSD run; an explicit disabled-playback note replaces video. No live playback is claimed.",
+    "Sandbox keyboard correction: Escape posts only the priyam-demo-close intent to the parent. The parent must verify event.source against the active iframe before closing.",
+    "Mobile-only compatibility CSS at 600px and below preserves desktop styling while fitting the original controls and content within a phone viewport.",
+    "Publishing normalization: trailing whitespace removed; final newline normalized. No logic or layout change."
+  ],
+  "indexSha256": "9d553b908c819ba1acc7a172f60f78835ab30a7cef3c4b17a7fb23c4c70403fd"
+}

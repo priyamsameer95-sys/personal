@@ -1,0 +1,481 @@
+{
+  "eduloans": {
+    "title": "EduLoans",
+    "kicker": "Lending workspace · three related prototypes",
+    "summary": "From a student conversation to an inspectable lending pre-check. One project, with separate interfaces for intake, operations and callable policy.",
+    "stack": [
+      "MCP SDK",
+      "JSON Schema",
+      "React",
+      "Supabase",
+      "Deterministic BRE"
+    ],
+    "decisions": [
+      {
+        "title": "Human review is a product boundary",
+        "text": "Student intake, partner handoffs and reviewer inspection share a case. Uncertain documents and unconfirmed thresholds remain visible before a reviewer acts."
+      },
+      {
+        "title": "Give AI a tool contract, not lending discretion",
+        "text": "The MCP prototype exposes nine typed tools over stdio: profile evaluation, score explanation and institution lookups. The rule engine owns the answer; an agent calls a defined capability."
+      },
+      {
+        "title": "Keep versions inspectable",
+        "text": "The interaction prototype, Supabase matching implementation and MCP server are separate experiments. Their source is grouped here without implying one connected production system."
+      }
+    ],
+    "mechanism": {
+      "label": "Documented MCP scoring",
+      "expression": "S = 0.10U + 0.70A + 0.20C",
+      "note": "University, academics and co-applicant components. Deterministic pre-check; the lender retains the credit decision."
+    },
+    "status": "Original interaction prototype — sample data; scripted responses. MCP and matching code are prototypes. Archived March 2026 validation records 145 assertions; not rerun here and includes mocks.",
+    "images": [
+      {
+        "src": "/work/eduloans/prototype/kam-inspector.png",
+        "alt": "EduLoans original reviewer case inspector with sample lender matches and confirmation before action",
+        "caption": "Original interaction prototype — sample data; scripted responses.",
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "src": "/work/eduloans/prototype/student-intake.png",
+        "alt": "EduLoans original student intake and captured profile",
+        "caption": "Original interaction prototype — sample data; scripted responses.",
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "src": "/work/eduloans/prototype/partner-pipeline.png",
+        "alt": "EduLoans original partner pipeline and case stages",
+        "caption": "Original interaction prototype — sample data; scripted responses.",
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "src": "/work/eduloans/prototype/kam-queue.png",
+        "alt": "EduLoans original reviewer queue and missing evidence",
+        "caption": "Original interaction prototype — sample data; scripted responses.",
+        "width": 1440,
+        "height": 1000
+      }
+    ],
+    "repositoryRoles": {
+      "mcp-el": "Callable policy · nine MCP tools",
+      "V1.03-Chat-eduloans": "Interaction · intake, partner and reviewer journeys",
+      "edulaons": "Matching · React and Supabase rule engine"
+    },
+    "tools": [
+      "evaluate_profile",
+      "check_university",
+      "check_pincode",
+      "list_lenders",
+      "score_breakdown",
+      "get_scoring_rules",
+      "search_universities",
+      "list_countries",
+      "list_courses"
+    ]
+  },
+  "theya-audio": {
+    "title": "THEYA.Audio",
+    "kicker": "Voice, retrieval & generation",
+    "summary": "Turn a document into a two-voice listening experience, with explicit choices about retrieval, dialogue and speech synthesis.",
+    "stack": [
+      "FastAPI",
+      "Pydantic",
+      "Kokoro-82M",
+      "Edge Neural TTS",
+      "RAG"
+    ],
+    "decisions": [
+      {
+        "title": "Separate what is said from how it sounds",
+        "text": "Typed sentence records carry display text, speech text, speaker, voice and pauses. Extraction, dialogue generation and speech rendering are separate stages."
+      },
+      {
+        "title": "Make the model path explicit",
+        "text": "Provider adapters in source cover Qwen2.5-72B, Gemini 2.0 Flash, Llama 3.3 via Groq and GPT-4o-mini for dialogue. Speech routes to Edge Neural or Kokoro-82M through Hugging Face/fal-ai. Each path needs provider configuration."
+      },
+      {
+        "title": "Retrieve before answering; inspect the checks",
+        "text": "Overlapping document chunks live in SQLite. BM25, TF-IDF cosine and bigram scores retrieve passages. Grounding, term coverage and dialogue checks are heuristic diagnostics; displayed scores are not measured model accuracy."
+      }
+    ],
+    "mechanism": {
+      "label": "Source architecture",
+      "expression": "document → retrieval / dialogue → speaker turns → TTS → streamed audio",
+      "note": "Optional provider integrations exist in source; no inference quality or latency benchmark is claimed."
+    },
+    "status": "Original 2-Voice RAG Studio interface with synthetic dialogue input. Backend, model and audio services disabled for this preview.",
+    "images": [
+      {
+        "src": "/github/screens/theya-audio.webp",
+        "alt": "THEYA original two-voice RAG Studio interface",
+        "caption": "Original studio interface · synthetic input; services disabled.",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "links": [
+      {
+        "label": "Provider adapters",
+        "path": "app/podcast/dialogue.py"
+      },
+      {
+        "label": "Retrieval & evaluation",
+        "path": "app/rag/evals.py"
+      }
+    ]
+  },
+  "voice-screening": {
+    "title": "Conversational screening",
+    "kicker": "Telephony & structured extraction",
+    "summary": "Carry a campaign’s questions into a voice session, then turn the conversation into structured campaign records.",
+    "stack": [
+      "Twilio",
+      "ElevenLabs",
+      "WebSocket",
+      "Gemini 2.5 Flash",
+      "Supabase"
+    ],
+    "decisions": [
+      {
+        "title": "Preserve context across the call",
+        "text": "A Supabase function initiates the Twilio call. A TwiML handler and WebSocket bridge connect it to ElevenLabs conversational AI with campaign context."
+      },
+      {
+        "title": "Extract after the conversation",
+        "text": "A separate function calls Gemini 2.5 Flash through the Lovable gateway with a structured extraction schema. The prototype also maps recommendations into candidate statuses; those assignments have not been validated as hiring decisions."
+      }
+    ],
+    "mechanism": {
+      "label": "Documented call path",
+      "expression": "campaign → Twilio → ElevenLabs session → Gemini extraction → stored record",
+      "note": "The UI and integration code are inspectable. No hiring accuracy or completed-call benchmark has been established here."
+    },
+    "status": "Original React dashboard with synthetic records. No calls, candidate data or model services connected.",
+    "images": [
+      {
+        "src": "/github/screens/voice-screening.webp",
+        "alt": "Original screening campaign dashboard using synthetic demonstration records",
+        "caption": "Original dashboard · sample records; telephony and AI services disabled.",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "links": [
+      {
+        "label": "Voice bridge",
+        "path": "supabase/functions/elevenlabs-stream/index.ts"
+      },
+      {
+        "label": "Structured extraction",
+        "path": "supabase/functions/analyze-response/index.ts"
+      }
+    ]
+  },
+  "rocket-card": {
+    "title": "Rocket Card Finder",
+    "kicker": "Fintech comparison & recommendation",
+    "summary": "Compare cards against spending patterns, fees and eligibility inputs, with the savings calculation visible at the decision point.",
+    "stack": [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Card APIs",
+      "Scenario modelling"
+    ],
+    "decisions": [
+      {
+        "title": "Ask about spending before ranking",
+        "text": "The questionnaire captures category spending; the interface separates total savings from net savings after fees."
+      },
+      {
+        "title": "Keep comparisons actionable",
+        "text": "Bank, network, fees and category filters sit beside card comparison. The source calls BankKaro UAT APIs; the isolated preview disconnects them and shows the original spending-input journey."
+      }
+    ],
+    "mechanism": {
+      "label": "Implemented product journey",
+      "expression": "spending inputs → calculation API → savings response → comparison",
+      "note": "Calculation depends on the service. No LLM integration was located; lender eligibility and product benefits require verification."
+    },
+    "status": "Original React interface · illustrative spending input; financial APIs disabled. MoneyControl branding is part of the source UI; an organizational relationship is not established.",
+    "images": [
+      {
+        "src": "/github/screens/rocket-card.webp",
+        "alt": "Rocket Card Finder original spending questionnaire with an illustrative monthly amount",
+        "caption": "Original spending form · illustrative input; financial APIs disconnected.",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "links": [
+      {
+        "label": "API contracts",
+        "path": "src/services/cardService.ts"
+      }
+    ]
+  },
+  "equity-simulator": {
+    "title": "EquitySim",
+    "kicker": "Exit economics",
+    "summary": "Make liquidation preferences tangible: change an exit value and see what remains for a common shareholder.",
+    "stack": [
+      "JavaScript",
+      "Chart.js",
+      "Scenario modelling"
+    ],
+    "decisions": [
+      {
+        "title": "Show the consequence immediately",
+        "text": "Exit value, funding, preference multiple and ownership feed one payout and a doughnut allocation chart."
+      }
+    ],
+    "mechanism": {
+      "label": "Implemented simplified model",
+      "expression": "max(0, exit − funding × preference) × ownership",
+      "note": "Preference-first common pool illustration. Excludes preferred conversion, dilution and tax; not a complete cap-table waterfall."
+    },
+    "status": "Working browser tool · illustrative inputs; calculations run locally.",
+    "images": [
+      {
+        "src": "/github/screens/equity-simulator.webp",
+        "alt": "Original EquitySim inputs, payout and doughnut allocation chart",
+        "caption": "Original tool · illustrative inputs; simplified preference-first model.",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "demoPath": "/github-demos/equity-simulator/index.html"
+  },
+  "json-atlas": {
+    "title": "JSON Atlas",
+    "kicker": "Structural code generation",
+    "summary": "Turn a JSON example into TypeScript interfaces, Python dataclasses or Go structs, without sending the document anywhere.",
+    "stack": [
+      "Recursive inference",
+      "Type registry",
+      "Three code emitters"
+    ],
+    "decisions": [
+      {
+        "title": "Infer once, render three ways",
+        "text": "A recursive walk records object shapes in a type registry. Language-specific emitters produce code from the shared structure."
+      }
+    ],
+    "mechanism": {
+      "label": "Compiler-style pipeline",
+      "expression": "JSON → parse → infer structure → type registry → TS / Python / Go",
+      "note": "Example-based inference, not schema validation. Array inference begins with the first item; mixed-array unions need review."
+    },
+    "status": "Working browser tool · local parsing and code generation; no model/API required.",
+    "images": [
+      {
+        "src": "/github/screens/json-atlas.webp",
+        "alt": "JSON Atlas original JSON editor beside generated TypeScript interfaces",
+        "caption": "Original tool · fictional example JSON and generated output.",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "demoPath": "/github-demos/json-atlas/index.html"
+  },
+  "regex-matcher": {
+    "title": "Magic Text Matcher",
+    "kicker": "Visual debugging",
+    "summary": "Make a regular expression readable through its effects: edit the pattern and watch matching text light up.",
+    "stack": [
+      "ECMAScript RegExp",
+      "Capture groups",
+      "Escaped highlights"
+    ],
+    "decisions": [
+      {
+        "title": "Shorten the feedback loop",
+        "text": "Pattern, flags and source text stay on one screen. Match highlighting updates in place instead of asking the reader to inspect raw offsets."
+      }
+    ],
+    "mechanism": {
+      "label": "Matching loop",
+      "expression": "pattern + flags + text → matchAll → escaped highlight overlay",
+      "note": "Non-overlapping capture highlights; nested-group rendering is limited. Browser regex rules apply."
+    },
+    "status": "Working browser tool · text stays in the tool; no backend or AI inference.",
+    "images": [
+      {
+        "src": "/github/screens/regex-matcher.webp",
+        "alt": "Magic Text Matcher original live pattern editor and highlighted email matches",
+        "caption": "Original tool · fictional email examples.",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "demoPath": "/github-demos/regex-matcher/index.html"
+  },
+  "csv-streamer": {
+    "title": "StreamCSV",
+    "kicker": "Browser data pipeline",
+    "summary": "Transform a local CSV into downloadable JSON, with file progress visible as chunks are read.",
+    "stack": [
+      "File.stream()",
+      "TextDecoderStream",
+      "Blob export"
+    ],
+    "decisions": [
+      {
+        "title": "Read incrementally, expose the limits",
+        "text": "The browser decodes chunks and updates processed-byte progress. Output rows accumulate in memory before download."
+      }
+    ],
+    "mechanism": {
+      "label": "Transformation pipeline",
+      "expression": "file stream → decode → split rows → JSON chunks → Blob",
+      "note": "Simple comma splitting; quoted CSV fields are unsupported. Incremental input does not mean constant-memory output."
+    },
+    "status": "Working browser tool · local file processing. Screenshot uses 250 synthetic rows; no large-file benchmark.",
+    "images": [
+      {
+        "src": "/github/screens/csv-streamer.webp",
+        "alt": "StreamCSV original conversion interface after processing a synthetic CSV",
+        "caption": "Original tool · 250 synthetic rows; no performance benchmark.",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "demoPath": "/github-demos/csv-streamer/index.html"
+  },
+  "colour-palette": {
+    "title": "Colour palette generator",
+    "kicker": "Procedural exploration",
+    "summary": "Generate five colours in one gesture and copy a hex value directly from its swatch.",
+    "stack": [
+      "Random hex generation",
+      "Clipboard fallback",
+      "Keyboard input"
+    ],
+    "decisions": [
+      {
+        "title": "Keep the interaction in the colour",
+        "text": "Space generates a palette; a swatch copies its value. Independent random draws provide variety rather than a claimed colour-harmony model."
+      }
+    ],
+    "mechanism": {
+      "label": "Per-swatch generation",
+      "expression": "floor(random × 16,777,215) → hexadecimal → pad to six digits",
+      "note": "Procedural colour exploration; no AI or perceptual-harmony algorithm."
+    },
+    "status": "Working browser tool · Space to regenerate; select a swatch to copy.",
+    "images": [
+      {
+        "src": "/github/screens/colour-palette.webp",
+        "alt": "Original five-swatch colour generator with hex values",
+        "caption": "Original tool · randomly generated colours.",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "demoPath": "/github-demos/colour-palette/index.html"
+  },
+  "tv-surf": {
+    "title": "TV Surf",
+    "kicker": "Channel-based discovery",
+    "summary": "Recreate channel surfing with a small curated video library, random starts and a brief tuning transition.",
+    "stack": [
+      "Channel state",
+      "YouTube embeds",
+      "Keyboard navigation"
+    ],
+    "decisions": [
+      {
+        "title": "Let discovery feel like a remote control",
+        "text": "Up/down controls wrap through channels. A random selection and start offset change what the next channel reveals."
+      }
+    ],
+    "mechanism": {
+      "label": "Original interaction logic",
+      "expression": "channel ± 1 → wrap → random video + start offset → tune",
+      "note": "The isolated preview demonstrates channel controls only. Third-party video playback is disabled; inspect the source for the original embed integration."
+    },
+    "status": "Original controls preview · external playback disabled. No video autoplays on this portfolio.",
+    "images": [
+      {
+        "src": "/github/screens/tv-surf.webp",
+        "alt": "TV Surf original channel controls in an isolated preview without external playback",
+        "caption": "Original controls · third-party playback disabled.",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "demoPath": "/github-demos/tv-surf/index.html"
+  },
+  "scrambl": {
+    "title": "Scrambl",
+    "kicker": "Reproducible daily play",
+    "summary": "A daily word challenge with a shared seed, a ten-second clock and a result designed to be compared.",
+    "stack": [
+      "Mulberry32 PRNG",
+      "Fisher–Yates shuffle",
+      "Date seed"
+    ],
+    "decisions": [
+      {
+        "title": "Make randomness reproducible",
+        "text": "The local calendar date seeds the pseudo-random generator. The same date produces the same 18-word sequence."
+      }
+    ],
+    "mechanism": {
+      "label": "Daily puzzle construction",
+      "expression": "YYYYMMDD → seeded PRNG → shuffled 18-word sequence → 10s rounds",
+      "note": "Local-calendar seed; not a server-synchronized global midnight. No model calls or account required."
+    },
+    "status": "Working browser game · keyboard and on-screen letter controls.",
+    "images": [
+      {
+        "src": "/github/screens/scrambl.webp",
+        "alt": "Scrambl original timed word game showing letter tiles and score",
+        "caption": "Original game · daily word sequence.",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "demoPath": "/github-demos/scrambl/index.html"
+  },
+  "portfolio": {
+    "title": "This portfolio",
+    "kicker": "Publishing & discovery",
+    "summary": "A Next.js publishing system connecting source-backed case studies, original media, public repository discovery and a CV request flow.",
+    "stack": [
+      "Next.js",
+      "React",
+      "PostgreSQL",
+      "Structured SEO"
+    ],
+    "decisions": [
+      {
+        "title": "Keep the evidence attached",
+        "text": "The work registry preserves case routes, media and source qualifications. GitHub discovery groups related repositories while retaining each source link."
+      },
+      {
+        "title": "Treat publishing as a system",
+        "text": "Server-rendered pages, canonical metadata and a sitemap make work discoverable. CV requests are recorded before the exact uploaded PDF is delivered."
+      }
+    ],
+    "mechanism": {
+      "label": "Publishing flow",
+      "expression": "authored registry + public repositories → grouped pages → accessible media",
+      "note": "Public GitHub data only. Private repositories and backend credentials are excluded from this showcase."
+    },
+    "status": "Live portfolio · screenshot captured from the local production build.",
+    "images": [
+      {
+        "src": "/github/screens/portfolio.webp",
+        "alt": "Priyam Sameer original portfolio landing page with painting and agriculture AI fintech headline",
+        "caption": "Current portfolio interface · original painting.",
+        "width": 1280,
+        "height": 720
+      }
+    ]
+  }
+}

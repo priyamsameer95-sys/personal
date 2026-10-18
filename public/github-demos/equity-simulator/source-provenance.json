@@ -1,0 +1,37 @@
+{
+  "repository": "https://github.com/priyamsameer95-sys/2026-08-22-equity-simulator",
+  "sourceCommit": "7aa2f0637372edb45fe3515cb4a9262540d16ad4",
+  "reviewedAt": "2026-10-18",
+  "sourceFiles": [
+    {
+      "path": "LICENSE",
+      "blobSha": "05c6897529629e66bc15272a6276a84c50b853ce",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-equity-simulator/blob/7aa2f0637372edb45fe3515cb4a9262540d16ad4/LICENSE"
+    },
+    {
+      "path": "README.md",
+      "blobSha": "f5bfb19a295cd6929deb6369f9a4ba38724d8f12",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-equity-simulator/blob/7aa2f0637372edb45fe3515cb4a9262540d16ad4/README.md"
+    },
+    {
+      "path": "index.html",
+      "blobSha": "9a78277ff32c7af2084f120f9fc65ce9d5512336",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-equity-simulator/blob/7aa2f0637372edb45fe3515cb4a9262540d16ad4/index.html"
+    },
+    {
+      "path": "script.js",
+      "blobSha": "7f2184a1e467c20eadcb04896080977bce4d350a",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-equity-simulator/blob/7aa2f0637372edb45fe3515cb4a9262540d16ad4/script.js"
+    }
+  ],
+  "license": "Original MIT LICENSE copied unchanged.",
+  "changes": [
+    "Original HTML/CSS/JS are bundled inline for a no-same-origin sandbox. Restrictive CSP blocks external connections, frames and media.",
+    "Chart.js 4.5.1 is bundled from the original CDN dependency; its licence/header are retained. A model-scope note clarifies preference-first allocation, excluding conversion, dilution and tax. The original broad investor-priority caption is corrected.",
+    "Sandbox keyboard correction: Escape posts only the priyam-demo-close intent to the parent. The parent must verify event.source against the active iframe before closing.",
+    "Preview copy uses simplified/illustrative language and accurately names the doughnut as exit allocation. All four model inputs have names matching their visible labels.",
+    "Mobile-only compatibility CSS at 600px and below preserves desktop styling while fitting the original controls and content within a phone viewport.",
+    "Publishing normalization: trailing whitespace removed; final newline normalized. No logic or layout change."
+  ],
+  "indexSha256": "3be5fd913e2c32297806331c4a7e8b4a8b6fd57e53855f2aa7b4f00c85900379"
+}

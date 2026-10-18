@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; frame-src 'none'; font-src 'self'; media-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Generator</title>
+    <style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 1000px;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.palette {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.color-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    cursor: pointer;
+    width: 150px;
+}
+
+.color-card:hover {
+    transform: translateY(-5px);
+}
+
+.color-swatch {
+    width: 100%;
+    height: 120px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.hex-code {
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.copied-msg {
+    font-size: 0.8rem;
+    color: #28a745;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.color-card.copied .copied-msg {
+    opacity: 1;
+}
+
+</style>
+<script>
+// Demo-only clipboard compatibility for an iframe with an opaque sandbox origin.
+// A failed browser copy selects the existing visible output and never reports success.
+async function copyPreviewText(text, visibleOutput) {
+  const previous = document.activeElement;
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (_) { /* Continue to the user-initiated compatibility path. */ }
+  const temporary = document.createElement('textarea');
+  temporary.value = text;
+  temporary.readOnly = true;
+  temporary.setAttribute('aria-label', 'Text to copy');
+  temporary.style.cssText = 'position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;';
+  document.body.appendChild(temporary);
+  temporary.focus();
+  temporary.select();
+  let copied = false;
+  try { copied = Boolean(document.execCommand('copy')); } catch (_) { /* Select the source output below. */ }
+  temporary.remove();
+  if (previous && previous.focus) previous.focus({ preventScroll: true });
+  if (!copied && visibleOutput) {
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(visibleOutput);
+    if (selection) { selection.removeAllRanges(); selection.addRange(range); }
+  }
+  return copied;
+}
+
+</script>
+<style>.color-card:focus-visible { outline: 3px solid #171717; outline-offset: 4px; }</style>
+<style>
+/* Mobile demo layout: original desktop composition remains unchanged. */
+@media (max-width: 600px) {
+body { display: block; padding: 20px 16px; min-height: 100svh; }
+.container { width: 100%; }
+h1 { font-size: 1.75rem; line-height: 1.2; }
+p { font-size: 1rem; line-height: 1.6; margin-bottom: 24px; }
+.palette { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.color-card { width: 100%; min-width: 0; padding: 8px; }
+.color-swatch { height: 112px; }
+.hex-code { font-size: 1.0625rem; }
+.copied-msg { min-height: 1.25rem; font-size: .875rem; }
+.color-card:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Color Palette Generator</h1>
+        <p>Press <strong>Spacebar</strong> to generate a new palette. Click a hex code to copy.</p>
+        <div class="palette" id="palette">
+            <!-- Colors will be generated here -->
+        </div>
+    </div>
+    <script>
+const paletteContainer = document.getElementById('palette');
+const numColors = 5;
+
+// Generate a random hex color
+function getRandomHex() {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+}
+
+// Generate palette
+function generatePalette() {
+    paletteContainer.innerHTML = '';
+    for (let i = 0; i < numColors; i++) {
+        const hex = getRandomHex();
+
+        const card = document.createElement('div');
+        card.classList.add('color-card');
+        card.onclick = () => copyToClipboard(hex, card);
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', 'Copy ' + hex.toUpperCase());
+        card.tabIndex = 0;
+        card.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.code !== 'Space' && event.key !== ' ') return;
+            event.preventDefault();
+            event.stopPropagation();
+            if (!event.repeat) copyToClipboard(hex, card);
+        });
+
+        const swatch = document.createElement('div');
+        swatch.classList.add('color-swatch');
+        swatch.style.backgroundColor = hex;
+
+        const hexText = document.createElement('div');
+        hexText.classList.add('hex-code');
+        hexText.textContent = hex.toUpperCase();
+
+        const copiedMsg = document.createElement('div');
+        copiedMsg.classList.add('copied-msg');
+        copiedMsg.textContent = 'Copied!';
+
+        card.appendChild(swatch);
+        card.appendChild(hexText);
+        card.appendChild(copiedMsg);
+
+        paletteContainer.appendChild(card);
+    }
+}
+
+// Copy to clipboard
+function copyToClipboard(hex, cardElement) {
+    copyPreviewText(hex.toUpperCase(), cardElement.querySelector('.hex-code')).then((copied) => {
+        cardElement.querySelector('.copied-msg').textContent = copied ? 'Copied!' : 'Selected: copy';
+        // Show copied state
+        cardElement.classList.add('copied');
+        setTimeout(() => {
+            cardElement.classList.remove('copied');
+        }, 1000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
+// Listen for spacebar
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+        event.preventDefault(); // prevent scrolling
+        generatePalette();
+    }
+});
+
+// Init
+generatePalette();
+
+</script>
+<script>
+// The sandbox cannot bubble keyboard events to the parent dialog.
+// Send only a close intent; the parent verifies this iframe is the source.
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') window.parent.postMessage({ type: 'priyam-demo-close' }, '*');
+});
+</script>
+</body>
+</html>

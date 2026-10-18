@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; frame-src 'none'; font-src 'self'; media-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Surf</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; color: #0f0; }
+        #tv-screen { width: 100vw; height: 100vh; position: relative; display: flex; justify-content: center; align-items: center; }
+        iframe { width: 100vw; height: 100vh; border: none; pointer-events: none; }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.8) 100%); z-index: 10; }
+        .static { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #111; opacity: 0; z-index: 20; transition: opacity 0.1s; pointer-events: none; }
+        .static.active { opacity: 0.8; }
+        .osd { position: absolute; top: 40px; right: 50px; font-size: 4rem; font-weight: bold; text-shadow: 2px 2px 0 #000; z-index: 30; opacity: 0; transition: opacity 1s; }
+        .osd.show { opacity: 1; transition: opacity 0.1s; }
+        .controls { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 40; text-align: center; background: rgba(0,0,0,0.7); padding: 10px 20px; border-radius: 8px; border: 1px solid #0f0; }
+        .hint { font-size: 0.9rem; margin-bottom: 5px; }
+        .buttons button { background: #0f0; color: #000; border: none; padding: 10px 20px; font-size: 1.2rem; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-weight: bold; margin: 0 5px; }
+        .buttons button:active { background: #0a0; }
+    </style>
+<style>
+/* Mobile demo layout: original desktop composition remains unchanged. */
+@media (max-width: 600px) {
+html, body { width: 100%; }
+#tv-screen { width: 100%; height: 100svh; }
+#player-container { width: 100%; min-width: 0; }
+.osd { top: 24px; right: 20px; font-size: 3rem; }
+.controls { left: 16px; right: 16px; bottom: 16px; width: auto; box-sizing: border-box; transform: none; padding: 12px; }
+.hint { line-height: 1.5; }
+.buttons { display: flex; justify-content: center; gap: 8px; }
+.buttons button { flex: 1; min-width: 0; max-width: 9rem; min-height: 44px; margin: 0; padding: 12px; font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+    <div id="tv-screen">
+        <div id="player-container"><p style="font-size:16px;text-align:center;padding:24px">External video playback is disabled in this isolated local preview.</p></div>
+        <div class="overlay"></div>
+        <div class="static" id="static"></div>
+        <div class="osd" id="osd">CH 03</div>
+        <div class="controls">
+            <div class="hint">Use Up/Down Arrow Keys to Surf</div>
+            <div class="buttons">
+                <button onclick="changeChannel(-1)">CH -</button>
+                <button onclick="changeChannel(1)">CH +</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Array of "channels" (categories) with video IDs
+        const channels = [
+            { id: 3, name: "Nature", videos: ["aqz-KE-bpKQ", "jNQXAC9IVRw"] },
+            { id: 4, name: "LoFi", videos: ["jfKfPfyJRdk"] },
+            { id: 5, name: "Space", videos: ["21X5lGlDOfg"] },
+            { id: 6, name: "Classic", videos: ["dQw4w9WgXcQ"] }
+        ];
+
+        let currentChannelIndex = 0;
+        const playerContainer = document.getElementById('player-container');
+        const staticScreen = document.getElementById('static');
+        const osd = document.getElementById('osd');
+
+        function changeChannel(dir) {
+            currentChannelIndex += dir;
+            if (currentChannelIndex < 0) currentChannelIndex = channels.length - 1;
+            if (currentChannelIndex >= channels.length) currentChannelIndex = 0;
+
+            const channel = channels[currentChannelIndex];
+            const videoId = channel.videos[Math.floor(Math.random() * channel.videos.length)];
+
+            // Simulate joining a live broadcast by picking a random start time (0 to 300 seconds)
+            const randomStart = Math.floor(Math.random() * 300);
+
+            // Show static noise
+            staticScreen.classList.add('active');
+
+            // Show OSD
+            osd.textContent = `CH 0${channel.id}`;
+            osd.classList.add('show');
+
+            // Load iframe
+            playerContainer.innerHTML = `<p style="font-size:16px;text-align:center;padding:24px">External video playback is disabled in this isolated local preview.</p>`;
+
+            // Clear static and fade OSD after a delay
+            setTimeout(() => {
+                staticScreen.classList.remove('active');
+                setTimeout(() => {
+                    osd.classList.remove('show');
+                }, 2000);
+            }, 500);
+        }
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp') changeChannel(1);
+            if (e.key === 'ArrowDown') changeChannel(-1);
+        });
+
+        // Initialize first channel on click to allow autoplay to work better
+        document.body.addEventListener('click', () => {
+            if(playerContainer.innerHTML === "") {
+                changeChannel(0);
+            }
+        }, {once: true});
+
+    </script>
+<script>
+// The sandbox cannot bubble keyboard events to the parent dialog.
+// Send only a close intent; the parent verifies this iframe is the source.
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') window.parent.postMessage({ type: 'priyam-demo-close' }, '*');
+});
+</script>
+</body>
+</html>

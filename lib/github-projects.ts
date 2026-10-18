@@ -6,6 +6,7 @@ export const githubGroups = snapshot.groups;
 export type GithubProject = {
   name: string; title: string; group: string; kind: string; language: string | null;
   description: string; url: string; sourcePath?: string; casePath?: string; demoUrl?: string;
+  archived?: boolean;
   pitch?: string; technicalTags?: string[]; logic?: { label: string; expression: string; note?: string };
 };
 const repositoryUrl = (name: string) => `${githubProfileUrl}/${encodeURIComponent(name)}`;
@@ -41,14 +42,14 @@ export async function getGithubProjects(): Promise<GithubProject[]> {
     for (const reviewed of reviewedGithubProjects) {
       const current = unique.get(reviewed.name);
       if (!current) continue;
-      projects.push({ ...reviewed, language: typeof current.language === 'string' ? current.language : reviewed.language,
+      projects.push({ ...reviewed, archived: current.archived === true, language: typeof current.language === 'string' ? current.language : reviewed.language,
         ...(reviewed.kind === 'Empty repository' && (current.size || 0) > 0 ? { kind: 'Repository', pitch: undefined, technicalTags: undefined, logic: undefined, description: typeof current.description === 'string' && current.description.trim() ? current.description.trim().slice(0, 240) : 'Explore the source and project notes on GitHub.' } : {}),
       });
       unique.delete(reviewed.name);
     }
     for (const repo of Array.from(unique.values()).sort((a, b) => a.name.localeCompare(b.name))) {
-      projects.push({ name: repo.name, title: repo.name, group: classifyGithubProject(repo.name, repo.description || ''), kind: repo.archived ? 'Archived repository' : repo.size === 0 ? 'Empty repository' : 'Repository',
-        language: typeof repo.language === 'string' ? repo.language : null, url: repositoryUrl(repo.name),
+      projects.push({ name: repo.name, title: repo.name, group: classifyGithubProject(repo.name, repo.description || ''), kind: repo.size === 0 ? 'Empty repository' : repo.archived ? 'Archived repository' : 'Repository',
+        archived: repo.archived === true, language: typeof repo.language === 'string' ? repo.language : null, url: repositoryUrl(repo.name),
         description: typeof repo.description === 'string' && repo.description.trim() ? repo.description.trim().slice(0, 240) : repo.size === 0 ? 'No source files are published in this repository yet.' : 'Explore the source and project notes on GitHub.',
       });
     }

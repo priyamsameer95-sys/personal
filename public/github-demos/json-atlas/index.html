@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; frame-src 'none'; font-src 'self'; media-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Atlas — Paste JSON, Get Typed Code (TypeScript, Python, Go)</title>
+    <meta name="description" content="Free JSON to TypeScript, Python dataclass, and Go struct generator. Paste any JSON, get production-ready typed code instantly. Runs locally, no data sent anywhere.">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --surface2: #1c1c1c;
+            --border: #2a2a2a;
+            --text: #e5e5e5;
+            --text2: #777;
+            --accent: #6366f1;
+            --accent-glow: rgba(99,102,241,0.25);
+            --green: #34d399;
+            --pink: #f472b6;
+            --purple: #a78bfa;
+            --yellow: #fbbf24;
+            --red: #f87171;
+            --blue: #60a5fa;
+            --radius: 10px;
+        }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; }
+
+        /* ── LAYOUT ── */
+        .app { display: flex; height: 100vh; }
+        .pane { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .pane-left { border-right: 1px solid var(--border); max-width: 50%; }
+        .pane-right { background: var(--surface); }
+
+        /* ── PANE HEADERS ── */
+        .pane-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); min-height: 54px; }
+        .pane-header h2 { font-size: 0.85rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; }
+        .pane-header .badge { font-size: 0.65rem; background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 99px; font-weight: 600; }
+
+        /* ── TOOLBAR ── */
+        .toolbar { display: flex; gap: 4px; padding: 8px 20px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+        .toolbar button { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+        .toolbar button:hover { background: #252525; color: #fff; border-color: #444; }
+
+        /* ── TABS ── */
+        .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
+        .tab { flex: 1; padding: 10px 16px; font-size: 0.78rem; font-weight: 700; color: var(--text2); background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.15s; text-align: center; }
+        .tab:hover { color: var(--text); background: rgba(255,255,255,0.02); }
+        .tab.active { color: #fff; border-bottom-color: var(--accent); background: rgba(99,102,241,0.06); }
+
+        /* ── EDITOR ── */
+        .editor-wrap { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .editor-wrap textarea { flex: 1; width: 100%; background: var(--bg); color: #c4c4c4; border: none; padding: 16px 20px; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.82rem; line-height: 1.6; resize: none; outline: none; tab-size: 2; }
+        .editor-wrap textarea:focus { color: #fff; }
+
+        /* ── OUTPUT ── */
+        .output-wrap { flex: 1; overflow: hidden; position: relative; }
+        .output-panel { display: none; height: 100%; overflow-y: auto; }
+        .output-panel.active { display: block; }
+        .output-panel pre { padding: 16px 20px; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.82rem; line-height: 1.6; color: #c4c4c4; white-space: pre; overflow-x: auto; }
+
+        /* ── COPY BUTTON ── */
+        .copy-float { position: absolute; top: 12px; right: 20px; background: var(--surface2); color: var(--text2); border: 1px solid var(--border); padding: 5px 14px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; cursor: pointer; z-index: 5; transition: all 0.15s; }
+        .copy-float:hover { background: #333; color: #fff; }
+        .copy-float.copied { background: var(--green); color: #000; border-color: var(--green); }
+
+        /* ── STATS ── */
+        .stats-bar { display: flex; gap: 16px; padding: 8px 20px; border-top: 1px solid var(--border); font-size: 0.7rem; color: var(--text2); font-weight: 500; flex-wrap: wrap; }
+
+        /* ── ERROR ── */
+        .error-strip { padding: 0 20px; min-height: 0; }
+        .error-strip p { color: var(--red); font-size: 0.75rem; font-family: monospace; padding: 6px 0; display: none; }
+
+        /* ── GENERATE BUTTON ── */
+        .gen-row { padding: 12px 20px; border-top: 1px solid var(--border); }
+        .gen-row button { width: 100%; padding: 11px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; border: none; background: var(--accent); color: #fff; transition: all 0.15s; }
+        .gen-row button:hover { background: #4f46e5; box-shadow: 0 0 20px var(--accent-glow); }
+
+        /* ── MODAL ── */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 50; justify-content: center; align-items: center; }
+        .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; width: 92%; max-width: 700px; max-height: 82vh; overflow-y: auto; padding: 32px; }
+        .modal h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; color: #fff; }
+        .modal .sub { color: var(--text2); font-size: 0.88rem; margin-bottom: 24px; line-height: 1.6; }
+        .modal h3 { font-size: 0.92rem; font-weight: 700; margin: 20px 0 8px; }
+        .modal ul { color: var(--text2); line-height: 1.7; font-size: 0.86rem; padding-left: 18px; }
+        .modal li { margin-bottom: 6px; }
+        .modal li strong { color: var(--text); }
+        .modal-close { float: right; background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 5px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.78rem; }
+        .modal-close:hover { background: #333; }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+    </style>
+<script>
+// Demo-only clipboard compatibility for an iframe with an opaque sandbox origin.
+// A failed browser copy selects the existing visible output and never reports success.
+async function copyPreviewText(text, visibleOutput) {
+  const previous = document.activeElement;
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (_) { /* Continue to the user-initiated compatibility path. */ }
+  const temporary = document.createElement('textarea');
+  temporary.value = text;
+  temporary.readOnly = true;
+  temporary.setAttribute('aria-label', 'Text to copy');
+  temporary.style.cssText = 'position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;';
+  document.body.appendChild(temporary);
+  temporary.focus();
+  temporary.select();
+  let copied = false;
+  try { copied = Boolean(document.execCommand('copy')); } catch (_) { /* Select the source output below. */ }
+  temporary.remove();
+  if (previous && previous.focus) previous.focus({ preventScroll: true });
+  if (!copied && visibleOutput) {
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(visibleOutput);
+    if (selection) { selection.removeAllRanges(); selection.addRange(range); }
+  }
+  return copied;
+}
+
+</script>
+<style>
+/* Mobile demo layout: original desktop composition remains unchanged. */
+@media (max-width: 600px) {
+body { height: auto; min-height: 100svh; overflow: auto; }
+.app { flex-direction: column; height: auto; min-height: 100svh; }
+.pane { flex: none; width: 100%; min-width: 0; }
+.pane-left { max-width: none; border-right: 0; border-bottom: 1px solid var(--border); }
+.pane-header { padding: 12px 16px; gap: 8px; flex-wrap: wrap; }
+.pane-header h2 { font-size: 1rem; }
+.toolbar { padding: 8px 16px; gap: 6px; }
+.toolbar button, .tab, .copy-float, .modal-close { min-height: 44px; font-size: .875rem; }
+.tab { padding-inline: 8px; }
+.editor-wrap { flex: none; overflow: visible; }
+.editor-wrap textarea { flex: none; min-height: 20rem; height: 42svh; padding: 16px; font-size: 1rem; white-space: pre; overflow: auto; resize: vertical; }
+.output-wrap { flex: none; min-height: 23rem; overflow: hidden; }
+.output-panel { height: auto; overflow: visible; }
+.output-panel pre { width: 100%; min-height: 23rem; max-height: 65svh; padding: 4.25rem 16px 16px; font-size: .9375rem; white-space: pre; overflow: auto; overscroll-behavior: contain; }
+.copy-float { right: 16px; }
+.stats-bar { padding-inline: 16px; font-size: .875rem; }
+.gen-row { padding: 12px 16px; }
+.gen-row button { min-height: 44px; font-size: 1rem; }
+.error-strip { padding-inline: 16px; }
+.error-strip p { overflow-wrap: anywhere; }
+.modal { padding: 20px; max-height: calc(100dvh - 32px); }
+}
+</style>
+</head>
+<body>
+<div class="app">
+    <!-- ── LEFT: JSON INPUT ── -->
+    <div class="pane pane-left">
+        <div class="pane-header">
+            <h2>
+                <svg width="20" height="20" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#6366f1" stroke-width="2.5"/><circle cx="16" cy="10" r="3" fill="#a78bfa"/><circle cx="10" cy="22" r="3" fill="#f472b6"/><circle cx="22" cy="22" r="3" fill="#34d399"/><line x1="16" y1="13" x2="10" y2="19" stroke="#444" stroke-width="1.5"/><line x1="16" y1="13" x2="22" y2="19" stroke="#444" stroke-width="1.5"/></svg>
+                JSON Atlas
+            </h2>
+            <span class="badge" style="cursor:pointer" onclick="openModal()">? Help</span>
+        </div>
+        <div class="toolbar">
+            <button onclick="formatJSON()">Format</button>
+            <button onclick="minifyJSON()">Minify</button>
+            <button onclick="loadSample()">Sample</button>
+            <button onclick="clearAll()">Clear</button>
+        </div>
+        <div class="editor-wrap">
+            <textarea id="json-input" spellcheck="false" oninput="liveValidate()" placeholder="Paste your JSON here…">{
+  "user": {
+    "id": 1042,
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "is_active": true,
+    "role": null
+  },
+  "orders": [
+    {
+      "order_id": "ORD-881",
+      "total": 129.99,
+      "items": [
+        { "sku": "WDG-01", "name": "Widget Pro", "qty": 2, "price": 49.99 },
+        { "sku": "PLG-07", "name": "Plugin Basic", "qty": 1, "price": 30.01 }
+      ],
+      "shipped": true
+    }
+  ],
+  "settings": {
+    "theme": "dark",
+    "notifications": {
+      "email": true,
+      "sms": false,
+      "push": true
+    }
+  }
+}</textarea>
+        </div>
+        <div class="error-strip"><p id="error-msg"></p></div>
+        <div class="stats-bar">
+            <span id="stat-line"></span>
+        </div>
+        <div class="gen-row">
+            <button onclick="generate()">Generate Code →</button>
+        </div>
+    </div>
+
+    <!-- ── RIGHT: CODE OUTPUT ── -->
+    <div class="pane pane-right">
+        <div class="pane-header">
+            <h2>Output</h2>
+        </div>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('ts', this)">TypeScript</button>
+            <button class="tab" onclick="switchTab('py', this)">Python</button>
+            <button class="tab" onclick="switchTab('go', this)">Go</button>
+        </div>
+        <div class="output-wrap">
+            <button class="copy-float" id="copy-btn" onclick="copyOutput()">Copy</button>
+            <div class="output-panel active" id="panel-ts"><pre id="out-ts">// Click "Generate Code →" to see TypeScript interfaces</pre></div>
+            <div class="output-panel" id="panel-py"><pre id="out-py"># Click "Generate Code →" to see Python dataclasses</pre></div>
+            <div class="output-panel" id="panel-go"><pre id="out-go">// Click "Generate Code →" to see Go structs</pre></div>
+        </div>
+    </div>
+</div>
+
+<!-- ── HELP MODAL ── -->
+<div class="modal-overlay" id="help-modal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal()">Close</button>
+        <h2>JSON Atlas</h2>
+        <p class="sub">Paste any JSON and instantly get production-ready typed code for TypeScript, Python, and Go. Everything runs in your browser — your data never leaves your machine.</p>
+
+        <h3 style="color:var(--accent)">🤔 What does this tool do?</h3>
+        <ul>
+            <li>Paste any JSON payload and get <strong>TypeScript interfaces</strong>, <strong>Python dataclasses</strong>, and <strong>Go structs</strong> — all generated instantly.</li>
+            <li>Smart type inference: detects <code>int</code> vs <code>float</code>, nullable fields, arrays of objects, and nested structures.</li>
+            <li>Generates proper <code>json:"tag"</code> annotations for Go and type hints for Python.</li>
+            <li>One-click copy. Format and minify built in.</li>
+        </ul>
+
+        <h3 style="color:var(--purple)">💻 Use cases for Engineers</h3>
+        <ul>
+            <li><strong>API Integration:</strong> Paste any third-party API response (Stripe, Twilio, GitHub) and get the exact TypeScript interface you need to write your client code.</li>
+            <li><strong>Backend Scaffolding:</strong> Generate Go structs with proper JSON tags from a sample payload to bootstrap your deserialization layer.</li>
+            <li><strong>Type Safety:</strong> Stop using <code>any</code> in TypeScript. Paste the real payload and get concrete types in seconds.</li>
+        </ul>
+
+        <h3 style="color:var(--pink)">📊 Use cases for Product Managers</h3>
+        <ul>
+            <li><strong>Spec Reviews:</strong> When reviewing API specs, paste sample responses to generate human-readable type definitions that are easier to review than raw JSON.</li>
+            <li><strong>Vendor Comparison:</strong> Generate typed schemas from two competing APIs to compare complexity and data model quality side-by-side.</li>
+            <li><strong>Documentation:</strong> Generate type definitions to include in PRDs and technical specs instead of pasting raw JSON examples.</li>
+        </ul>
+
+        <h3 style="color:var(--yellow)">⚠️ Known limitations</h3>
+        <ul>
+            <li><strong>Array inference:</strong> If an array contains mixed types (strings and objects), the generator uses a union type. For best results, use consistent array elements.</li>
+            <li><strong>Naming:</strong> Nested type names are derived from their JSON key. Very deep nesting may produce verbose names.</li>
+            <li><strong>Null fields:</strong> A field that is <code>null</code> in your sample will be typed as nullable. Provide a non-null example for more precise types.</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  JSON ATLAS — Type Inference & Code Generation
+// ═══════════════════════════════════════════════
+
+let currentTab = 'ts';
+let generatedCode = { ts: '', py: '', go: '' };
+
+// ─── ENTRY POINT ───
+function generate() {
+    const raw = document.getElementById('json-input').value;
+    const errEl = document.getElementById('error-msg');
+
+    let data;
+    try {
+        data = JSON.parse(raw);
+        errEl.style.display = 'none';
+    } catch (e) {
+        errEl.textContent = '✕ ' + e.message;
+        errEl.style.display = 'block';
+        return;
+    }
+
+    updateStats(raw);
+
+    // Collect all named types
+    const typeRegistry = [];
+    inferType(data, 'Root', typeRegistry);
+
+    generatedCode.ts = emitTypeScript(typeRegistry);
+    generatedCode.py = emitPython(typeRegistry);
+    generatedCode.go = emitGo(typeRegistry);
+
+    document.getElementById('out-ts').textContent = generatedCode.ts;
+    document.getElementById('out-py').textContent = generatedCode.py;
+    document.getElementById('out-go').textContent = generatedCode.go;
+}
+
+// ═══════════════════════════════════════════════
+//  TYPE INFERENCE ENGINE
+// ═══════════════════════════════════════════════
+
+function inferType(value, suggestedName, registry) {
+    if (value === null) return { kind: 'null' };
+    if (typeof value === 'boolean') return { kind: 'bool' };
+    if (typeof value === 'string') return { kind: 'string' };
+    if (typeof value === 'number') {
+        return { kind: Number.isInteger(value) ? 'int' : 'float' };
+    }
+
+    if (Array.isArray(value)) {
+        if (value.length === 0) return { kind: 'array', element: { kind: 'unknown' } };
+
+        // Infer element type from first element; use singular name
+        const elemName = singularize(suggestedName);
+        const elemType = inferType(value[0], elemName, registry);
+
+        // If there are multiple objects, merge their keys for a more complete type
+        if (elemType.kind === 'ref' && value.length > 1) {
+            const existing = registry.find(t => t.name === elemType.ref);
+            if (existing) {
+                for (let i = 1; i < value.length; i++) {
+                    if (value[i] !== null && typeof value[i] === 'object' && !Array.isArray(value[i])) {
+                        mergeObjectFields(existing, value[i], registry);
+                    }
+                }
+            }
+        }
+
+        return { kind: 'array', element: elemType };
+    }
+
+    if (typeof value === 'object') {
+        const typeName = pascalCase(suggestedName);
+        const fields = [];
+
+        for (const key of Object.keys(value)) {
+            const childName = pascalCase(key);
+            const childType = inferType(value[key], childName, registry);
+            fields.push({ key: key, type: childType });
+        }
+
+        const typeEntry = { name: typeName, fields: fields };
+        registry.push(typeEntry);
+        return { kind: 'ref', ref: typeName };
+    }
+
+    return { kind: 'unknown' };
+}
+
+function mergeObjectFields(typeEntry, obj, registry) {
+    for (const key of Object.keys(obj)) {
+        const exists = typeEntry.fields.find(f => f.key === key);
+        if (!exists) {
+            const childName = pascalCase(key);
+            const childType = inferType(obj[key], childName, registry);
+            typeEntry.fields.push({ key: key, type: childType, optional: true });
+        }
+    }
+}
+
+// ═══════════════════════════════════════════════
+//  EMITTERS
+// ═══════════════════════════════════════════════
+
+// ── TypeScript ──
+function emitTypeScript(registry) {
+    const lines = ['// Generated by JSON Atlas', '// https://priyamsameer95-sys.github.io/2026-08-22-json-atlas/', ''];
+
+    for (const type of registry) {
+        lines.push(`interface ${type.name} {`);
+        for (const field of type.fields) {
+            const opt = field.optional ? '?' : '';
+            const nullable = field.type.kind === 'null';
+            lines.push(`  ${safeKey(field.key)}${opt}: ${tsType(field.type)};`);
+        }
+        lines.push('}');
+        lines.push('');
+    }
+
+    return lines.join('\n');
+}
+
+function tsType(t) {
+    if (t.kind === 'string') return 'string';
+    if (t.kind === 'int' || t.kind === 'float') return 'number';
+    if (t.kind === 'bool') return 'boolean';
+    if (t.kind === 'null') return 'null';
+    if (t.kind === 'unknown') return 'unknown';
+    if (t.kind === 'ref') return t.ref;
+    if (t.kind === 'array') return `${tsType(t.element)}[]`;
+    return 'unknown';
+}
+
+// ── Python ──
+function emitPython(registry) {
+    const lines = [
+        '# Generated by JSON Atlas',
+        '# https://priyamsameer95-sys.github.io/2026-08-22-json-atlas/',
+        '',
+        'from __future__ import annotations',
+        'from dataclasses import dataclass',
+        'from typing import Optional',
+        ''
+    ];
+
+    // Emit in reverse so dependencies come first
+    const reversed = [...registry].reverse();
+
+    for (const type of reversed) {
+        lines.push('@dataclass');
+        lines.push(`class ${type.name}:`);
+        if (type.fields.length === 0) {
+            lines.push('    pass');
+        } else {
+            for (const field of type.fields) {
+                const pyT = pyType(field.type);
+                const annotation = field.optional ? `Optional[${pyT}]` : (field.type.kind === 'null' ? `Optional[${pyT}]` : pyT);
+                lines.push(`    ${safeSnake(field.key)}: ${annotation}`);
+            }
+        }
+        lines.push('');
+    }
+
+    return lines.join('\n');
+}
+
+function pyType(t) {
+    if (t.kind === 'string') return 'str';
+    if (t.kind === 'int') return 'int';
+    if (t.kind === 'float') return 'float';
+    if (t.kind === 'bool') return 'bool';
+    if (t.kind === 'null') return 'None';
+    if (t.kind === 'unknown') return 'object';
+    if (t.kind === 'ref') return t.ref;
+    if (t.kind === 'array') return `list[${pyType(t.element)}]`;
+    return 'object';
+}
+
+// ── Go ──
+function emitGo(registry) {
+    const lines = [
+        '// Generated by JSON Atlas',
+        '// https://priyamsameer95-sys.github.io/2026-08-22-json-atlas/',
+        '',
+        'package main',
+        ''
+    ];
+
+    // Emit in reverse so dependencies come first
+    const reversed = [...registry].reverse();
+
+    for (const type of reversed) {
+        lines.push(`type ${type.name} struct {`);
+        for (const field of type.fields) {
+            const goFieldName = pascalCase(field.key);
+            const goT = goType(field.type, field.type.kind === 'null');
+            const tag = '`json:"' + field.key + '"`';
+            // Align with padding
+            const padName = goFieldName.padEnd(16);
+            const padType = goT.padEnd(16);
+            lines.push(`\t${padName}${padType}${tag}`);
+        }
+        lines.push('}');
+        lines.push('');
+    }
+
+    return lines.join('\n');
+}
+
+function goType(t, nullable) {
+    const ptr = nullable ? '*' : '';
+    if (t.kind === 'string') return ptr + 'string';
+    if (t.kind === 'int') return ptr + 'int';
+    if (t.kind === 'float') return ptr + 'float64';
+    if (t.kind === 'bool') return ptr + 'bool';
+    if (t.kind === 'null') return 'interface{}';
+    if (t.kind === 'unknown') return 'interface{}';
+    if (t.kind === 'ref') return ptr + t.ref;
+    if (t.kind === 'array') return '[]' + goType(t.element, false);
+    return 'interface{}';
+}
+
+// ═══════════════════════════════════════════════
+//  UI ACTIONS
+// ═══════════════════════════════════════════════
+
+function switchTab(tab, btn) {
+    currentTab = tab;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.output-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+    // Reset copy button
+    const copyBtn = document.getElementById('copy-btn');
+    copyBtn.textContent = 'Copy';
+    copyBtn.classList.remove('copied');
+}
+
+function copyOutput() {
+    const code = generatedCode[currentTab];
+    if (!code) return;
+    copyPreviewText(code, document.getElementById('out-' + currentTab)).then((copied) => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = copied ? 'Copied!' : 'Selected: copy';
+        if (copied) btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+    }).catch(() => {});
+}
+
+function formatJSON() {
+    const el = document.getElementById('json-input');
+    try { el.value = JSON.stringify(JSON.parse(el.value), null, 2); liveValidate(); } catch (e) {}
+}
+
+function minifyJSON() {
+    const el = document.getElementById('json-input');
+    try { el.value = JSON.stringify(JSON.parse(el.value)); liveValidate(); } catch (e) {}
+}
+
+function loadSample() {
+    document.getElementById('json-input').value = JSON.stringify({
+        "user": {
+            "id": 1042,
+            "name": "Jane Doe",
+            "email": "jane@example.com",
+            "is_active": true,
+            "role": null
+        },
+        "orders": [
+            {
+                "order_id": "ORD-881",
+                "total": 129.99,
+                "items": [
+                    { "sku": "WDG-01", "name": "Widget Pro", "qty": 2, "price": 49.99 },
+                    { "sku": "PLG-07", "name": "Plugin Basic", "qty": 1, "price": 30.01 }
+                ],
+                "shipped": true
+            }
+        ],
+        "settings": {
+            "theme": "dark",
+            "notifications": { "email": true, "sms": false, "push": true }
+        }
+    }, null, 2);
+    liveValidate();
+    generate();
+}
+
+function clearAll() {
+    document.getElementById('json-input').value = '';
+    document.getElementById('error-msg').style.display = 'none';
+    document.getElementById('stat-line').textContent = '';
+    document.getElementById('out-ts').textContent = '// Click "Generate Code →" to see TypeScript interfaces';
+    document.getElementById('out-py').textContent = '# Click "Generate Code →" to see Python dataclasses';
+    document.getElementById('out-go').textContent = '// Click "Generate Code →" to see Go structs';
+    generatedCode = { ts: '', py: '', go: '' };
+}
+
+function liveValidate() {
+    const raw = document.getElementById('json-input').value;
+    const errEl = document.getElementById('error-msg');
+    if (!raw.trim()) { errEl.style.display = 'none'; return; }
+    try { JSON.parse(raw); errEl.style.display = 'none'; } catch (e) {
+        errEl.textContent = '✕ ' + e.message;
+        errEl.style.display = 'block';
+    }
+}
+
+function openModal() { document.getElementById('help-modal').style.display = 'flex'; }
+function closeModal() { document.getElementById('help-modal').style.display = 'none'; }
+
+// ═══════════════════════════════════════════════
+//  UTILITIES
+// ═══════════════════════════════════════════════
+
+function updateStats(raw) {
+    const bytes = new Blob([raw]).size;
+    let size = bytes < 1024 ? bytes + ' B' : (bytes / 1024).toFixed(1) + ' KB';
+    const lines = raw.split('\n').length;
+    document.getElementById('stat-line').textContent = `${lines} lines · ${size}`;
+}
+
+function pascalCase(str) {
+    return str
+        .replace(/[^a-zA-Z0-9]+/g, ' ')
+        .split(' ')
+        .filter(Boolean)
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join('');
+}
+
+function safeKey(key) {
+    // If key has special chars, wrap in quotes
+    if (/^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key)) return key;
+    return '"' + key + '"';
+}
+
+function safeSnake(key) {
+    // Convert to snake_case for Python
+    let s = key.replace(/[^a-zA-Z0-9]/g, '_').replace(/([A-Z])/g, '_$1').toLowerCase();
+    s = s.replace(/^_+/, '').replace(/_+/g, '_');
+    if (!s) s = 'field';
+    // Avoid Python reserved words
+    const reserved = ['class', 'def', 'return', 'import', 'from', 'if', 'else', 'for', 'while', 'try', 'except', 'with', 'as', 'pass', 'type'];
+    if (reserved.includes(s)) s = s + '_';
+    return s;
+}
+
+function singularize(name) {
+    // Very basic singularization for type naming
+    if (name.endsWith('ies')) return name.slice(0, -3) + 'y';
+    if (name.endsWith('ses')) return name.slice(0, -2);
+    if (name.endsWith('s') && !name.endsWith('ss')) return name.slice(0, -1);
+    return name + 'Item';
+}
+
+// ─── INIT ───
+window.onload = function () {
+    liveValidate();
+    generate();
+};
+
+</script>
+<script>
+// The sandbox cannot bubble keyboard events to the parent dialog.
+// Send only a close intent; the parent verifies this iframe is the source.
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') window.parent.postMessage({ type: 'priyam-demo-close' }, '*');
+});
+</script>
+</body>
+</html>

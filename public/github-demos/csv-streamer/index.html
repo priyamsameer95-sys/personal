@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; frame-src 'none'; font-src 'self'; media-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamCSV - Highly Scalable Local Parser</title>
+    <style>
+        body { font-family: system-ui, sans-serif; background: #f4f4f9; color: #333; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 600px; width: 100%; text-align: center; }
+        h1 { margin-top: 0; color: #222; }
+        .drop-zone { display: block; box-sizing: border-box; min-height: 44px; border: 2px dashed #007bff; padding: 2rem; border-radius: 8px; background: #f0f8ff; cursor: pointer; transition: background 0.3s; margin-bottom: 1.5rem; }
+        .drop-zone:focus-visible { outline: 3px solid #171717; outline-offset: 4px; }
+        .drop-zone:hover, .drop-zone.dragover { background: #e0f0ff; }
+        input[type="file"] { display: none; }
+        .stats { display: flex; justify-content: space-around; margin-bottom: 1.5rem; font-size: 1.1rem; }
+        .stat-box { background: #eee; padding: 10px; border-radius: 8px; flex: 1; margin: 0 5px; }
+        .progress-bar { width: 100%; height: 20px; background: #ddd; border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; }
+        .progress-fill { height: 100%; background: #28a745; width: 0%; transition: width 0.1s; }
+        button { background: #007bff; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 1rem; cursor: pointer; display: none; margin: 0 auto; }
+        button:hover { background: #0056b3; }
+        #sample-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; }
+        #sample-btn:focus-visible { outline: 3px solid #171717; outline-offset: 4px; }
+        .sample-note { margin: .6rem 0 1.5rem; color: #555; font-size: .9375rem; line-height: 1.5; }
+        #error-log { color: red; font-size: 0.9rem; text-align: left; max-height: 100px; overflow-y: auto; }
+    </style>
+<style>
+/* Mobile demo layout: original desktop composition remains unchanged. */
+@media (max-width: 600px) {
+*, *::before, *::after { box-sizing: border-box; }
+body { display: block; height: auto; min-height: 100svh; padding: 16px; }
+.container { width: 100%; min-width: 0; padding: 20px; margin-inline: auto; }
+h1 { font-size: 1.75rem; }
+p { font-size: 1rem; line-height: 1.6; }
+.drop-zone { width: 100%; padding: 20px 12px; line-height: 1.6; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.stat-box { min-width: 0; margin: 0; padding: 12px 4px; font-size: 1rem; overflow-wrap: anywhere; }
+#sample-btn, #download-btn { width: 100%; min-height: 44px; padding: 12px; }
+.sample-note { font-size: 1rem; }
+#error-log { max-height: none; font-size: 1rem; overflow-wrap: anywhere; }
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>StreamCSV</h1>
+        <p>Convert a local CSV into JSON. Simple comma-separated rows; quoted fields unsupported; output is held in memory.</p>
+
+        <label class="drop-zone" id="drop-zone" role="button" tabindex="0" aria-controls="file-input" aria-label="Choose a local CSV file">
+            <span>Drag & Drop a CSV file here or click to browse</span>
+            <input type="file" id="file-input" accept=".csv">
+        </label>
+
+        <button type="button" id="sample-btn" aria-describedby="sample-note">Use sample CSV</button>
+        <p id="sample-note" class="sample-note">A synthetic 250-row file, processed locally.</p>
+
+        <div class="stats" role="status" aria-live="polite" aria-atomic="true">
+            <div class="stat-box">Rows: <br><strong id="row-count">0</strong></div>
+            <div class="stat-box">Size: <br><strong id="size-count">0 MB</strong></div>
+            <div class="stat-box">Time: <br><strong id="time-count">0.0s</strong></div>
+        </div>
+
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+        <button id="download-btn">Download as JSON</button>
+        <div id="error-log"></div>
+    </div>
+
+    <script>
+const fileInput = document.getElementById('file-input');
+const dropZone = document.getElementById('drop-zone');
+const rowCountEl = document.getElementById('row-count');
+const sizeCountEl = document.getElementById('size-count');
+const timeCountEl = document.getElementById('time-count');
+const progressFill = document.getElementById('progress-fill');
+const downloadBtn = document.getElementById('download-btn');
+const errorLog = document.getElementById('error-log');
+
+let generatedJsonBlob = null;
+
+fileInput.addEventListener('change', handleFile);
+dropZone.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    if (!event.repeat) fileInput.click();
+});
+dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); fileInput.files = e.dataTransfer.files; handleFile(); });
+downloadBtn.addEventListener('click', downloadJson);
+
+async function handleFile() {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    downloadBtn.style.display = 'none';
+    errorLog.innerHTML = '';
+    generatedJsonBlob = null;
+
+    const fileSize = file.size;
+    sizeCountEl.innerText = (fileSize / (1024 * 1024)).toFixed(2) + ' MB';
+
+    let processedBytes = 0;
+    let rowCount = 0;
+    const startTime = performance.now();
+
+    const stream = file.stream();
+    const reader = stream.pipeThrough(new TextDecoderStream()).getReader();
+
+    let headers = [];
+    let remainder = '';
+    let isFirstChunk = true;
+
+    // We will build the JSON string in chunks to avoid memory limits, writing to a Blob array
+    const jsonChunks = ['[\n'];
+
+    try {
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            processedBytes += new TextEncoder().encode(value).length;
+            progressFill.style.width = (processedBytes / fileSize * 100) + '%';
+
+            const chunk = remainder + value;
+            const lines = chunk.split(/\r?\n/);
+            remainder = lines.pop(); // Keep the last incomplete line for the next chunk
+
+            let chunkJson = '';
+
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].trim() === '') continue;
+
+                // Simple CSV split (doesn't handle quotes perfectly, optimized for speed & size)
+                const columns = lines[i].split(',');
+
+                if (isFirstChunk && i === 0) {
+                    headers = columns.map(h => h.trim());
+                    isFirstChunk = false; // Demo correction: only the first header is a header.
+                    continue;
+                }
+
+                rowCount++;
+                if (rowCount % 10000 === 0) {
+                    rowCountEl.innerText = rowCount.toLocaleString();
+                    timeCountEl.innerText = ((performance.now() - startTime) / 1000).toFixed(1) + 's';
+                }
+
+                let obj = {};
+                for (let j = 0; j < headers.length; j++) {
+                    obj[headers[j]] = columns[j] ? columns[j].trim() : null;
+                }
+
+                chunkJson += (rowCount > 1 ? ',\n' : '') + JSON.stringify(obj);
+            }
+
+            jsonChunks.push(chunkJson);
+        }
+
+        // Final line
+        if (remainder.trim() !== '') {
+            const columns = remainder.split(',');
+            let obj = {};
+            for (let j = 0; j < headers.length; j++) {
+                obj[headers[j]] = columns[j] ? columns[j].trim() : null;
+            }
+            rowCount++;
+            jsonChunks.push((rowCount > 1 ? ',\n' : '') + JSON.stringify(obj));
+        }
+
+        jsonChunks.push('\n]');
+
+        rowCountEl.innerText = rowCount.toLocaleString();
+        timeCountEl.innerText = ((performance.now() - startTime) / 1000).toFixed(1) + 's';
+        progressFill.style.width = '100%';
+
+        generatedJsonBlob = new Blob(jsonChunks, { type: 'application/json' });
+        downloadBtn.style.display = 'block';
+        downloadBtn.innerText = `Download JSON (${(generatedJsonBlob.size / (1024*1024)).toFixed(2)} MB)`;
+
+    } catch (err) {
+        errorLog.innerText = "Error parsing file: " + err.message;
+    }
+}
+
+function downloadJson() {
+    if (!generatedJsonBlob) return;
+    const url = URL.createObjectURL(generatedJsonBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'data.json';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+</script>
+<script>
+// The visible sample action and optional query use the original File/change/parser path.
+function useSampleCSV() {
+  const csv = "record_id,label,category,value\nDEMO-001,Sample record 1,Group A,101\nDEMO-002,Sample record 2,Group B,102\nDEMO-003,Sample record 3,Group A,103\nDEMO-004,Sample record 4,Group B,104\nDEMO-005,Sample record 5,Group A,105\nDEMO-006,Sample record 6,Group B,106\nDEMO-007,Sample record 7,Group A,107\nDEMO-008,Sample record 8,Group B,108\nDEMO-009,Sample record 9,Group A,109\nDEMO-010,Sample record 10,Group B,110\nDEMO-011,Sample record 11,Group A,111\nDEMO-012,Sample record 12,Group B,112\nDEMO-013,Sample record 13,Group A,113\nDEMO-014,Sample record 14,Group B,114\nDEMO-015,Sample record 15,Group A,115\nDEMO-016,Sample record 16,Group B,116\nDEMO-017,Sample record 17,Group A,117\nDEMO-018,Sample record 18,Group B,118\nDEMO-019,Sample record 19,Group A,119\nDEMO-020,Sample record 20,Group B,120\nDEMO-021,Sample record 21,Group A,121\nDEMO-022,Sample record 22,Group B,122\nDEMO-023,Sample record 23,Group A,123\nDEMO-024,Sample record 24,Group B,124\nDEMO-025,Sample record 25,Group A,125\nDEMO-026,Sample record 26,Group B,126\nDEMO-027,Sample record 27,Group A,127\nDEMO-028,Sample record 28,Group B,128\nDEMO-029,Sample record 29,Group A,129\nDEMO-030,Sample record 30,Group B,130\nDEMO-031,Sample record 31,Group A,131\nDEMO-032,Sample record 32,Group B,132\nDEMO-033,Sample record 33,Group A,133\nDEMO-034,Sample record 34,Group B,134\nDEMO-035,Sample record 35,Group A,135\nDEMO-036,Sample record 36,Group B,136\nDEMO-037,Sample record 37,Group A,137\nDEMO-038,Sample record 38,Group B,138\nDEMO-039,Sample record 39,Group A,139\nDEMO-040,Sample record 40,Group B,140\nDEMO-041,Sample record 41,Group A,141\nDEMO-042,Sample record 42,Group B,142\nDEMO-043,Sample record 43,Group A,143\nDEMO-044,Sample record 44,Group B,144\nDEMO-045,Sample record 45,Group A,145\nDEMO-046,Sample record 46,Group B,146\nDEMO-047,Sample record 47,Group A,147\nDEMO-048,Sample record 48,Group B,148\nDEMO-049,Sample record 49,Group A,149\nDEMO-050,Sample record 50,Group B,150\nDEMO-051,Sample record 51,Group A,151\nDEMO-052,Sample record 52,Group B,152\nDEMO-053,Sample record 53,Group A,153\nDEMO-054,Sample record 54,Group B,154\nDEMO-055,Sample record 55,Group A,155\nDEMO-056,Sample record 56,Group B,156\nDEMO-057,Sample record 57,Group A,157\nDEMO-058,Sample record 58,Group B,158\nDEMO-059,Sample record 59,Group A,159\nDEMO-060,Sample record 60,Group B,160\nDEMO-061,Sample record 61,Group A,161\nDEMO-062,Sample record 62,Group B,162\nDEMO-063,Sample record 63,Group A,163\nDEMO-064,Sample record 64,Group B,164\nDEMO-065,Sample record 65,Group A,165\nDEMO-066,Sample record 66,Group B,166\nDEMO-067,Sample record 67,Group A,167\nDEMO-068,Sample record 68,Group B,168\nDEMO-069,Sample record 69,Group A,169\nDEMO-070,Sample record 70,Group B,170\nDEMO-071,Sample record 71,Group A,171\nDEMO-072,Sample record 72,Group B,172\nDEMO-073,Sample record 73,Group A,173\nDEMO-074,Sample record 74,Group B,174\nDEMO-075,Sample record 75,Group A,175\nDEMO-076,Sample record 76,Group B,176\nDEMO-077,Sample record 77,Group A,177\nDEMO-078,Sample record 78,Group B,178\nDEMO-079,Sample record 79,Group A,179\nDEMO-080,Sample record 80,Group B,180\nDEMO-081,Sample record 81,Group A,181\nDEMO-082,Sample record 82,Group B,182\nDEMO-083,Sample record 83,Group A,183\nDEMO-084,Sample record 84,Group B,184\nDEMO-085,Sample record 85,Group A,185\nDEMO-086,Sample record 86,Group B,186\nDEMO-087,Sample record 87,Group A,187\nDEMO-088,Sample record 88,Group B,188\nDEMO-089,Sample record 89,Group A,189\nDEMO-090,Sample record 90,Group B,190\nDEMO-091,Sample record 91,Group A,191\nDEMO-092,Sample record 92,Group B,192\nDEMO-093,Sample record 93,Group A,193\nDEMO-094,Sample record 94,Group B,194\nDEMO-095,Sample record 95,Group A,195\nDEMO-096,Sample record 96,Group B,196\nDEMO-097,Sample record 97,Group A,197\nDEMO-098,Sample record 98,Group B,198\nDEMO-099,Sample record 99,Group A,199\nDEMO-100,Sample record 100,Group B,200\nDEMO-101,Sample record 101,Group A,201\nDEMO-102,Sample record 102,Group B,202\nDEMO-103,Sample record 103,Group A,203\nDEMO-104,Sample record 104,Group B,204\nDEMO-105,Sample record 105,Group A,205\nDEMO-106,Sample record 106,Group B,206\nDEMO-107,Sample record 107,Group A,207\nDEMO-108,Sample record 108,Group B,208\nDEMO-109,Sample record 109,Group A,209\nDEMO-110,Sample record 110,Group B,210\nDEMO-111,Sample record 111,Group A,211\nDEMO-112,Sample record 112,Group B,212\nDEMO-113,Sample record 113,Group A,213\nDEMO-114,Sample record 114,Group B,214\nDEMO-115,Sample record 115,Group A,215\nDEMO-116,Sample record 116,Group B,216\nDEMO-117,Sample record 117,Group A,217\nDEMO-118,Sample record 118,Group B,218\nDEMO-119,Sample record 119,Group A,219\nDEMO-120,Sample record 120,Group B,220\nDEMO-121,Sample record 121,Group A,221\nDEMO-122,Sample record 122,Group B,222\nDEMO-123,Sample record 123,Group A,223\nDEMO-124,Sample record 124,Group B,224\nDEMO-125,Sample record 125,Group A,225\nDEMO-126,Sample record 126,Group B,226\nDEMO-127,Sample record 127,Group A,227\nDEMO-128,Sample record 128,Group B,228\nDEMO-129,Sample record 129,Group A,229\nDEMO-130,Sample record 130,Group B,230\nDEMO-131,Sample record 131,Group A,231\nDEMO-132,Sample record 132,Group B,232\nDEMO-133,Sample record 133,Group A,233\nDEMO-134,Sample record 134,Group B,234\nDEMO-135,Sample record 135,Group A,235\nDEMO-136,Sample record 136,Group B,236\nDEMO-137,Sample record 137,Group A,237\nDEMO-138,Sample record 138,Group B,238\nDEMO-139,Sample record 139,Group A,239\nDEMO-140,Sample record 140,Group B,240\nDEMO-141,Sample record 141,Group A,241\nDEMO-142,Sample record 142,Group B,242\nDEMO-143,Sample record 143,Group A,243\nDEMO-144,Sample record 144,Group B,244\nDEMO-145,Sample record 145,Group A,245\nDEMO-146,Sample record 146,Group B,246\nDEMO-147,Sample record 147,Group A,247\nDEMO-148,Sample record 148,Group B,248\nDEMO-149,Sample record 149,Group A,249\nDEMO-150,Sample record 150,Group B,250\nDEMO-151,Sample record 151,Group A,251\nDEMO-152,Sample record 152,Group B,252\nDEMO-153,Sample record 153,Group A,253\nDEMO-154,Sample record 154,Group B,254\nDEMO-155,Sample record 155,Group A,255\nDEMO-156,Sample record 156,Group B,256\nDEMO-157,Sample record 157,Group A,257\nDEMO-158,Sample record 158,Group B,258\nDEMO-159,Sample record 159,Group A,259\nDEMO-160,Sample record 160,Group B,260\nDEMO-161,Sample record 161,Group A,261\nDEMO-162,Sample record 162,Group B,262\nDEMO-163,Sample record 163,Group A,263\nDEMO-164,Sample record 164,Group B,264\nDEMO-165,Sample record 165,Group A,265\nDEMO-166,Sample record 166,Group B,266\nDEMO-167,Sample record 167,Group A,267\nDEMO-168,Sample record 168,Group B,268\nDEMO-169,Sample record 169,Group A,269\nDEMO-170,Sample record 170,Group B,270\nDEMO-171,Sample record 171,Group A,271\nDEMO-172,Sample record 172,Group B,272\nDEMO-173,Sample record 173,Group A,273\nDEMO-174,Sample record 174,Group B,274\nDEMO-175,Sample record 175,Group A,275\nDEMO-176,Sample record 176,Group B,276\nDEMO-177,Sample record 177,Group A,277\nDEMO-178,Sample record 178,Group B,278\nDEMO-179,Sample record 179,Group A,279\nDEMO-180,Sample record 180,Group B,280\nDEMO-181,Sample record 181,Group A,281\nDEMO-182,Sample record 182,Group B,282\nDEMO-183,Sample record 183,Group A,283\nDEMO-184,Sample record 184,Group B,284\nDEMO-185,Sample record 185,Group A,285\nDEMO-186,Sample record 186,Group B,286\nDEMO-187,Sample record 187,Group A,287\nDEMO-188,Sample record 188,Group B,288\nDEMO-189,Sample record 189,Group A,289\nDEMO-190,Sample record 190,Group B,290\nDEMO-191,Sample record 191,Group A,291\nDEMO-192,Sample record 192,Group B,292\nDEMO-193,Sample record 193,Group A,293\nDEMO-194,Sample record 194,Group B,294\nDEMO-195,Sample record 195,Group A,295\nDEMO-196,Sample record 196,Group B,296\nDEMO-197,Sample record 197,Group A,297\nDEMO-198,Sample record 198,Group B,298\nDEMO-199,Sample record 199,Group A,299\nDEMO-200,Sample record 200,Group B,300\nDEMO-201,Sample record 201,Group A,301\nDEMO-202,Sample record 202,Group B,302\nDEMO-203,Sample record 203,Group A,303\nDEMO-204,Sample record 204,Group B,304\nDEMO-205,Sample record 205,Group A,305\nDEMO-206,Sample record 206,Group B,306\nDEMO-207,Sample record 207,Group A,307\nDEMO-208,Sample record 208,Group B,308\nDEMO-209,Sample record 209,Group A,309\nDEMO-210,Sample record 210,Group B,310\nDEMO-211,Sample record 211,Group A,311\nDEMO-212,Sample record 212,Group B,312\nDEMO-213,Sample record 213,Group A,313\nDEMO-214,Sample record 214,Group B,314\nDEMO-215,Sample record 215,Group A,315\nDEMO-216,Sample record 216,Group B,316\nDEMO-217,Sample record 217,Group A,317\nDEMO-218,Sample record 218,Group B,318\nDEMO-219,Sample record 219,Group A,319\nDEMO-220,Sample record 220,Group B,320\nDEMO-221,Sample record 221,Group A,321\nDEMO-222,Sample record 222,Group B,322\nDEMO-223,Sample record 223,Group A,323\nDEMO-224,Sample record 224,Group B,324\nDEMO-225,Sample record 225,Group A,325\nDEMO-226,Sample record 226,Group B,326\nDEMO-227,Sample record 227,Group A,327\nDEMO-228,Sample record 228,Group B,328\nDEMO-229,Sample record 229,Group A,329\nDEMO-230,Sample record 230,Group B,330\nDEMO-231,Sample record 231,Group A,331\nDEMO-232,Sample record 232,Group B,332\nDEMO-233,Sample record 233,Group A,333\nDEMO-234,Sample record 234,Group B,334\nDEMO-235,Sample record 235,Group A,335\nDEMO-236,Sample record 236,Group B,336\nDEMO-237,Sample record 237,Group A,337\nDEMO-238,Sample record 238,Group B,338\nDEMO-239,Sample record 239,Group A,339\nDEMO-240,Sample record 240,Group B,340\nDEMO-241,Sample record 241,Group A,341\nDEMO-242,Sample record 242,Group B,342\nDEMO-243,Sample record 243,Group A,343\nDEMO-244,Sample record 244,Group B,344\nDEMO-245,Sample record 245,Group A,345\nDEMO-246,Sample record 246,Group B,346\nDEMO-247,Sample record 247,Group A,347\nDEMO-248,Sample record 248,Group B,348\nDEMO-249,Sample record 249,Group A,349\nDEMO-250,Sample record 250,Group B,350\n";
+  const transfer = new DataTransfer();
+  transfer.items.add(new File([csv], 'synthetic-demo.csv', { type: 'text/csv' }));
+  const input = document.getElementById('file-input');
+  input.files = transfer.files;
+  input.dispatchEvent(new Event('change', { bubbles: true }));
+}
+
+
+document.getElementById('sample-btn').addEventListener('click', useSampleCSV);
+if (new URLSearchParams(location.search).get('sample') === '1') useSampleCSV();
+</script>
+<script>
+// The sandbox cannot bubble keyboard events to the parent dialog.
+// Send only a close intent; the parent verifies this iframe is the source.
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') window.parent.postMessage({ type: 'priyam-demo-close' }, '*');
+});
+</script>
+</body>
+</html>

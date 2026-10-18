@@ -1,0 +1,31 @@
+{
+  "repository": "https://github.com/priyamsameer95-sys/2026-08-22-scrambl",
+  "sourceCommit": "c205c4ff64788e4c1628f77043b4feb9ad758452",
+  "reviewedAt": "2026-10-18",
+  "sourceFiles": [
+    {
+      "path": "README.md",
+      "blobSha": "e45d5ca265ad582d21d76d48f5d667eb7c84c623",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-scrambl/blob/c205c4ff64788e4c1628f77043b4feb9ad758452/README.md"
+    },
+    {
+      "path": "index.html",
+      "blobSha": "94ce174992d39390d146419226faf2dd2ba65c98",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-scrambl/blob/c205c4ff64788e4c1628f77043b4feb9ad758452/index.html"
+    },
+    {
+      "path": "script.js",
+      "blobSha": "5de8d61fef3116326c1d1dc7dd6a9dc29b38ae6c",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-scrambl/blob/c205c4ff64788e4c1628f77043b4feb9ad758452/script.js"
+    }
+  ],
+  "license": "Public-domain declaration transcribed from original README; no separate LICENSE existed.",
+  "changes": [
+    "Original HTML/CSS/JS are bundled inline for a no-same-origin sandbox. Restrictive CSP blocks external connections, frames and media.",
+    "Clipboard tries the native API, then user-initiated execCommand, then selects visible text without claiming a successful copy.",
+    "Sandbox keyboard correction: Escape posts only the priyam-demo-close intent to the parent. The parent must verify event.source against the active iframe before closing.",
+    "Mobile-only compatibility CSS at 600px and below preserves desktop styling while fitting the original controls and content within a phone viewport.",
+    "Publishing normalization: trailing whitespace removed; final newline normalized. No logic or layout change."
+  ],
+  "indexSha256": "f5561fb201a33d5ba29a0605357c557a4cda28d78e19b38d04d726eebbb08c6c"
+}

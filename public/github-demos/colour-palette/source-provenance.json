@@ -1,0 +1,42 @@
+{
+  "repository": "https://github.com/priyamsameer95-sys/2026-08-22-color-palette-gen",
+  "sourceCommit": "603d5d738d05807c9339ebe2bde6181998ec64ec",
+  "reviewedAt": "2026-10-18",
+  "sourceFiles": [
+    {
+      "path": "LICENSE",
+      "blobSha": "05c6897529629e66bc15272a6276a84c50b853ce",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-color-palette-gen/blob/603d5d738d05807c9339ebe2bde6181998ec64ec/LICENSE"
+    },
+    {
+      "path": "README.md",
+      "blobSha": "0e95ff43cc2c0873aeb8ec970973e48f1619aa84",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-color-palette-gen/blob/603d5d738d05807c9339ebe2bde6181998ec64ec/README.md"
+    },
+    {
+      "path": "index.html",
+      "blobSha": "383189106056cea9618149a400400aa6085b1086",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-color-palette-gen/blob/603d5d738d05807c9339ebe2bde6181998ec64ec/index.html"
+    },
+    {
+      "path": "script.js",
+      "blobSha": "26012122ff66738535f0bda3e96e511543716cfd",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-color-palette-gen/blob/603d5d738d05807c9339ebe2bde6181998ec64ec/script.js"
+    },
+    {
+      "path": "style.css",
+      "blobSha": "380fcce76ca31f2cea41741b9ada65789ad5a9b2",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-color-palette-gen/blob/603d5d738d05807c9339ebe2bde6181998ec64ec/style.css"
+    }
+  ],
+  "license": "Original MIT LICENSE copied unchanged.",
+  "changes": [
+    "Original HTML/CSS/JS are bundled inline for a no-same-origin sandbox. Restrictive CSP blocks external connections, frames and media.",
+    "Clipboard tries the native API, then user-initiated execCommand, then selects visible text without claiming a successful copy.",
+    "Demo accessibility correction: swatches are focusable labelled buttons; Enter/Space copies the focused HEX swatch, with a visible focus ring. Page-level Space still regenerates.",
+    "Sandbox keyboard correction: Escape posts only the priyam-demo-close intent to the parent. The parent must verify event.source against the active iframe before closing.",
+    "Mobile-only compatibility CSS at 600px and below preserves desktop styling while fitting the original controls and content within a phone viewport.",
+    "Publishing normalization: trailing whitespace removed; final newline normalized. No logic or layout change."
+  ],
+  "indexSha256": "c0ac54459f375151af2eeb67beafb3420698510970d7a0837407d0e5465bf376"
+}

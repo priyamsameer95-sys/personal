@@ -1,0 +1,31 @@
+{
+  "repository": "https://github.com/priyamsameer95-sys/2026-08-22-json-atlas",
+  "sourceCommit": "b7ea89ed7d657fc0ca3e2ddd864f3757f86739f5",
+  "reviewedAt": "2026-10-18",
+  "sourceFiles": [
+    {
+      "path": "README.md",
+      "blobSha": "52e55324e6c2838dc4796fd711e2d25514bf305b",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-json-atlas/blob/b7ea89ed7d657fc0ca3e2ddd864f3757f86739f5/README.md"
+    },
+    {
+      "path": "index.html",
+      "blobSha": "6a44d081e7ec0bf9bb0a188bfddc2b6fecb2ba1e",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-json-atlas/blob/b7ea89ed7d657fc0ca3e2ddd864f3757f86739f5/index.html"
+    },
+    {
+      "path": "script.js",
+      "blobSha": "0ed2ecfa83c62c61208a9af28ac0711dec650793",
+      "url": "https://github.com/priyamsameer95-sys/2026-08-22-json-atlas/blob/b7ea89ed7d657fc0ca3e2ddd864f3757f86739f5/script.js"
+    }
+  ],
+  "license": "Public-domain declaration transcribed from original README; no separate LICENSE existed.",
+  "changes": [
+    "Original HTML/CSS/JS are bundled inline for a no-same-origin sandbox. Restrictive CSP blocks external connections, frames and media.",
+    "Clipboard tries the native API, then user-initiated execCommand, then selects visible text without claiming a successful copy.",
+    "Sandbox keyboard correction: Escape posts only the priyam-demo-close intent to the parent. The parent must verify event.source against the active iframe before closing.",
+    "Mobile-only compatibility CSS at 600px and below keeps original desktop styling: readable full-width panels, bounded inputs/media and touch targets. JSON Atlas stacks its input and output and scrolls code horizontally instead of squeezing two columns.",
+    "Publishing normalization: trailing whitespace removed; final newline normalized. No logic or layout change."
+  ],
+  "indexSha256": "49a5beb618363622dadc775b7ff12d1cc00f93c057e89bdc8a9c17f54f86f3af"
+}

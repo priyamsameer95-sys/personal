@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; frame-src 'none'; font-src 'self'; media-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Scrambl — Daily Word Challenge</title>
+    <meta name="description" content="Unscramble 18 words against the clock. Same puzzle for everyone, every day. Free, no ads, no accounts.">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --bg: #fafafa; --card: #fff; --border: #e5e5e5; --text: #1a1a1a; --text2: #888; --accent: #6366f1; --green: #22c55e; --red: #ef4444; --orange: #f59e0b; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+        /* Header */
+        .top-bar { width: 100%; max-width: 480px; display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; }
+        .top-bar h1 { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.5px; }
+        .top-bar span { font-size: 0.78rem; color: var(--text2); font-weight: 500; }
+
+        /* Game Container */
+        .game { width: 100%; max-width: 480px; padding: 0 20px 40px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+
+        /* Progress */
+        .progress-row { width: 100%; display: flex; gap: 3px; }
+        .pip { flex: 1; height: 6px; border-radius: 99px; background: var(--border); transition: background 0.3s; }
+        .pip.done { background: var(--green); }
+        .pip.fail { background: var(--red); }
+        .pip.current { background: var(--accent); animation: pulse 1s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* Score + Timer */
+        .info-row { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .score { font-size: 0.85rem; font-weight: 700; color: var(--text2); }
+        .timer { font-size: 1.1rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--text); }
+        .timer.warn { color: var(--orange); }
+        .timer.danger { color: var(--red); }
+
+        /* Letter Tiles */
+        .tiles { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; padding: 16px 0; }
+        .tile { width: 52px; height: 58px; background: var(--card); border: 2px solid var(--border); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: all 0.15s; user-select: none; -webkit-user-select: none; }
+        .tile:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .tile.selected { background: var(--accent); color: #fff; border-color: var(--accent); transform: scale(0.92); }
+        .tile.correct { background: var(--green); color: #fff; border-color: var(--green); }
+
+        /* Answer Area */
+        .answer-row { display: flex; gap: 4px; min-height: 58px; justify-content: center; flex-wrap: wrap; }
+        .answer-slot { width: 44px; height: 50px; border: 2px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; color: var(--accent); background: rgba(99,102,241,0.04); cursor: pointer; transition: all 0.15s; }
+        .answer-slot:hover { border-color: var(--red); }
+
+        /* Buttons */
+        .actions { display: flex; gap: 10px; }
+        .btn { padding: 10px 24px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; border: none; transition: all 0.15s; }
+        .btn-ghost { background: transparent; color: var(--text2); border: 1px solid var(--border); }
+        .btn-ghost:hover { background: #f0f0f0; }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-primary:hover { background: #4f46e5; }
+
+        /* Screens */
+        .screen { display: none; width: 100%; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+        .screen.active { display: flex; }
+        .screen h2 { font-size: 1.6rem; font-weight: 800; }
+        .screen p { color: var(--text2); font-size: 0.92rem; line-height: 1.6; max-width: 360px; }
+        .big-score { font-size: 3rem; font-weight: 900; color: var(--accent); }
+
+        /* Share Box */
+        .share-grid { font-family: monospace; font-size: 1.1rem; line-height: 1.4; letter-spacing: 2px; padding: 12px; background: #f5f5f5; border-radius: 10px; }
+
+        /* Help Modal */
+        .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 50; justify-content: center; align-items: center; }
+        .modal-bg.open { display: flex; }
+        .modal-box { background: #fff; border-radius: 16px; padding: 28px; max-width: 440px; width: 90%; max-height: 80vh; overflow-y: auto; }
+        .modal-box h2 { font-size: 1.2rem; margin-bottom: 12px; }
+        .modal-box h3 { font-size: 0.9rem; margin: 16px 0 6px; color: var(--accent); }
+        .modal-box p, .modal-box li { font-size: 0.85rem; color: #555; line-height: 1.6; }
+        .modal-box ul { padding-left: 18px; }
+        .modal-box li { margin-bottom: 4px; }
+    </style>
+<script>
+// Demo-only clipboard compatibility for an iframe with an opaque sandbox origin.
+// A failed browser copy selects the existing visible output and never reports success.
+async function copyPreviewText(text, visibleOutput) {
+  const previous = document.activeElement;
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (_) { /* Continue to the user-initiated compatibility path. */ }
+  const temporary = document.createElement('textarea');
+  temporary.value = text;
+  temporary.readOnly = true;
+  temporary.setAttribute('aria-label', 'Text to copy');
+  temporary.style.cssText = 'position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;';
+  document.body.appendChild(temporary);
+  temporary.focus();
+  temporary.select();
+  let copied = false;
+  try { copied = Boolean(document.execCommand('copy')); } catch (_) { /* Select the source output below. */ }
+  temporary.remove();
+  if (previous && previous.focus) previous.focus({ preventScroll: true });
+  if (!copied && visibleOutput) {
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(visibleOutput);
+    if (selection) { selection.removeAllRanges(); selection.addRange(range); }
+  }
+  return copied;
+}
+
+</script>
+<style>
+/* Mobile demo layout: original desktop composition remains unchanged. */
+@media (max-width: 600px) {
+body { width: 100%; min-height: 100svh; }
+.top-bar { min-width: 0; padding: 12px 16px; gap: 12px; }
+.top-bar span { font-size: .875rem; }
+.game { min-width: 0; padding: 0 16px 24px; }
+.actions { flex-wrap: wrap; justify-content: center; }
+.btn { min-height: 44px; font-size: .9375rem; }
+.share-grid { max-width: 100%; font-size: 1rem; letter-spacing: 1px; overflow-wrap: anywhere; }
+.modal-box { padding: 20px; max-height: calc(100dvh - 32px); }
+}
+</style>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Scrambl</h1>
+        <span id="date-display"></span>
+    </div>
+
+    <div class="game">
+        <!-- START SCREEN -->
+        <div class="screen active" id="start-screen">
+            <h2>🔤 Scrambl</h2>
+            <p>Unscramble 18 words before time runs out. Everyone gets the same words today — compare your score with friends.</p>
+            <button class="btn btn-primary" onclick="startGame()">Play Today's Puzzle</button>
+            <button class="btn btn-ghost" onclick="toggleHelp()">How to Play</button>
+        </div>
+
+        <!-- PLAY SCREEN -->
+        <div class="screen" id="play-screen">
+            <div class="progress-row" id="progress-row"></div>
+            <div class="info-row">
+                <div class="score" id="score-display">0 / 18</div>
+                <div class="timer" id="timer-display">0:10</div>
+            </div>
+            <div class="answer-row" id="answer-row"></div>
+            <div class="tiles" id="tiles-area"></div>
+            <div class="actions">
+                <button class="btn btn-ghost" onclick="clearAnswer()">Clear</button>
+                <button class="btn btn-ghost" onclick="shuffleTiles()">Shuffle</button>
+            </div>
+        </div>
+
+        <!-- END SCREEN -->
+        <div class="screen" id="end-screen">
+            <h2>Puzzle Complete!</h2>
+            <div class="big-score" id="final-score">0</div>
+            <p id="final-msg"></p>
+            <div class="share-grid" id="share-grid"></div>
+            <button class="btn btn-primary" onclick="shareResult()">Copy Result</button>
+        </div>
+    </div>
+
+    <!-- HELP MODAL -->
+    <div class="modal-bg" id="help-modal" onclick="toggleHelp()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h2>How to Play</h2>
+            <p>You have 18 scrambled words. For each word, tap the letters in the correct order to spell it. You have <strong>10 seconds per word</strong>.</p>
+            <h3>🤔 What does this tool do?</h3>
+            <p>Scrambl generates 18 words seeded from today's date. Everyone who plays today gets the exact same words in the exact same order. This lets you compare scores with friends — no accounts needed.</p>
+            <h3>💻 Use cases for Engineers</h3>
+            <ul>
+                <li><strong>Brain warm-up:</strong> A 2-minute cognitive warm-up before deep work sessions to activate pattern recognition.</li>
+                <li><strong>Team stand-up icebreaker:</strong> Post your Scrambl score in Slack — the daily shared puzzle creates natural water-cooler conversation.</li>
+                <li><strong>Interview decompression:</strong> A quick dopamine reset between intense coding rounds.</li>
+            </ul>
+            <h3>📊 Use cases for Product Managers</h3>
+            <ul>
+                <li><strong>Meeting buffer game:</strong> Play while waiting for the last person to join the Zoom call.</li>
+                <li><strong>Team engagement metric:</strong> Share the daily Scrambl as a Slack ritual to measure and boost async team engagement.</li>
+            </ul>
+            <h3>⚠️ Challenges</h3>
+            <ul>
+                <li>Some words are genuinely hard to recognize when scrambled — that's the point.</li>
+                <li>The 10-second timer is tight by design. It creates real pressure.</li>
+                <li>Only one puzzle per day — come back tomorrow for a new one.</li>
+            </ul>
+            <button class="btn btn-ghost" onclick="toggleHelp()" style="margin-top:16px; width:100%;">Got it</button>
+        </div>
+    </div>
+
+    <script>
+// ═══════════════════════════════════════
+//  SCRAMBL — Daily Word Challenge Engine
+// ═══════════════════════════════════════
+
+// Word bank: ~400 common English words, 4–7 letters
+const WORDS = [
+    "about","above","after","again","agree","ahead","alarm","alert","alien","allow",
+    "along","angel","anger","angle","apple","arena","argue","aside","avoid","badge",
+    "basic","beach","bears","begin","below","bench","birds","blade","blame","blank",
+    "blast","blaze","bleed","blend","bless","blind","block","blood","bloom","blown",
+    "board","boast","bonus","boost","bound","brace","brain","brand","brave","bread",
+    "break","breed","brick","bride","brief","bring","broad","broke","brown","brush",
+    "build","bunch","burst","buyer","cabin","cable","candy","cargo","carry","catch",
+    "cause","chain","chair","chalk","charm","chase","cheap","check","cheek","chess",
+    "chest","chief","child","chord","chunk","civil","claim","clash","class","clean",
+    "clear","clerk","click","cliff","climb","cling","clock","clone","close","cloud",
+    "coach","coast","color","coral","count","court","cover","crack","craft","crane",
+    "crash","crazy","cream","crown","crush","cubic","curve","cycle","dance","death",
+    "debut","delay","delta","dense","depth","devil","diary","dirty","donor","doubt",
+    "draft","drain","drama","drawn","dream","dress","drift","drink","drive","drums",
+    "eager","earth","eight","elect","elite","empty","enemy","enjoy","enter","equal",
+    "error","event","every","exact","exist","extra","faint","faith","fancy","fault",
+    "feast","fence","fetch","fiber","field","fifth","fifty","fight","final","flame",
+    "flash","flesh","float","flood","floor","flour","fluid","flush","focus","force",
+    "forge","forth","forum","found","frame","frank","fraud","fresh","front","frost",
+    "fruit","giant","given","glass","globe","gloom","glory","grace","grade","grain",
+    "grand","grant","grape","grasp","grave","greed","green","greet","grief","grill",
+    "grind","groan","gross","group","grove","grown","guard","guess","guest","guide",
+    "guilt","habit","happy","harsh","haven","heart","heavy","hence","herbs","honey",
+    "honor","hoped","hotel","house","human","humor","hurry","ideal","image","imply",
+    "index","inner","input","issue","ivory","jewel","joint","judge","juice","knife",
+    "knock","known","label","labor","large","laser","later","laugh","layer","learn",
+    "least","leave","legal","lemon","level","light","limit","linen","links","logic",
+    "loose","lover","lower","lucky","lunar","lunch","magic","major","maker","march",
+    "match","mayor","meant","media","mercy","merit","metal","meter","might","minor",
+    "minus","mixed","model","money","month","moral","mount","mouth","moved","music",
+    "naive","nerve","never","night","noble","noise","north","noted","novel","nurse",
+    "ocean","offer","often","olive","onset","opera","orbit","organ","other","outer",
+    "owner","oxide","paint","panel","panic","paper","party","pasta","patch","pause",
+    "peace","pearl","penny","phase","phone","photo","piano","piece","pilot","pitch",
+    "pixel","place","plain","plant","plate","plaza","plead","plumb","plume","point",
+    "polar","pound","power","press","price","pride","prime","print","prior","prize",
+    "probe","proud","prove","proxy","pulse","punch","pupil","queen","quest","queue",
+    "quiet","quote","radar","radio","raise","rally","ranch","range","rapid","ratio",
+    "reach","react","rebel","refer","reign","relax","reply","rider","ridge","rifle",
+    "right","rigid","rival","river","robot","rocky","roman","rough","round","route",
+    "royal","rugby","ruler","rural","saint","salad","scale","scene","scope","serve",
+    "seven","shade","shake","shall","shame","shape","share","shark","sharp","shelf",
+    "shell","shift","shine","shirt","shock","shore","shout","sight","silly","since",
+    "sixth","sixty","skill","skull","slave","sleep","slice","slide","slope","smart",
+    "smell","smile","smoke","snake","solar","solid","solve","south","space","spare",
+    "speak","speed","spend","spice","spine","spite","split","spoon","sport","spray",
+    "squad","stack","staff","stage","stain","stake","stalk","stamp","stand","stark",
+    "start","state","steal","steam","steel","steep","steer","stern","stick","stiff",
+    "still","stock","stone","storm","story","stove","strap","straw","strip","stuck",
+    "stuff","style","sugar","suite","super","surge","swamp","swear","sweep","sweet",
+    "swift","swing","sword","table","taste","teach","teeth","tempo","thank","theme",
+    "thick","think","thorn","those","three","threw","throw","thumb","tiger","tight",
+    "timer","title","toast","today","token","topic","torch","total","touch","tough",
+    "towel","tower","toxic","trace","track","trade","trail","train","trait","trash",
+    "treat","trend","trial","tribe","trick","tried","troop","truck","truly","trump",
+    "trunk","trust","truth","twice","twist","ultra","uncle","under","unify","union",
+    "unite","unity","until","upper","upset","urban","usage","usual","valid","value",
+    "vault","venue","verse","video","vigor","virus","visit","vital","vivid","vocal",
+    "voice","voter","waste","watch","water","weave","wedge","weigh","weird","whale",
+    "wheat","wheel","where","which","while","white","whole","whose","wider","witch",
+    "women","world","worry","worse","worst","worth","wound","wrath","write","wrong",
+    "yacht","youth","crown","flood","creek","coral","cider","drift","ember","flint"
+];
+
+const GAME_LENGTH = 18;
+const SECONDS_PER_WORD = 10;
+
+// ─── Seeded PRNG (mulberry32) ───
+function mulberry32(seed) {
+    return function() {
+        seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+        let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+}
+
+function todaySeed() {
+    const d = new Date();
+    return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+}
+
+// ─── Shuffle array with seeded rng ───
+function seededShuffle(arr, rng) {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+}
+
+// ─── Scramble a word (ensure it's different from original) ───
+function scrambleWord(word, rng) {
+    const letters = word.split('');
+    let scrambled;
+    let attempts = 0;
+    do {
+        scrambled = seededShuffle(letters, rng);
+        attempts++;
+    } while (scrambled.join('') === word && attempts < 20);
+    return scrambled;
+}
+
+// ═══════════════════════════════════════
+//  GAME STATE
+// ═══════════════════════════════════════
+let todaysWords = [];
+let currentIndex = 0;
+let score = 0;
+let results = [];     // 'pass' | 'fail' per word
+let selectedLetters = [];
+let scrambledLetters = [];
+let timerInterval = null;
+let timeLeft = 0;
+
+// ═══════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════
+window.onload = function () {
+    const d = new Date();
+    document.getElementById('date-display').textContent =
+        d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+    // Generate today's words
+    const rng = mulberry32(todaySeed());
+    const shuffled = seededShuffle(WORDS, rng);
+    todaysWords = shuffled.slice(0, GAME_LENGTH);
+};
+
+// ═══════════════════════════════════════
+//  GAME FLOW
+// ═══════════════════════════════════════
+function startGame() {
+    currentIndex = 0;
+    score = 0;
+    results = [];
+    showScreen('play-screen');
+    buildProgressPips();
+    loadWord(0);
+}
+
+function loadWord(index) {
+    if (index >= GAME_LENGTH) { endGame(); return; }
+
+    currentIndex = index;
+    selectedLetters = [];
+    const word = todaysWords[index];
+    const rng = mulberry32(todaySeed() * 1000 + index);
+    scrambledLetters = scrambleWord(word, rng);
+
+    renderTiles();
+    renderAnswer();
+    updateProgress();
+    document.getElementById('score-display').textContent = score + ' / ' + GAME_LENGTH;
+
+    // Start timer
+    timeLeft = SECONDS_PER_WORD;
+    updateTimerDisplay();
+    clearInterval(timerInterval);
+    timerInterval = setInterval(function () {
+        timeLeft--;
+        updateTimerDisplay();
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            results.push('fail');
+            markPip(currentIndex, 'fail');
+            setTimeout(function () { loadWord(currentIndex + 1); }, 400);
+        }
+    }, 1000);
+}
+
+function endGame() {
+    clearInterval(timerInterval);
+    showScreen('end-screen');
+    document.getElementById('final-score').textContent = score + ' / ' + GAME_LENGTH;
+
+    let msg = '';
+    if (score === 18) msg = 'Perfect! You unscrambled every single word. 🏆';
+    else if (score >= 14) msg = 'Impressive! You crushed it today. 🔥';
+    else if (score >= 10) msg = 'Solid performance. Can you beat it tomorrow?';
+    else if (score >= 5) msg = 'Not bad for a first try. Come back tomorrow!';
+    else msg = 'Tough day. The words will be different tomorrow — try again!';
+    document.getElementById('final-msg').textContent = msg;
+
+    // Build share grid
+    const grid = results.map(r => r === 'pass' ? '🟩' : '🟥').join('');
+    const rows = [];
+    for (let i = 0; i < grid.length; i += 6) rows.push(grid.slice(i, i + 6));
+    document.getElementById('share-grid').textContent =
+        'Scrambl ' + new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) +
+        '\n' + score + '/18\n\n' + rows.join('\n');
+}
+
+// ═══════════════════════════════════════
+//  RENDERING
+// ═══════════════════════════════════════
+function renderTiles() {
+    const area = document.getElementById('tiles-area');
+    area.innerHTML = '';
+    scrambledLetters.forEach(function (letter, i) {
+        const div = document.createElement('div');
+        div.className = 'tile';
+        div.textContent = letter;
+        div.dataset.index = i;
+        if (selectedLetters.includes(i)) div.classList.add('selected');
+        div.onclick = function () { selectLetter(i); };
+        area.appendChild(div);
+    });
+}
+
+function renderAnswer() {
+    const word = todaysWords[currentIndex];
+    const row = document.getElementById('answer-row');
+    row.innerHTML = '';
+    for (let i = 0; i < word.length; i++) {
+        const div = document.createElement('div');
+        div.className = 'answer-slot';
+        if (i < selectedLetters.length) {
+            div.textContent = scrambledLetters[selectedLetters[i]];
+            const idx = i;
+            div.onclick = function () { deselectLetter(idx); };
+        }
+        row.appendChild(div);
+    }
+}
+
+function buildProgressPips() {
+    const row = document.getElementById('progress-row');
+    row.innerHTML = '';
+    for (let i = 0; i < GAME_LENGTH; i++) {
+        const pip = document.createElement('div');
+        pip.className = 'pip';
+        pip.id = 'pip-' + i;
+        row.appendChild(pip);
+    }
+}
+
+function updateProgress() {
+    for (let i = 0; i < GAME_LENGTH; i++) {
+        const pip = document.getElementById('pip-' + i);
+        if (!pip) continue;
+        if (i === currentIndex) pip.className = 'pip current';
+        else if (results[i] === 'pass') pip.className = 'pip done';
+        else if (results[i] === 'fail') pip.className = 'pip fail';
+        else pip.className = 'pip';
+    }
+}
+
+function markPip(index, state) {
+    const pip = document.getElementById('pip-' + index);
+    if (pip) pip.className = 'pip ' + (state === 'pass' ? 'done' : 'fail');
+}
+
+function updateTimerDisplay() {
+    const el = document.getElementById('timer-display');
+    el.textContent = '0:' + String(timeLeft).padStart(2, '0');
+    el.className = 'timer' + (timeLeft <= 3 ? ' danger' : timeLeft <= 5 ? ' warn' : '');
+}
+
+// ═══════════════════════════════════════
+//  INTERACTION
+// ═══════════════════════════════════════
+function selectLetter(tileIndex) {
+    if (selectedLetters.includes(tileIndex)) return;
+    selectedLetters.push(tileIndex);
+    renderTiles();
+    renderAnswer();
+
+    // Check if word complete
+    const word = todaysWords[currentIndex];
+    if (selectedLetters.length === word.length) {
+        const attempt = selectedLetters.map(i => scrambledLetters[i]).join('');
+        if (attempt === word) {
+            // Correct!
+            clearInterval(timerInterval);
+            score++;
+            results.push('pass');
+            markPip(currentIndex, 'pass');
+            // Flash green
+            document.querySelectorAll('.tile').forEach(t => t.classList.add('correct'));
+            setTimeout(function () { loadWord(currentIndex + 1); }, 500);
+        } else {
+            // Wrong — clear and try again
+            selectedLetters = [];
+            renderTiles();
+            renderAnswer();
+        }
+    }
+}
+
+function deselectLetter(answerIndex) {
+    selectedLetters.splice(answerIndex, 1);
+    renderTiles();
+    renderAnswer();
+}
+
+function clearAnswer() {
+    selectedLetters = [];
+    renderTiles();
+    renderAnswer();
+}
+
+function shuffleTiles() {
+    // Re-shuffle the scrambled letters (visual only, same word)
+    const available = [];
+    const locked = new Set(selectedLetters);
+    scrambledLetters.forEach(function (l, i) {
+        if (!locked.has(i)) available.push(i);
+    });
+    // Fisher-Yates on available indices
+    for (let i = available.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const ai = available[i], aj = available[j];
+        [scrambledLetters[ai], scrambledLetters[aj]] = [scrambledLetters[aj], scrambledLetters[ai]];
+    }
+    renderTiles();
+}
+
+// ═══════════════════════════════════════
+//  UTIL
+// ═══════════════════════════════════════
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function toggleHelp() {
+    const m = document.getElementById('help-modal');
+    m.classList.toggle('open');
+}
+
+function shareResult() {
+    const text = document.getElementById('share-grid').textContent;
+    copyPreviewText(text, document.getElementById('share-grid')).then(function (copied) {
+        const btn = document.querySelector('#end-screen button');
+        btn.textContent = copied ? 'Copied!' : 'Selected: copy';
+        setTimeout(function () { btn.textContent = 'Copy Result'; }, 1500);
+    }).catch(function () {});
+}
+
+</script>
+<script>
+// The sandbox cannot bubble keyboard events to the parent dialog.
+// Send only a close intent; the parent verifies this iframe is the source.
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') window.parent.postMessage({ type: 'priyam-demo-close' }, '*');
+});
+</script>
+</body>
+</html>

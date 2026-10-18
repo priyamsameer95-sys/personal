@@ -1,0 +1,35 @@
+{
+  "repository": "https://github.com/priyamsameer95-sys/magic-text-matcher",
+  "sourceCommit": "8979e3e20c52cc33115e26b9269a729bdb77c342",
+  "reviewedAt": "2026-10-18",
+  "sourceFiles": [
+    {
+      "path": "LICENSE",
+      "blobSha": "05c6897529629e66bc15272a6276a84c50b853ce",
+      "url": "https://github.com/priyamsameer95-sys/magic-text-matcher/blob/8979e3e20c52cc33115e26b9269a729bdb77c342/LICENSE"
+    },
+    {
+      "path": "README.md",
+      "blobSha": "6dee1dbf788c0f85e266945a4546ac8d210565dd",
+      "url": "https://github.com/priyamsameer95-sys/magic-text-matcher/blob/8979e3e20c52cc33115e26b9269a729bdb77c342/README.md"
+    },
+    {
+      "path": "index.html",
+      "blobSha": "55b4cffdd53f9ef6dc8306c7377586eb2cb81152",
+      "url": "https://github.com/priyamsameer95-sys/magic-text-matcher/blob/8979e3e20c52cc33115e26b9269a729bdb77c342/index.html"
+    },
+    {
+      "path": "script.js",
+      "blobSha": "883927f8962b84c41afed9af548e8029bb45e1e7",
+      "url": "https://github.com/priyamsameer95-sys/magic-text-matcher/blob/8979e3e20c52cc33115e26b9269a729bdb77c342/script.js"
+    }
+  ],
+  "license": "Original MIT LICENSE copied unchanged.",
+  "changes": [
+    "Original HTML/CSS/JS are bundled inline for a no-same-origin sandbox. Restrictive CSP blocks external connections, frames and media.",
+    "Sandbox keyboard correction: Escape posts only the priyam-demo-close intent to the parent. The parent must verify event.source against the active iframe before closing.",
+    "Mobile-only compatibility CSS at 600px and below preserves desktop styling while fitting the original controls and content within a phone viewport.",
+    "Publishing normalization: trailing whitespace removed; final newline normalized. No logic or layout change."
+  ],
+  "indexSha256": "09de8e2e9464834880c909ddddd7d3cb50da1d541797435b1b182d110fac240a"
+}
