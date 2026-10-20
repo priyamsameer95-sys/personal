@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getClientIp, isAdminAuthenticated } from '@/lib/auth';
-import { normalizeAnalyticsPath, recordPageView } from '@/lib/site-analytics';
+import { resolveAnalyticsPath, recordAnalyticsEvent } from '@/lib/site-analytics';
+import { normalizeAnalyticsAction } from '@/lib/analytics-events';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -37,13 +38,16 @@ export async function POST(request: NextRequest) {
   } catch { return reply(400); }
   if (!body || typeof body !== 'object' || Array.isArray(body)) return reply(400);
   const event = body as Record<string, unknown>;
-  if (Object.keys(event).some(key => !['eventId', 'path', 'referrer'].includes(key)) || typeof event.eventId !== 'string' ||
+  if (Object.keys(event).some(key => !['eventId', 'path', 'referrer', 'type', 'target'].includes(key)) || typeof event.eventId !== 'string' ||
     !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(event.eventId) ||
     typeof event.referrer !== 'string' || event.referrer.length > 512) return reply(400);
-  const path = normalizeAnalyticsPath(event.path);
+  const path = await resolveAnalyticsPath(event.path);
   if (!path) return reply(204);
+  const targetPath = event.type === 'navigation_clicked' ? await resolveAnalyticsPath(event.target) : null;
+  const action = normalizeAnalyticsAction(event.type, event.target, () => targetPath);
+  if (!action) return reply(400);
   try {
-    await recordPageView({ eventId: event.eventId, path, referrer: event.referrer }, { ip: getClientIp(request), userAgent: agent });
+    await recordAnalyticsEvent({ eventId: event.eventId, path, referrer: event.referrer, ...action }, { ip: getClientIp(request), userAgent: agent });
     return reply(204);
   } catch { return reply(503); }
 }

@@ -95,7 +95,7 @@ export default function CvDownload({ className = '' }: { className?: string }) {
   }
 
   return <>
-    <button ref={trigger} type="button" className={className} aria-label="Download CV" aria-haspopup="dialog" aria-controls={`${id}-dialog`} aria-expanded={open} onClick={show}>
+    <button ref={trigger} type="button" className={className} aria-label="Download CV" aria-haspopup="dialog" aria-controls={`${id}-dialog`} aria-expanded={open} data-analytics={open ? undefined : 'cv_opened'} data-analytics-target="cv" onClick={show}>
       Download CV <Icon name="download" />
     </button>
     <dialog ref={dialog} id={`${id}-dialog`} className={styles.dialog} aria-labelledby={titleId} aria-describedby={descriptionId} onClose={restore} onClick={event => {
@@ -109,13 +109,13 @@ export default function CvDownload({ className = '' }: { className?: string }) {
         <p id={descriptionId} className={styles.description}>Share your email to download my CV. I’ll receive it as a record of your interest. This does not subscribe you to a newsletter.</p>
         {readyURL ? <div className={styles.success}>
           <p role="status">Your request has been saved. If the download didn’t start, use the link below.</p>
-          <a ref={readyAction} href={readyURL} download={CV_DOWNLOAD_FILENAME} className={styles.action}>Download CV <Icon name="download" /></a>
+          <a ref={readyAction} href={readyURL} download={CV_DOWNLOAD_FILENAME} data-analytics="cv_download_clicked" data-analytics-target="cv" className={styles.action}>Download CV <Icon name="download" /></a>
         </div> : <form ref={form} onSubmit={submit} aria-busy={pending}>
           <label htmlFor={emailId}>Email address</label>
           <input ref={email} id={emailId} type="email" name="email" autoComplete="email" maxLength={254} required placeholder="you@example.com" aria-describedby={error ? errorId : undefined} readOnly={pending} />
           <div className={styles.honeypot} aria-hidden="true"><label htmlFor={`${id}-website`}>Leave this field empty</label><input id={`${id}-website`} name="website" type="text" autoComplete="off" tabIndex={-1} /></div>
           {error && <p id={errorId} role="alert" className={styles.error}>{error}</p>}
-          <button type="submit" className={styles.action} disabled={pending}>{pending ? 'Preparing your CV…' : 'Continue to download'}<Icon name="download" /></button>
+          <button type="submit" className={styles.action} data-analytics="cv_download_clicked" data-analytics-target="cv" disabled={pending}>{pending ? 'Preparing your CV…' : 'Continue to download'}<Icon name="download" /></button>
         </form>}
       </div>
     </dialog>

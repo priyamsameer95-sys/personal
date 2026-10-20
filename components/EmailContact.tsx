@@ -18,6 +18,9 @@ export function CopyEmailButton({ email = emailAddress, className = '' }: { emai
     try {
       await navigator.clipboard.writeText(email);
       setStatus('copied');
+      try {
+        document.dispatchEvent(new CustomEvent('portfolio:analytics', { detail: { type: 'email_copied', target: 'email' } }));
+      } catch { /* Measurement must not change a successful clipboard result. */ }
     } catch {
       setStatus('failed');
     }

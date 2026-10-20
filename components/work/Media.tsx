@@ -63,7 +63,7 @@ export default function Media({ media, priority = false, previewSrc, compact = f
     <figure className={`${styles.figure}${media.kind === 'video' ? ` ${styles.videoFigure}` : ''}${portraitDiagram ? ` ${styles.portraitDiagram}` : ''}${compact ? ` ${styles.compactMedia}` : ''}`}>
       {media.kind === 'image' ? (
         <>
-          <button ref={trigger} type="button" aria-haspopup="dialog" aria-label={`Enlarge image: ${media.alt}`} aria-expanded={expanded} aria-controls={dialogId} className={styles.imageButton} onClick={() => { setActualSize(false); setExpanded(true); }}>
+          <button ref={trigger} type="button" aria-haspopup="dialog" aria-label={`Enlarge image: ${media.alt}`} aria-expanded={expanded} aria-controls={dialogId} data-analytics={expanded ? undefined : 'media_opened'} data-analytics-target="image" className={styles.imageButton} onClick={() => { setActualSize(false); setExpanded(true); }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={previewSrc || media.src} alt={media.alt} width={media.width} height={media.height} loading={priority ? 'eager' : 'lazy'} decoding="async" className={`${styles.image}${isLongImage ? ` ${styles.longImage}` : ''}`} />
             <span className={styles.imageHint} aria-hidden="true">Enlarge <Icon name="arrow-up-right" /></span>

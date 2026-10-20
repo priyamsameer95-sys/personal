@@ -79,7 +79,7 @@ export default function WorkPreview({ study, priority = false, reveal = false, s
         <p className={styles.summary}>{selectedProjectOwnership[study.slug] || study.summary}</p>
         <div className={styles.actions}>
           <Link href={`/product/${study.slug}`} className="ink-link">Full case study <span aria-hidden="true"><Icon name="arrow-up-right" /></span><span className="sr-only">: {title}</span></Link>
-          {product && <a href={product.href} className="ink-link" target="_blank" rel="noopener noreferrer">{product.label}<span aria-hidden="true"><Icon name="arrow-up-right" /></span><span className="sr-only"> (opens in a new tab)</span></a>}
+          {product && <a href={product.href} className="ink-link" target="_blank" rel="noopener noreferrer" data-analytics="outbound_clicked" data-analytics-target="live_product">{product.label}<span aria-hidden="true"><Icon name="arrow-up-right" /></span><span className="sr-only"> (opens in a new tab)</span></a>}
         </div>
       </div>
     </div>

@@ -28,6 +28,7 @@ function fixture(stubs = {}, environment = {}, globals = {}) {
       if (Object.hasOwn(stubs, id)) return stubs[id];
       if (id.endsWith('.css')) return {};
       if (id.startsWith('@/')) return load(id.slice(2) + (id.endsWith('.json') ? '' : '.ts'));
+      if (id.startsWith('.')) return load(path.posix.normalize(path.posix.join(path.posix.dirname(filename), id)) + (id.endsWith('.json') ? '' : '.ts'));
       return require(id);
     }
     vm.runInNewContext(source, {
@@ -56,6 +57,20 @@ function request(body, { headers = {}, raw, url = 'https://portfolio.example/api
 }
 
 const event = () => ({ eventId: 'da6801a0-dbae-4197-8d9a-ae9e9d354ae6', path: '/product', referrer: 'https://www.google.com/search?q=private-email' });
+
+test('shared action contract allows only the finite vocabulary and published navigation callback', () => {
+  const { ANALYTICS_EVENT_TYPES, ANALYTICS_INTERACTION_TARGETS, normalizeAnalyticsAction } = fixture().load('lib/analytics-events.ts');
+  const paths = value => value === '/cv' ? value : null;
+  assert.equal(normalizeAnalyticsAction(undefined, undefined, paths).type, 'page_view');
+  for (const type of ANALYTICS_EVENT_TYPES) {
+    const action = normalizeAnalyticsAction(type, type === 'page_view' ? undefined : type === 'navigation_clicked' ? '/cv' : 'cv', paths);
+    assert.equal(action.type, type);
+  }
+  for (const target of ANALYTICS_INTERACTION_TARGETS) assert.equal(normalizeAnalyticsAction('outbound_clicked', target, paths).target, target);
+  for (const [type, target] of [[null, undefined], ['invented', 'cv'], ['page_view', null], ['navigation_clicked', '/private'], ['contact_clicked', 'reader@example.com'], ['filter_changed', 'free text'], ['media_opened', null]]) {
+    assert.equal(normalizeAnalyticsAction(type, target, paths), null);
+  }
+});
 
 test('analytics keeps only real public routes and removes query strings and fragments', () => {
   const { normalizeAnalyticsPath } = fixture({ '@/lib/db': () => { throw Error('Unexpected database read'); } }).load('lib/site-analytics.ts');
@@ -99,7 +114,7 @@ function publicRouteFixture({ authenticated = false, storageFailure = false } = 
   const route = fixture({
     '@/lib/site-analytics': {
       ...actual,
-      recordPageView: async (...args) => {
+      recordAnalyticsEvent: async (...args) => {
         writes.push(args);
         if (storageFailure) throw Error('postgres://private-connection-detail');
       },
@@ -132,6 +147,12 @@ test('public ingestion rejects cross-origin and invalid payloads before calling 
     [request(null), 400], [request([]), 400],
     [request({ ...event(), eventId: 'not-a-uuid' }), 400],
     [request({ ...event(), email: 'private@example.com' }), 400],
+    [request({ ...event(), type: 'hovered', target: 'work' }), 400],
+    [request({ ...event(), type: 'page_view', target: 'cv' }), 400],
+    [request({ ...event(), type: 'email_copied', target: 'reader@example.com' }), 400],
+    [request({ ...event(), type: 'outbound_clicked', target: 'https://private.example/?email=reader@example.com' }), 400],
+    [request({ ...event(), type: 'navigation_clicked', target: '/minforyam/analytics' }), 400],
+    [request({ ...event(), type: 'navigation_clicked', target: '/product/not-published' }), 400],
     [request(event(), { raw: '{' }), 400],
     [request(event(), { raw: 'x'.repeat(5000) }), 413],
     [request(event(), { headers: { 'content-length': '5000' } }), 413],
@@ -146,6 +167,23 @@ test('public ingestion rejects cross-origin and invalid payloads before calling 
     assert.equal((await f.route.POST(request({ ...event(), path }))).status, 204);
   }
   assert.equal(f.writes.length, 0, 'A rejected non-public path never touches analytics storage');
+});
+
+test('public ingestion accepts finite interaction labels and normalizes public navigation targets', async () => {
+  const f = publicRouteFixture();
+  for (const [type, target] of [
+    ['cv_opened', 'cv'], ['cv_download_clicked', 'cv'], ['contact_opened', 'menu'],
+    ['contact_clicked', 'email'], ['email_copied', 'email'], ['media_opened', 'image'],
+    ['video_started', 'video'], ['filter_changed', 'filter'], ['menu_opened', 'menu'],
+    ['outbound_clicked', 'company_website'], ['navigation_clicked', '/cv?email=reader@example.com#download'],
+  ]) {
+    assert.equal((await f.route.POST(request({ ...event(), type, target }))).status, 204);
+  }
+  assert.equal(f.writes.length, 11);
+  const navigation = f.writes.at(-1)[0];
+  assert.equal(navigation.target, '/cv');
+  assert.equal(navigation.type, 'navigation_clicked');
+  assert.doesNotMatch(JSON.stringify(f.writes), /reader@example\.com/);
 });
 
 test('ingestion honors the public host and proxy HTTPS while rejecting a changed authority', async () => {
@@ -209,62 +247,60 @@ test('private analytics requires handler authentication before any private query
   assert.deepEqual(reads, [7]);
 });
 
-test('middleware protects analytics and keeps rejected responses private before handlers run', async () => {
+test('middleware keeps hosted analytics and CV-interest screens unavailable even to an authenticated owner', async () => {
   let authenticated = false;
   const { middleware, config } = fixture({ './lib/auth': { isAdminAuthenticated: async () => authenticated } }).load('middleware.ts');
   assert.ok(config.matcher.includes('/minforyam/:path*'));
   assert.ok(config.matcher.includes('/api/admin/:path*'));
   const apiRequest = request(undefined, { method: 'GET', url: 'https://portfolio.example/api/admin/analytics' });
-  const pageRequest = request(undefined, { method: 'GET', url: 'https://portfolio.example/minforyam/analytics' });
   const denied = await middleware(apiRequest);
   assert.equal(denied.status, 401);
   assert.equal(denied.headers.get('cache-control'), 'no-store');
   assert.match(denied.headers.get('x-robots-tag'), /noindex/);
-  const redirect = await middleware(pageRequest);
-  assert.equal(redirect.status, 307);
-  const location = new URL(redirect.headers.get('location'));
-  assert.equal(location.pathname, '/minforyam/login');
-  assert.equal(location.searchParams.get('next'), '/minforyam/analytics');
-  assert.equal(redirect.headers.get('cache-control'), 'no-store');
-  authenticated = true;
-  for (const req of [apiRequest, pageRequest]) {
-    const allowed = await middleware(req);
-    assert.equal(allowed.headers.get('x-middleware-next'), '1');
-    assert.equal(allowed.headers.get('cache-control'), 'no-store');
-    assert.match(allowed.headers.get('x-robots-tag'), /noindex/);
+  for (const loggedIn of [false, true]) {
+    authenticated = loggedIn;
+    for (const pathname of ['/minforyam/analytics', '/minforyam/analytics/', '/minforyam/analytics/private', '/minforyam/cv-leads', '/minforyam/cv-leads/']) {
+      const response = await middleware(request(undefined, { method: 'GET', url: `https://portfolio.example${pathname}` }));
+      assert.equal(response.status, 404);
+      assert.equal(response.headers.get('location'), null);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+      assert.match(response.headers.get('x-robots-tag'), /noindex/);
+    }
   }
+  const allowed = await middleware(apiRequest);
+  assert.equal(allowed.headers.get('x-middleware-next'), '1', 'The local viewer still has an owner-authenticated transport');
 });
 
 test('private login redirects preserve the browser-facing host and HTTPS through a proxy', async () => {
   const { middleware } = fixture({ './lib/auth': { isAdminAuthenticated: async () => false } }).load('middleware.ts');
   for (const [internal, headers, expectedOrigin] of [
-    ['http://internal.vercel.app/minforyam/analytics', { host: 'www.priyamsameer.com', 'x-forwarded-proto': 'https' }, 'https://www.priyamsameer.com'],
-    ['http://localhost:3000/minforyam/analytics', { host: '127.0.0.1:3000' }, 'http://127.0.0.1:3000'],
+    ['http://internal.vercel.app/minforyam', { host: 'www.priyamsameer.com', 'x-forwarded-proto': 'https' }, 'https://www.priyamsameer.com'],
+    ['http://localhost:3000/minforyam', { host: '127.0.0.1:3000' }, 'http://127.0.0.1:3000'],
   ]) {
     const response = await middleware(request(undefined, { method: 'GET', url: internal, headers }));
     assert.equal(response.status, 307);
     const location = new URL(response.headers.get('location'));
     assert.equal(location.origin, expectedOrigin);
     assert.equal(location.pathname, '/minforyam/login');
-    assert.equal(location.searchParams.get('next'), '/minforyam/analytics');
+    assert.equal(location.searchParams.get('next'), null);
     assert.equal(response.headers.get('cache-control'), 'no-store');
     assert.match(response.headers.get('x-robots-tag'), /noindex/);
   }
 });
 
-test('private analytics page independently checks its session before reading data', async () => {
+test('hosted analytics page independently returns not found without reading private data', async () => {
   const reads = [];
   const page = fixture({
     'next/link': () => null,
     'next/headers': { cookies: () => ({ get: () => ({ value: 'tampered-token' }) }) },
-    'next/navigation': { redirect: location => { throw new Error(`redirect:${location}`); } },
+    'next/navigation': { notFound: () => { throw new Error('not-found'); } },
     '@/lib/auth': { SESSION_COOKIE_NAME: 'admin_session', verifySessionToken: async () => false },
     '@/lib/site-analytics': { getSiteAnalytics: async () => { reads.push(true); throw Error('A denied page read private records'); } },
   }).load('app/minforyam/analytics/page.tsx');
   assert.equal(page.dynamic, 'force-dynamic');
   assert.equal(page.metadata.robots.index, false);
   assert.equal(page.metadata.robots.follow, false);
-  await assert.rejects(page.default({ searchParams: { days: '30' } }), /redirect:\/minforyam\/login/);
+  await assert.rejects(async () => page.default(), /not-found/);
   assert.equal(reads.length, 0);
 });
 
@@ -281,7 +317,7 @@ test('authenticated analytics failures stay private and return a retryable statu
 });
 
 function storageFixture({ fail = false, configured = true } = {}) {
-  const calls = [], events = new Map();
+  const calls = [], events = new Map(), interactions = new Map();
   const db = async (strings, ...values) => {
     const sql = strings.join('?').replace(/\s+/g, ' ').trim();
     calls.push({ sql, values });
@@ -289,14 +325,23 @@ function storageFixture({ fail = false, configured = true } = {}) {
     if (sql.startsWith('CREATE') || sql.startsWith('DELETE') || sql.startsWith('INSERT INTO site_analytics_settings')) return { rows: [] };
     if (sql.startsWith('INSERT INTO site_page_views')) {
       const [eventId, path, referrer, visitor, device] = values;
-      if (!events.has(eventId)) events.set(eventId, { path, referrer, visitor, device });
+      const withinBudget = Array.from(events.values()).filter(row => row.visitor === visitor).length < 500;
+      if (!events.has(eventId) && withinBudget) events.set(eventId, { path, referrer, visitor, device });
       else if (!sql.includes('ON CONFLICT (event_id) DO NOTHING')) throw Error('Duplicate event');
       return { rows: [] };
     }
+    if (sql.startsWith('INSERT INTO site_interaction_events')) {
+      const [eventId, path, type, target, visitor] = values;
+      const withinBudget = Array.from(interactions.values()).filter(row => row.visitor === visitor).length < 1000;
+      if (!interactions.has(eventId) && withinBudget) interactions.set(eventId, { path, type, target, visitor });
+      else if (!sql.includes('ON CONFLICT (event_id) DO NOTHING')) throw Error('Duplicate event');
+      return { rows: [] };
+    }
+    if (sql.startsWith('SELECT type, id, slug')) return { rows: [] };
     throw Error(`Unexpected query: ${sql}`);
   };
   const f = fixture({ '@/lib/db': db }, configured ? {} : { POSTGRES_URL: undefined, ADMIN_PASSWORD: undefined, ANALYTICS_SECRET: undefined });
-  return { ...f, lib: f.load('lib/site-analytics.ts'), calls, events };
+  return { ...f, lib: f.load('lib/site-analytics.ts'), calls, events, interactions };
 }
 
 test('page-view storage is idempotent and writes only minimized, parameterized fields', async () => {
@@ -334,6 +379,63 @@ test('analytics storage fails closed without configuration and conceals database
   });
 });
 
+test('interaction storage is separate, idempotent, capped and excludes private targets or raw visitor identifiers', async () => {
+  const f = storageFixture();
+  const context = { ip: '192.0.2.10', userAgent: 'Mozilla/5.0 (iPhone) Safari/605.1' };
+  const clicked = { ...event(), type: 'navigation_clicked', target: '/cv?email=private@example.com#download' };
+  await f.lib.recordAnalyticsEvent(clicked, context);
+  await f.lib.recordAnalyticsEvent(clicked, context);
+  assert.equal(f.interactions.size, 1);
+  assert.equal(f.events.size, 0, 'Interactions must not inflate page views or visitor-day estimates');
+  assert.deepEqual(f.interactions.get(clicked.eventId), { path: '/product', type: 'navigation_clicked', target: '/cv', visitor: f.lib.analyticsVisitorHash(context.ip, context.userAgent) });
+  const interactionInsert = f.calls.find(call => call.sql.startsWith('INSERT INTO site_interaction_events'));
+  assert.match(interactionInsert.sql, /< 1000 ON CONFLICT \(event_id\) DO NOTHING/);
+  assert.match(interactionInsert.sql, /visitor_hash = \? AND occurred_at >= \(\?::TIMESTAMP AT TIME ZONE 'Asia\/Kolkata'\)/);
+  assert.ok(f.calls.some(call => /DELETE FROM site_interaction_events.*180 days/.test(call.sql)));
+  for (const { sql, values } of f.calls) {
+    assert.ok(!sql.includes(clicked.eventId));
+    assert.doesNotMatch(JSON.stringify(values), /private@example\.com|192\.0\.2\.10|Mozilla|Safari/);
+  }
+  for (const [type, target] of [['email_copied', 'private@example.com'], ['navigation_clicked', '/minforyam'], ['outbound_clicked', 'https://private.example'], ['page_view', 'cv'], ['made_up', 'work']]) {
+    await f.lib.recordAnalyticsEvent({ ...event(), type, target }, context);
+  }
+  assert.equal(f.interactions.size, 1);
+  assert.equal(f.events.size, 0);
+  for (let index = 1; index <= 1001; index++) {
+    await f.lib.recordAnalyticsEvent({ ...event(), eventId: `00000000-0000-4000-8000-${String(index).padStart(12, '0')}`, type: 'contact_clicked', target: 'email' }, context);
+  }
+  assert.equal(f.interactions.size, 1000, 'A daily visitor budget caps interaction writes independently');
+  await f.lib.recordAnalyticsEvent({ ...event(), type: 'page_view' }, context);
+  assert.equal(f.events.size, 1, 'Legacy page-view storage still operates independently of interaction budget');
+});
+
+test('published CMS pages resolve to their public canonical URLs while unpublished guesses are never stored', async () => {
+  const calls = [], events = [];
+  const f = fixture({ '@/lib/db': async (strings, ...values) => {
+    const sql = strings.join('?').replace(/\s+/g, ' ').trim();
+    calls.push({ sql, values });
+    if (sql.startsWith('SELECT type, id, slug')) {
+      assert.match(sql, /WHERE status = 'published'/);
+      return { rows: [{ type: 'blog', id: '7eeef69d-8e5a-4d32-9a55-c6ee2a6e4f6f', slug: 'product-decisions' }, { type: 'art', id: 'f04d39c9-a136-4d97-a373-e326f8663325', slug: 'landscape-study' }, { type: 'blog', id: '0a9c6255-3231-4bb3-8c79-c3c073f6d1c0', slug: 'private@example.com' }, { type: 'work', id: 'd73463a4-f493-4fd6-8b18-feb9b3c57b1a', slug: 'moneylion-wow-strategy' }] };
+    }
+    if (sql.startsWith('INSERT INTO site_page_views')) events.push(values);
+    return { rows: [] };
+  } }).load('lib/site-analytics.ts');
+  assert.equal(await f.resolveAnalyticsPath('/blog/7eeef69d-8e5a-4d32-9a55-c6ee2a6e4f6f?email=private@example.com'), '/blog/product-decisions');
+  assert.equal(await f.resolveAnalyticsPath('/art/landscape-study'), '/art/landscape-study');
+  assert.equal(await f.resolveAnalyticsPath('/blog/unpublished-private-note'), null);
+  assert.equal(await f.resolveAnalyticsPath('/blog/private@example.com'), null);
+  assert.equal(await f.resolveAnalyticsPath('/blog/0a9c6255-3231-4bb3-8c79-c3c073f6d1c0'), null, 'A safe ID alias cannot cause an unsafe canonical slug to be stored');
+  assert.equal(await f.resolveAnalyticsPath('/product/moneylion-wow-strategy'), null, 'An old published record cannot restore a retired public route');
+  assert.equal(calls.filter(call => call.sql.startsWith('SELECT type, id, slug')).length, 1, 'Published identifiers are cached briefly rather than querying arbitrary guessed slugs');
+  const context = { ip: '192.0.2.10', userAgent: 'Safari' };
+  await f.recordAnalyticsEvent({ ...event(), path: '/blog/product-decisions' }, context);
+  await f.recordAnalyticsEvent({ ...event(), path: '/blog/unpublished-private-note' }, context);
+  assert.equal(events.length, 1);
+  assert.equal(events[0][1], '/blog/product-decisions');
+  assert.doesNotMatch(JSON.stringify(events), /unpublished-private-note|private@example\.com/);
+});
+
 test('analytics reports a complete IST date range without inventing historical request events', async () => {
   const calls = [], limits = [];
   const lead = { email: 'reader@example.com', first_requested_at: '2026-10-10T11:00:00Z', last_requested_at: '2026-10-20T11:00:00Z', download_count: 9, last_source_path: '/cv' };
@@ -344,6 +446,12 @@ test('analytics reports a complete IST date range without inventing historical r
     if (sql.startsWith('SELECT enabled_at')) return { rows: [{ enabled_at: '2026-10-20T10:00:00Z' }] };
     if (sql.includes('FROM cv_download_leads')) return { rows: [{ requests: 9 }] };
     if (sql.includes('FROM cv_download_events')) return { rows: [{ day: '2026-10-19', requests: 2 }, { day: '2026-10-20', requests: 1 }] };
+    if (sql.includes('FROM site_interaction_events')) {
+      if (sql.startsWith('SELECT TO_CHAR')) return { rows: [{ day: '2026-10-20', clicks: 4 }] };
+      if (sql.startsWith('SELECT event_type')) return { rows: [{ type: 'cv_opened', target: 'cv', count: 4 }] };
+      if (sql.startsWith('SELECT path')) return { rows: [{ path: '/cv', count: 4 }] };
+      return { rows: [{ clicks: 4 }] };
+    }
     if (sql.startsWith('SELECT TO_CHAR')) return { rows: [{ day: '2026-10-19', views: 5, visitors: 2 }, { day: '2026-10-20', views: 7, visitors: 3 }] };
     if (sql.startsWith('SELECT path')) return { rows: [{ path: '/product', views: 12, visitors: 5 }] };
     if (sql.startsWith('SELECT referrer')) return { rows: [{ source: 'google.com', visits: 12 }] };
@@ -363,6 +471,12 @@ test('analytics reports a complete IST date range without inventing historical r
   assert.equal(report.daily[0].pageViews, 0);
   assert.equal(report.pageViews, 12);
   assert.equal(report.visitors, 5);
+  assert.equal(report.clicks, 4);
+  assert.equal(report.daily.at(-1).clicks, 4);
+  assert.equal(report.daily[0].clicks, 0);
+  assert.equal(report.interactions[0].type, 'cv_opened');
+  assert.equal(report.interactions[0].target, 'cv');
+  assert.equal(report.pageInteractions[0].path, '/cv');
   assert.equal(report.cvRequests, 3, 'Only new dated request events count in the period');
   assert.equal(report.cvRequestsAllTime, 9, 'Historic lead counts remain visible separately');
   assert.equal(report.cvContacts, 1);
@@ -370,6 +484,9 @@ test('analytics reports a complete IST date range without inventing historical r
   assert.equal(report.cvLeads[0].email, lead.email);
   assert.deepEqual(limits, [200]);
   assert.deepEqual(Array.from(report.countries), [], 'No location is inferred without a configured source');
+  assert.ok(calls.some(call => call.sql.includes('GROUP BY path ORDER BY views DESC, path LIMIT 100')));
+  assert.ok(calls.some(call => call.sql.includes('GROUP BY path ORDER BY count DESC, path LIMIT 100')));
+  assert.ok(!calls.some(call => /JOIN.*cv_download|cv_download.*JOIN/.test(call.sql)), 'Anonymous actions are never joined to CV email addresses');
   for (const call of calls.filter(call => call.sql.includes('WHERE occurred_at') || call.sql.includes('WHERE requested_at'))) {
     assert.deepEqual(call.values, ['2026-10-14', '2026-10-21']);
     assert.match(call.sql, /AT TIME ZONE 'Asia\/Kolkata'/);
@@ -412,7 +529,7 @@ test('browser tracking sends only a visible public pathname and sanitized referr
   assert.equal(sent.url, '/api/analytics');
   assert.equal(sent.options.credentials, 'same-origin');
   assert.equal(sent.options.keepalive, true);
-  assert.deepEqual(JSON.parse(sent.options.body), { eventId: event().eventId, path: '/product', referrer: 'www.google.com' });
+  assert.deepEqual(JSON.parse(sent.options.body), { eventId: event().eventId, path: '/product', referrer: 'www.google.com', type: 'page_view' });
   assert.doesNotMatch(sent.options.body, /reader@example|search\?|#private/);
   cleanup();
   assert.equal(f.listeners.size, 0);

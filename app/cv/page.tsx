@@ -25,8 +25,8 @@ function Section({ id, title, children, nested = false }: { id: string; title: s
   </section>;
 }
 
-function ExternalLink({ href, children }: { href: string; children: ReactNode }) {
-  return <a href={href} target="_blank" rel="noopener noreferrer" className={styles.externalLink}>{children}<Icon name="arrow-up-right" /><span className="sr-only"> (opens in a new tab)</span></a>;
+function ExternalLink({ href, children, company = false }: { href: string; children: ReactNode; company?: boolean }) {
+  return <a href={href} target="_blank" rel="noopener noreferrer" data-analytics={company ? 'outbound_clicked' : undefined} data-analytics-target={company ? 'company_website' : undefined} className={styles.externalLink}>{children}<Icon name="arrow-up-right" /><span className="sr-only"> (opens in a new tab)</span></a>;
 }
 
 function CaseLink({ slug, label }: { slug: string; label: string }) {
@@ -73,11 +73,11 @@ export default function ExperiencePage() {
                   <BrandMarks companyId={job.companyId} className={styles.companyMarks} />
                   <header className={styles.companyHeader}>
                     <h3 id={`${job.companyId}-title`} className={styles.companyName}>
-                      {website ? <ExternalLink href={website.href}>{website.label.replace(/\s+website$/i, '')}</ExternalLink> : job.company}
+                      {website ? <ExternalLink href={website.href} company>{website.label.replace(/\s+website$/i, '')}</ExternalLink> : job.company}
                     </h3>
                     <p className={styles.companyContext}>{job.companyDescription}</p>
                     {productWebsites.length > 0 && <div className={styles.productLinks}>
-                      {productWebsites.map(product => <ExternalLink key={product.href} href={product.href}>{product.label.replace(/\s+website$/i, '')}</ExternalLink>)}
+                      {productWebsites.map(product => <ExternalLink key={product.href} href={product.href} company>{product.label.replace(/\s+website$/i, '')}</ExternalLink>)}
                     </div>}
                   </header>
                   <p className={styles.dates}>{job.dates}</p>
@@ -112,7 +112,7 @@ export default function ExperiencePage() {
           <Section id="internship" title="Early experience" nested>
             <article className={styles.backgroundEntry} id="water-farmers" tabIndex={-1}>
               <BrandMarks companyId={content.internship.companyId} small className={styles.backgroundMark} />
-              <h4 className={styles.entryTitle}><ExternalLink href={content.internship.website}>{content.internship.company}</ExternalLink></h4>
+              <h4 className={styles.entryTitle}><ExternalLink href={content.internship.website} company>{content.internship.company}</ExternalLink></h4>
               <p className={styles.entryRole}>{content.internship.title}</p>
               <p className={styles.dates}>{content.internship.dates}</p>
               <p className={styles.entryCopy}>{content.internship.description}</p>
@@ -133,7 +133,7 @@ export default function ExperiencePage() {
           <Section id="education" title="Education" nested>
             <div className={styles.backgroundEntry} id="cept" tabIndex={-1}>
               <BrandMarks companyId="cept" small className={styles.backgroundMark} />
-              <h4 className={styles.entryTitle}><ExternalLink href={content.education.website}>{content.education.institution}</ExternalLink></h4>
+              <h4 className={styles.entryTitle}><ExternalLink href={content.education.website} company>{content.education.institution}</ExternalLink></h4>
               <p className={styles.degree}>{content.education.degree}</p>
               <p className={styles.dates}>{content.education.dates}</p>
               <p className={styles.entryCopy}>{content.education.description}</p>

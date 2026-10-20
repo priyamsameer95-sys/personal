@@ -29,7 +29,7 @@ export default function DemoLauncher({ title, path }: { title: string; path: str
   }, [open]);
   if (!safePath) return null;
   return <>
-    <button type="button" ref={trigger} className={styles.launch} aria-haspopup="dialog" aria-expanded={open} aria-controls={`${id}-demo`} onClick={() => setOpen(true)}>Try {title}<Icon name="arrow-up-right" /></button>
+    <button type="button" ref={trigger} className={styles.launch} aria-haspopup="dialog" aria-expanded={open} aria-controls={`${id}-demo`} data-analytics={open ? undefined : 'media_opened'} data-analytics-target="github" onClick={() => setOpen(true)}>Try {title}<Icon name="arrow-up-right" /></button>
     <dialog ref={modal} id={`${id}-demo`} className={styles.dialog} aria-labelledby={`${id}-title`} onClose={() => { setOpen(false); trigger.current?.focus({ preventScroll: true }); }}>
       {open && <div className={styles.layout}>
         <header className={styles.header}><div><h2 id={`${id}-title`}>{title}</h2><p>Isolated browser demo · no live services</p></div><button ref={close} type="button" onClick={() => modal.current?.close()}>Close<Icon name="close" /></button></header>

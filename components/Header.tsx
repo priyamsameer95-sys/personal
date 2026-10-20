@@ -29,7 +29,7 @@ export default function Header({ wordmarkOnly = true }: { wordmarkOnly?: boolean
     <Link href="/" aria-label="Priyam Sameer — home" className={styles.identity} onClick={() => closeMenu('/')}>
       {!wordmarkOnly && <span className={styles.monogram} aria-hidden="true">ps.</span>}<span>Priyam Sameer</span>
     </Link>
-    <button ref={menuButton} type="button" className={styles.menuButton} aria-expanded={menuOpen} aria-controls="public-navigation" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? 'Close' : 'Menu'} <span aria-hidden="true"><Icon name={menuOpen ? 'minus' : 'plus'} /></span></button>
+    <button ref={menuButton} type="button" className={styles.menuButton} aria-expanded={menuOpen} aria-controls="public-navigation" data-analytics={menuOpen ? undefined : 'menu_opened'} data-analytics-target="menu" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? 'Close' : 'Menu'} <span aria-hidden="true"><Icon name={menuOpen ? 'minus' : 'plus'} /></span></button>
     <nav id="public-navigation" aria-label="Main navigation" className={styles.navigation} data-open={menuOpen}>
       {navItems.map(item => {
         const active = item.path === '/' ? pathname === '/' : pathname === item.path || pathname.startsWith(`${item.path}/`);

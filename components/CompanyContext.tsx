@@ -32,7 +32,7 @@ export default function CompanyContext({ companyId, compact = false, showIdentit
     </div>}
     <div className={styles.description}>
       <CompanyDescription company={company} />
-      {!!company.websites.length && <div className={styles.websites}>{company.websites.map(website => <a key={website.href} href={website.href} target="_blank" rel="noopener noreferrer">{website.label}<span aria-hidden="true"> <Icon name="arrow-up-right" /></span><span className={styles.visuallyHidden}> (opens in a new tab)</span></a>)}</div>}
+      {!!company.websites.length && <div className={styles.websites}>{company.websites.map(website => <a key={website.href} href={website.href} target="_blank" rel="noopener noreferrer" data-analytics="outbound_clicked" data-analytics-target="company_website">{website.label}<span aria-hidden="true"> <Icon name="arrow-up-right" /></span><span className={styles.visuallyHidden}> (opens in a new tab)</span></a>)}</div>}
     </div>
   </div>;
 }

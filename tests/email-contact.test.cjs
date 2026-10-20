@@ -22,7 +22,7 @@ function load(filename, dependencies = {}, globals = {}) {
 
 // Keep the component's real async handler and render output. Only React's hook
 // storage and the browser clipboard/timer boundary are replaced for these tests.
-function fixture(clipboard) {
+function fixture(clipboard, browserGlobals = {}) {
   let status;
   let effect;
   let timer;
@@ -43,6 +43,7 @@ function fixture(clipboard) {
       setTimeout(callback, delay) { timer = { callback, delay }; return 1; },
       clearTimeout(id) { assert.equal(id, 1); cleared = true; },
     },
+    ...browserGlobals,
   });
   return {
     ...component,
@@ -86,6 +87,20 @@ test('copy waits for clipboard completion before announcing success', async () =
   finish();
   await pending;
   assert.equal(controls(f.renderCopy()).announcement.props.children, 'Email address copied.');
+});
+
+test('an unavailable or failing analytics event never turns successful email copying into an error', async () => {
+  const observed = [];
+  const f = fixture({ async writeText() {} }, {
+    CustomEvent: class { constructor(type, init) { this.type = type; this.detail = init.detail; } },
+    document: { dispatchEvent(event) { observed.push(event); throw new Error('Measurement unavailable'); } },
+  });
+  await controls(f.renderCopy()).button.props.onClick();
+  assert.equal(controls(f.renderCopy()).announcement.props.children, 'Email address copied.');
+  assert.equal(observed[0].type, 'portfolio:analytics');
+  assert.equal(observed[0].detail.type, 'email_copied');
+  assert.equal(observed[0].detail.target, 'email');
+  assert.deepEqual(Object.keys(observed[0].detail).sort(), ['target', 'type']);
 });
 
 test('missing clipboard and rejected permission show a truthful selectable-address fallback', async () => {

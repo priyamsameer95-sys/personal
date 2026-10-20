@@ -2,18 +2,22 @@ import { createHmac } from 'node:crypto';
 import db from '@/lib/db';
 import registry from '@/content/work/case-studies.json';
 import { ensureCVLeadSchema, listCVInterests, type CVLead } from '@/lib/cv-leads';
+import { normalizeAnalyticsAction, type AnalyticsEventType, type AnalyticsInteractionType } from '@/lib/analytics-events';
+import { isRetiredWorkSlug } from '@/lib/work';
 
 export type AnalyticsRange = 7 | 30 | 90;
-export type AnalyticsEvent = { eventId: string; path: string; referrer: string };
+export type AnalyticsEvent = { eventId: string; path: string; referrer: string; type?: AnalyticsEventType; target?: string };
 export type AnalyticsContext = { ip: string; userAgent: string; country?: string };
 export interface SiteAnalytics {
   days: AnalyticsRange; startDate: string; endDate: string; trackingStartedAt: string | null;
-  visitors: number; pageViews: number; cvRequests: number; cvContacts: number; cvRequestsAllTime: number;
-  daily: { date: string; visitors: number; pageViews: number; cvRequests: number }[];
+  visitors: number; pageViews: number; clicks: number; cvRequests: number; cvContacts: number; cvRequestsAllTime: number;
+  daily: { date: string; visitors: number; pageViews: number; clicks: number; cvRequests: number }[];
   topPages: { path: string; views: number; visitors: number }[];
   referrers: { source: string; visits: number }[];
   devices: { device: string; visits: number }[];
   countries: { country: string; visits: number }[];
+  interactions: { type: AnalyticsInteractionType; target: string; count: number }[];
+  pageInteractions: { path: string; count: number }[];
   cvLeads: CVLead[]; cvLeadsTotal: number;
 }
 let schemaReady: Promise<void> | undefined;
@@ -22,6 +26,7 @@ export class AnalyticsStorageError extends Error {
   constructor() { super('Website analytics are temporarily unavailable.'); }
 }
 const publicPaths = new Set(['/', '/product', '/cv', '/art', '/github', '/blog']);
+let publishedPaths: { expiresAt: number; paths: Map<string, string> } | undefined;
 for (const study of registry.caseStudies) {
   if (study.status === 'draft') continue;
   for (const slug of [study.slug, ...(study.aliases || [])]) {
@@ -33,6 +38,40 @@ export function normalizeAnalyticsPath(value: unknown): string | null {
   if (typeof value !== 'string' || value.length > 512) return null;
   const path = value.split(/[?#]/, 1)[0].replace(/\/$/, '') || '/';
   return publicPaths.has(path) ? path : null;
+}
+export async function resolveAnalyticsPath(value: unknown): Promise<string | null> {
+  const known = normalizeAnalyticsPath(value);
+  if (known) return known;
+  if (typeof value !== 'string' || value.length > 512) return null;
+  const path = value.split(/[?#]/, 1)[0].replace(/\/$/, '') || '/';
+  if (!/^\/(?:art|blog|product)\/[a-z0-9][a-z0-9_-]{0,199}$/.test(path) || !process.env.POSTGRES_URL?.trim()) return null;
+  try {
+    if (!publishedPaths || publishedPaths.expiresAt <= Date.now()) {
+      // Read only published identifiers; neither draft titles nor a visitor's
+      // guessed slug becomes an analytics path.
+      const { rows } = await db`SELECT type, id, slug FROM content_items
+        WHERE status = 'published' AND type IN ('art', 'blog', 'work')`;
+      const paths = new Map<string, string>();
+      for (const item of rows) {
+        const category = item.type === 'work' ? 'product' : item.type;
+        if (category !== 'art' && category !== 'blog' && category !== 'product') continue;
+        const canonicalIdentifier = item.slug || item.id;
+        if (typeof canonicalIdentifier !== 'string' || !/^[a-z0-9][a-z0-9_-]{0,199}$/.test(canonicalIdentifier)) continue;
+        if (category === 'product' && isRetiredWorkSlug(canonicalIdentifier)) continue;
+        const canonical = `/${category}/${canonicalIdentifier}`;
+        if (canonical.length > 240) continue;
+        for (const identifier of [item.slug, item.id]) {
+          if (typeof identifier === 'string' && /^[a-z0-9][a-z0-9_-]{0,199}$/.test(identifier)) paths.set(`/${category}/${identifier}`, canonical);
+        }
+      }
+      publishedPaths = { expiresAt: Date.now() + 60_000, paths };
+    }
+    return publishedPaths.paths.get(path) || null;
+  } catch { return null; }
+}
+async function resolveAction(event: AnalyticsEvent) {
+  const navigationTarget = event.type === 'navigation_clicked' ? await resolveAnalyticsPath(event.target) : null;
+  return normalizeAnalyticsAction(event.type, event.target, value => navigationTarget || normalizeAnalyticsPath(value));
 }
 export function normalizeReferrer(value: unknown): string {
   if (typeof value !== 'string' || !value || value.length > 512) return 'Direct / internal';
@@ -82,6 +121,18 @@ async function ensureSchema() {
     )`;
     await db`CREATE INDEX IF NOT EXISTS site_page_views_time_idx ON site_page_views (occurred_at)`;
     await db`CREATE INDEX IF NOT EXISTS site_page_views_visitor_time_idx ON site_page_views (visitor_hash, occurred_at)`;
+    await db`CREATE TABLE IF NOT EXISTS site_interaction_events (
+      event_id UUID PRIMARY KEY,
+      occurred_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      path TEXT NOT NULL CHECK (char_length(path) <= 240),
+      event_type TEXT NOT NULL CHECK (event_type IN ('navigation_clicked', 'outbound_clicked', 'cv_opened',
+        'cv_download_clicked', 'contact_opened', 'contact_clicked', 'email_copied', 'media_opened',
+        'video_started', 'filter_changed', 'menu_opened')),
+      target TEXT NOT NULL CHECK (char_length(target) BETWEEN 1 AND 240),
+      visitor_hash CHAR(64) NOT NULL
+    )`;
+    await db`CREATE INDEX IF NOT EXISTS site_interaction_events_time_idx ON site_interaction_events (occurred_at)`;
+    await db`CREATE INDEX IF NOT EXISTS site_interaction_events_visitor_time_idx ON site_interaction_events (visitor_hash, occurred_at)`;
     await db`CREATE TABLE IF NOT EXISTS site_analytics_settings (
       id INTEGER PRIMARY KEY CHECK (id = 1), enabled_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )`;
@@ -89,9 +140,16 @@ async function ensureSchema() {
   })().catch(() => { schemaReady = undefined; throw new AnalyticsStorageError(); });
   await schemaReady;
 }
+async function pruneExpiredEvents() {
+  if (Date.now() < nextPruneAt) return;
+  await db`DELETE FROM site_page_views WHERE occurred_at < NOW() - INTERVAL '180 days'`;
+  await db`DELETE FROM site_interaction_events WHERE occurred_at < NOW() - INTERVAL '180 days'`;
+  nextPruneAt = Date.now() + 60 * 60 * 1000;
+}
 export async function recordPageView(event: AnalyticsEvent, context: AnalyticsContext): Promise<void> {
-  const path = normalizeAnalyticsPath(event.path);
-  if (!path || !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(event.eventId)) return;
+  const path = await resolveAnalyticsPath(event.path);
+  const action = normalizeAnalyticsAction(event.type, event.target, normalizeAnalyticsPath);
+  if (!path || action?.type !== 'page_view' || !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(event.eventId)) return;
   const visitor = analyticsVisitorHash(context.ip, context.userAgent);
   const day = analyticsDay();
   await ensureSchema();
@@ -102,10 +160,24 @@ export async function recordPageView(event: AnalyticsEvent, context: AnalyticsCo
       WHERE (SELECT COUNT(*) FROM site_page_views WHERE visitor_hash = ${visitor}
         AND occurred_at >= (${day}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')) < 500
       ON CONFLICT (event_id) DO NOTHING`;
-    if (Date.now() >= nextPruneAt) {
-      nextPruneAt = Date.now() + 60 * 60 * 1000;
-      await db`DELETE FROM site_page_views WHERE occurred_at < NOW() - INTERVAL '180 days'`;
-    }
+    await pruneExpiredEvents();
+  } catch { throw new AnalyticsStorageError(); }
+}
+export async function recordAnalyticsEvent(event: AnalyticsEvent, context: AnalyticsContext): Promise<void> {
+  const path = await resolveAnalyticsPath(event.path);
+  const action = await resolveAction(event);
+  if (!path || !action || !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(event.eventId)) return;
+  if (action.type === 'page_view') return recordPageView({ ...event, path, type: 'page_view' }, context);
+  const visitor = analyticsVisitorHash(context.ip, context.userAgent);
+  const day = analyticsDay();
+  await ensureSchema();
+  try {
+    await db`INSERT INTO site_interaction_events (event_id, path, event_type, target, visitor_hash)
+      SELECT ${event.eventId}, ${path}, ${action.type}, ${action.target}, ${visitor}
+      WHERE (SELECT COUNT(*) FROM site_interaction_events WHERE visitor_hash = ${visitor}
+        AND occurred_at >= (${day}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')) < 1000
+      ON CONFLICT (event_id) DO NOTHING`;
+    await pruneExpiredEvents();
   } catch { throw new AnalyticsStorageError(); }
 }
 export function normalizeAnalyticsRange(value: unknown): AnalyticsRange {
@@ -117,7 +189,8 @@ export async function getSiteAnalytics(range: AnalyticsRange = 30): Promise<Site
   await ensureSchema();
   await ensureCVLeadSchema();
   try {
-    const [started, totals, dailyViews, dailyRequests, pages, referrers, devices, interests, lifetime] = await Promise.all([
+    const [started, totals, dailyViews, dailyRequests, pages, referrers, devices, interests, lifetime,
+      interactionTotals, dailyInteractions, interactions, pageInteractions] = await Promise.all([
       db`SELECT enabled_at FROM site_analytics_settings WHERE id = 1`,
       db`SELECT COUNT(*)::INTEGER AS views, COUNT(DISTINCT visitor_hash)::INTEGER AS visitors FROM site_page_views
         WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')`,
@@ -128,22 +201,35 @@ export async function getSiteAnalytics(range: AnalyticsRange = 30): Promise<Site
         FROM cv_download_events WHERE requested_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')
         AND requested_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY day ORDER BY day`,
       db`SELECT path, COUNT(*)::INTEGER AS views, COUNT(DISTINCT visitor_hash)::INTEGER AS visitors FROM site_page_views
-        WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY path ORDER BY views DESC, path LIMIT 20`,
+        WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY path ORDER BY views DESC, path LIMIT 100`,
       db`SELECT referrer AS source, COUNT(*)::INTEGER AS visits FROM site_page_views
         WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY referrer ORDER BY visits DESC LIMIT 12`,
       db`SELECT device, COUNT(*)::INTEGER AS visits FROM site_page_views
         WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY device ORDER BY visits DESC`,
       listCVInterests(200),
       db`SELECT COALESCE(SUM(download_count), 0)::INTEGER AS requests FROM cv_download_leads`,
+      db`SELECT COUNT(*)::INTEGER AS clicks FROM site_interaction_events
+        WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')`,
+      db`SELECT TO_CHAR(occurred_at AT TIME ZONE 'Asia/Kolkata', 'YYYY-MM-DD') AS day, COUNT(*)::INTEGER AS clicks
+        FROM site_interaction_events WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')
+        AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY day ORDER BY day`,
+      db`SELECT event_type AS type, target, COUNT(*)::INTEGER AS count FROM site_interaction_events
+        WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')
+        GROUP BY event_type, target ORDER BY count DESC, event_type, target`,
+      db`SELECT path, COUNT(*)::INTEGER AS count FROM site_interaction_events
+        WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')
+        GROUP BY path ORDER BY count DESC, path LIMIT 100`,
     ]);
     const daily = Array.from({ length: days }, (_, index) => {
       const date = shiftDay(startDate, index);
       const view = dailyViews.rows.find(row => row.day === date), requests = dailyRequests.rows.find(row => row.day === date);
-      return { date, visitors: Number(view?.visitors || 0), pageViews: Number(view?.views || 0), cvRequests: Number(requests?.requests || 0) };
+      const interaction = dailyInteractions.rows.find(row => row.day === date);
+      return { date, visitors: Number(view?.visitors || 0), pageViews: Number(view?.views || 0), clicks: Number(interaction?.clicks || 0), cvRequests: Number(requests?.requests || 0) };
     });
     return { days, startDate, endDate, trackingStartedAt: started.rows[0]?.enabled_at ? new Date(started.rows[0].enabled_at).toISOString() : null,
-      visitors: Number(totals.rows[0]?.visitors || 0), pageViews: Number(totals.rows[0]?.views || 0), cvRequests: daily.reduce((sum, day) => sum + day.cvRequests, 0),
+      visitors: Number(totals.rows[0]?.visitors || 0), pageViews: Number(totals.rows[0]?.views || 0), clicks: Number(interactionTotals.rows[0]?.clicks || 0), cvRequests: daily.reduce((sum, day) => sum + day.cvRequests, 0),
       cvContacts: interests.total, cvRequestsAllTime: Number(lifetime.rows[0]?.requests || 0), daily,
-      topPages: pages.rows as SiteAnalytics['topPages'], referrers: referrers.rows as SiteAnalytics['referrers'], devices: devices.rows as SiteAnalytics['devices'], countries: [], cvLeads: interests.leads, cvLeadsTotal: interests.total };
+      topPages: pages.rows as SiteAnalytics['topPages'], referrers: referrers.rows as SiteAnalytics['referrers'], devices: devices.rows as SiteAnalytics['devices'], countries: [],
+      interactions: interactions.rows as SiteAnalytics['interactions'], pageInteractions: pageInteractions.rows as SiteAnalytics['pageInteractions'], cvLeads: interests.leads, cvLeadsTotal: interests.total };
   } catch { throw new AnalyticsStorageError(); }
 }

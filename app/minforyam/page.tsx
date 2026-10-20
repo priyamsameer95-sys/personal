@@ -10,7 +10,6 @@ import BlogForm from '@/components/admin/BlogForm';
 import ContentLibrary from '@/components/admin/ContentLibrary';
 import { ConfirmDialog } from '@/components/admin/shared';
 import Icon from '@/components/Icon';
-import Link from 'next/link';
 
 type TabType = 'cv' | 'art' | 'work' | 'blog';
 
@@ -120,8 +119,6 @@ export default function AdminDashboard() {
             ))}
           </div>
 
-          <Link href="/minforyam/analytics" className="inline-flex min-h-11 items-center px-3 text-base underline underline-offset-4">Analytics</Link>
-          <Link href="/minforyam/cv-leads" className="inline-flex min-h-11 items-center px-3 text-base underline underline-offset-4">CV interests</Link>
           <button
             onClick={handleLogout}
             className="flex min-h-11 items-center gap-2 px-4 py-2 border border-[#E5E5E5] hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-base font-semibold rounded-xl transition"

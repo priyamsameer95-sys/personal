@@ -95,7 +95,7 @@ export default function WorkExplorer({ groups }: { groups: WorkExplorerGroup[] }
       return <section key={id} id={id} className={styles.companySection} aria-labelledby={`${id}-work-title`} tabIndex={-1}>
         <header className={styles.companyHeader}>
           <div className={styles.companyIdentity}>
-            {account.website ? <a className={styles.companyLink} href={account.website} target="_blank" rel="noopener noreferrer" aria-label={`${account.name} (opens in a new tab)`}><BrandMarks companyId={id} /><h2 id={`${id}-work-title`} tabIndex={-1}>{account.name}<Icon name="arrow-up-right" /></h2></a> : <div className={styles.companyLink}><BrandMarks companyId={id} /><h2 id={`${id}-work-title`} tabIndex={-1}>{account.name}</h2></div>}
+            {account.website ? <a className={styles.companyLink} href={account.website} target="_blank" rel="noopener noreferrer" aria-label={`${account.name} (opens in a new tab)`} data-analytics="outbound_clicked" data-analytics-target="company_website"><BrandMarks companyId={id} /><h2 id={`${id}-work-title`} tabIndex={-1}>{account.name}<Icon name="arrow-up-right" /></h2></a> : <div className={styles.companyLink}><BrandMarks companyId={id} /><h2 id={`${id}-work-title`} tabIndex={-1}>{account.name}</h2></div>}
             <p>{account.period}</p>
           </div>
           <div className={styles.companyAccount}><p>{account.about}</p></div>

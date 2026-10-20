@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Private analytics · Priyam Sameer</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/dashboard.css">
+  <script src="/dashboard.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to analytics</a>
+  <header class="site-header"><a class="identity" href="/">Priyam Sameer<span>Website analytics</span></a><span class="local-badge"><i aria-hidden="true"></i> Local access only</span></header>
+  <main id="main">
+    <section id="sign-in" class="sign-in" aria-labelledby="sign-in-title">
+      <p class="eyebrow">Your website, in view.</p>
+      <h1 id="sign-in-title">A private view<br>of what connects.</h1>
+      <p class="intro">See which pages people visit, what they click, and the email addresses shared for your CV.</p>
+      <form id="login-form">
+        <label for="password">Website admin password</label>
+        <input id="password" name="password" type="password" required maxlength="1024" autocomplete="current-password" aria-describedby="password-note">
+        <p id="password-note" class="muted">Use your existing website password. It is sent securely to your website for sign-in and is never saved here.</p>
+        <button type="submit">Open my analytics <span aria-hidden="true">↗</span></button>
+        <p id="login-error" class="error-message" role="alert" hidden></p>
+      </form>
+      <p class="privacy-note">This dashboard runs at 127.0.0.1 on this Mac. Visitors cannot open it from your website. Your website session stays in this process until you sign out, it expires, or you stop the dashboard.</p>
+    </section>
+
+    <section id="dashboard" hidden aria-labelledby="dashboard-title">
+      <div class="heading-row"><div><p class="eyebrow">Live website · private report</p><h1 id="dashboard-title">What people explore.</h1><p class="intro">Pages, meaningful clicks and CV requests from priyamsameer.com.</p></div><button id="logout" class="secondary">Sign out</button></div>
+      <div class="toolbar"><div id="ranges" class="ranges" role="group" aria-label="Reporting period"><button data-days="7" aria-pressed="false">7 days</button><button data-days="30" aria-pressed="true">30 days</button><button data-days="90" aria-pressed="false">90 days</button></div><button id="refresh" class="text-button">Refresh <span aria-hidden="true">↻</span></button></div>
+      <p id="report-status" class="status" role="status" aria-live="polite"></p>
+      <div id="report-error" class="report-error" role="alert" hidden><h2>The report could not be loaded.</h2><p></p><button id="retry" class="secondary">Try again</button></div>
+      <div id="report" hidden>
+        <p id="report-period" class="period"></p>
+        <div id="metrics" class="metrics" aria-label="Activity summary"></div>
+        <section class="activity" aria-labelledby="activity-title"><div class="section-heading"><div><h2 id="activity-title">Daily activity</h2><p>Recorded events · Indian Standard Time</p></div><div class="legend"><span><i class="blue"></i>Page views</span><span><i class="orange"></i>Actions</span><span><i class="green"></i>CV requests</span></div></div><div id="daily-chart" class="chart"></div><p id="tracking-start" class="muted"></p><details class="daily-details"><summary>Daily counts as a table</summary><div id="daily-table" class="table-scroll" tabindex="0" role="region" aria-label="Daily activity data"></div></details></section>
+        <div class="insights"><section class="panel"><h2>Pages people visit</h2><p>Views and estimated visitor-days</p><div id="pages"></div></section><section class="panel"><h2>What people do</h2><p>Meaningful clicks and actions in this period</p><div id="interactions"></div></section><section class="panel"><h2>Actions by page</h2><p>Where visitors take the next step</p><div id="page-interactions"></div></section><section class="panel"><h2>Where views come from</h2><p>Referrer hostnames, when available</p><div id="referrers"></div></section><section class="panel"><h2>Devices</h2><p>Approximate device categories</p><div id="devices"></div></section></div>
+        <section class="contacts" aria-labelledby="contacts-title"><div class="section-heading"><div><p class="eyebrow">All-time CV interests</p><h2 id="contacts-title">Emails shared for your CV.</h2><p id="contact-count"></p></div><button id="export" class="secondary">Export emails as CSV <span aria-hidden="true">↓</span></button></div><p class="muted">Latest 200 contacts, regardless of date filter. Requests count successful form submissions; they do not confirm that a PDF was opened.</p><div id="contacts"></div><p id="export-status" role="status" aria-live="polite"></p></section>
+        <aside class="measurement"><h2>A few limits worth knowing.</h2><p>Visitors are anonymous. Visitor-days estimate browsers within each day, then add those daily counts. A returning visitor may count on more than one day. Browsing is never linked to a CV email.</p><p>Clicks record navigation, project and company links, CV actions, contact choices, media and filters. No entered text, raw IP addresses, full browsing URLs or personal contact destinations are collected. Do Not Track, Global Privacy Control, bots and signed-in website administrators are excluded. Previous traffic cannot be reconstructed.</p></aside>
+      </div>
+    </section>
+  </main>
+  <footer>Local dashboard. Live data. Only your authenticated session can read the report.</footer>
+</body>
+</html>

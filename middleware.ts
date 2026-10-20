@@ -12,6 +12,11 @@ function privateResponse(response: NextResponse) {
 export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
+  // No hosted report UI, including for authenticated owners or forged Host headers.
+  if (/^\/minforyam\/(analytics|cv-leads)(?:\/|$)/.test(path)) {
+    return privateResponse(new NextResponse(null, { status: 404 }));
+  }
+
   // Bypass checks for login endpoints
   if (path === '/minforyam/login' || path === '/api/admin/login') {
     return privateResponse(NextResponse.next());
@@ -44,7 +49,6 @@ export async function middleware(req: NextRequest) {
         const protocol = req.headers.get('x-forwarded-proto');
         if (host && /^[a-z0-9.:[\]-]+$/i.test(host)) loginUrl.host = host;
         if (protocol === 'https' || protocol === 'http') loginUrl.protocol = `${protocol}:`;
-        if (path === '/minforyam/analytics') loginUrl.searchParams.set('next', '/minforyam/analytics');
         return privateResponse(NextResponse.redirect(loginUrl));
       }
     }

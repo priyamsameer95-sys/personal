@@ -43,7 +43,7 @@ export default function ContactChooser({ className = '', children }: { className
   }
 
   return <>
-    <button ref={trigger} type="button" aria-label="Contact Priyam" aria-haspopup="dialog" aria-expanded={open} className={className} onClick={show}>
+    <button ref={trigger} type="button" aria-label="Contact Priyam" aria-haspopup="dialog" aria-expanded={open} data-analytics={open ? undefined : 'contact_opened'} data-analytics-target="menu" className={className} onClick={show}>
       {children || <>Contact Priyam <span aria-hidden="true"><Icon name="arrow-up-right" /></span></>}
     </button>
     <dialog ref={dialog} className={styles.dialog} aria-labelledby={titleId} aria-describedby={descriptionId} onClose={restore} onClick={event => {
