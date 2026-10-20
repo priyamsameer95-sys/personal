@@ -18,6 +18,7 @@ export default function Footer({ compact = false }: { compact?: boolean } = {}) 
         <a href="https://wa.me/918238452277" target="_blank" rel="noopener noreferrer">WhatsApp <span aria-hidden="true"><Icon name="arrow-up-right" /></span><span className="sr-only"> (opens in a new tab)</span></a>
       </div>
       <p className={styles.copyright}>© {new Date().getFullYear()} Priyam Sameer</p>
+      <p className={styles.copyright}>Cookie-free visitor estimates. No browsing history is linked to CV emails.</p>
     </div>
   </footer>;
 }

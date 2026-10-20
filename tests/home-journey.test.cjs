@@ -36,7 +36,7 @@ const home = load('app/page.tsx', {
   '@/lib/work': { findCaseStudy: slug => registry.caseStudies.find(study => study.slug === slug) },
   '@/components/Header': Header,
   '@/components/Footer': load('components/Footer.tsx', { './site-chrome.module.css': css, './EmailContact': EmailContact }).default,
-  '@/components/PublicShell': load('components/PublicShell.tsx').default,
+  '@/components/PublicShell': load('components/PublicShell.tsx', { '@/components/SiteAnalytics': () => null }).default,
   '@/components/BrandMarks': BrandMarks,
   '@/components/CvDownload': CvDownload,
   '@/components/HomeMotion': load('components/HomeMotion.tsx', { './home-motion.module.css': css }).default,

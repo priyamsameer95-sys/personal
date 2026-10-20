@@ -120,6 +120,7 @@ export default function AdminDashboard() {
             ))}
           </div>
 
+          <Link href="/minforyam/analytics" className="inline-flex min-h-11 items-center px-3 text-base underline underline-offset-4">Analytics</Link>
           <Link href="/minforyam/cv-leads" className="inline-flex min-h-11 items-center px-3 text-base underline underline-offset-4">CV interests</Link>
           <button
             onClick={handleLogout}

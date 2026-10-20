@@ -19,7 +19,7 @@ function load(filename, stubs = {}, environment = {}, extras = {}) {
 }
 const download = load('lib/cv-download.ts', { '../content/cv-download.json': source });
 function storeFixture({ configured = true } = {}) {
-  const leads = new Map(), limits = new Map(), calls = [];
+  const leads = new Map(), limits = new Map(), calls = [], events = [];
   let fail = false;
   const db = async (strings, ...values) => {
     const sql = strings.join('?').replace(/\s+/g, ' ').trim();
@@ -32,9 +32,10 @@ function storeFixture({ configured = true } = {}) {
       limits.set(values[0], count);
       return { rows: [{ request_count: count }] };
     }
-    if (sql.startsWith('INSERT INTO cv_download_leads')) {
+    if (sql.startsWith('WITH saved_lead AS')) {
       const previous = leads.get(values[0]);
       leads.set(values[0], { email: values[0], download_count: (previous?.download_count || 0) + 1, last_source_path: values[1], cv_sha256: values[2], notice_version: values[3], first_requested_at: '2026-10-16T01:00:00.000Z', last_requested_at: '2026-10-16T02:00:00.000Z' });
+      if (sql.includes('INSERT INTO cv_download_events')) events.push({ email: values[0], source_path: values[4], cv_sha256: values[5] });
       return { rows: [] };
     }
     if (sql.startsWith('SELECT COUNT')) return { rows: [{ total: leads.size }] };
@@ -42,7 +43,7 @@ function storeFixture({ configured = true } = {}) {
     throw new Error(`Unexpected query: ${sql}`);
   };
   const lib = load('lib/cv-leads.ts', { '@/lib/db': db, '@/lib/cv-download': download }, configured ? { POSTGRES_URL: 'postgres://test-private', ADMIN_PASSWORD: 'test-secret' } : {});
-  return { lib, leads, limits, calls, setFailure(value) { fail = value; } };
+  return { lib, leads, limits, calls, events, setFailure(value) { fail = value; } };
 }
 function request(body = { email: 'reader@example.com', website: '', sourcePath: '/cv' }, options = {}) {
   return new NextRequest(options.url || 'https://portfolio.example/api/cv-download', {
@@ -72,8 +73,8 @@ test('real storage path creates independent tables, parameterizes upserts and de
   assert.equal(row.last_source_path, '/product');
   assert.equal(row.cv_sha256, source.sha256);
   assert.equal(row.notice_version, 'cv-interest-v1');
-  assert.equal(f.calls.filter(call => call.sql.startsWith('CREATE TABLE')).length, 2, 'Initialization is cached, independently of the content migration');
-  const insert = f.calls.find(call => call.sql.startsWith('INSERT INTO cv_download_leads'));
+  assert.equal(f.calls.filter(call => call.sql.startsWith('CREATE TABLE')).length, 3, 'Initialization is cached, independently of the content migration');
+  const insert = f.calls.find(call => call.sql.startsWith('WITH saved_lead AS'));
   assert.match(insert.sql, /ON CONFLICT \(email\) DO UPDATE/);
   assert.ok(!insert.sql.includes('reader@example.com'), 'Email remains a bound SQL parameter');
   for (const call of f.calls) assert.ok(!call.values.includes('192.0.2.10'), 'Raw IP is never stored');
@@ -81,6 +82,27 @@ test('real storage path creates independent tables, parameterizes upserts and de
   const listed = await f.lib.listCVInterests();
   assert.equal(listed.total, 1);
   assert.equal(listed.leads[0].email, 'reader@example.com');
+});
+
+test('each recorded CV request atomically updates its contact and appends one dated event', async () => {
+  const f = storeFixture();
+  await f.lib.recordCVInterest('reader@example.com', '/cv', '192.0.2.10');
+  const before = f.calls.length;
+  await f.lib.recordCVInterest('reader@example.com', '/product', '192.0.2.10');
+  const statements = f.calls.slice(before);
+  assert.equal(statements.length, 3, 'Only expiry pruning, rate limiting and a combined contact/event write are needed');
+  const writes = statements.filter(call => call.sql.startsWith('WITH saved_lead AS'));
+  assert.equal(writes.length, 1);
+  assert.match(writes[0].sql, /WITH saved_lead AS \(INSERT INTO cv_download_leads/);
+  assert.match(writes[0].sql, /ON CONFLICT \(email\) DO UPDATE/);
+  assert.match(writes[0].sql, /RETURNING email\) INSERT INTO cv_download_events/);
+  assert.match(writes[0].sql, /SELECT email, \?, \? FROM saved_lead$/);
+  assert.equal(statements.filter(call => call.sql.startsWith('INSERT INTO cv_download_events')).length, 0, 'A second independent write cannot create a partial record');
+  assert.equal(f.leads.get('reader@example.com').download_count, 2);
+  assert.deepEqual(f.events, [
+    { email: 'reader@example.com', source_path: '/cv', cv_sha256: source.sha256 },
+    { email: 'reader@example.com', source_path: '/product', cv_sha256: source.sha256 },
+  ]);
 });
 
 test('the API returns the approved original PDF only after the database write completes', async () => {
@@ -163,6 +185,7 @@ test('the durable limiter blocks a sixth request, including across new handler i
   assert.ok(Number(response.headers.get('retry-after')) > 0);
   assert.ok(!(await response.json()).downloadUrl);
   assert.equal(f.leads.get('reader@example.com').download_count, 5);
+  assert.equal(f.events.length, 5, 'Rate-limited requests cannot add dated CV events');
 });
 
 test('admin list and CSV require handler-level authentication and never cache personal data', async () => {

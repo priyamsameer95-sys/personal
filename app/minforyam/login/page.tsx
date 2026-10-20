@@ -27,7 +27,8 @@ export default function AdminLoginPage() {
 
       if (res.ok) {
         // On successful authentication, redirect to dashboard
-        router.push('/minforyam');
+        const requested = new URLSearchParams(window.location.search).get('next');
+        router.push(requested === '/minforyam/analytics' ? requested : '/minforyam');
       } else {
         setError(data.error || 'Login failed. Please check your password.');
         setLoading(false);

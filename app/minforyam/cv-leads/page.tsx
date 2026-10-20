@@ -16,7 +16,7 @@ export default async function CVInterests() {
   let leads: CVLead[] = [], total = 0, failed = false;
   try { ({ leads, total } = await listCVInterests()); } catch { failed = true; }
   return <main className={styles.page}>
-    <Link className={styles.back} href="/minforyam">Back to admin</Link>
+    <nav><Link className={styles.back} href="/minforyam">Back to admin</Link> · <Link className={styles.back} href="/minforyam/analytics">Website analytics</Link></nav>
     <header className={styles.header}><div><h1>CV interests</h1><p>Email addresses shared before a CV download. Counts reflect recorded requests, not confirmed PDF opens.</p></div>
       {!failed && <a className={styles.export} href="/api/admin/cv-leads?format=csv">Export CSV</a>}
     </header>

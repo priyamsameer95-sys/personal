@@ -2,12 +2,19 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { isAdminAuthenticated } from './lib/auth';
 
+function privateResponse(response: NextResponse) {
+  response.headers.set('Cache-Control', 'no-store');
+  response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  return response;
+}
+
 export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
   // Bypass checks for login endpoints
   if (path === '/minforyam/login' || path === '/api/admin/login') {
-    return NextResponse.next();
+    return privateResponse(NextResponse.next());
   }
 
   // Vercel completion callbacks have no browser cookie. The upload route only
@@ -29,15 +36,21 @@ export async function middleware(req: NextRequest) {
 
     if (!isValid) {
       if (isAdminApi) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        return privateResponse(NextResponse.json({ error: 'Unauthorized' }, { status: 401 }));
       } else {
         const loginUrl = new URL('/minforyam/login', req.url);
-        return NextResponse.redirect(loginUrl);
+        // Next may normalize the internal hostname; preserve the browser's host.
+        const host = req.headers.get('host');
+        const protocol = req.headers.get('x-forwarded-proto');
+        if (host && /^[a-z0-9.:[\]-]+$/i.test(host)) loginUrl.host = host;
+        if (protocol === 'https' || protocol === 'http') loginUrl.protocol = `${protocol}:`;
+        if (path === '/minforyam/analytics') loginUrl.searchParams.set('next', '/minforyam/analytics');
+        return privateResponse(NextResponse.redirect(loginUrl));
       }
     }
   }
 
-  return NextResponse.next();
+  return privateResponse(NextResponse.next());
 }
 
 // Configure routes where the middleware will be executed

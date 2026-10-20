@@ -16,7 +16,7 @@ export class CVLeadRateLimitError extends Error {
 
 // This schema is independent of the existing content migration, which only
 // initializes a new content database. Failed initialization is safe to retry.
-async function ensureSchema() {
+export async function ensureCVLeadSchema() {
   if (!process.env.POSTGRES_URL?.trim()) throw new CVLeadStorageError();
   if (!schemaReady) {
     schemaReady = (async () => {
@@ -35,6 +35,14 @@ async function ensureSchema() {
         request_count INTEGER NOT NULL DEFAULT 1,
         expires_at TIMESTAMPTZ NOT NULL
       )`;
+      await db`CREATE TABLE IF NOT EXISTS cv_download_events (
+        id BIGSERIAL PRIMARY KEY,
+        email TEXT NOT NULL CHECK (char_length(email) <= 254),
+        requested_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        source_path TEXT NOT NULL,
+        cv_sha256 CHAR(64) NOT NULL
+      )`;
+      await db`CREATE INDEX IF NOT EXISTS cv_download_events_time_idx ON cv_download_events (requested_at)`;
     })().catch(() => { schemaReady = undefined; throw new CVLeadStorageError(); });
   }
   await schemaReady;
@@ -57,7 +65,7 @@ export function normalizeCVSource(value: unknown): string {
 }
 
 export async function recordCVInterest(email: string, sourcePath: string, ip: string): Promise<void> {
-  await ensureSchema();
+  await ensureCVLeadSchema();
   const now = Date.now();
   const bucket = Math.floor(now / RATE_WINDOW_MS);
   const expiresAt = new Date((bucket + 1) * RATE_WINDOW_MS);
@@ -71,12 +79,15 @@ export async function recordCVInterest(email: string, sourcePath: string, ip: st
       WHERE cv_download_rate_limits.request_count < ${RATE_LIMIT}
       RETURNING request_count`;
     if (!allowance.rows.length) throw new CVLeadRateLimitError(Math.max(1, Math.ceil((expiresAt.getTime() - now) / 1000)));
-    await db`INSERT INTO cv_download_leads (email, last_source_path, cv_sha256, notice_version)
+    // One database statement commits both the contact counter and dated event.
+    await db`WITH saved_lead AS (INSERT INTO cv_download_leads (email, last_source_path, cv_sha256, notice_version)
       VALUES (${email}, ${sourcePath}, ${CV_SHA256}, ${CV_INTEREST_NOTICE})
       ON CONFLICT (email) DO UPDATE SET
         last_requested_at = NOW(), download_count = cv_download_leads.download_count + 1,
         last_source_path = EXCLUDED.last_source_path, cv_sha256 = EXCLUDED.cv_sha256,
-        notice_version = EXCLUDED.notice_version`;
+        notice_version = EXCLUDED.notice_version RETURNING email)
+      INSERT INTO cv_download_events (email, source_path, cv_sha256)
+      SELECT email, ${sourcePath}, ${CV_SHA256} FROM saved_lead`;
   } catch (error) {
     if (error instanceof CVLeadRateLimitError) throw error;
     throw new CVLeadStorageError();
@@ -92,7 +103,7 @@ export interface CVLead {
 }
 
 export async function listCVInterests(limit = 200): Promise<{ leads: CVLead[]; total: number }> {
-  await ensureSchema();
+  await ensureCVLeadSchema();
   const boundedLimit = Math.max(1, Math.min(10000, Math.floor(limit)));
   try {
     const [records, count] = await Promise.all([

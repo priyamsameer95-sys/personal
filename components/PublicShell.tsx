@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react';
+import SiteAnalytics from '@/components/SiteAnalytics';
 
 export default function PublicShell({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
     <div className="peel-canvas">
+      <SiteAnalytics />
       <div className="peel-underlay" aria-hidden="true">
         <svg viewBox="0 0 1440 1000" preserveAspectRatio="xMidYMid slice">
           <rect width="1440" height="1000" fill="#ff7628" />
