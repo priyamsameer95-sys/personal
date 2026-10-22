@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getClientIp } from '@/lib/auth';
 import { CV_DOWNLOAD_FILENAME, CV_DOWNLOAD_URL } from '@/lib/cv-download';
 import { CVLeadRateLimitError, normalizeCVEmail, normalizeCVSource, recordCVInterest } from '@/lib/cv-leads';
+import { checkCVEmailDomain, CVEmailRejectedError, CVEmailCheckUnavailableError } from '@/lib/cv-email';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -61,9 +62,12 @@ export async function POST(request: NextRequest) {
     return failure('Please check your email address and try again.', 400);
   }
   try {
+    await checkCVEmailDomain(email);
     await recordCVInterest(email, normalizeCVSource(fields.sourcePath), getClientIp(request));
     return NextResponse.json({ downloadUrl: CV_DOWNLOAD_URL, filename: CV_DOWNLOAD_FILENAME }, { headers: noStore });
   } catch (error) {
+    if (error instanceof CVEmailRejectedError) return failure(error.message, 400);
+    if (error instanceof CVEmailCheckUnavailableError) return failure(error.message, 503, { 'Retry-After': '30' });
     if (error instanceof CVLeadRateLimitError) return failure('Please wait a few minutes before requesting the CV again.', 429, { 'Retry-After': String(error.retryAfter) });
     return failure('The CV request could not be saved. Please try again shortly.', 503);
   }

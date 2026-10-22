@@ -18,6 +18,7 @@ function load(filename, stubs = {}, environment = {}, extras = {}) {
   return module.exports;
 }
 const download = load('lib/cv-download.ts', { '../content/cv-download.json': source });
+const emailChecks = load('lib/cv-email.ts', {}, {}, { setTimeout, clearTimeout });
 function storeFixture({ configured = true } = {}) {
   const leads = new Map(), limits = new Map(), calls = [], events = [];
   let fail = false;
@@ -51,9 +52,27 @@ function request(body = { email: 'reader@example.com', website: '', sourcePath: 
     body: options.raw === undefined ? JSON.stringify(body) : options.raw,
   });
 }
-function routeFixture(lib, record = lib.recordCVInterest) {
-  return load('app/api/cv-download/route.ts', { '@/lib/cv-leads': { ...lib, recordCVInterest: record }, '@/lib/cv-download': download, '@/lib/auth': { getClientIp: req => req.headers.get('x-forwarded-for') } });
+function routeFixture(lib, record = lib.recordCVInterest, checkCVEmailDomain = async () => {}) {
+  return load('app/api/cv-download/route.ts', { '@/lib/cv-leads': { ...lib, recordCVInterest: record }, '@/lib/cv-download': download, '@/lib/cv-email': { ...emailChecks, checkCVEmailDomain }, '@/lib/auth': { getClientIp: req => req.headers.get('x-forwarded-for') } });
 }
+
+test('test addresses and failed email checks cannot create CV leads or return a download', async () => {
+  const f = storeFixture();
+  const checks = emailChecks.createCVEmailDomainCheck({ resolverFactory: () => { throw Error('Reserved domains must not reach DNS'); } });
+  const route = routeFixture(f.lib, f.lib.recordCVInterest, checks);
+  for (const email of ['portfolio-verification@example.com', 'person@team.example.net', 'person@localhost.test', 'person@mailinator.com']) {
+    const response = await route.POST(request({ email, website: '', sourcePath: '/cv' }));
+    assert.equal(response.status, 400);
+    assert.ok(!(await response.json()).downloadUrl);
+  }
+  assert.equal(f.calls.length, 0, 'Rejected addresses never reach storage or add counts');
+  const unavailable = routeFixture(f.lib, f.lib.recordCVInterest, async () => { throw new emailChecks.CVEmailCheckUnavailableError(); });
+  const response = await unavailable.POST(request({ email: 'reader@gmail.com' }));
+  assert.equal(response.status, 503);
+  assert.equal(response.headers.get('retry-after'), '30');
+  assert.match((await response.json()).error, /could not be checked/);
+  assert.equal(f.calls.length, 0);
+});
 
 test('CV addresses are normalized with bounded email validation and sources exclude query data', () => {
   const { lib } = storeFixture();
