@@ -8,6 +8,7 @@ const ts = require('typescript');
 const { NextRequest } = require('next/server');
 
 const root = path.join(__dirname, '..');
+const { BLOCKED_CV_DOMAIN_PATTERN } = require('../lib/cv-email-policy.cjs');
 const fixedNow = Date.parse('2026-10-20T11:00:00.000Z');
 class TestDate extends Date {
   constructor(...args) { super(...(args.length ? args : [fixedNow])); }
@@ -20,6 +21,7 @@ function fixture(stubs = {}, environment = {}, globals = {}) {
   function load(filename) {
     if (cache.has(filename)) return cache.get(filename);
     if (filename.endsWith('.json')) return JSON.parse(readFileSync(path.join(root, filename), 'utf8'));
+    if (filename.endsWith('.cjs')) return require(path.join(root, filename));
     const module = { exports: {} };
     const source = ts.transpileModule(readFileSync(path.join(root, filename), 'utf8'), {
       compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true },
@@ -28,7 +30,7 @@ function fixture(stubs = {}, environment = {}, globals = {}) {
       if (Object.hasOwn(stubs, id)) return stubs[id];
       if (id.endsWith('.css')) return {};
       if (id.startsWith('@/')) return load(id.slice(2) + (id.endsWith('.json') ? '' : '.ts'));
-      if (id.startsWith('.')) return load(path.posix.normalize(path.posix.join(path.posix.dirname(filename), id)) + (id.endsWith('.json') ? '' : '.ts'));
+      if (id.startsWith('.')) return load(path.posix.normalize(path.posix.join(path.posix.dirname(filename), id)) + (/\.(?:json|cjs)$/.test(id) ? '' : '.ts'));
       return require(id);
     }
     vm.runInNewContext(source, {
@@ -514,7 +516,7 @@ test('published CMS pages resolve to their public canonical URLs while unpublish
 
 test('analytics reports a complete IST date range without inventing historical request events', async () => {
   const calls = [], limits = [];
-  const lead = { email: 'reader@example.com', first_requested_at: '2026-10-10T11:00:00Z', last_requested_at: '2026-10-20T11:00:00Z', download_count: 9, last_source_path: '/cv' };
+  const lead = { email: 'reader@gmail.com', first_requested_at: '2026-10-10T11:00:00Z', last_requested_at: '2026-10-20T11:00:00Z', download_count: 9, last_source_path: '/cv' };
   const db = async (strings, ...values) => {
     const sql = strings.join('?').replace(/\s+/g, ' ').trim();
     calls.push({ sql, values });
@@ -537,7 +539,7 @@ test('analytics reports a complete IST date range without inventing historical r
   };
   const lib = fixture({
     '@/lib/db': db,
-    '@/lib/cv-leads': { ensureCVLeadSchema: async () => {}, listCVInterests: async limit => { limits.push(limit); return { leads: [lead], total: 1 }; } },
+    '@/lib/cv-leads': { ensureCVLeadSchema: async () => {}, listCVInterests: async limit => { limits.push(limit); return { leads: [lead], total: 1, excludedCVContacts: 1, excludedCVRequests: 3 }; } },
   }).load('lib/site-analytics.ts');
   const report = await lib.getSiteAnalytics(7);
   assert.equal(report.days, 7);
@@ -561,6 +563,8 @@ test('analytics reports a complete IST date range without inventing historical r
   assert.equal(report.cvRequests, 3, 'Only new dated request events count in the period');
   assert.equal(report.cvRequestsAllTime, 9, 'Historic lead counts remain visible separately');
   assert.equal(report.cvContacts, 1);
+  assert.equal(report.excludedCVContacts, 1);
+  assert.equal(report.excludedCVRequests, 3);
   assert.equal(report.trackingStartedAt, '2026-10-20T10:00:00.000Z');
   assert.equal(report.cvLeads[0].email, lead.email);
   assert.deepEqual(limits, [200]);
@@ -569,8 +573,13 @@ test('analytics reports a complete IST date range without inventing historical r
   assert.ok(calls.some(call => call.sql.includes('GROUP BY path ORDER BY count DESC, path LIMIT 100')));
   assert.ok(!calls.some(call => /JOIN.*cv_download|cv_download.*JOIN/.test(call.sql)), 'Anonymous actions are never joined to CV email addresses');
   for (const call of calls.filter(call => call.sql.includes('WHERE occurred_at') || call.sql.includes('WHERE requested_at'))) {
-    assert.deepEqual(call.values, ['2026-10-14', '2026-10-21']);
+    assert.deepEqual(call.values, ['2026-10-14', '2026-10-21', ...(call.sql.includes('FROM cv_download_events') ? [BLOCKED_CV_DOMAIN_PATTERN] : [])]);
     assert.match(call.sql, /AT TIME ZONE 'Asia\/Kolkata'/);
+  }
+  for (const call of calls.filter(call => /FROM cv_download_(?:events|leads)/.test(call.sql))) {
+    assert.match(call.sql, /SPLIT_PART\(LOWER\(TRIM\(email\)\), '@', 2\) !~\* \?/);
+    assert.equal(call.values.at(-1), BLOCKED_CV_DOMAIN_PATTERN);
+    assert.doesNotMatch(call.sql, /portfolio-verification|example\.com/);
   }
   for (const invalid of [null, -1, 0, 'all', 10000, '7; SELECT email']) assert.equal(lib.normalizeAnalyticsRange(invalid), 30);
   assert.equal(lib.normalizeAnalyticsRange('90'), 90);

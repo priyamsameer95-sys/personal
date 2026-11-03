@@ -1,31 +1,12 @@
 import { Resolver } from 'node:dns/promises';
+import { isBlockedCVEmailDomain } from './cv-email-policy.cjs';
+export { isBlockedCVEmailDomain } from './cv-email-policy.cjs';
 
 export class CVEmailRejectedError extends Error {
   constructor() { super('Please enter a valid personal or work email address.'); }
 }
 export class CVEmailCheckUnavailableError extends Error {
   constructor() { super('Your email could not be checked. Please try again shortly.'); }
-}
-
-// A small, explicit list of known throwaway inbox providers. Privacy aliases
-// and ordinary free-mail providers are allowed. No third-party email API is used.
-// Reference: github.com/disposable-email-domains/disposable-email-domains
-const throwawayDomains = new Set([
-  '10minutemail.com', '10minutemail.net', '1secmail.com', '1secmail.net',
-  '1secmail.org', 'dispostable.com', 'dropmail.me', 'guerrillamail.com',
-  'guerrillamail.net', 'maildrop.cc', 'mailinator.com', 'sharklasers.com',
-  'tempmail.io', 'throwawaymail.com', 'yopmail.com',
-]);
-const reservedDomains = new Set(['example.com', 'example.net', 'example.org']);
-const reservedSuffixes = new Set(['example', 'invalid', 'test', 'localhost', 'local', 'internal', 'onion']);
-
-export function isBlockedCVEmailDomain(domain: string): boolean {
-  const labels = domain.toLowerCase().split('.');
-  if (reservedSuffixes.has(labels[labels.length - 1])) return true;
-  return labels.some((_, index) => {
-    const suffix = labels.slice(index).join('.');
-    return reservedDomains.has(suffix) || throwawayDomains.has(suffix);
-  });
 }
 
 type MailResolver = Pick<Resolver, 'resolveMx' | 'resolve4' | 'resolve6' | 'cancel'>;

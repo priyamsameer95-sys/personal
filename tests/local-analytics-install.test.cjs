@@ -16,6 +16,8 @@ async function fixture(t) {
   await fs.mkdir(homeDir);
   await fs.writeFile(path.join(projectDir, 'scripts', 'local-analytics.cjs'), "const port = 4310; server.listen(port, '127.0.0.1');\n");
   await fs.writeFile(path.join(projectDir, 'scripts', 'local-analytics-data.cjs'), "module.exports = {};\n");
+  await fs.mkdir(path.join(projectDir, 'lib'));
+  await fs.writeFile(path.join(projectDir, 'lib', 'cv-email-policy.cjs'), "module.exports = {};\n");
   await fs.mkdir(path.join(projectDir, 'local-analytics'));
   for (const asset of ['index.html', 'dashboard.css', 'dashboard.js', 'icon.svg']) await fs.writeFile(path.join(projectDir, 'local-analytics', asset), 'test asset');
   for (const [name, dependencies] of [['@vercel/postgres', { 'runtime-dependency': '1.0.0' }], ['runtime-dependency', {}]]) {
@@ -64,7 +66,7 @@ test('the default and explicit dry run inspect only and never write, launch or i
   }
   assert.equal(executed, 0);
   assert.deepEqual(await fs.readdir(options.homeDir), []);
-  assert.deepEqual((await fs.readdir(options.projectDir)).sort(), ['.env.local', 'local-analytics', 'node_modules', 'scripts']);
+  assert.deepEqual((await fs.readdir(options.projectDir)).sort(), ['.env.local', 'lib', 'local-analytics', 'node_modules', 'scripts']);
 });
 
 test('install writes private local log paths and boots the per-user service once', async t => {
@@ -95,6 +97,7 @@ test('install writes private local log paths and boots the per-user service once
   }
   await assert.rejects(fs.stat(path.join(plan.runtimeDir, '.env.local')), /ENOENT/);
   assert.equal((await fs.readFile(path.join(plan.runtimeDir, 'local-analytics', 'dashboard.js'), 'utf8')), 'test asset');
+  assert.equal(await fs.readFile(path.join(plan.runtimeDir, 'lib', 'cv-email-policy.cjs'), 'utf8'), 'module.exports = {};\n');
 });
 
 test('an unchanged loaded service is not interrupted and a changed one is restarted', async t => {
@@ -147,6 +150,17 @@ test('symlinked log or plist destinations and unexpected launchctl failures abor
   assert.equal(await fs.readFile(outside, 'utf8'), 'do not change');
   await fs.rm(plan.stdoutPath);
   await assert.rejects(install(plan, { platform: 'darwin', execute: async () => { throw Object.assign(new Error('private child output'), { code: 'ETIMEDOUT' }); } }), /could not be inspected/);
+});
+
+test('installer refuses a symlinked shared-policy destination before copying runtime files', async t => {
+  const options = await fixture(t);
+  const plan = await createInstallPlan(options);
+  await fs.mkdir(plan.runtimeDir, { recursive: true });
+  const outside = path.join(options.root, 'outside-policy');
+  await fs.mkdir(outside);
+  await fs.symlink(outside, path.join(plan.runtimeDir, 'lib'));
+  await assert.rejects(install(plan, { platform: 'darwin' }), /unexpected file type/);
+  assert.deepEqual(await fs.readdir(outside), []);
 });
 
 test('a just-booted-out service retries only transient bootstrap statuses with bounded delays', async t => {

@@ -10,7 +10,7 @@
   };
   const shortDate = value => new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', timeZone: 'Asia/Kolkata' }).format(new Date(value));
   const actionNames = {
-    navigation_clicked: 'Navigation', outbound_clicked: 'Website link', cv_opened: 'CV form opened', cv_download_clicked: 'CV download clicked', contact_opened: 'Contact options opened', contact_clicked: 'Contact chosen', email_copied: 'Email copied', media_opened: 'Media opened', video_started: 'Video played', filter_changed: 'Filter changed', menu_opened: 'Navigation menu opened',
+    navigation_clicked: 'Navigation', outbound_clicked: 'Website link', cv_opened: 'CV form opened', cv_download_clicked: 'CV download attempt', contact_opened: 'Contact options opened', contact_clicked: 'Contact chosen', email_copied: 'Email copied', media_opened: 'Media opened', video_started: 'Video played', filter_changed: 'Filter changed', menu_opened: 'Navigation menu opened',
   };
   let days = 30;
   let requestVersion = 0;
@@ -58,8 +58,8 @@
     const startsWithinPeriod = data.uniqueTrackingStartedAt && new Date(data.uniqueTrackingStartedAt) > new Date(`${data.startDate}T00:00:00+05:30`);
     const uniqueNote = data.uniqueTrackingStartedAt ? (startsWithinPeriod ? `Since ${date(data.uniqueTrackingStartedAt)} · partial history` : 'One count per browser in this period') : 'Waiting for the first visit with updated tracking';
     const rows = [
-      ['Emails shared', data.cvContacts, 'Distinct email addresses · all time'],
-      ['CV requests · all time', data.cvRequestsAllTime, 'Recorded successful form submissions'],
+      ['Emails shared', data.cvContacts, 'Distinct addresses · test entries excluded'],
+      ['CV requests · all time', data.cvRequestsAllTime, 'Saved form requests · test entries excluded'],
       ['Page views', data.pageViews, `In the last ${days} days`],
       ['Unique visitors', data.uniqueVisitors, uniqueNote],
       ['Clicks & actions', data.clicks, 'Recorded meaningful actions'],
@@ -151,12 +151,13 @@
     breakdown('devices', (data.devices || []).map(row => ({ label: row.device, count: row.visits })), 'No device data recorded yet.');
     $('contact-count').textContent = `${number(data.cvLeadsTotal)} email addresses · ${number(data.cvRequestsAllTime)} recorded requests across all time.`;
     const testAddresses = data.cvLeads.filter(lead => /@(example\.(?:com|org|net)|[^@]+\.invalid)$/i.test(lead.email)).length;
-    $('record-note').textContent = testAddresses ? `Includes ${number(testAddresses)} address${testAddresses === 1 ? '' : 'es'} on a reserved test domain. These records do not establish downloads by real visitors.` : '';
+    const excludedContacts = data.excludedCVContacts || 0;
+    $('record-note').textContent = excludedContacts ? `Excluded ${number(excludedContacts)} test or disposable email address${excludedContacts === 1 ? '' : 'es'} and ${number(data.excludedCVRequests)} historical requests from these totals and the export. The original records are retained.` : (testAddresses ? `Includes ${number(testAddresses)} address${testAddresses === 1 ? '' : 'es'} on a reserved test domain. These records do not establish downloads by real visitors.` : '');
     if (data.cvLeads.length) {
       const container = element('div', null, 'table-scroll'); container.tabIndex = 0; container.setAttribute('role', 'region'); container.setAttribute('aria-label', 'CV email records; scroll horizontally for all columns');
       container.append(table(['Email', 'Latest request · IST', 'First request · IST', 'Requests', 'Latest page'], data.cvLeads.map(lead => [lead.email, date(lead.last_requested_at, true), date(lead.first_requested_at, true), number(lead.download_count), lead.last_source_path]), 'Email addresses voluntarily shared through the CV form'));
       replace('contacts', [container]);
-    } else replace('contacts', [element('p', 'No one has shared an email through the CV form yet.', 'empty')]);
+    } else replace('contacts', [element('p', excludedContacts ? 'No CV requests remain after excluding test addresses.' : 'No one has shared an email through the CV form yet.', 'empty')]);
   }
   async function loadReport() {
     const version = ++requestVersion;

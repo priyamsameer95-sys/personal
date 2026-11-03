@@ -1,6 +1,7 @@
 import { createHmac } from 'node:crypto';
 import db from '@/lib/db';
 import { CV_SHA256 } from '@/lib/cv-download';
+import { BLOCKED_CV_DOMAIN_PATTERN } from './cv-email-policy.cjs';
 
 export const CV_INTEREST_NOTICE = 'cv-interest-v1';
 const RATE_WINDOW_MS = 15 * 60 * 1000;
@@ -102,16 +103,21 @@ export interface CVLead {
   last_source_path: string;
 }
 
-export async function listCVInterests(limit = 200): Promise<{ leads: CVLead[]; total: number }> {
+export async function listCVInterests(limit = 200): Promise<{ leads: CVLead[]; total: number; excludedCVContacts: number; excludedCVRequests: number }> {
   await ensureCVLeadSchema();
   const boundedLimit = Math.max(1, Math.min(10000, Math.floor(limit)));
   try {
     const [records, count] = await Promise.all([
       db`SELECT email, first_requested_at, last_requested_at, download_count, last_source_path
-        FROM cv_download_leads ORDER BY last_requested_at DESC LIMIT ${boundedLimit}`,
-      db`SELECT COUNT(*)::INTEGER AS total FROM cv_download_leads`,
+        FROM cv_download_leads WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) !~* ${BLOCKED_CV_DOMAIN_PATTERN}
+        ORDER BY last_requested_at DESC LIMIT ${boundedLimit}`,
+      db`SELECT COUNT(DISTINCT LOWER(TRIM(email))) FILTER (WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) !~* ${BLOCKED_CV_DOMAIN_PATTERN})::INTEGER AS total,
+        COUNT(DISTINCT LOWER(TRIM(email))) FILTER (WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) ~* ${BLOCKED_CV_DOMAIN_PATTERN})::INTEGER AS excluded_contacts,
+        COALESCE(SUM(download_count) FILTER (WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) ~* ${BLOCKED_CV_DOMAIN_PATTERN}), 0)::INTEGER AS excluded_requests
+        FROM cv_download_leads`,
     ]);
-    return { leads: records.rows as CVLead[], total: Number(count.rows[0]?.total || 0) };
+    return { leads: records.rows as CVLead[], total: Number(count.rows[0]?.total || 0),
+      excludedCVContacts: Number(count.rows[0]?.excluded_contacts || 0), excludedCVRequests: Number(count.rows[0]?.excluded_requests || 0) };
   } catch { throw new CVLeadStorageError(); }
 }
 

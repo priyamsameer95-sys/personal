@@ -6,11 +6,13 @@ const { readFileSync } = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const ts = require('typescript');
+const { createRequire } = require('node:module');
+const { BLOCKED_CV_DOMAIN_PATTERN, isBlockedCVEmailDomain } = require('../lib/cv-email-policy.cjs');
 const moduleValue = { exports: {} };
 const compiled = ts.transpileModule(readFileSync(path.join(__dirname, '../lib/cv-email.ts'), 'utf8'), {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
 }).outputText;
-vm.runInNewContext(compiled, { module: moduleValue, exports: moduleValue.exports, require, setTimeout, clearTimeout });
+vm.runInNewContext(compiled, { module: moduleValue, exports: moduleValue.exports, require: createRequire(path.join(__dirname, '../lib/cv-email.ts')), setTimeout, clearTimeout });
 const { createCVEmailDomainCheck, CVEmailRejectedError, CVEmailCheckUnavailableError } = moduleValue.exports;
 const dnsError = code => Object.assign(new Error('Private resolver detail'), { code });
 function fixture(overrides = {}, options = {}) {
@@ -32,6 +34,16 @@ test('reserved and common disposable domains are rejected without DNS, including
     'a@mailinator.com', 'a@inbox.yopmail.com', 'a@10minutemail.com',
   ]) await assert.rejects(f.check(address), CVEmailRejectedError);
   assert.equal(f.queried.length, 0);
+});
+
+test('historical report regex and new-request policy agree without matching ordinary lookalike domains', () => {
+  const reportPattern = new RegExp(BLOCKED_CV_DOMAIN_PATTERN, 'i');
+  for (const domain of ['example.com', 'TEAM.EXAMPLE.org', 'mailinator.com', 'inbox.yopmail.com', 'company.test',
+    'company.local', 'internal', 'company.onion', 'gmail.com', 'company.co.in', 'notexample.com', 'example.com.real-company.net', 'mailinator.com.example-business.org']) {
+    assert.equal(reportPattern.test(domain), isBlockedCVEmailDomain(domain), domain);
+  }
+  for (const domain of ['gmail.com', 'company.co.in', 'notexample.com', 'example.com.real-company.net']) assert.equal(isBlockedCVEmailDomain(domain), false);
+  assert.equal(moduleValue.exports.isBlockedCVEmailDomain, isBlockedCVEmailDomain, 'DNS checks and report filtering use one policy function');
 });
 
 test('valid provider, company and plus aliases use domain-only DNS and share a bounded-lifetime cache', async () => {

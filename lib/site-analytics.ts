@@ -4,6 +4,7 @@ import registry from '@/content/work/case-studies.json';
 import { ensureCVLeadSchema, listCVInterests, type CVLead } from '@/lib/cv-leads';
 import { normalizeAnalyticsAction, type AnalyticsEventType, type AnalyticsInteractionType } from '@/lib/analytics-events';
 import { isRetiredWorkSlug } from '@/lib/work';
+import { BLOCKED_CV_DOMAIN_PATTERN } from './cv-email-policy.cjs';
 
 export type AnalyticsRange = 7 | 30 | 90;
 export type AnalyticsEvent = { eventId: string; path: string; referrer: string; type?: AnalyticsEventType; target?: string };
@@ -11,6 +12,7 @@ export type AnalyticsContext = { ip: string; userAgent: string; country?: string
 export interface SiteAnalytics {
   days: AnalyticsRange; startDate: string; endDate: string; trackingStartedAt: string | null;
   visitors: number; pageViews: number; clicks: number; cvRequests: number; cvContacts: number; cvRequestsAllTime: number;
+  excludedCVContacts: number; excludedCVRequests: number;
   uniqueVisitors: number | null; uniqueTrackingStartedAt: string | null; uniqueTrackedPageViews: number | null;
   daily: { date: string; visitors: number; pageViews: number; clicks: number; cvRequests: number }[];
   topPages: { path: string; views: number; visitors: number; browserVisitors: number | null }[];
@@ -214,7 +216,8 @@ export async function getSiteAnalytics(range: AnalyticsRange = 30): Promise<Site
         WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY day ORDER BY day`,
       db`SELECT TO_CHAR(requested_at AT TIME ZONE 'Asia/Kolkata', 'YYYY-MM-DD') AS day, COUNT(*)::INTEGER AS requests
         FROM cv_download_events WHERE requested_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')
-        AND requested_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY day ORDER BY day`,
+        AND requested_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')
+        AND SPLIT_PART(LOWER(TRIM(email)), '@', 2) !~* ${BLOCKED_CV_DOMAIN_PATTERN} GROUP BY day ORDER BY day`,
       db`SELECT path, COUNT(*)::INTEGER AS views, COUNT(DISTINCT visitor_hash)::INTEGER AS visitors,
         COUNT(DISTINCT browser_hash)::INTEGER AS browser_visitors, COUNT(browser_hash)::INTEGER AS browser_tracked_views FROM site_page_views
         WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY path ORDER BY views DESC, path LIMIT 100`,
@@ -223,7 +226,8 @@ export async function getSiteAnalytics(range: AnalyticsRange = 30): Promise<Site
       db`SELECT device, COUNT(*)::INTEGER AS visits FROM site_page_views
         WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY device ORDER BY visits DESC`,
       listCVInterests(200),
-      db`SELECT COALESCE(SUM(download_count), 0)::INTEGER AS requests FROM cv_download_leads`,
+      db`SELECT COALESCE(SUM(download_count), 0)::INTEGER AS requests FROM cv_download_leads
+        WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) !~* ${BLOCKED_CV_DOMAIN_PATTERN}`,
       db`SELECT COUNT(*)::INTEGER AS clicks FROM site_interaction_events
         WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')`,
       db`SELECT TO_CHAR(occurred_at AT TIME ZONE 'Asia/Kolkata', 'YYYY-MM-DD') AS day, COUNT(*)::INTEGER AS clicks
@@ -247,7 +251,8 @@ export async function getSiteAnalytics(range: AnalyticsRange = 30): Promise<Site
       uniqueTrackingStartedAt, uniqueVisitors: uniqueTrackingStartedAt ? Number(totals.rows[0]?.unique_visitors || 0) : null,
       uniqueTrackedPageViews: uniqueTrackingStartedAt ? Number(totals.rows[0]?.unique_tracked_views || 0) : null,
       visitors: Number(totals.rows[0]?.visitors || 0), pageViews: Number(totals.rows[0]?.views || 0), clicks: Number(interactionTotals.rows[0]?.clicks || 0), cvRequests: daily.reduce((sum, day) => sum + day.cvRequests, 0),
-      cvContacts: interests.total, cvRequestsAllTime: Number(lifetime.rows[0]?.requests || 0), daily,
+      cvContacts: interests.total, cvRequestsAllTime: Number(lifetime.rows[0]?.requests || 0),
+      excludedCVContacts: interests.excludedCVContacts, excludedCVRequests: interests.excludedCVRequests, daily,
       topPages: pages.rows.map(row => ({ path: String(row.path), views: Number(row.views), visitors: Number(row.visitors),
         browserVisitors: uniqueTrackingStartedAt && Number(row.browser_tracked_views) > 0 ? Number(row.browser_visitors || 0) : null })),
       referrers: referrers.rows as SiteAnalytics['referrers'], devices: devices.rows as SiteAnalytics['devices'], countries: [],

@@ -2,6 +2,7 @@
 
 const { lstat, readFile } = require('node:fs/promises');
 const path = require('node:path');
+const { BLOCKED_CV_DOMAIN_PATTERN } = require('../lib/cv-email-policy.cjs');
 
 class LocalDataError extends Error {
   constructor() {
@@ -98,7 +99,8 @@ const LEADS = `SELECT LOWER(TRIM(email)) AS email,
   MIN(first_requested_at) AS first_requested_at, MAX(last_requested_at) AS last_requested_at,
   SUM(download_count) AS download_count,
   (ARRAY_AGG(last_source_path ORDER BY last_requested_at DESC, id DESC))[1] AS last_source_path
-  FROM cv_download_leads GROUP BY LOWER(TRIM(email))
+  FROM cv_download_leads WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) !~* $2
+  GROUP BY LOWER(TRIM(email))
   ORDER BY MAX(last_requested_at) DESC, LOWER(TRIM(email)) LIMIT $1`;
 
 function createLocalDataProvider({ connectionString, now = Date.now, createConnection = openConnection } = {}) {
@@ -126,7 +128,7 @@ function createLocalDataProvider({ connectionString, now = Date.now, createConne
       const days = [7, 30, 90].includes(range) ? range : 30;
       const endDate = localDay(now()), startDate = shiftDay(endDate, 1 - days), until = shiftDay(endDate, 1);
       return readSnapshot(async connection => {
-        const bounded = async text => (await connection.query(text, [startDate, until])).rows;
+        const bounded = async (text, params = []) => (await connection.query(text, [startDate, until, ...params])).rows;
         const raw = async (text, params = []) => (await connection.query(text, params)).rows;
         const [tables] = await raw(`SELECT
           to_regclass('cv_download_leads') IS NOT NULL AS cv_leads,
@@ -147,17 +149,22 @@ function createLocalDataProvider({ connectionString, now = Date.now, createConne
         const dailyViews = availability.pageViews ? await bounded(`SELECT TO_CHAR(occurred_at AT TIME ZONE 'Asia/Kolkata', 'YYYY-MM-DD') AS day,
           COUNT(*) AS views, COUNT(DISTINCT visitor_hash) AS visitors FROM site_page_views WHERE ${VIEW_RANGE} GROUP BY day ORDER BY day`) : [];
         const dailyRequests = availability.cvRequestHistory ? await bounded(`SELECT TO_CHAR(requested_at AT TIME ZONE 'Asia/Kolkata', 'YYYY-MM-DD') AS day,
-          COUNT(*) AS requests FROM cv_download_events WHERE ${REQUEST_RANGE} GROUP BY day ORDER BY day`) : [];
+          COUNT(*) AS requests FROM cv_download_events WHERE ${REQUEST_RANGE}
+          AND SPLIT_PART(LOWER(TRIM(email)), '@', 2) !~* $3 GROUP BY day ORDER BY day`, [BLOCKED_CV_DOMAIN_PATTERN]) : [];
         const pages = availability.pageViews ? await bounded(`SELECT path, COUNT(*) AS views, COUNT(DISTINCT visitor_hash) AS visitors${uniqueColumns}
           FROM site_page_views WHERE ${VIEW_RANGE} GROUP BY path ORDER BY views DESC, path LIMIT 100`) : [];
         const referrers = availability.pageViews ? await bounded(`SELECT referrer AS source, COUNT(*) AS visits FROM site_page_views
           WHERE ${VIEW_RANGE} GROUP BY referrer ORDER BY visits DESC, referrer LIMIT 12`) : [];
         const devices = availability.pageViews ? await bounded(`SELECT device, COUNT(*) AS visits FROM site_page_views
           WHERE ${VIEW_RANGE} GROUP BY device ORDER BY visits DESC, device`) : [];
-        const contacts = await bounded(`SELECT COUNT(DISTINCT LOWER(TRIM(email))) AS total, COALESCE(SUM(download_count), 0) AS requests,
-          COUNT(DISTINCT LOWER(TRIM(email))) FILTER (WHERE last_requested_at >= ${START} AND last_requested_at < ${UNTIL}) AS period_contacts
-          FROM cv_download_leads`);
-        const leads = await raw(LEADS, [200]);
+        const contacts = await bounded(`SELECT COUNT(DISTINCT LOWER(TRIM(email))) FILTER (WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) !~* $3) AS total,
+          COALESCE(SUM(download_count) FILTER (WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) !~* $3), 0) AS requests,
+          COUNT(DISTINCT LOWER(TRIM(email))) FILTER (WHERE last_requested_at >= ${START} AND last_requested_at < ${UNTIL}
+            AND SPLIT_PART(LOWER(TRIM(email)), '@', 2) !~* $3) AS period_contacts,
+          COUNT(DISTINCT LOWER(TRIM(email))) FILTER (WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) ~* $3) AS excluded_contacts,
+          COALESCE(SUM(download_count) FILTER (WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) ~* $3), 0) AS excluded_requests
+          FROM cv_download_leads`, [BLOCKED_CV_DOMAIN_PATTERN]);
+        const leads = await raw(LEADS, [200, BLOCKED_CV_DOMAIN_PATTERN]);
         const interactionTotals = availability.interactions ? await bounded(`SELECT COUNT(*) AS clicks FROM site_interaction_events WHERE ${VIEW_RANGE}`) : [];
         const dailyInteractions = availability.interactions ? await bounded(`SELECT TO_CHAR(occurred_at AT TIME ZONE 'Asia/Kolkata', 'YYYY-MM-DD') AS day,
           COUNT(*) AS clicks FROM site_interaction_events WHERE ${VIEW_RANGE} GROUP BY day ORDER BY day`) : [];
@@ -188,6 +195,7 @@ function createLocalDataProvider({ connectionString, now = Date.now, createConne
           // A lead's latest timestamp proves at least one request in this period;
           // its cumulative download_count cannot reconstruct per-day history.
           cvContactsInPeriod: count(contacts[0]?.period_contacts), availability,
+          excludedCVContacts: count(contacts[0]?.excluded_contacts), excludedCVRequests: count(contacts[0]?.excluded_requests),
           cvRequestsAllTime: count(contacts[0]?.requests), daily,
           topPages: pages.map(row => ({ path: String(row.path), views: count(row.views), visitors: count(row.visitors),
             browserVisitors: availability.uniqueVisitors && count(row.unique_views) > 0 ? count(row.unique_visitors) : null })),
@@ -200,7 +208,7 @@ function createLocalDataProvider({ connectionString, now = Date.now, createConne
       });
     },
     async exportCSV() {
-      return readSnapshot(async connection => cvCSV((await connection.query(LEADS, [10000])).rows.map(normalizeLead)));
+      return readSnapshot(async connection => cvCSV((await connection.query(LEADS, [10000, BLOCKED_CV_DOMAIN_PATTERN])).rows.map(normalizeLead)));
     },
   };
 }

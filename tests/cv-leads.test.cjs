@@ -7,13 +7,14 @@ const ts = require('typescript');
 const { NextRequest } = require('next/server');
 const source = require('../content/cv-download.json');
 const root = path.join(__dirname, '..');
+const { BLOCKED_CV_DOMAIN_PATTERN } = require('../lib/cv-email-policy.cjs');
 function load(filename, stubs = {}, environment = {}, extras = {}) {
   const { outputText } = ts.transpileModule(readFileSync(path.join(root, filename), 'utf8'), {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true },
   });
   const module = { exports: {} };
   vm.runInNewContext(outputText, { module, exports: module.exports, process: { env: environment }, Buffer, URL, Date,
-    require: id => Object.hasOwn(stubs, id) ? stubs[id] : require(id), ...extras,
+    require: id => Object.hasOwn(stubs, id) ? stubs[id] : require(id.startsWith('.') ? path.join(root, path.dirname(filename), id) : id), ...extras,
   }, { filename });
   return module.exports;
 }
@@ -39,14 +40,17 @@ function storeFixture({ configured = true } = {}) {
       if (sql.includes('INSERT INTO cv_download_events')) events.push({ email: values[0], source_path: values[4], cv_sha256: values[5] });
       return { rows: [] };
     }
-    if (sql.startsWith('SELECT COUNT')) return { rows: [{ total: leads.size }] };
-    if (sql.startsWith('SELECT email')) return { rows: [...leads.values()].slice(0, values[0]) };
+    if (sql.startsWith('SELECT COUNT')) {
+      const excluded = [...leads.values()].filter(lead => new RegExp(values[0], 'i').test(lead.email.trim().split('@')[1]));
+      return { rows: [{ total: leads.size - excluded.length, excluded_contacts: excluded.length, excluded_requests: excluded.reduce((sum, lead) => sum + lead.download_count, 0) }] };
+    }
+    if (sql.startsWith('SELECT email')) return { rows: [...leads.values()].filter(lead => !new RegExp(values[0], 'i').test(lead.email.trim().split('@')[1])).slice(0, values[1]) };
     throw new Error(`Unexpected query: ${sql}`);
   };
   const lib = load('lib/cv-leads.ts', { '@/lib/db': db, '@/lib/cv-download': download }, configured ? { POSTGRES_URL: 'postgres://test-private', ADMIN_PASSWORD: 'test-secret' } : {});
   return { lib, leads, limits, calls, events, setFailure(value) { fail = value; } };
 }
-function request(body = { email: 'reader@example.com', website: '', sourcePath: '/cv' }, options = {}) {
+function request(body = { email: 'reader@gmail.com', website: '', sourcePath: '/cv' }, options = {}) {
   return new NextRequest(options.url || 'https://portfolio.example/api/cv-download', {
     method: 'POST', headers: { host: 'portfolio.example', origin: 'https://portfolio.example', 'content-type': 'application/json', 'x-forwarded-for': '192.0.2.10', ...options.headers },
     body: options.raw === undefined ? JSON.stringify(body) : options.raw,
@@ -74,6 +78,27 @@ test('test addresses and failed email checks cannot create CV leads or return a 
   assert.equal(f.calls.length, 0);
 });
 
+test('historical reserved and disposable contacts are excluded before list limits and counted separately without deleting records', async () => {
+  const f = storeFixture();
+  const row = { first_requested_at: '2026-10-16T01:00:00Z', last_requested_at: '2026-10-16T02:00:00Z', last_source_path: '/cv' };
+  f.leads.set('portfolio-verification@example.com', { ...row, email: 'portfolio-verification@example.com', download_count: 3 });
+  f.leads.set('old@team.mailinator.com', { ...row, email: 'old@team.mailinator.com', download_count: 2 });
+  f.leads.set('reader@gmail.com', { ...row, email: 'reader@gmail.com', download_count: 4 });
+  const result = await f.lib.listCVInterests(1);
+  assert.equal(result.total, 1);
+  assert.equal(result.excludedCVContacts, 2);
+  assert.equal(result.excludedCVRequests, 5);
+  assert.equal(result.leads.length, 1);
+  assert.equal(result.leads[0].email, 'reader@gmail.com');
+  assert.equal(f.leads.size, 3, 'Original historical records remain intact');
+  const queries = f.calls.filter(call => call.sql.startsWith('SELECT'));
+  assert.match(queries[0].sql, /WHERE SPLIT_PART\(LOWER\(TRIM\(email\)\), '@', 2\) !~\* \? ORDER BY.*LIMIT \?/);
+  assert.deepEqual(queries[0].values, [BLOCKED_CV_DOMAIN_PATTERN, 1]);
+  assert.ok(queries.every(call => !/example\.com|mailinator\.com/.test(call.sql)), 'Policy values remain bound parameters');
+  assert.doesNotMatch(f.lib.cvInterestsCSV(result.leads), /portfolio-verification|mailinator/);
+  assert.equal(f.calls.some(call => /^(DELETE|UPDATE|INSERT)/.test(call.sql)), false);
+});
+
 test('CV addresses are normalized with bounded email validation and sources exclude query data', () => {
   const { lib } = storeFixture();
   assert.equal(lib.normalizeCVEmail('  Reader+Role@Example.COM '), 'reader+role@example.com');
@@ -85,9 +110,9 @@ test('CV addresses are normalized with bounded email validation and sources excl
 test('real storage path creates independent tables, parameterizes upserts and deduplicates repeat interest', async () => {
   const f = storeFixture();
   const route = routeFixture(f.lib);
-  for (let i = 0; i < 2; i++) assert.equal((await route.POST(request({ email: ' Reader@Example.com ', website: '', sourcePath: '/product' }))).status, 200);
+  for (let i = 0; i < 2; i++) assert.equal((await route.POST(request({ email: ' Reader@Gmail.com ', website: '', sourcePath: '/product' }))).status, 200);
   assert.equal(f.leads.size, 1);
-  const row = f.leads.get('reader@example.com');
+  const row = f.leads.get('reader@gmail.com');
   assert.equal(row.download_count, 2);
   assert.equal(row.last_source_path, '/product');
   assert.equal(row.cv_sha256, source.sha256);
@@ -95,19 +120,19 @@ test('real storage path creates independent tables, parameterizes upserts and de
   assert.equal(f.calls.filter(call => call.sql.startsWith('CREATE TABLE')).length, 3, 'Initialization is cached, independently of the content migration');
   const insert = f.calls.find(call => call.sql.startsWith('WITH saved_lead AS'));
   assert.match(insert.sql, /ON CONFLICT \(email\) DO UPDATE/);
-  assert.ok(!insert.sql.includes('reader@example.com'), 'Email remains a bound SQL parameter');
+  assert.ok(!insert.sql.includes('reader@gmail.com'), 'Email remains a bound SQL parameter');
   for (const call of f.calls) assert.ok(!call.values.includes('192.0.2.10'), 'Raw IP is never stored');
   assert.match([...f.limits.keys()][0], /^[a-f0-9]{64}$/);
   const listed = await f.lib.listCVInterests();
   assert.equal(listed.total, 1);
-  assert.equal(listed.leads[0].email, 'reader@example.com');
+  assert.equal(listed.leads[0].email, 'reader@gmail.com');
 });
 
 test('each recorded CV request atomically updates its contact and appends one dated event', async () => {
   const f = storeFixture();
-  await f.lib.recordCVInterest('reader@example.com', '/cv', '192.0.2.10');
+  await f.lib.recordCVInterest('reader@gmail.com', '/cv', '192.0.2.10');
   const before = f.calls.length;
-  await f.lib.recordCVInterest('reader@example.com', '/product', '192.0.2.10');
+  await f.lib.recordCVInterest('reader@gmail.com', '/product', '192.0.2.10');
   const statements = f.calls.slice(before);
   assert.equal(statements.length, 3, 'Only expiry pruning, rate limiting and a combined contact/event write are needed');
   const writes = statements.filter(call => call.sql.startsWith('WITH saved_lead AS'));
@@ -117,10 +142,10 @@ test('each recorded CV request atomically updates its contact and appends one da
   assert.match(writes[0].sql, /RETURNING email\) INSERT INTO cv_download_events/);
   assert.match(writes[0].sql, /SELECT email, \?, \? FROM saved_lead$/);
   assert.equal(statements.filter(call => call.sql.startsWith('INSERT INTO cv_download_events')).length, 0, 'A second independent write cannot create a partial record');
-  assert.equal(f.leads.get('reader@example.com').download_count, 2);
+  assert.equal(f.leads.get('reader@gmail.com').download_count, 2);
   assert.deepEqual(f.events, [
-    { email: 'reader@example.com', source_path: '/cv', cv_sha256: source.sha256 },
-    { email: 'reader@example.com', source_path: '/product', cv_sha256: source.sha256 },
+    { email: 'reader@gmail.com', source_path: '/cv', cv_sha256: source.sha256 },
+    { email: 'reader@gmail.com', source_path: '/product', cv_sha256: source.sha256 },
   ]);
 });
 
@@ -145,8 +170,8 @@ test('public lead POST rejects cross-origin, malformed, extra, honeypot and over
     [request(undefined, { headers: { 'sec-fetch-site': 'cross-site' } }), 403],
     [request(undefined, { headers: { 'content-type': 'text/plain' } }), 415],
     [request(null), 400], [request([]), 400], [request({ email: 'invalid' }), 400],
-    [request({ email: 'reader@example.com', website: 'spam' }), 400],
-    [request({ email: 'reader@example.com', extra: true }), 400],
+    [request({ email: 'reader@gmail.com', website: 'spam' }), 400],
+    [request({ email: 'reader@gmail.com', extra: true }), 400],
     [request(undefined, { raw: '{' }), 400],
     [request(undefined, { raw: 'x'.repeat(2049) }), 413],
     [request(undefined, { headers: { 'content-length': '2049' } }), 413],
@@ -203,13 +228,13 @@ test('the durable limiter blocks a sixth request, including across new handler i
   assert.equal(response.status, 429);
   assert.ok(Number(response.headers.get('retry-after')) > 0);
   assert.ok(!(await response.json()).downloadUrl);
-  assert.equal(f.leads.get('reader@example.com').download_count, 5);
+  assert.equal(f.leads.get('reader@gmail.com').download_count, 5);
   assert.equal(f.events.length, 5, 'Rate-limited requests cannot add dated CV events');
 });
 
 test('admin list and CSV require handler-level authentication and never cache personal data', async () => {
   const f = storeFixture();
-  await f.lib.recordCVInterest('=test@example.com', '/cv', '192.0.2.10');
+  await f.lib.recordCVInterest('=test@gmail.com', '/cv', '192.0.2.10');
   let authenticated = false;
   const api = load('app/api/admin/cv-leads/route.ts', { '@/lib/auth': { isAdminAuthenticated: async () => authenticated }, '@/lib/cv-leads': f.lib });
   const before = f.calls.length;
@@ -221,12 +246,12 @@ test('admin list and CSV require handler-level authentication and never cache pe
   assert.equal(f.calls.length, before, 'An unauthorized read never queries private records');
   authenticated = true;
   const list = await api.GET(new NextRequest('https://portfolio.example/api/admin/cv-leads'));
-  assert.equal((await list.json()).leads[0].email, '=test@example.com');
+  assert.equal((await list.json()).leads[0].email, '=test@gmail.com');
   const csv = await api.GET(new NextRequest('https://portfolio.example/api/admin/cv-leads?format=csv'));
   assert.equal(csv.headers.get('cache-control'), 'no-store');
   assert.match(csv.headers.get('content-disposition'), /attachment/);
-  assert.match(await csv.text(), /"'=test@example.com"/);
-  for (const email of ['+test@example.com', '-test@example.com', '@test@example.com', '\t=test@example.com']) assert.ok(f.lib.cvInterestsCSV([{ email }]).includes(`"'${email}"`));
+  assert.match(await csv.text(), /"'=test@gmail.com"/);
+  for (const email of ['+test@example.com', '-test@example.com', '@test@example.com', '\t=test@gmail.com']) assert.ok(f.lib.cvInterestsCSV([{ email }]).includes(`"'${email}"`));
   f.setFailure(true);
   assert.equal((await api.GET(new NextRequest('https://portfolio.example/api/admin/cv-leads'))).status, 503);
 });

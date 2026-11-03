@@ -6,15 +6,16 @@ const { mkdtemp, writeFile, chmod, symlink, rm } = require('node:fs/promises');
 const os = require('node:os');
 const path = require('node:path');
 const { createLocalDataProvider, loadLocalConnection, LocalDataError, cvCSV, localDay } = require('../scripts/local-analytics-data.cjs');
+const { BLOCKED_CV_DOMAIN_PATTERN } = require('../lib/cv-email-policy.cjs');
 
 const secret = 'postgresql://synthetic:fixture-password@fixture.example/test?sslmode=require';
 const now = Date.parse('2026-10-21T20:00:00Z'); // Already 22 October in India.
 const fixtureLead = {
-  email: 'synthetic-only@example.com', first_requested_at: new Date('2026-10-16T01:00:00Z'),
+  email: 'synthetic-only@gmail.com', first_requested_at: new Date('2026-10-16T01:00:00Z'),
   last_requested_at: new Date('2026-10-22T00:15:00Z'), download_count: '3', last_source_path: '/cv',
 };
 
-function setup({ fail, lead = fixtureLead, empty = false, tables = {}, uniqueStarted = null } = {}) {
+function setup({ fail, lead = fixtureLead, empty = false, tables = {}, uniqueStarted = null, historicalTests = [] } = {}) {
   const calls = [];
   let closed = 0;
   const connection = {
@@ -26,7 +27,12 @@ function setup({ fail, lead = fixtureLead, empty = false, tables = {}, uniqueSta
       assert.match(sql, /^SELECT\b/);
       if (/to_regclass/.test(sql)) return { rows: [{ cv_leads: true, cv_events: true, page_views: true, interactions: true, settings: true, browser_hash: false, browser_tracking: false, ...tables }] };
       if (/enabled_at/.test(sql)) return { rows: empty ? [] : [{ enabled_at: '2026-10-20T02:00:00Z', browser_tracking_started_at: uniqueStarted }] };
-      if (/COUNT\(DISTINCT LOWER\(TRIM\(email\)\)\)/.test(sql)) return { rows: [{ total: empty ? '0' : '1', requests: empty ? '0' : '3', period_contacts: empty ? '0' : '1' }] };
+      if (/COUNT\(DISTINCT LOWER\(TRIM\(email\)\)\)/.test(sql)) {
+        assert.equal(params[2], BLOCKED_CV_DOMAIN_PATTERN);
+        return { rows: [{ total: empty ? '0' : '1', requests: empty ? '0' : '3', period_contacts: empty ? '0' : '1',
+          excluded_contacts: String(new Set(historicalTests.map(row => row.email.trim().toLowerCase())).size),
+          excluded_requests: String(historicalTests.reduce((sum, row) => sum + Number(row.download_count), 0)) }] };
+      }
       if (/GROUP BY LOWER\(TRIM\(email\)\)/.test(sql)) return { rows: empty ? [] : [lead] };
       if (/FROM cv_download_events/.test(sql)) return { rows: empty ? [] : [{ day: '2026-10-22', requests: '2' }] };
       if (/FROM site_interaction_events/.test(sql)) {
@@ -67,6 +73,8 @@ test('direct report combines all-time CV emails and requests with bounded page, 
     last_requested_at: fixtureLead.last_requested_at.toISOString(), download_count: 3 }]);
   assert.equal(report.cvLeadsTotal, 1);
   assert.equal(report.cvContactsInPeriod, 1);
+  assert.equal(report.excludedCVContacts, 0);
+  assert.equal(report.excludedCVRequests, 0);
   assert.deepEqual(report.availability, { pageViews: true, interactions: true, cvRequestHistory: true, uniqueVisitors: false });
   assert.deepEqual(report.topPages, [{ path: '/cv', views: 7, visitors: 3, browserVisitors: null }]);
   assert.deepEqual(report.referrers, [{ source: 'search.example', visits: 7 }]);
@@ -96,13 +104,13 @@ test('all traffic ranges use explicit India-local midnight bounds and retain dat
     const traffic = calls.filter(call => /WHERE occurred_at >=|WHERE requested_at >=/.test(call.sql));
     assert.equal(traffic.length, 10);
     for (const call of traffic) {
-      assert.deepEqual(call.params, [first, '2026-10-23']);
+      assert.deepEqual(call.params, [first, '2026-10-23', ...(call.sql.includes('FROM cv_download_events') ? [BLOCKED_CV_DOMAIN_PATTERN] : [])]);
       assert.match(call.sql, /\$1::TIMESTAMP AT TIME ZONE 'Asia\/Kolkata'/);
       assert.match(call.sql, /\$2::TIMESTAMP AT TIME ZONE 'Asia\/Kolkata'/);
     }
     const emailQuery = calls.find(call => /GROUP BY LOWER\(TRIM\(email\)\)/.test(call.sql));
-    assert.deepEqual(emailQuery.params, [200]);
-    assert.doesNotMatch(emailQuery.sql, /WHERE/);
+    assert.deepEqual(emailQuery.params, [200, BLOCKED_CV_DOMAIN_PATTERN]);
+    assert.match(emailQuery.sql, /WHERE SPLIT_PART.*!~\* \$2 GROUP BY.*LIMIT \$1/);
     assert.match(emailQuery.sql, /SUM\(download_count\)/);
   }
 });
@@ -122,7 +130,7 @@ test('historical lead records remain visible when dated CV event history was nev
   assert.equal(calls.some(call => /FROM cv_download_events/.test(call.sql)), false);
   const period = calls.find(call => /AS period_contacts/.test(call.sql));
   assert.match(period.sql, /FILTER \(WHERE last_requested_at >=/);
-  assert.deepEqual(period.params, ['2026-09-23', '2026-10-23']);
+  assert.deepEqual(period.params, ['2026-09-23', '2026-10-23', BLOCKED_CV_DOMAIN_PATTERN]);
 });
 
 test('missing optional analytics tables show unavailable measures while recorded CV contacts are retained', async () => {
@@ -158,18 +166,41 @@ test('missing tables and failed database access produce unavailable errors, roll
 });
 
 test('CSV export requests up to 10000 grouped contacts and neutralizes spreadsheet formulas and quotes', async () => {
-  const lead = { ...fixtureLead, email: '=FORMULA@example.com', last_source_path: '  @bad,"quoted"\nnext' };
+  const lead = { ...fixtureLead, email: '=FORMULA@gmail.com', last_source_path: '  @bad,"quoted"\nnext' };
   const { provider, calls, closed } = setup({ lead });
   const csv = await provider.exportCSV();
   assert.match(csv, /^"Email","First request \(UTC\)","Last request \(UTC\)","Recorded requests","Last page"\r\n/);
-  assert.match(csv, /"'=FORMULA@example\.com"/);
+  assert.match(csv, /"'=FORMULA@gmail\.com"/);
   assert.match(csv, /"'  @bad,""quoted""\nnext"/);
   assert.match(csv, /"3"/);
-  assert.deepEqual(calls[1].params, [10000]);
+  assert.deepEqual(calls[1].params, [10000, BLOCKED_CV_DOMAIN_PATTERN]);
   assert.match(calls[1].sql, /GROUP BY LOWER\(TRIM\(email\)\)/);
   assert.equal(calls.at(-1).sql, 'COMMIT');
   assert.equal(closed(), 1);
   for (const prefix of ['=', '+', '-', '@', ' \t=']) assert.match(cvCSV([{ email: `${prefix}unsafe`, download_count: 1 }]), /"'/);
+});
+
+test('historical test requests are excluded consistently from report totals, dated counts, lists and CSV without writes', async () => {
+  const historicalTests = [{ email: 'portfolio-verification@example.com', download_count: 3 }, { email: 'old@team.mailinator.com', download_count: 2 }];
+  const { provider, calls } = setup({ historicalTests });
+  const report = await provider.getReport(30);
+  assert.equal(report.cvContacts, 1);
+  assert.equal(report.cvRequestsAllTime, 3);
+  assert.equal(report.excludedCVContacts, 2);
+  assert.equal(report.excludedCVRequests, 5);
+  assert.deepEqual(report.cvLeads.map(row => row.email), [fixtureLead.email]);
+  assert.doesNotMatch(await provider.exportCSV(), /portfolio-verification|mailinator/);
+  const contactQuery = calls.find(call => /AS period_contacts/.test(call.sql));
+  for (const alias of ['total', 'requests', 'period_contacts']) assert.match(contactQuery.sql, new RegExp(`!~\\* \\$3[^]*?AS ${alias}`));
+  assert.match(contactQuery.sql, /~\* \$3\) AS excluded_contacts/);
+  assert.match(contactQuery.sql, /~\* \$3\), 0\) AS excluded_requests/);
+  const eventQuery = calls.find(call => /FROM cv_download_events/.test(call.sql));
+  assert.match(eventQuery.sql, /WHERE requested_at.*AND SPLIT_PART.*!~\* \$3 GROUP BY/);
+  for (const query of calls.filter(call => /GROUP BY LOWER\(TRIM\(email\)\)/.test(call.sql))) {
+    assert.match(query.sql, /WHERE SPLIT_PART.*!~\* \$2 GROUP BY.*LIMIT \$1/);
+    assert.equal(query.params[1], BLOCKED_CV_DOMAIN_PATTERN);
+  }
+  assert.equal(calls.some(call => /^(?:DELETE|UPDATE|INSERT|ALTER|CREATE)\b/.test(call.sql)), false);
 });
 
 test('private connection loader accepts only owner-only regular configuration files', async () => {

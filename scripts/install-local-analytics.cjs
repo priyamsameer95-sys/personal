@@ -63,6 +63,7 @@ async function createInstallPlan({
   const sourceFiles = [
     ['scripts/local-analytics.cjs', 'scripts/local-analytics.cjs'],
     ['scripts/local-analytics-data.cjs', 'scripts/local-analytics-data.cjs'],
+    ['lib/cv-email-policy.cjs', 'lib/cv-email-policy.cjs'],
     ['local-analytics/index.html', 'local-analytics/index.html'],
     ['local-analytics/dashboard.css', 'local-analytics/dashboard.css'],
     ['local-analytics/dashboard.js', 'local-analytics/dashboard.js'],
@@ -156,7 +157,7 @@ async function install(plan, { platform = process.platform, execute = runFile, p
   await assertSafeExisting(plan.runtimeDir, 'directory');
   await assertSafeExisting(plan.privateDir, 'directory');
   await assertSafeExisting(plan.logDir, 'directory');
-  for (const folder of ['scripts', 'local-analytics', 'node_modules']) {
+  for (const folder of ['scripts', 'lib', 'local-analytics', 'node_modules']) {
     await assertSafeExisting(path.join(plan.runtimeDir, folder), 'directory');
   }
   await assertSafeExisting(plan.stdoutPath, 'file');

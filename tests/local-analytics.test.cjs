@@ -134,3 +134,13 @@ test('Hide data prevents a delayed report from returning until explicitly refres
   assert.match(nodes.metrics.textContent,/Unique visitors—/);
   assert.match(nodes['visitor-note'].textContent,/historical unique visitors cannot be reconstructed/);
  });
+
+ test('historical test entries are explained but never displayed as real CV interest',async()=>{
+  const {nodes}=dashboardClient({getReport:async()=>({...report,cvContacts:0,cvRequestsAllTime:0,cvLeadsTotal:0,cvLeads:[],excludedCVContacts:1,excludedCVRequests:3})});
+  await flushClient();
+  assert.match(nodes.metrics.textContent,/Emails shared0/);
+  assert.match(nodes.metrics.textContent,/CV requests · all time0/);
+  assert.match(nodes['record-note'].textContent,/Excluded 1 test or disposable email address and 3 historical requests/);
+  assert.match(nodes.contacts.textContent,/No CV requests remain after excluding test addresses/);
+  assert.doesNotMatch(nodes.contacts.textContent,/@example\.com/);
+ });
