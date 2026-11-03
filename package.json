@@ -18,14 +18,14 @@
     "next": "15.5.28",
     "next-remove-imports": "^1.0.13",
     "pdf-parse": "^2.4.5",
-    "react": "^18",
+    "react": "^19",
     "react-dom": "^18",
     "sharp": "0.35.5"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "^19",
     "@types/react-dom": "^18",
     "dotenv": "^17.4.2",
     "eslint": "^8",
