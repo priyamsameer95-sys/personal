@@ -283,7 +283,7 @@ test('private analytics requires handler authentication before any private query
   let authenticated = false;
   const reads = [];
   const f = fixture({
-    '@/lib/auth': { isAdminAuthenticated: async () => authenticated },
+    '@/lib/auth': { isAdminAuthenticated: async () => authenticated, isTrustedAdminRequest: () => true },
     '@/lib/site-analytics': {
       normalizeAnalyticsRange: value => value === '7' ? 7 : value === '90' ? 90 : 30,
       getSiteAnalytics: async days => { reads.push(days); return { days, summary: { pageViews: 1 } }; },
@@ -305,7 +305,7 @@ test('private analytics requires handler authentication before any private query
 
 test('middleware keeps hosted analytics and CV-interest screens unavailable even to an authenticated owner', async () => {
   let authenticated = false;
-  const { middleware, config } = fixture({ './lib/auth': { isAdminAuthenticated: async () => authenticated } }).load('middleware.ts');
+  const { middleware, config } = fixture({ './lib/auth': { isAdminAuthenticated: async () => authenticated, isTrustedAdminRequest: () => true } }).load('middleware.ts');
   assert.ok(config.matcher.includes('/minforyam/:path*'));
   assert.ok(config.matcher.includes('/api/admin/:path*'));
   const apiRequest = request(undefined, { method: 'GET', url: 'https://portfolio.example/api/admin/analytics' });

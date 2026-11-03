@@ -1,23 +1,24 @@
-import { isAdminAuthenticated } from '@/lib/auth';
+import { isAdminWriteAuthenticated, readAdminJSON } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/db';
 
 interface RouteParams {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 // PUT /api/admin/content/[id]/status
 // Toggles publish/unpublish. Handles the one-published-CV constraint.
 export async function PUT(request: NextRequest, { params }: RouteParams) {
-  if (!(await isAdminAuthenticated(request))) {
+  if (!(await isAdminWriteAuthenticated(request))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
-    const { id } = params;
-    const { status } = await request.json();
+    const { id } = await params;
+    const body = await readAdminJSON(request);
+    const status = body && typeof body === 'object' ? (body as { status?: unknown }).status : undefined;
 
-    if (!status || !['draft', 'published'].includes(status)) {
+    if (typeof status !== 'string' || !['draft', 'published'].includes(status)) {
       return NextResponse.json(
         { error: 'Status must be "draft" or "published".' },
         { status: 400 }
@@ -61,6 +62,6 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: 'The operation could not be completed. Please try again later.' }, { status: 500 });
   }
 }

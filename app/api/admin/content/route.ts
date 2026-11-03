@@ -1,4 +1,5 @@
-import { isAdminAuthenticated } from '@/lib/auth';
+import { downloadAdminPDF } from '@/lib/admin-media';
+import { isAdminAuthenticated, isAdminWriteAuthenticated, readAdminJSON } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
 import { del } from '@vercel/blob';
 import db from '@/lib/db';
@@ -57,9 +58,8 @@ export async function GET(request: NextRequest) {
     `;
 
     return NextResponse.json(items);
-  } catch (err) {
-    const message = err instanceof Error ? err.message : 'Failed to fetch content.';
-    return NextResponse.json({ error: message }, { status: 500 });
+  } catch {
+    return NextResponse.json({ error: 'The operation could not be completed. Please try again later.' }, { status: 500 });
   }
 }
 
@@ -78,14 +78,14 @@ async function deleteBlobs(urls: string[]) {
 // Creates a new content_item with media_assets.
 // Expects JSON body (no file bytes). Blob URLs come from prior client upload.
 export async function POST(request: NextRequest) {
-  if (!(await isAdminAuthenticated(request))) {
+  if (!(await isAdminWriteAuthenticated(request))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   let uploadedBlobUrls: string[] = [];
 
   try {
-    const body = (await request.json()) as ContentPayload;
+    const body = (await readAdminJSON(request)) as ContentPayload;
 
     // Validate payload
     const validationError = validateContentPayload(body);
@@ -119,14 +119,9 @@ export async function POST(request: NextRequest) {
       const pdfMedia = body.media.find(m => m.kind === 'pdf' || m.blob_url.endsWith('.pdf'));
       if (pdfMedia) {
         try {
-          const res = await fetch(pdfMedia.blob_url);
-          if (res.ok) {
-            const arrayBuffer = await res.arrayBuffer();
-            const buffer = Buffer.from(arrayBuffer);
-            body_markdown = await extractPdfText(buffer);
-          }
-        } catch (parseErr) {
-          console.error('PDF parsing failed:', parseErr);
+          body_markdown = await extractPdfText(await downloadAdminPDF(pdfMedia.blob_url, pdfMedia.blob_pathname));
+        } catch {
+          console.error('PDF parsing failed.');
         }
       }
     }
@@ -192,6 +187,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: 'The operation could not be completed. Please try again later.' }, { status: 500 });
   }
 }

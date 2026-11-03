@@ -752,17 +752,17 @@ test('detailed evidence exposes video descriptions and puts useful chapter navig
 });
 
 
-test('references route resolves retained aliases, excludes unknown/draft/retired records and is not separately indexed',()=>{
+test('references route resolves retained aliases, excludes unknown/draft/retired records and is not separately indexed',async()=>{
   const empty=()=>null;
   const module=load('app/product/[slug]/references/page.tsx',{
     '@/lib/work':workModule(),
     'next/navigation':{notFound(){throw new Error('Not found');},redirect(url){throw new Error(`Redirect: ${url}`);}},
     '@/components/work/CaseStudy':{CaseStudyReferences:empty},'@/components/Header':empty,'@/components/Footer':empty,'@/components/PublicShell':empty,
   });
-  assert.ok(module.default({params:{slug:'company-one'}}));
-  assert.throws(()=>module.default({params:{slug:'older-slug'}}),/Redirect: \/product\/company-one\/references/);
-  for(const slug of ['draft','draft-alias','missing','moneylion-wow-strategy','independent-moneylion-wow-strategy']) assert.throws(()=>module.default({params:{slug}}),/Not found/);
-  const metadata=module.generateMetadata({params:{slug:'company-one'}});
+  assert.ok(await module.default({params:Promise.resolve({slug:'company-one'})}));
+  await assert.rejects(module.default({params:Promise.resolve({slug:'older-slug'})}),/Redirect: \/product\/company-one\/references/);
+  for(const slug of ['draft','draft-alias','missing','moneylion-wow-strategy','independent-moneylion-wow-strategy']) await assert.rejects(module.default({params:Promise.resolve({slug})}),/Not found/);
+  const metadata=await module.generateMetadata({params:Promise.resolve({slug:'company-one'})});
   assert.equal(metadata.robots.index,false);assert.equal(metadata.robots.follow,true);
 });
 

@@ -60,6 +60,8 @@ export default async function BlogPage() {
               <h2 id="writing-unavailable-title">Writing is temporarily unavailable.</h2>
               <p>The articles couldn’t load. You can try again or explore the case studies.</p>
               <div className={styles.actions}>
+                {/* A full navigation retries the failed server-side read. */}
+                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                 <a href="/blog">Try again <span aria-hidden="true"><Icon name="arrow-up-right" /></span></a>
                 <Link href="/product">Explore my work <span aria-hidden="true"><Icon name="arrow-up-right" /></span></Link>
               </div>

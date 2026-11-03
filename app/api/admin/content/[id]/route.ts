@@ -1,5 +1,6 @@
+import { downloadAdminPDF } from '@/lib/admin-media';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { isAdminAuthenticated } from '@/lib/auth';
+import { isAdminAuthenticated, isAdminWriteAuthenticated, readAdminJSON } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
 import { del } from '@vercel/blob';
 import db from '@/lib/db';
@@ -7,14 +8,14 @@ import { extractPdfText } from '@/lib/pdf';
 import { slugify, deduplicateSlug } from '@/lib/slugify';
 import {
   isValidType,
-  validateMediaCount,
-  validateFileMime,
+  validateContentPayload,
   type ContentType,
   type MediaPayload,
+  type ContentPayload,
 } from '@/lib/validation';
 
 interface RouteParams {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 // GET /api/admin/content/[id]
@@ -25,7 +26,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   }
 
   try {
-    const { id } = params;
+    const { id } = await params;
 
     const { rows } = await db`
       SELECT
@@ -59,9 +60,8 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     }
 
     return NextResponse.json(rows[0]);
-  } catch (err) {
-    const message = err instanceof Error ? err.message : 'Failed to fetch content.';
-    return NextResponse.json({ error: message }, { status: 500 });
+  } catch {
+    return NextResponse.json({ error: 'The operation could not be completed. Please try again later.' }, { status: 500 });
   }
 }
 
@@ -71,15 +71,16 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 // Media items with existing IDs are kept. New items (no id) are inserted.
 // Old items not in the new array are deleted (blob + row).
 export async function PUT(request: NextRequest, { params }: RouteParams) {
-  if (!(await isAdminAuthenticated(request))) {
+  if (!(await isAdminWriteAuthenticated(request))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   let newBlobUrls: string[] = [];
 
   try {
-    const { id } = params;
-    const body = await request.json();
+    const { id } = await params;
+    const body = await readAdminJSON(request) as ContentPayload;
+    if (!body || typeof body !== 'object' || Array.isArray(body)) return NextResponse.json({ error: 'Invalid content payload.' }, { status: 400 });
 
     // Verify item exists
     const { rows: existing } = await db`
@@ -97,27 +98,17 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    if (!body.title || !body.title.trim()) {
+    if (typeof body.title !== 'string' || !body.title.trim()) {
       return NextResponse.json({ error: 'Title is required.' }, { status: 400 });
     }
 
-    // Validate media
-    const media: MediaPayload[] = body.media || [];
-    const mediaCountError = validateMediaCount(media.length, itemType);
-    if (mediaCountError) {
-      return NextResponse.json({ error: mediaCountError }, { status: 400 });
-    }
-    for (const m of media) {
-      if (!m.blob_url || !m.blob_pathname) {
-        return NextResponse.json(
-          { error: 'Each media item must have blob_url and blob_pathname.' },
-          { status: 400 }
-        );
-      }
-      const mimeErr = validateFileMime(m.mime_type, itemType);
-      if (mimeErr) {
-        return NextResponse.json({ error: mimeErr }, { status: 400 });
-      }
+    const validationError = validateContentPayload({ ...body, type: itemType });
+    if (validationError) return NextResponse.json({ error: validationError }, { status: 400 });
+    const media: MediaPayload[] = body.media;
+    const { rows: oldMedia } = await db`SELECT id, blob_url FROM media_assets WHERE content_id = ${id}`;
+    const ownedMediaIds = new Set(oldMedia.map(item => String(item.id)));
+    if (media.some(m => { const mediaId = (m as MediaPayload & { id?: string }).id; return mediaId && !ownedMediaIds.has(mediaId); })) {
+      return NextResponse.json({ error: 'Media does not belong to this content item.' }, { status: 400 });
     }
 
     // Regenerate slug if title changed
@@ -140,14 +131,9 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       const pdfMedia = media.find(m => m.kind === 'pdf' || m.blob_url.endsWith('.pdf'));
       if (pdfMedia) {
         try {
-          const res = await fetch(pdfMedia.blob_url);
-          if (res.ok) {
-            const arrayBuffer = await res.arrayBuffer();
-            const buffer = Buffer.from(arrayBuffer);
-            body_markdown = await extractPdfText(buffer);
-          }
-        } catch (parseErr) {
-          console.error('PDF parsing failed:', parseErr);
+          body_markdown = await extractPdfText(await downloadAdminPDF(pdfMedia.blob_url, pdfMedia.blob_pathname));
+        } catch {
+          console.error('PDF parsing failed.');
         }
       }
     }
@@ -176,9 +162,6 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     `;
 
     // Diff media: find which old media to remove
-    const { rows: oldMedia } = await db`
-      SELECT id, blob_url FROM media_assets WHERE content_id = ${id}
-    `;
     const newMediaIds = new Set(
       media.filter((m: MediaPayload & { id?: string }) => m.id).map((m: MediaPayload & { id?: string }) => m.id)
     );
@@ -211,7 +194,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
             alt_text = ${m.alt_text ?? null},
             protected = ${isProtected},
             sort_order = ${m.sort_order}
-          WHERE id = ${mWithId.id}
+          WHERE id = ${mWithId.id} AND content_id = ${id}
         `;
       } else {
         // Insert new
@@ -246,19 +229,19 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         { status: 409 }
       );
     }
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: 'The operation could not be completed. Please try again later.' }, { status: 500 });
   }
 }
 
 // DELETE /api/admin/content/[id]
 // Deletes the content_item, cascades media_assets, and removes all blobs.
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
-  if (!(await isAdminAuthenticated(request))) {
+  if (!(await isAdminWriteAuthenticated(request))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
-    const { id } = params;
+    const { id } = await params;
 
     // Get all media blob URLs before deleting
     const { rows: mediaRows } = await db`
@@ -280,8 +263,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     }
 
     return NextResponse.json({ success: true });
-  } catch (err) {
-    const message = err instanceof Error ? err.message : 'Failed to delete content.';
-    return NextResponse.json({ error: message }, { status: 500 });
+  } catch {
+    return NextResponse.json({ error: 'The operation could not be completed. Please try again later.' }, { status: 500 });
   }
 }

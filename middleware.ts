@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { isAdminAuthenticated } from './lib/auth';
+import { isAdminAuthenticated, isTrustedAdminRequest } from './lib/auth';
 
 function privateResponse(response: NextResponse) {
   response.headers.set('Cache-Control', 'no-store');
@@ -30,7 +30,7 @@ export async function middleware(req: NextRequest) {
     req.method === 'POST' &&
     req.headers.has('x-vercel-signature')
   ) {
-    return NextResponse.next();
+    return privateResponse(NextResponse.next());
   }
 
   const isAdminPage = path.startsWith('/minforyam');
@@ -54,6 +54,9 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  if (isAdminApi && !isTrustedAdminRequest(req)) {
+    return privateResponse(NextResponse.json({ error: 'Request is not allowed.' }, { status: 403 }));
+  }
   return privateResponse(NextResponse.next());
 }
 

@@ -1,3 +1,4 @@
+import { validateAdminMediaLocation } from './admin-media';
 // Per-type upload and content validation constants.
 // Shared by the blob-upload token route and the content POST route.
 
@@ -138,11 +139,12 @@ export interface ContentPayload {
 export function validateContentPayload(
   body: ContentPayload
 ): string | null {
-  if (!body.type || !isValidType(body.type)) {
+  if (!body || typeof body !== 'object' || Array.isArray(body)) return 'Invalid content payload.';
+  if (typeof body.type !== 'string' || !isValidType(body.type)) {
     return `Invalid content type "${body.type}". Must be one of: ${VALID_TYPES.join(', ')}.`;
   }
 
-  if (!body.title || !body.title.trim()) {
+  if (typeof body.title !== 'string' || !body.title.trim() || body.title.length > 300) {
     return 'Title is required.';
   }
 
@@ -150,14 +152,30 @@ export function validateContentPayload(
     return `Invalid status "${body.status}". Must be "draft" or "published".`;
   }
 
+  if (body.summary != null && (typeof body.summary !== 'string' || body.summary.length > 4000)) return 'Summary is too long or invalid.';
+  if (body.body_markdown != null && (typeof body.body_markdown !== 'string' || body.body_markdown.length > 100000)) return 'Body is too long or invalid.';
+  if (typeof body.downloadable !== 'boolean') return 'Invalid download setting.';
+  if (!Array.isArray(body.media)) return 'Media must be an array.';
+  if (body.meta != null && (typeof body.meta !== 'object' || Array.isArray(body.meta) || JSON.stringify(body.meta).length > 20000)) return 'Invalid content metadata.';
+  if (body.sort_order != null && (!Number.isSafeInteger(body.sort_order) || Math.abs(body.sort_order) > 100000)) return 'Invalid sort order.';
+
   const mediaError = validateMediaCount(body.media?.length ?? 0, body.type);
   if (mediaError) return mediaError;
 
   // Validate each media item
   for (const m of body.media || []) {
-    if (!m.blob_url || !m.blob_pathname) {
+    if (!m || typeof m !== 'object' || !m.blob_url || !m.blob_pathname) {
       return 'Each media item must have blob_url and blob_pathname.';
     }
+    const locationError = validateAdminMediaLocation(m.blob_url, m.blob_pathname);
+    if (locationError) return locationError;
+    if (m.alt_text != null && (typeof m.alt_text !== 'string' || m.alt_text.length > 2000)) return 'Invalid media description.';
+    if (typeof m.protected !== 'boolean' || !Number.isSafeInteger(m.sort_order) || Math.abs(m.sort_order) > 100000) return 'Invalid media settings.';
+    if (m.orientation != null && !['landscape', 'portrait', 'square'].includes(m.orientation)) return 'Invalid media orientation.';
+    for (const dimension of [m.width, m.height]) {
+      if (dimension != null && (!Number.isSafeInteger(dimension) || dimension < 1 || dimension > 50000)) return 'Invalid media dimensions.';
+    }
+    if (m.kind !== TYPE_CONFIGS[body.type].mediaKind) return 'Media does not match the content type.';
     const mimeError = validateFileMime(m.mime_type, body.type);
     if (mimeError) return mimeError;
     if (!['image', 'pdf'].includes(m.kind)) {

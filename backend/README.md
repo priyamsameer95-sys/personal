@@ -1,6 +1,13 @@
-# Portfolio Content Management Backend
+# Archived Portfolio Backend — Local Reads Only
 
-A modular and scalable Express.js backend for portfolio content management, leveraging Prisma ORM, PostgreSQL, AWS S3 storage, and Multer file upload parsing.
+The active portfolio uses the authenticated Next.js CMS. It does not call this
+older Express/Prisma/AWS S3 service, whose data model is separate.
+
+This archived service binds only to `127.0.0.1`. Every method other than `GET`
+and `HEAD` returns `410` before routing or upload parsing. The historical write
+controllers remain for reference but cannot be invoked through this server.
+Do not deploy it publicly or use it to publish content. There is no environment
+flag that restores its unauthenticated uploads.
 
 ## Folder Structure
 
@@ -55,20 +62,23 @@ backend/
    - Dev mode (automatic restarts): `npm run dev`
    - Production mode: `npm start`
 
-## Modules & Endpoints
+## Historical Modules & Read Endpoints
+
+The former `POST` endpoints listed below are **disabled** and return `410`.
+Only their `GET` counterparts remain available locally.
 
 ### 1. CV Module
-- **POST `/api/cv/upload`**: Uploads a single PDF file (using field name `file`). Automatically extracts the text contents and uploads the file to S3.
+- **POST `/api/cv/upload`**: Disabled.
 - **GET `/api/cv/latest`**: Serves the latest uploaded CV's extracted text and S3 URL directly.
 
 ### 2. Paintings Module
-- **POST `/api/paintings/upload`**: Accepts a single image (field `file`, JPG or PNG) and a `description` string (up to 500 words).
+- **POST `/api/paintings/upload`**: Disabled.
 - **GET `/api/paintings`**: Serves a paginated list of paintings and descriptions (`?page=1&limit=10`).
 
 ### 3. Blogs Module
-- **POST `/api/blogs/create`**: Handles multipart form-data. Accepts a `title`, `content` (up to 2500 words), and up to 3 banner images (field name `files`, JPG or PNG).
+- **POST `/api/blogs/create`**: Disabled.
 - **GET `/api/blogs`**: Serves all blog essays.
 
 ### 4. Work Portfolio Module
-- **POST `/api/portfolio/create`**: Handles bulk image uploads. Accepts a `title`, `description` (up to 1000 words), and between 5 and 7 project images (field name `files`, JPG or PNG).
+- **POST `/api/portfolio/create`**: Disabled.
 - **GET `/api/portfolio`**: Serves all portfolio projects.

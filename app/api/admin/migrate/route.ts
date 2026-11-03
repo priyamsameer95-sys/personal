@@ -1,4 +1,4 @@
-import { isAdminAuthenticated } from '@/lib/auth';
+import { isAdminWriteAuthenticated } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/db';
 
@@ -6,8 +6,12 @@ import db from '@/lib/db';
 // Runs the database migration after checking the admin session.
 // Refuses to run if content_items already exists.
 export async function POST(request: NextRequest) {
-  if (!(await isAdminAuthenticated(request))) {
+  if (!(await isAdminWriteAuthenticated(request))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  if (process.env.ADMIN_MIGRATIONS_ENABLED !== 'true') {
+    return NextResponse.json({ error: 'Web migrations are disabled.' }, { status: 403 });
   }
 
   try {
@@ -123,10 +127,9 @@ export async function POST(request: NextRequest) {
     log.push('Created index media_assets_content_id_idx.');
 
     return NextResponse.json({ success: true, log });
-  } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
+  } catch {
     return NextResponse.json(
-      { error: `Migration failed: ${message}` },
+      { error: 'Migration could not be completed.' },
       { status: 500 }
     );
   }

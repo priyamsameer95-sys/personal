@@ -152,7 +152,7 @@ test('empty Writing and source archives remain crawlable but are not separately 
   const writing = await load('app/blog/page.tsx').generateMetadata();
   assert.equal(writing.robots.index, false);
   assert.equal(writing.robots.follow, true);
-  const reference = load('app/product/[slug]/references/page.tsx').generateMetadata({ params: { slug: 'cashkaro-eduloans-policy-workflow' } });
+  const reference = await load('app/product/[slug]/references/page.tsx').generateMetadata({ params: { slug: 'cashkaro-eduloans-policy-workflow' } });
   assert.equal(reference.robots.index, false);
   assert.equal(reference.robots.follow, true);
   assert.equal(reference.alternates.canonical, `${origin}/product/cashkaro-eduloans-policy-workflow/references`);

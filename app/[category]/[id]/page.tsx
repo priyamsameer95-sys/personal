@@ -26,7 +26,7 @@ interface ContentItem {
 }
 
 interface DetailPageProps {
-  params: { category: string; id: string };
+  params: Promise<{ category: string; id: string }>;
 }
 
 const categories = {
@@ -37,7 +37,8 @@ const categories = {
 
 export const revalidate = 0;
 
-export async function generateMetadata({ params }: DetailPageProps): Promise<Metadata> {
+export async function generateMetadata({ params: promisedParams }: DetailPageProps): Promise<Metadata> {
+  const params = await promisedParams;
   if (params.category === 'product' && isRetiredWorkSlug(params.id)) return {};
   const study = params.category === 'product' ? findCaseStudy(params.id) : undefined;
   if (!study) {
@@ -65,7 +66,7 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
 }
 
 export default async function DetailPage({ params }: DetailPageProps) {
-  const { category, id } = params;
+  const { category, id } = await params;
   if (!Object.prototype.hasOwnProperty.call(categories, category)) notFound();
   const section = categories[category as keyof typeof categories];
 

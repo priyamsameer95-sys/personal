@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
-import { isAdminAuthenticated } from '@/lib/auth';
+import { isAdminWriteAuthenticated, readAdminJSON } from '@/lib/auth';
 import { isValidType, TYPE_CONFIGS, type ContentType } from '@/lib/validation';
 
 // POST /api/admin/blob-upload
@@ -8,12 +8,12 @@ import { isValidType, TYPE_CONFIGS, type ContentType } from '@/lib/validation';
 // instead authenticate through the signature verified by handleUpload.
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
-    const body = (await request.json()) as HandleUploadBody;
+    const body = (await readAdminJSON(request, 64 * 1024)) as HandleUploadBody;
 
     if (!body || !['blob.generate-client-token', 'blob.upload-completed'].includes(body.type)) {
       return NextResponse.json({ error: 'Invalid upload request.' }, { status: 400 });
     }
-    if (body.type === 'blob.generate-client-token' && !(await isAdminAuthenticated(request))) {
+    if (body.type === 'blob.generate-client-token' && !(await isAdminWriteAuthenticated(request))) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       body,
       request,
       onBeforeGenerateToken: async (_pathname, clientPayload) => {
-        if (!(await isAdminAuthenticated(request))) {
+        if (!(await isAdminWriteAuthenticated(request))) {
           throw new Error('Unauthorized');
         }
 
@@ -54,8 +54,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     });
 
     return NextResponse.json(jsonResponse);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Upload token generation failed.';
-    return NextResponse.json({ error: message }, { status: 400 });
+  } catch {
+    return NextResponse.json({ error: 'The upload request could not be validated.' }, { status: 400 });
   }
 }

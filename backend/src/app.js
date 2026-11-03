@@ -1,6 +1,6 @@
 import express from 'express';
-import cors from 'cors';
 import dotenv from 'dotenv';
+import { blockLegacyMutations, LEGACY_BACKEND_HOST } from './legacy-read-only.js';
 
 import cvRoutes from './routes/cvRoutes.js';
 import paintingRoutes from './routes/paintingRoutes.js';
@@ -12,9 +12,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.disable('x-powered-by');
+// Reject before routing, file parsing, S3 uploads or database mutations. This
+// service is retained only for local reads of its separate historical model.
+app.use(blockLegacyMutations);
 
 // Routing Modules
 app.use('/api/cv', cvRoutes);
@@ -35,8 +36,8 @@ app.use((err, req, res, next) => {
   return res.status(500).json({ error: 'Internal Server Error.' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running successfully on port ${PORT}`);
+app.listen(PORT, LEGACY_BACKEND_HOST, () => {
+  console.log(`Archived read-only backend listening on ${LEGACY_BACKEND_HOST}:${PORT}`);
 });
 
 export default app;
