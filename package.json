@@ -12,8 +12,8 @@
     "test": "node --test tests/*.test.cjs"
   },
   "dependencies": {
-    "@uiw/react-md-editor": "^4.1.1",
-    "@vercel/blob": "^2.4.0",
+    "@uiw/react-md-editor": "^4.2.0",
+    "@vercel/blob": "^2.8.2",
     "@vercel/postgres": "^0.10.0",
     "next": "15.5.28",
     "next-remove-imports": "^1.0.13",
@@ -29,7 +29,7 @@
     "dotenv": "^17.4.2",
     "eslint": "^8",
     "eslint-config-next": "15.5.28",
-    "postcss": "8.5.23",
+    "postcss": "8.5.32",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
