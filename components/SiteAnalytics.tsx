@@ -3,6 +3,11 @@ import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { normalizeAnalyticsAction, type AnalyticsAction } from '@/lib/analytics-events';
 
+// A new browser receives its identifier with the first page-view response.
+// Keep later route views behind that response so quick navigation cannot mint
+// another identity before the browser has installed the cookie.
+let pendingPageView: Promise<void> | null = null;
+
 // The server checks the published route registry again. Never include URL
 // parameters, fragments, rendered labels, form values or contact destinations.
 function publicPath(value: unknown): string | null {
@@ -45,19 +50,30 @@ export default function SiteAnalytics() {
     try { referrer = document.referrer ? new URL(document.referrer).hostname : ''; } catch { /* No referrer. */ }
     const playedVideos = new WeakSet<Element>();
 
-    function send(action: AnalyticsAction) {
-      if (!permitted()) return;
+    function send(action: AnalyticsAction): Promise<void> {
+      if (!permitted()) return Promise.resolve();
       try {
-        void fetch('/api/analytics', { method: 'POST', credentials: 'same-origin', mode: 'same-origin', keepalive: true,
+        return fetch('/api/analytics', { method: 'POST', credentials: 'same-origin', mode: 'same-origin', keepalive: true,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ eventId: window.crypto.randomUUID(), path, referrer, ...action }),
-        }).catch(() => { /* Measurement never interrupts reading or downloads. */ });
-      } catch { /* Unavailable measurement never blocks an action. */ }
+        }).then(() => {}, () => { /* Measurement never interrupts reading or downloads. */ });
+      } catch { return Promise.resolve(); /* Unavailable measurement never blocks an action. */ }
     }
     function pageView() {
       if (!permitted() || lastSent.current === path) return;
       lastSent.current = path!;
-      send({ type: 'page_view' });
+      const deliver = () => {
+        // Privacy and visibility can change while a prior request is pending.
+        if (!permitted()) {
+          if (lastSent.current === path) lastSent.current = '';
+          return Promise.resolve();
+        }
+        return send({ type: 'page_view' });
+      };
+      const request = pendingPageView ? pendingPageView.then(deliver, deliver) : deliver();
+      pendingPageView = request;
+      const clear = () => { if (pendingPageView === request) pendingPageView = null; };
+      void request.then(clear, clear);
     }
     function onClick(event: MouseEvent) {
       // Includes genuine keyboard activation. Programmatic clicks used to start

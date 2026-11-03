@@ -1,32 +1,21 @@
 # Local-only website analytics
 
-Run `npm run analytics:local`, then open **http://127.0.0.1:4310/** on this Mac. The listener binds only to `127.0.0.1`; it does not listen on the LAN or the public internet. The dashboard assets live in `local-analytics/`, outside Next's public directory, and are not a hosted page. The production analytics and CV-interest UI routes return 404.
+Run `npm run analytics:local`, then open **http://127.0.0.1:4310/** on this Mac. The listener binds only to `127.0.0.1`; it does not listen on the LAN or public internet. The dashboard opens directly without a password, browser login session or cookie. Its assets remain outside the public website. Hosted report pages still return 404.
 
-Sign in with the existing website admin password. The local server sends it over HTTPS to the fixed `https://www.priyamsameer.com/api/admin/login` endpoint. It does not save the password. The returned production session stays only in the Node process's memory. The browser receives a separate random HttpOnly, SameSite=Strict local session cookie. Session lifetime is at most 24 hours and is capped to the production session's encoded expiry. Sign out or stop the local process to discard access. Restarting the process requires sign-in again.
+## Live records
 
-The website still receives anonymous page views and meaningful click events through its public write-only analytics endpoint. The local server reads the existing owner-authenticated report and CV CSV export endpoints over HTTPS. Those endpoints do not expose data without the owner's existing authenticated session. The local browser never receives a production session cookie, password or database credentials.
+Removing the local password screen does not remove authentication from the live website’s private report or CV-email APIs. The local server can read them using an already configured server-only `ANALYTICS_ADMIN_SESSION`, or authenticate with an already configured server-only `ADMIN_PASSWORD`. Neither value is rendered in the browser, logged, written to this repository or accepted through an unauthenticated local form. Upstream sessions stay only in process memory. No environment settings or credentials are changed automatically.
 
-## Dashboard contents
+If no valid connection exists, the dashboard reports **Live data is not connected**, with no fabricated counts or email records. Opening a passwordless local interface cannot recover a forgotten website credential. No Vercel account access is required to open the local dashboard.
 
-- 7-, 30- and 90-day reporting periods with daily page views, visitor-days, meaningful clicks and successful CV requests.
-- Popular pages, actions and targets, clicks by page, referrer hostnames and approximate device categories.
-- All-time email addresses voluntarily shared for the CV, latest 200 records, with an authenticated CSV export.
-- Real loading, expired-session, empty and upstream-failure states. Unavailable data is never represented as zero traffic.
+## Reports
 
-Visitor-days estimate browsers within each day and add daily counts, rather than claiming to identify people. No browsing is connected to a CV email. CV requests count successful form submissions, not confirmed PDF opens. Historical traffic cannot be reconstructed. Tracking respects Do Not Track and Global Privacy Control and excludes bots and signed-in website administrators.
+When a connection is configured, the dashboard shows 7/30/90-day views and actions, per-page activity, sources and device categories, along with all-time CV-request totals and the latest 200 volunteered email addresses. CSV export uses the protected website endpoint. Visitor-days are anonymous daily browser estimates, and no browsing history is linked to email records. CV requests are successful form submissions, not proof of PDF opens or verified identities.
+
+**Hide data** clears the report from the page and cancels pending report/export results. **Refresh** loads it again.
 
 ## Local security boundary
 
-- Fixed upstream origin and explicit report/login/export endpoints; no client-supplied upstream URL.
-- Exact Host validation and loopback socket validation prevent other hostnames and DNS rebinding.
-- All local API operations, including report reads and CSV exports, require POST, exact same-origin Origin, an explicit custom header and a JSON body. Cross-origin forms and scripts cannot read reports or change sessions.
-- No CORS access, no-store responses, noindex headers, a restrictive content policy and frame protection.
-- Five sign-in attempts per 15 minutes, bounded request/response bodies, upstream timeouts, rejected redirects and sanitized errors.
-- No third-party scripts, fonts, analytics, cookies or stored credentials in the local interface. Data is inserted as text rather than HTML.
-- Local analytics files and routes include no sample contacts or fabricated traffic. Automated tests inject a fake transport without permitting a configurable production origin.
+All local data operations require POST, the exact loopback Host and Origin, a custom request header, and bounded JSON. Other machines, cross-origin pages and DNS-rebinding hosts are rejected. Responses are non-cacheable with a restrictive content policy and frame protection. Upstream origins and endpoints are fixed; redirects and arbitrary destinations are rejected. Stored website records remain protected by the website’s existing authentication. Any process or user on this Mac that can reach the loopback server can use this passwordless interface.
 
-## Verification
-
-`node --test tests/local-analytics.test.cjs` exercises local origin and host boundaries, owner sign-in, session isolation and expiry, protected reports and exports, sign-out, rate limits, body bounds, upstream failures and static asset restrictions. The local launch command is separate from the production application and requires only Node.js 18 or later.
-
-If port 4310 is already used, the launcher prints a clear message and exits without switching to a publicly reachable address. Keep the terminal process running while viewing the dashboard. It does not register an auto-start background service.
+Tests cover both configured and unconfigured connections, host/origin checks, private-data text rendering, unavailable versus empty states, and delayed data/export handling. The separate launcher requires Node.js 18 or later and does not register an auto-start service.

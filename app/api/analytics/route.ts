@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getClientIp, isAdminAuthenticated } from '@/lib/auth';
 import { resolveAnalyticsPath, recordAnalyticsEvent } from '@/lib/site-analytics';
 import { normalizeAnalyticsAction } from '@/lib/analytics-events';
+import { analyticsBrowserIdentity, ANALYTICS_BROWSER_COOKIE, ANALYTICS_BROWSER_MAX_AGE } from '@/lib/analytics-identity';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -47,7 +48,17 @@ export async function POST(request: NextRequest) {
   const action = normalizeAnalyticsAction(event.type, event.target, () => targetPath);
   if (!action) return reply(400);
   try {
-    await recordAnalyticsEvent({ eventId: event.eventId, path, referrer: event.referrer, ...action }, { ip: getClientIp(request), userAgent: agent });
-    return reply(204);
+    // Only page views establish a browser identity. Deliberate actions cannot
+    // race the first page view or create identifiers for otherwise unseen pages.
+    const browser = action.type === 'page_view' ? analyticsBrowserIdentity(request.cookies.get(ANALYTICS_BROWSER_COOKIE)?.value) : null;
+    await recordAnalyticsEvent({ eventId: event.eventId, path, referrer: event.referrer, ...action }, {
+      ip: getClientIp(request), userAgent: agent, ...(browser ? { browserHash: browser.browserHash } : {}),
+    });
+    const response = reply(204);
+    if (browser?.isNew) response.cookies.set(ANALYTICS_BROWSER_COOKIE, browser.value, {
+      httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', path: '/',
+      maxAge: ANALYTICS_BROWSER_MAX_AGE, expires: browser.expires,
+    });
+    return response;
   } catch { return reply(503); }
 }

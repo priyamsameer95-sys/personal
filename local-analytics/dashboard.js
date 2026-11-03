@@ -2,7 +2,7 @@
 
 (() => {
   const $ = id => document.getElementById(id);
-  const number = value => new Intl.NumberFormat('en-IN').format(Number.isFinite(Number(value)) ? Number(value) : 0);
+  const number = value => value === null || value === undefined || !Number.isFinite(Number(value)) ? '—' : new Intl.NumberFormat('en-IN').format(Number(value));
   const date = (value, time = false) => {
     const parsed = new Date(value);
     if (!Number.isFinite(parsed.getTime())) return 'Unavailable';
@@ -14,7 +14,7 @@
   };
   let days = 30;
   let requestVersion = 0;
-  let authVersion = 0;
+  let dataVersion = 0;
 
   function element(tag, text, className) {
     const node = document.createElement(tag);
@@ -35,31 +35,35 @@
       try { payload = await response.json(); } catch { /* Never expose upstream HTML. */ }
       const error = new Error(payload?.error || 'The live website could not be reached. Please try again.');
       error.status = response.status;
+      error.code = payload?.code;
       throw error;
     }
     return endpoint === '/api/export' ? response.blob() : response.json();
   }
-  function showSignIn(message) {
-    ++requestVersion;
-    ++authVersion;
-    $('dashboard').hidden = true;
+  function clearReport() {
     $('report').hidden = true;
     $('export-status').textContent = '';
-    // Clear private records from the DOM on sign-out or session expiry.
-    for (const id of ['metrics', 'daily-chart', 'daily-table', 'pages', 'interactions', 'page-interactions', 'referrers', 'devices', 'contacts']) replace(id, []);
-    $('sign-in').hidden = false;
-    $('login-error').textContent = message || '';
-    $('login-error').hidden = !message;
+    for (const id of ['metrics', 'visitor-note', 'daily-chart', 'daily-table', 'pages', 'interactions', 'page-interactions', 'referrers', 'devices', 'contacts', 'contact-count', 'record-note']) replace(id, []);
   }
-  function showDashboard() { ++authVersion; $('sign-in').hidden = true; $('dashboard').hidden = false; }
+  function showConnectionError(error) {
+    const missing = error.code === 'DATA_NOT_CONNECTED' || error.status === 401 || error.status === 403;
+    $('report-error').querySelector('h2').textContent = missing ? 'Live data is not connected.' : 'The report could not be loaded.';
+    $('report-error').querySelector('p').textContent = missing
+      ? 'This dashboard opens without a password on this Mac. Its secure connection to the website’s private records is not configured here, so CV counts and email addresses are not available yet.'
+      : errorMessage(error);
+    $('report-error').hidden = false;
+  }
 
   function renderMetrics(data) {
+    const startsWithinPeriod = data.uniqueTrackingStartedAt && new Date(data.uniqueTrackingStartedAt) > new Date(`${data.startDate}T00:00:00+05:30`);
+    const uniqueNote = data.uniqueTrackingStartedAt ? (startsWithinPeriod ? `Since ${date(data.uniqueTrackingStartedAt)} · partial history` : 'One count per browser in this period') : 'Waiting for the first visit with updated tracking';
     const rows = [
-      ['Page views', data.pageViews, `In the last ${days} days`],
-      ['Visitor-days', data.visitors, 'Estimated daily browsers, summed'],
-      ['Clicks & actions', data.clicks || 0, 'Recorded meaningful actions'],
-      ['CV requests', data.cvRequests, 'Successful form submissions in this period'],
       ['Emails shared', data.cvContacts, 'Distinct email addresses · all time'],
+      ['CV requests · all time', data.cvRequestsAllTime, 'Recorded successful form submissions'],
+      ['Page views', data.pageViews, `In the last ${days} days`],
+      ['Unique visitors', data.uniqueVisitors, uniqueNote],
+      ['Clicks & actions', data.clicks, 'Recorded meaningful actions'],
+      ['CV requests · this period', data.cvRequests, data.availability?.cvRequestHistory === false ? 'Dated history was not recorded' : `In the last ${days} days`],
     ];
     replace('metrics', rows.map(([label, value, note]) => {
       const metric = element('div', null, 'metric');
@@ -85,6 +89,10 @@
   }
   function renderChart(data) {
     const daily = data.daily || [];
+    const cvHistory = data.availability?.cvRequestHistory !== false;
+    const clickHistory = data.availability?.interactions !== false;
+    $('cv-legend').hidden = !cvHistory;
+    $('click-legend').hidden = !clickHistory;
     if (!daily.length) { replace('daily-chart', [element('p', 'No daily activity is available yet.', 'empty')]); replace('daily-table', []); return; }
     const width = 1000, height = 230, left = 8, top = 15, plotWidth = 984, plotHeight = 205;
     const max = Math.max(1, ...daily.map(day => Math.max(day.pageViews || 0, day.clicks || 0, day.cvRequests || 0)));
@@ -97,21 +105,23 @@
     };
     const svg = svgNode('svg', { viewBox: `0 0 ${width} ${height}`, preserveAspectRatio: 'none', role: 'img', 'aria-labelledby': 'chart-title chart-description' });
     const title = svgNode('title', { id: 'chart-title' }); title.textContent = 'Daily page views, clicks and actions, and CV requests';
-    const description = svgNode('desc', { id: 'chart-description' }); description.textContent = 'Blue bars show page views, the orange line shows clicks and other meaningful actions, and the dashed green line shows CV requests. Exact counts are available in the following daily table.';
+    const description = svgNode('desc', { id: 'chart-description' }); description.textContent = `Blue bars show page views${clickHistory ? ', the orange line shows meaningful actions' : ''}${cvHistory ? ', and the dashed green line shows CV requests' : ''}. Exact recorded counts are in the following daily table.`;
     svg.append(title, description);
     for (const fraction of [0, .5, 1]) svg.append(svgNode('line', { x1: left, x2: width - left, y1: top + plotHeight * fraction, y2: top + plotHeight * fraction, class: 'grid-line' }));
     daily.forEach((day, index) => {
+      if (day.pageViews === null || day.pageViews === undefined) return;
       const bar = svgNode('rect', { x: left + slot * (index + .5) - Math.min(28, slot * .65) / 2, y: y(day.pageViews), width: Math.min(28, slot * .65), height: top + plotHeight - y(day.pageViews), rx: 2, class: 'view-bar' });
-      const tooltip = svgNode('title'); tooltip.textContent = `${shortDate(day.date)}: ${number(day.pageViews)} views, ${number(day.clicks || 0)} actions, ${number(day.cvRequests)} CV requests`; bar.append(tooltip); svg.append(bar);
+      const tooltip = svgNode('title'); tooltip.textContent = `${shortDate(day.date)}: ${number(day.pageViews)} views, ${number(day.clicks)} actions, ${number(day.cvRequests)} CV requests`; bar.append(tooltip); svg.append(bar);
     });
     for (const [field, className] of [['clicks', 'click-line'], ['cvRequests', 'cv-line']]) {
+      if ((field === 'clicks' && !clickHistory) || (field === 'cvRequests' && !cvHistory)) continue;
       const points = daily.map((day, index) => `${index ? 'L' : 'M'}${left + slot * (index + .5)},${y(day[field] || 0)}`).join(' ');
       svg.append(svgNode('path', { d: points, class: className, 'vector-effect': 'non-scaling-stroke' }));
     }
     const dates = element('div', null, 'chart-dates'); dates.setAttribute('aria-hidden', 'true');
     dates.append(element('span', shortDate(daily[0].date)), element('span', shortDate(daily[Math.floor((daily.length - 1) / 2)].date)), element('span', shortDate(daily[daily.length - 1].date)));
     replace('daily-chart', [element('p', `Daily count · scale 0–${number(max)}`, 'chart-scale'), svg, dates]);
-    replace('daily-table', [table(['Date · IST', 'Visitor-days', 'Page views', 'Actions', 'CV requests'], daily.map(day => [date(day.date), number(day.visitors), number(day.pageViews), number(day.clicks || 0), number(day.cvRequests)]), 'Daily website activity in Indian Standard Time')]);
+    replace('daily-table', [table(['Date · IST', 'Visitor-days', 'Page views', 'Actions', 'CV requests'], daily.map(day => [date(day.date), number(day.visitors), number(day.pageViews), number(day.clicks), number(day.cvRequests)]), 'Daily website activity in Indian Standard Time')]);
   }
   function breakdown(id, rows, empty, orange = false) {
     if (!rows.length) return replace(id, [element('p', empty, 'empty')]);
@@ -129,13 +139,19 @@
   function render(data) {
     $('report-period').textContent = `${date(data.startDate)} – ${date(data.endDate)} · IST`;
     renderMetrics(data); renderChart(data);
-    $('tracking-start').textContent = data.trackingStartedAt ? `Visitor tracking began ${date(data.trackingStartedAt)}. Click tracking begins with the latest website update.` : 'Tracking is ready. Activity appears after a visitor uses the updated website.';
-    replace('pages', data.topPages.length ? [table(['Page', 'Views', 'Visitor-days'], data.topPages.map(row => [row.path, number(row.views), number(row.visitors)]), 'Pages visited in the selected period', 'page-list')] : [element('p', 'Pages appear after the first recorded visit.', 'empty')]);
+    $('visitor-note').textContent = data.uniqueTrackingStartedAt
+      ? `Unique visitors count the same browser once across the selected period, using visits recorded since ${date(data.uniqueTrackingStartedAt, true)}. ${number(data.uniqueTrackedPageViews)} of ${number(data.pageViews)} page views in this period have this measurement. Earlier visits cannot be deduplicated. The previous daily estimate is ${number(data.visitors)} visitor-days.`
+      : `Older records contain ${number(data.visitors)} visitor-days: a returning browser can count again on another day. Unique visitors will appear after the first visit using updated tracking; historical unique visitors cannot be reconstructed.`;
+    $('tracking-start').textContent = data.trackingStartedAt ? `Visitor tracking began ${date(data.trackingStartedAt)}.` : 'Activity appears after a visitor uses the website.';
+    if (data.availability?.cvRequestHistory === false) $('tracking-start').textContent += ' Exact dated CV request history was not recorded. All-time request totals and the first/latest dates for each email remain available above.';
+    replace('pages', data.topPages.length ? [table(['Page', 'Views', 'Unique visitors', 'Visitor-days'], data.topPages.map(row => [row.path, number(row.views), number(row.browserVisitors), number(row.visitors)]), 'Pages visited in the selected period; unique visitor counts include only visits with the new anonymous identifier', 'page-list')] : [element('p', 'Pages appear after the first recorded visit.', 'empty')]);
     breakdown('interactions', (data.interactions || []).map(row => ({ label: `${actionNames[row.type] || row.type} · ${row.target}`, count: row.count })), 'Meaningful clicks will appear here after visitors interact with the updated website.', true);
     breakdown('page-interactions', (data.pageInteractions || []).map(row => ({ label: row.path, count: row.count })), 'No click activity recorded for this period.', true);
     breakdown('referrers', (data.referrers || []).map(row => ({ label: row.source, count: row.visits })), 'No referrer data recorded yet.');
     breakdown('devices', (data.devices || []).map(row => ({ label: row.device, count: row.visits })), 'No device data recorded yet.');
     $('contact-count').textContent = `${number(data.cvLeadsTotal)} email addresses · ${number(data.cvRequestsAllTime)} recorded requests across all time.`;
+    const testAddresses = data.cvLeads.filter(lead => /@(example\.(?:com|org|net)|[^@]+\.invalid)$/i.test(lead.email)).length;
+    $('record-note').textContent = testAddresses ? `Includes ${number(testAddresses)} address${testAddresses === 1 ? '' : 'es'} on a reserved test domain. These records do not establish downloads by real visitors.` : '';
     if (data.cvLeads.length) {
       const container = element('div', null, 'table-scroll'); container.tabIndex = 0; container.setAttribute('role', 'region'); container.setAttribute('aria-label', 'CV email records; scroll horizontally for all columns');
       container.append(table(['Email', 'Latest request · IST', 'First request · IST', 'Requests', 'Latest page'], data.cvLeads.map(lead => [lead.email, date(lead.last_requested_at, true), date(lead.first_requested_at, true), number(lead.download_count), lead.last_source_path]), 'Email addresses voluntarily shared through the CV form'));
@@ -146,7 +162,8 @@
     const version = ++requestVersion;
     $('report-status').textContent = 'Loading your live website report…';
     $('report-error').hidden = true;
-    $('report').hidden = true;
+    clearReport();
+    ++dataVersion;
     $('refresh').disabled = true;
     for (const button of $('ranges').querySelectorAll('button')) { button.disabled = true; button.setAttribute('aria-pressed', String(Number(button.dataset.days) === days)); }
     try {
@@ -157,44 +174,34 @@
     } catch (error) {
       if (version !== requestVersion) return;
       $('report-status').textContent = '';
-      if (error.status === 401) { showSignIn(errorMessage(error)); $('password').focus(); return; }
-      $('report-error').querySelector('p').textContent = errorMessage(error); $('report-error').hidden = false;
+      showConnectionError(error);
     } finally {
       $('refresh').disabled = false;
       for (const button of $('ranges').querySelectorAll('button')) button.disabled = false;
     }
   }
-  $('login-form').addEventListener('submit', async event => {
-    event.preventDefault();
-    const button = $('login-form').querySelector('button');
-    const password = $('password').value; $('password').value = '';
-    button.disabled = true; button.textContent = 'Signing in…'; $('login-error').hidden = true;
-    try { await api('/api/login', { password }); showDashboard(); $('dashboard-title').tabIndex = -1; $('dashboard-title').focus(); await loadReport(); }
-    catch (error) { $('login-error').textContent = errorMessage(error); $('login-error').hidden = false; $('password').focus(); }
-    finally { button.disabled = false; button.textContent = 'Open my analytics ↗'; }
-  });
-  $('logout').addEventListener('click', async () => {
-    $('logout').disabled = true;
-    try { await api('/api/logout'); showSignIn(); $('password').focus(); }
-    catch (error) { $('report-status').textContent = `Sign-out could not complete. ${errorMessage(error)}`; }
-    finally { $('logout').disabled = false; }
+  $('hide-data').addEventListener('click', () => {
+    ++requestVersion;
+    ++dataVersion;
+    clearReport();
+    $('report-error').hidden = true;
+    $('report-status').textContent = 'Report hidden. Refresh to show it again.';
   });
   $('ranges').addEventListener('click', event => { const button = event.target.closest('button[data-days]'); if (button) { days = Number(button.dataset.days); void loadReport(); } });
   $('refresh').addEventListener('click', () => void loadReport());
   $('retry').addEventListener('click', () => void loadReport());
   $('export').addEventListener('click', async () => {
-    const version = authVersion;
+    const version = dataVersion;
     $('export').disabled = true; $('export-status').textContent = 'Preparing your private export…';
     try {
       const blob = await api('/api/export');
-      if (version !== authVersion || $('dashboard').hidden) return;
+      if (version !== dataVersion || $('report').hidden) return;
       const url = URL.createObjectURL(blob); const link = element('a'); link.href = url; link.download = 'cv-interests.csv'; document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
       $('export-status').textContent = 'Your CSV download is ready.';
     } catch (error) {
-      if (version !== authVersion) return;
-      if (error.status === 401) { showSignIn(errorMessage(error)); $('password').focus(); }
-      else $('export-status').textContent = errorMessage(error);
+      if (version !== dataVersion) return;
+      $('export-status').textContent = errorMessage(error);
     } finally { $('export').disabled = false; }
   });
-  void api('/api/session').then(result => { if (result.authenticated) { showDashboard(); void loadReport(); } }).catch(() => { showSignIn('The local dashboard could not be reached. Refresh this page after restarting it.'); });
+  void loadReport();
 })();

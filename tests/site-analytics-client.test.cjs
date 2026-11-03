@@ -28,7 +28,7 @@ class Element {
   }
 }
 
-function harness({ pathname = '/', hidden = false, dnt = false, gpc = false, fetchFailure = false } = {}) {
+function harness({ pathname = '/', hidden = false, dnt = false, gpc = false, fetchFailure = false, fetchResponse } = {}) {
   const calls = [], listeners = new Map(), timers = new Map(), refs = [];
   let route = pathname, cleanup, dependencies, cursor = 0, sequence = 0;
   const navigator = { doNotTrack: dnt ? '1' : 'unspecified', globalPrivacyControl: gpc };
@@ -48,6 +48,7 @@ function harness({ pathname = '/', hidden = false, dnt = false, gpc = false, fet
     fetch(url, options) {
       if (fetchFailure === 'throw') throw new Error('Storage unavailable');
       calls.push({ url, options, body: JSON.parse(options.body) });
+      if (fetchResponse) return fetchResponse(calls[calls.length - 1], calls.length);
       return fetchFailure ? Promise.reject(new Error('Network unavailable')) : Promise.resolve({ ok: true });
     },
     require(id) {
@@ -73,13 +74,15 @@ function harness({ pathname = '/', hidden = false, dnt = false, gpc = false, fet
 const link = href => new Element('a', { href });
 const action = (type, target, attributes = {}) => new Element('button', { 'data-analytics': type, 'data-analytics-target': target, ...attributes });
 const events = h => h.calls.map(call => ({ type: call.body.type, target: call.body.target, path: call.body.path }));
+const settle = () => new Promise(resolve => setImmediate(resolve));
 
-test('the real client counts public page entry, route transitions and references once per visit', () => {
+test('the real client counts public page entry, route transitions and references once per visit', async () => {
   const h = harness();
   h.flushTimers(); h.fire('visibilitychange'); h.render();
   for (const route of ['/cv', '/art', '/github', '/blog', '/product', '/product/absolute-crop-health-ai', '/product/absolute-crop-health-ai/references', '/art/a-painting', '/blog/a-post', '/']) {
     h.render(route); h.flushTimers();
   }
+  await settle();
   assert.equal(h.calls.length, 11);
   assert.ok(h.calls.every(call => call.body.type === 'page_view' && call.body.referrer === 'www.example.org'));
   assert.equal(new Set(h.calls.map(call => call.body.eventId)).size, 11);
@@ -197,6 +200,7 @@ test('DNT, GPC and background tabs exclude both page views and interactions', ()
 
 test('route cleanup removes old handlers, and network failures never block visitor actions', async () => {
   const h = harness(); h.flushTimers(); h.render('/github'); h.flushTimers();
+  await settle();
   assert.equal(h.listeners.get('click').size, 1);
   h.click(link('/art')); assert.equal(h.calls.length, 3);
   assert.equal(h.calls[2].body.path, '/github');
@@ -206,7 +210,60 @@ test('route cleanup removes old handlers, and network failures never block visit
     const failed = harness({ fetchFailure });
     assert.doesNotThrow(() => { failed.flushTimers(); failed.click(link('/cv')); });
   }
-  await new Promise(resolve => setImmediate(resolve));
+  await settle();
+});
+
+test('quick SPA navigation waits for the first page-view response while actions remain immediate', async () => {
+  let releaseFirst;
+  const firstResponse = new Promise(resolve => { releaseFirst = resolve; });
+  const h = harness({ fetchResponse: (_call, index) => index === 1 ? firstResponse : Promise.resolve({ ok: true }) });
+  h.flushTimers();
+  h.render('/product'); h.flushTimers();
+  h.click(link('/cv'));
+  assert.deepEqual(events(h), [
+    { type: 'page_view', target: undefined, path: '/' },
+    { type: 'navigation_clicked', target: '/cv', path: '/product' },
+  ], 'The next view waits for cookie installation; ordinary actions do not wait or create identities');
+  releaseFirst({ ok: true });
+  await settle();
+  assert.deepEqual(events(h), [
+    { type: 'page_view', target: undefined, path: '/' },
+    { type: 'navigation_clicked', target: '/cv', path: '/product' },
+    { type: 'page_view', target: undefined, path: '/product' },
+  ]);
+  h.fire('visibilitychange'); h.flushTimers();
+  assert.equal(h.calls.length, 3, 'Releasing the queue must not duplicate the new route view');
+});
+
+test('a rejected first page-view request releases later route views without blocking interaction', async () => {
+  let rejectFirst;
+  const firstResponse = new Promise((_resolve, reject) => { rejectFirst = reject; });
+  const h = harness({ fetchResponse: (_call, index) => index === 1 ? firstResponse : Promise.resolve({ ok: true }) });
+  h.flushTimers(); h.render('/art'); h.flushTimers();
+  assert.equal(h.calls.length, 1);
+  rejectFirst(new Error('Network unavailable'));
+  await settle();
+  assert.deepEqual(h.calls.map(call => call.body.path), ['/', '/art']);
+  h.render('/cv'); h.flushTimers(); await settle();
+  assert.deepEqual(h.calls.map(call => call.body.path), ['/', '/art', '/cv']);
+});
+
+test('queued page views recheck DNT, GPC and visibility before sending', async () => {
+  for (const privacy of ['dnt', 'gpc', 'hidden']) {
+    let releaseFirst;
+    const firstResponse = new Promise(resolve => { releaseFirst = resolve; });
+    const h = harness({ fetchResponse: (_call, index) => index === 1 ? firstResponse : Promise.resolve({ ok: true }) });
+    h.flushTimers(); h.render('/github'); h.flushTimers();
+    if (privacy === 'dnt') h.navigator.doNotTrack = '1';
+    if (privacy === 'gpc') h.navigator.globalPrivacyControl = true;
+    if (privacy === 'hidden') h.document.visibilityState = 'hidden';
+    releaseFirst({ ok: true }); await settle();
+    assert.equal(h.calls.length, 1, `${privacy} prevents the pending route view from sending`);
+    h.navigator.doNotTrack = 'unspecified'; h.navigator.globalPrivacyControl = false; h.document.visibilityState = 'visible';
+    h.fire('visibilitychange'); await settle();
+    assert.equal(h.calls.length, 2, 'A suppressed queued view can be counted when privacy allows a visible visit again');
+    assert.equal(h.calls[1].body.path, '/github');
+  }
 });
 
 test('public controls declare media, contact, CV, menu and company actions consistently', () => {

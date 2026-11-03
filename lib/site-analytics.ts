@@ -7,12 +7,13 @@ import { isRetiredWorkSlug } from '@/lib/work';
 
 export type AnalyticsRange = 7 | 30 | 90;
 export type AnalyticsEvent = { eventId: string; path: string; referrer: string; type?: AnalyticsEventType; target?: string };
-export type AnalyticsContext = { ip: string; userAgent: string; country?: string };
+export type AnalyticsContext = { ip: string; userAgent: string; country?: string; browserHash?: string };
 export interface SiteAnalytics {
   days: AnalyticsRange; startDate: string; endDate: string; trackingStartedAt: string | null;
   visitors: number; pageViews: number; clicks: number; cvRequests: number; cvContacts: number; cvRequestsAllTime: number;
+  uniqueVisitors: number | null; uniqueTrackingStartedAt: string | null; uniqueTrackedPageViews: number | null;
   daily: { date: string; visitors: number; pageViews: number; clicks: number; cvRequests: number }[];
-  topPages: { path: string; views: number; visitors: number }[];
+  topPages: { path: string; views: number; visitors: number; browserVisitors: number | null }[];
   referrers: { source: string; visits: number }[];
   devices: { device: string; visits: number }[];
   countries: { country: string; visits: number }[];
@@ -117,10 +118,15 @@ async function ensureSchema() {
       path TEXT NOT NULL CHECK (char_length(path) <= 240),
       referrer TEXT NOT NULL CHECK (char_length(referrer) <= 253),
       visitor_hash CHAR(64) NOT NULL,
+      browser_hash CHAR(64),
       device TEXT NOT NULL CHECK (device IN ('Desktop', 'Phone', 'Tablet'))
     )`;
+    // Historical daily hashes cannot be converted to persistent browser IDs.
+    // Nullable additions preserve those rows without inventing unique visitors.
+    await db`ALTER TABLE site_page_views ADD COLUMN IF NOT EXISTS browser_hash CHAR(64)`;
     await db`CREATE INDEX IF NOT EXISTS site_page_views_time_idx ON site_page_views (occurred_at)`;
     await db`CREATE INDEX IF NOT EXISTS site_page_views_visitor_time_idx ON site_page_views (visitor_hash, occurred_at)`;
+    await db`CREATE INDEX IF NOT EXISTS site_page_views_browser_time_idx ON site_page_views (browser_hash, occurred_at) WHERE browser_hash IS NOT NULL`;
     await db`CREATE TABLE IF NOT EXISTS site_interaction_events (
       event_id UUID PRIMARY KEY,
       occurred_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -136,6 +142,7 @@ async function ensureSchema() {
     await db`CREATE TABLE IF NOT EXISTS site_analytics_settings (
       id INTEGER PRIMARY KEY CHECK (id = 1), enabled_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )`;
+    await db`ALTER TABLE site_analytics_settings ADD COLUMN IF NOT EXISTS browser_tracking_started_at TIMESTAMPTZ`;
     await db`INSERT INTO site_analytics_settings (id) VALUES (1) ON CONFLICT DO NOTHING`;
   })().catch(() => { schemaReady = undefined; throw new AnalyticsStorageError(); });
   await schemaReady;
@@ -151,16 +158,23 @@ export async function recordPageView(event: AnalyticsEvent, context: AnalyticsCo
   const action = normalizeAnalyticsAction(event.type, event.target, normalizeAnalyticsPath);
   if (!path || action?.type !== 'page_view' || !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(event.eventId)) return;
   const visitor = analyticsVisitorHash(context.ip, context.userAgent);
+  const browser = typeof context.browserHash === 'string' && /^[a-f0-9]{64}$/.test(context.browserHash) ? context.browserHash : null;
   const day = analyticsDay();
   await ensureSchema();
   try {
-    // A capped daily budget and idempotent event IDs limit duplicate/spam writes.
-    await db`INSERT INTO site_page_views (event_id, path, referrer, visitor_hash, device)
-      SELECT ${event.eventId}, ${path}, ${normalizeReferrer(event.referrer)}, ${visitor}, ${analyticsDevice(context.userAgent)}
-      WHERE (SELECT COUNT(*) FROM site_page_views WHERE visitor_hash = ${visitor}
-        AND occurred_at >= (${day}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')) < 500
-      ON CONFLICT (event_id) DO NOTHING`;
     await pruneExpiredEvents();
+    // A capped daily budget and idempotent event IDs limit duplicate/spam writes.
+    // The first browser view and its coverage marker succeed together. No
+    // later database operation can fail before the route returns its cookie.
+    await db`WITH inserted AS (
+      INSERT INTO site_page_views (event_id, path, referrer, visitor_hash, device, browser_hash)
+        SELECT ${event.eventId}, ${path}, ${normalizeReferrer(event.referrer)}, ${visitor}, ${analyticsDevice(context.userAgent)}, ${browser}
+        WHERE (SELECT COUNT(*) FROM site_page_views WHERE visitor_hash = ${visitor}
+          AND occurred_at >= (${day}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')) < 500
+        ON CONFLICT (event_id) DO NOTHING RETURNING occurred_at, browser_hash
+    ) UPDATE site_analytics_settings
+      SET browser_tracking_started_at = (SELECT MIN(occurred_at) FROM inserted WHERE browser_hash IS NOT NULL)
+      WHERE id = 1 AND browser_tracking_started_at IS NULL AND EXISTS (SELECT 1 FROM inserted WHERE browser_hash IS NOT NULL)`;
   } catch { throw new AnalyticsStorageError(); }
 }
 export async function recordAnalyticsEvent(event: AnalyticsEvent, context: AnalyticsContext): Promise<void> {
@@ -191,8 +205,9 @@ export async function getSiteAnalytics(range: AnalyticsRange = 30): Promise<Site
   try {
     const [started, totals, dailyViews, dailyRequests, pages, referrers, devices, interests, lifetime,
       interactionTotals, dailyInteractions, interactions, pageInteractions] = await Promise.all([
-      db`SELECT enabled_at FROM site_analytics_settings WHERE id = 1`,
-      db`SELECT COUNT(*)::INTEGER AS views, COUNT(DISTINCT visitor_hash)::INTEGER AS visitors FROM site_page_views
+      db`SELECT enabled_at, browser_tracking_started_at FROM site_analytics_settings WHERE id = 1`,
+      db`SELECT COUNT(*)::INTEGER AS views, COUNT(DISTINCT visitor_hash)::INTEGER AS visitors,
+        COUNT(DISTINCT browser_hash)::INTEGER AS unique_visitors, COUNT(browser_hash)::INTEGER AS unique_tracked_views FROM site_page_views
         WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')`,
       db`SELECT TO_CHAR(occurred_at AT TIME ZONE 'Asia/Kolkata', 'YYYY-MM-DD') AS day,
         COUNT(*)::INTEGER AS views, COUNT(DISTINCT visitor_hash)::INTEGER AS visitors FROM site_page_views
@@ -200,7 +215,8 @@ export async function getSiteAnalytics(range: AnalyticsRange = 30): Promise<Site
       db`SELECT TO_CHAR(requested_at AT TIME ZONE 'Asia/Kolkata', 'YYYY-MM-DD') AS day, COUNT(*)::INTEGER AS requests
         FROM cv_download_events WHERE requested_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')
         AND requested_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY day ORDER BY day`,
-      db`SELECT path, COUNT(*)::INTEGER AS views, COUNT(DISTINCT visitor_hash)::INTEGER AS visitors FROM site_page_views
+      db`SELECT path, COUNT(*)::INTEGER AS views, COUNT(DISTINCT visitor_hash)::INTEGER AS visitors,
+        COUNT(DISTINCT browser_hash)::INTEGER AS browser_visitors, COUNT(browser_hash)::INTEGER AS browser_tracked_views FROM site_page_views
         WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY path ORDER BY views DESC, path LIMIT 100`,
       db`SELECT referrer AS source, COUNT(*)::INTEGER AS visits FROM site_page_views
         WHERE occurred_at >= (${startDate}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND occurred_at < (${until}::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') GROUP BY referrer ORDER BY visits DESC LIMIT 12`,
@@ -226,10 +242,15 @@ export async function getSiteAnalytics(range: AnalyticsRange = 30): Promise<Site
       const interaction = dailyInteractions.rows.find(row => row.day === date);
       return { date, visitors: Number(view?.visitors || 0), pageViews: Number(view?.views || 0), clicks: Number(interaction?.clicks || 0), cvRequests: Number(requests?.requests || 0) };
     });
+    const uniqueTrackingStartedAt = started.rows[0]?.browser_tracking_started_at ? new Date(started.rows[0].browser_tracking_started_at).toISOString() : null;
     return { days, startDate, endDate, trackingStartedAt: started.rows[0]?.enabled_at ? new Date(started.rows[0].enabled_at).toISOString() : null,
+      uniqueTrackingStartedAt, uniqueVisitors: uniqueTrackingStartedAt ? Number(totals.rows[0]?.unique_visitors || 0) : null,
+      uniqueTrackedPageViews: uniqueTrackingStartedAt ? Number(totals.rows[0]?.unique_tracked_views || 0) : null,
       visitors: Number(totals.rows[0]?.visitors || 0), pageViews: Number(totals.rows[0]?.views || 0), clicks: Number(interactionTotals.rows[0]?.clicks || 0), cvRequests: daily.reduce((sum, day) => sum + day.cvRequests, 0),
       cvContacts: interests.total, cvRequestsAllTime: Number(lifetime.rows[0]?.requests || 0), daily,
-      topPages: pages.rows as SiteAnalytics['topPages'], referrers: referrers.rows as SiteAnalytics['referrers'], devices: devices.rows as SiteAnalytics['devices'], countries: [],
+      topPages: pages.rows.map(row => ({ path: String(row.path), views: Number(row.views), visitors: Number(row.visitors),
+        browserVisitors: uniqueTrackingStartedAt && Number(row.browser_tracked_views) > 0 ? Number(row.browser_visitors || 0) : null })),
+      referrers: referrers.rows as SiteAnalytics['referrers'], devices: devices.rows as SiteAnalytics['devices'], countries: [],
       interactions: interactions.rows as SiteAnalytics['interactions'], pageInteractions: pageInteractions.rows as SiteAnalytics['pageInteractions'], cvLeads: interests.leads, cvLeadsTotal: interests.total };
   } catch { throw new AnalyticsStorageError(); }
 }
