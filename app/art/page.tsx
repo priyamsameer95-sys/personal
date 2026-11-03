@@ -22,7 +22,7 @@ interface ContentItem {
 
 const description = 'Paintings by Priyam Sameer in oil, acrylic and charcoal. Explore six works, their details and the artist’s original notes.';
 
-export const metadata: Metadata = pageMetadata({ path: '/art', title: 'Paintings in oil, acrylic & charcoal', description, image: { url: '/art/priyam/public-compass-preview.webp', width: 1000, height: 879, alt: 'Public Compass by Priyam Sameer' } });
+export const metadata: Metadata = pageMetadata({ path: '/art', title: 'Paintings in oil, acrylic & charcoal', description });
 
 export const revalidate = 0;
 

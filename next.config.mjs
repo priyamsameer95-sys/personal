@@ -1,6 +1,30 @@
+import { readFileSync, readdirSync } from 'node:fs';
+
+const coverMedia = JSON.parse(readFileSync(new URL('./content/social-covers.json', import.meta.url), 'utf8'));
+const selectedCoverFiles = new Set([
+  ...Object.values(coverMedia).flatMap(media => media.src ? [`public${media.rasterSrc || media.src}`] : []),
+  ...['home', 'work', 'experience', 'art', 'github', 'writing'].map(key => `public/social/page-captures/${key}.png`),
+]);
+function publicFiles(directory, prefix = 'public') {
+  return readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
+    const relative = `${prefix}/${entry.name}`;
+    return entry.isDirectory() ? publicFiles(new URL(`${entry.name}/`, directory), relative) : entry.isFile() ? [relative] : [];
+  });
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
+  outputFileTracingExcludes: {
+    '/social/**': publicFiles(new URL('./public/', import.meta.url)).filter(path => !selectedCoverFiles.has(path)).map(path => `./${path}`),
+  },
+  // Only the selected originals are needed in the social-image function.
+  outputFileTracingIncludes: {
+    '/social/**': [
+      './public/social/page-captures/*.png',
+      ...Object.values(coverMedia).flatMap(media => media.src ? [`./public${media.rasterSrc || media.src}`] : []),
+    ],
+  },
   // PDF.js resolves its worker and native support relative to the package.
   serverExternalPackages: ['pdf-parse', 'pdfjs-dist', '@napi-rs/canvas'],
   async headers() {

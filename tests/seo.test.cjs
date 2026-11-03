@@ -57,12 +57,15 @@ test('canonical origin is stable in previews and invalid configuration cannot ex
 
 test('metadata consistently names the person and publishes absolute canonical and social URLs', async () => {
   const { load } = fixture();
-  const pages = ['app/page.tsx', 'app/product/page.tsx', 'app/cv/page.tsx', 'app/art/page.tsx', 'app/github/page.tsx'];
-  const paths = ['/', '/product', '/cv', '/art', '/github'];
+  const pages = ['app/page.tsx', 'app/product/page.tsx', 'app/cv/page.tsx', 'app/art/page.tsx', 'app/github/page.tsx', 'app/blog/page.tsx'];
+  const paths = ['/', '/product', '/cv', '/art', '/github', '/blog'];
+  const coverKeys = ['home', 'work', 'experience', 'art', 'github', 'writing'];
+  const covers = [];
   const titles = [];
   const descriptions = [];
-  pages.forEach((page, index) => {
-    const { metadata } = load(page);
+  for (const [index, page] of pages.entries()) {
+    const pageModule = load(page);
+    const metadata = pageModule.metadata || await pageModule.generateMetadata();
     assert.equal(metadata.alternates.canonical, `${origin}${paths[index]}`);
     assert.equal(metadata.openGraph.url, metadata.alternates.canonical);
     assert.equal(metadata.openGraph.siteName, 'Priyam Sameer');
@@ -70,9 +73,16 @@ test('metadata consistently names the person and publishes absolute canonical an
     assert.equal(metadata.twitter.title, metadata.title.absolute);
     assert.ok(metadata.description.length > 60 && metadata.description.length < 200);
     for (const image of [...metadata.openGraph.images.map(image => image.url), ...metadata.twitter.images]) assert.ok(image.startsWith(`${origin}/`), image);
+    const image = metadata.openGraph.images[0];
+    assert.equal(image.url, `${origin}/social/${coverKeys[index]}/cover-v1.png`);
+    assert.equal(image.width, 1200);
+    assert.equal(image.height, 630);
+    assert.deepEqual(Array.from(metadata.twitter.images), [image.url]);
+    covers.push(image.url);
     titles.push(metadata.title.absolute);
     descriptions.push(metadata.description);
-  });
+  }
+  assert.equal(new Set(covers).size, paths.length, 'Each primary destination has its own cover');
   assert.equal(new Set(titles).size, paths.length, 'Each primary destination has its own title');
   assert.equal(new Set(descriptions).size, paths.length, 'Each primary destination describes its own content');
   const rootMetadata = load('app/layout.tsx').metadata;
@@ -104,6 +114,7 @@ test('case metadata uses the same canonical title across aliases and rendered sc
   const { load } = fixture({ db: () => assert.fail('Authored cases must not need a database') });
   const route = load('app/[category]/[id]/page.tsx');
   const presentation = load('lib/work-presentation.ts');
+  const coverImages = new Set();
   for (const study of registry.caseStudies.filter(study => study.status !== 'draft')) {
     const canonical = `${origin}/product/${study.slug}`;
     const metadata = await route.generateMetadata({ params: { category: 'product', id: study.slug } });
@@ -111,12 +122,22 @@ test('case metadata uses the same canonical title across aliases and rendered sc
     assert.equal(metadata.title.absolute, `${presentation.getCaseDisplayTitle(study)} — Priyam Sameer`);
     assert.equal(metadata.openGraph.url, canonical);
     assert.equal(metadata.description, study.visualSummary?.summary || study.summary);
+    const image = metadata.openGraph.images[0];
+    assert.equal(image.url, `${origin}/social/product/${study.slug}/cover-v1.png`);
+    assert.equal(image.width, 1200);
+    assert.equal(image.height, 630);
+    assert.equal(image.alt, presentation.getCaseDisplayTitle(study));
+    assert.deepEqual(Array.from(metadata.twitter.images), [image.url]);
+    coverImages.add(image.url);
     for (const alias of study.aliases || []) {
       const aliasMetadata = await route.generateMetadata({ params: { category: 'product', id: alias } });
       assert.equal(aliasMetadata.alternates.canonical, canonical);
+      assert.equal(aliasMetadata.openGraph.images[0].url, image.url);
+      assert.deepEqual(Array.from(aliasMetadata.twitter.images), [image.url]);
       await assert.rejects(route.default({ params: { category: 'product', id: alias } }), /308 /);
     }
   }
+  assert.equal(coverImages.size, 25, 'All 25 canonical project covers are distinct');
   const slug = 'cashkaro-lending-mcp-feedback';
   const data = jsonLd(renderToStaticMarkup(await route.default({ params: { category: 'product', id: slug } })))[0];
   const account = data.find(item => item['@type'] === 'CreativeWork');
@@ -147,6 +168,41 @@ test('published legacy records prefer their stored slug, retain real publication
   assert.equal(art.datePublished, undefined, 'No painting completion date is invented');
 });
 
+test('published CMS previews use the first ordered image and preserve the publication URL', async () => {
+  let metadataQuery;
+  const image = 'https://teststore.public.blob.vercel-storage.com/paintings/original.png';
+  const item = {
+    id: 'painting-id', slug: 'original-painting', title: 'Original painting', summary: 'A painting by Priyam Sameer.',
+    body_markdown: null, preview_url: image, preview_alt: 'Original painting in blue and cream',
+    preview_width: 1400, preview_height: 1000,
+  };
+  const { load } = fixture({ env: { POSTGRES_URL: 'configured' }, db: async strings => {
+    metadataQuery = strings.join('?');
+    return { rows: [item] };
+  } });
+  const metadata = await load('app/[category]/[id]/page.tsx').generateMetadata({ params: Promise.resolve({ category: 'art', id: item.id }) });
+  assert.equal(metadata.alternates.canonical, `${origin}/art/original-painting`);
+  assert.equal(metadata.openGraph.images[0].url, image);
+  assert.equal(metadata.openGraph.images[0].alt, item.preview_alt);
+  assert.equal(metadata.openGraph.images[0].width, 1400);
+  assert.equal(metadata.openGraph.images[0].height, 1000);
+  assert.deepEqual(Array.from(metadata.twitter.images), [image]);
+  assert.match(metadataQuery, /ci\.status = 'published'/);
+  assert.match(metadataQuery, /ma\.content_id = ci\.id AND ma\.kind = 'image'/);
+  assert.match(metadataQuery, /ORDER BY ma\.sort_order ASC, ma\.id ASC/);
+});
+
+test('missing or unsafe CMS preview URLs fall back to the relevant section cover', async () => {
+  for (const preview_url of [null, '', 'javascript:alert(1)', 'https://user:secret@teststore.public.blob.vercel-storage.com/image.png', 'https://127.0.0.1/image.png', 'https://unrelated.example/image.png', 'https://teststore.public.blob.vercel-storage.com/image.png?token=private', 'https://teststore.public.blob.vercel-storage.com/image.png#fragment']) {
+    const { load } = fixture({ env: { POSTGRES_URL: 'configured' }, db: async () => ({ rows: [{
+      id: 'essay-id', slug: 'an-essay', title: 'An essay', summary: 'An original essay.', preview_url,
+    }] }) });
+    const metadata = await load('app/[category]/[id]/page.tsx').generateMetadata({ params: Promise.resolve({ category: 'blog', id: 'essay-id' }) });
+    assert.equal(metadata.openGraph.images[0].url, `${origin}/social/writing/cover-v1.png`);
+    assert.deepEqual(Array.from(metadata.twitter.images), [metadata.openGraph.images[0].url]);
+  }
+});
+
 test('empty Writing and source archives remain crawlable but are not separately indexed', async () => {
   const { load } = fixture();
   const writing = await load('app/blog/page.tsx').generateMetadata();
@@ -156,6 +212,7 @@ test('empty Writing and source archives remain crawlable but are not separately 
   assert.equal(reference.robots.index, false);
   assert.equal(reference.robots.follow, true);
   assert.equal(reference.alternates.canonical, `${origin}/product/cashkaro-eduloans-policy-workflow/references`);
+  assert.equal(reference.openGraph.images[0].url, `${origin}/social/product/cashkaro-eduloans-policy-workflow/cover-v1.png`);
   const populated = fixture({ env: { POSTGRES_URL: 'configured' }, db: async () => ({ rows: [{ id: 'one', title: 'A decision', slug: 'a-decision' }] }) });
   assert.equal((await populated.load('app/blog/page.tsx').generateMetadata()).robots, undefined);
   const unavailable = fixture({ env: { POSTGRES_URL: 'configured' }, db: async () => { throw new Error('Unavailable'); } });

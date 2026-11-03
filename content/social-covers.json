@@ -1,0 +1,117 @@
+{
+  "cashkaro-personal-loan-marketplace": {
+    "src": "/work/workflows/cashkaro-personal-loan-marketplace.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/cashkaro-personal-loan-marketplace.png"
+  },
+  "cashkaro-college-money-education-loans": {
+    "src": "/work/college-money/screenshots/abroad-readiness.webp",
+    "label": "Current public product reference"
+  },
+  "cashkaro-eduloans-policy-workflow": {
+    "src": "/work/eduloans/prototype/kam-inspector.png",
+    "label": "Original interaction prototype · Sample data; scripted responses"
+  },
+  "cashkaro-lender-integration-operations": {
+    "src": "/work/architecture/lender-integration-handshake.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/cashkaro-lender-integration-operations.png"
+  },
+  "cashkaro-lending-mcp-feedback": {
+    "src": "/work/architecture/lending-mcp-proposal.svg",
+    "label": "Architecture proposal",
+    "rasterSrc": "/social/evidence/cashkaro-lending-mcp-feedback.png"
+  },
+  "credflow-kuberx-launch": {
+    "src": "/work/workflows/credflow-kuberx-launch.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/credflow-kuberx-launch.png"
+  },
+  "credflow-pay-via-credit-card": {
+    "src": null,
+    "label": "Case study"
+  },
+  "absolute-silkroute-marketplace": {
+    "src": "/work/workflows/absolute-silkroute-marketplace.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/absolute-silkroute-marketplace.png"
+  },
+  "absolute-trade-payments-erp": {
+    "src": "/work/workflows/absolute-trade-payments-erp.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/absolute-trade-payments-erp.png"
+  },
+  "absolute-rural-credit-uli": {
+    "src": "/work/upaj/screenshots/riskstac-hero.webp",
+    "label": "Current public product reference"
+  },
+  "absolute-ondc-credit-infrastructure": {
+    "src": "/work/workflows/absolute-ondc-credit-infrastructure.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/absolute-ondc-credit-infrastructure.png"
+  },
+  "absolute-upaj-farmer-experience": {
+    "src": "/work/workflows/absolute-upaj-farmer-experience.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/absolute-upaj-farmer-experience.png"
+  },
+  "absolute-farm-os-iot-gis": {
+    "src": "/work/workflows/absolute-farm-os-iot-gis.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/absolute-farm-os-iot-gis.png"
+  },
+  "absolute-crop-health-ai": {
+    "src": "/work/workflows/absolute-crop-health-ai-delivery.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/absolute-crop-health-ai.png"
+  },
+  "absolute-rainfall-grid-insurance": {
+    "src": "/work/workflows/absolute-rainfall-grid-insurance.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/absolute-rainfall-grid-insurance.png"
+  },
+  "absolute-upaj-international": {
+    "src": "/work/workflows/absolute-upaj-international.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/absolute-upaj-international.png"
+  },
+  "absolute-agri-input-institutional-commerce": {
+    "src": "/work/workflows/absolute-agri-input-institutional-commerce.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/absolute-agri-input-institutional-commerce.png"
+  },
+  "absolute-supporting-portfolio": {
+    "src": "/work/absolute/gallery/institutional-overview-2.webp",
+    "label": "Historical institutional proposal"
+  },
+  "urbankhet-farm-to-fork": {
+    "src": "/work/urbankhet/video/urbankhet-storefront-poster.jpg",
+    "label": "Original storefront recording"
+  },
+  "urbankhet-covid-pivot": {
+    "src": "/work/urbankhet/linkedin/sorted-packs-proposition.jpg",
+    "label": "Original company campaign material"
+  },
+  "urbankhet-incubation-funding": {
+    "src": null,
+    "label": "Case study"
+  },
+  "water-farmers-aquaponics": {
+    "src": "/work/workflows/water-farmers-aquaponics.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/water-farmers-aquaponics.png"
+  },
+  "gujarat-action-group-covid-resource-database": {
+    "src": "/work/workflows/gujarat-action-group-covid-resource-database.svg",
+    "label": "Reconstructed workflow · Not a product screenshot",
+    "rasterSrc": "/social/evidence/gujarat-action-group-covid-resource-database.png"
+  },
+  "independent-founder-advisory": {
+    "src": null,
+    "label": "Case study"
+  },
+  "cept-football-creative-practice": {
+    "src": null,
+    "label": "Case study"
+  }
+}

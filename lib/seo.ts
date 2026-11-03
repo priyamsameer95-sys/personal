@@ -16,18 +16,33 @@ export function resolveSiteOrigin(configured = process.env.NEXT_PUBLIC_SITE_URL)
 export const siteOrigin = resolveSiteOrigin();
 export function absoluteUrl(path = '/'): string { return new URL(path, `${siteOrigin}/`).href; }
 
+/** Each destination advertises its own cover instead of inheriting the person's card. */
+function defaultSocialImage(path: string): string {
+  const segments = path.split(/[?#]/)[0].split('/').filter(Boolean);
+  if (segments[0] === 'product' && segments[1] && segments[2] === 'references') {
+    return `/social/product/${encodeURIComponent(segments[1])}/cover-v1.png`;
+  }
+  const sections: Record<string, string> = {
+    product: 'work', cv: 'experience', art: 'art', github: 'github', blog: 'writing',
+  };
+  const key = Object.prototype.hasOwnProperty.call(sections, segments[0]) ? sections[segments[0]] : 'home';
+  return `/social/${key}/cover-v1.png`;
+}
+
 export function pageMetadata({ path, title, description, image, noIndex = false }: {
   path: string; title: string; description: string; image?: { url: string; width?: number; height?: number; alt?: string }; noIndex?: boolean;
 }): Metadata {
   const fullTitle = title.includes('Priyam Sameer') ? title : `${title} — Priyam Sameer`;
+  const socialImage = image || { url: defaultSocialImage(path), width: 1200, height: 630, alt: fullTitle };
+  const socialImageUrl = absoluteUrl(socialImage.url);
   return {
     title: { absolute: fullTitle }, description,
     alternates: { canonical: absoluteUrl(path) },
     openGraph: {
       title: fullTitle, description, url: absoluteUrl(path), type: 'website', locale: 'en_IN', siteName: 'Priyam Sameer',
-      images: [{ ...(image || { url: '/opengraph-image', width: 1200, height: 630, alt: 'Priyam Sameer — product leadership' }), url: absoluteUrl(image?.url || '/opengraph-image') }],
+      images: [{ ...socialImage, url: socialImageUrl }],
     },
-    twitter: { card: 'summary_large_image', title: fullTitle, description, images: [absoluteUrl(image?.url || '/twitter-image')] },
+    twitter: { card: 'summary_large_image', title: fullTitle, description, images: [socialImageUrl] },
     ...(noIndex ? { robots: { index: false, follow: true } } : {}),
   };
 }

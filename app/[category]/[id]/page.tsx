@@ -25,6 +25,30 @@ interface ContentItem {
   media: Array<{ blob_url: string; kind: string; alt_text: string | null; width: number | null; height: number | null }>;
 }
 
+interface ContentPreview {
+  preview_url: string | null;
+  preview_alt: string | null;
+  preview_width: number | null;
+  preview_height: number | null;
+}
+
+// Published CMS media uses our public Blob host; never advertise credential URLs
+// or an arbitrary scheme from older records as a crawler's image destination.
+function publishedPreview(item: ContentPreview & { title: string }) {
+  if (typeof item.preview_url !== 'string') return undefined;
+  try {
+    const url = new URL(item.preview_url);
+    if (url.protocol !== 'https:' || url.username || url.password || url.port || url.search || url.hash ||
+      !/^[a-z0-9-]+\.public\.blob\.vercel-storage\.com$/i.test(url.hostname)) return undefined;
+    return {
+      url: url.href,
+      alt: item.preview_alt || item.title,
+      ...(Number.isSafeInteger(item.preview_width) && item.preview_width! > 0 && item.preview_width! <= 50000 ? { width: item.preview_width! } : {}),
+      ...(Number.isSafeInteger(item.preview_height) && item.preview_height! > 0 && item.preview_height! <= 50000 ? { height: item.preview_height! } : {}),
+    };
+  } catch { return undefined; }
+}
+
 interface DetailPageProps {
   params: Promise<{ category: string; id: string }>;
 }
@@ -48,21 +72,30 @@ export async function generateMetadata({ params: promisedParams }: DetailPagePro
     if (!process.env.POSTGRES_URL) return fallback;
     try {
       const { rows } = await db`
-        SELECT id, slug, title, summary, body_markdown
-        FROM content_items
-        WHERE type = ${section.type} AND status = 'published'
-          AND (id::text = ${params.id} OR slug = ${params.id})
+        SELECT ci.id, ci.slug, ci.title, ci.summary, ci.body_markdown,
+          preview.blob_url AS preview_url, preview.alt_text AS preview_alt,
+          preview.width AS preview_width, preview.height AS preview_height
+        FROM content_items ci
+        LEFT JOIN LATERAL (
+          SELECT ma.blob_url, ma.alt_text, ma.width, ma.height
+          FROM media_assets ma
+          WHERE ma.content_id = ci.id AND ma.kind = 'image'
+          ORDER BY ma.sort_order ASC, ma.id ASC
+          LIMIT 1
+        ) preview ON TRUE
+        WHERE ci.type = ${section.type} AND ci.status = 'published'
+          AND (ci.id::text = ${params.id} OR ci.slug = ${params.id})
         LIMIT 1
       `;
-      const item = rows[0] as Pick<ContentItem, 'id' | 'slug' | 'title' | 'summary' | 'body_markdown'> | undefined;
+      const item = rows[0] as (Pick<ContentItem, 'id' | 'slug' | 'title' | 'summary' | 'body_markdown'> & ContentPreview) | undefined;
       if (!item) return fallback;
       const description = contentExcerpt(item.summary || item.body_markdown, 180);
-      return pageMetadata({ path: `/${params.category}/${encodeURIComponent(item.slug || item.id || params.id)}`, title: item.title, description });
+      return pageMetadata({ path: `/${params.category}/${encodeURIComponent(item.slug || item.id || params.id)}`, title: item.title, description, image: publishedPreview(item) });
     } catch { return fallback; }
   }
   const title = getCaseDisplayTitle(study);
   const description = study.visualSummary?.summary || study.summary;
-  return pageMetadata({ path: `/product/${study.slug}`, title, description });
+  return pageMetadata({ path: `/product/${study.slug}`, title, description, image: { url: `/social/product/${study.slug}/cover-v1.png`, width: 1200, height: 630, alt: title } });
 }
 
 export default async function DetailPage({ params }: DetailPageProps) {

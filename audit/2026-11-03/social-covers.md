@@ -1,0 +1,13 @@
+# Individual link covers — 3 November 2026
+
+The LinkedIn Featured screenshot showed SilkRoute, EduLoans and the portfolio link all using the generic person card. Live LinkedInBot-style HTML requests confirmed they advertised the same /opengraph-image URL.
+
+Six main destinations now advertise individual 1200×630 PNG URLs under /social/{section}/cover-v1.png. Their sources are direct captures of the current public pages, without browser chrome. The 25 authored case studies each advertise /social/product/{canonical-slug}/cover-v1.png; aliases retain canonical titles, links and covers. Open Graph and Twitter use the same image. Published CMS entries prefer their own first ordered image, with a safe relevant-section fallback. No navigation links, page layout, source narratives, CV file, admin controls or analytics collection were changed.
+
+content/social-covers.json records the reviewed source for each case. Images and posters belong to that case's existing media. EduLoans uses its original KAM inspector and retains its sample-data/scripted-response label. SilkRoute uses its own reconstructed trading workflow, explicitly not an historical product screenshot. Proposal/current-public references stay labelled; cases without media use their own title/company instead of fabricated screens. Original SVGs are retained alongside PNG encodings generated with scripts/rasterize-social-diagrams.cjs so their labels do not disappear in the image renderer. Original uploaded media is unchanged.
+
+The renderer decodes raster content before PNG encoding. This matters because some historical .png files and browser captures contain JPEG bytes; trusting filename extensions produced superficially valid but blank images. Tests now inspect image pixels as well as dimensions, status codes and media identity. Images are generated solely from an exact allowlist of published routes/local assets, with no request-selected files or remote image fetches. Unknown routes return404, failures503 without unrelated fallback. Deployment tracing includes only the 27 required source/capture assets.
+
+Verification: 308 automated tests pass, including 31 real PNG renders and pixel regressions for homepage content, EduLoans evidence and SilkRoute labels. Production build and type checks pass. Browser inspection and direct HTML/image HTTP checks cover the generated images before publication.
+
+LinkedIn may retain already-saved previews independently of the website. Website metadata changes must be deployed first, then inspected through Post Inspector; existing Featured cards must be checked separately rather than assumed refreshed. [LinkedIn cache guidance](https://www.linkedin.com/help/linkedin/answer/a6233775).
