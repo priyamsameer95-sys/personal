@@ -94,3 +94,21 @@ Keep actual credentials in ignored environment files or hosting settings. `.env.
 - Public GitHub discovery is cached for one hour and uses no credentials. Private and foreign-owned repositories are excluded.
 - `content/github-projects.json` holds the reviewed descriptions, ordering, genuine demo/walkthrough links and a complete public fallback snapshot. Update this file to curate new projects; uncurated public repositories still appear automatically.
 - Descriptions are grounded in repository READMEs/source documents; prototype and empty-repository labels are explicit. Technical pitches include source-backed mechanisms and explicitly scoped models. The catalogue does not execute external project code or assert production results.
+
+## Private portfolio analytics
+
+The public site sends bounded, first-party events to `/api/analytics`. The report runs only at `http://127.0.0.1:4310/` on the owner's Mac. `node scripts/install-local-analytics.cjs --install` updates the existing local runtime and login service; it preserves the owner-only connection file. The local reader uses read-only database snapshots. No analytics data or credentials belong in Git.
+
+The dashboard provides source/page Sankey paths, before/after exploration, ordered conversion funnels, page and button reports, active time, scroll/media observations, and a separate CV contact view. CSV, SVG and PNG exports stay local. Device, entry-source, page-cohort and IST date filters apply to traffic reports; CV contacts remain a separately labelled all-time list.
+
+Measurement rules:
+
+- Unique visitors estimate distinct signed browser identifiers, not identified people. Identifiers expire after 90 days; clearing cookies or changing devices can create another visitor.
+- Sessions end after 30 minutes of inactivity. Journey ribbons count tab journeys; browser/session totals are deduplicated separately. Separate tabs never become an invented sequential navigation path.
+- Active time accrues only while the page is visible, focused and recently active. Unknown timings are excluded. Cumulative durations crossing a selected date boundary are excluded rather than allocated to the wrong day.
+- Funnels count a session once per ordered stage. Pending sessions are separate from finalized drop-offs. CV saved requests are recorded by the server; download initiation does not prove that a PDF was saved or read.
+- CV request receipts make retries idempotent. Email addresses are never included in traffic events or joined to anonymous browsing. Test/disposable domains remain excluded from contact totals.
+- Historical totals remain available, but detailed paths and active time start with v2 collection. Pre-coverage days are unknown, not zero. Raw v2 history is retained for 180 days. A selection exceeding 100,000 views or events must be narrowed; it is not silently sampled.
+- Known bots, local/preview traffic, signed-in administrators, Do Not Track, Global Privacy Control and explicit opt-out are excluded. The privacy page provides a persistent analytics choice without affecting CV downloads.
+
+Validation: `npm test`, `npm run typecheck`, `npm run build`. Calculation tests include conserved flow widths, exact-depth endings, separate tabs, repeated actions, pending funnels, midnight activity, missing timing, duplicate CV requests and large reports. Browser checks should use isolated synthetic data, never fake requests in production contact records.

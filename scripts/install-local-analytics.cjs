@@ -64,9 +64,11 @@ async function createInstallPlan({
     ['scripts/local-analytics.cjs', 'scripts/local-analytics.cjs'],
     ['scripts/local-analytics-data.cjs', 'scripts/local-analytics-data.cjs'],
     ['lib/cv-email-policy.cjs', 'lib/cv-email-policy.cjs'],
+    ['lib/analytics-explore.cjs', 'lib/analytics-explore.cjs'],
     ['local-analytics/index.html', 'local-analytics/index.html'],
     ['local-analytics/dashboard.css', 'local-analytics/dashboard.css'],
     ['local-analytics/dashboard.js', 'local-analytics/dashboard.js'],
+    ['local-analytics/charts.js', 'local-analytics/charts.js'],
     ['local-analytics/icon.svg', 'local-analytics/icon.svg'],
   ].map(([from, to]) => ({ from: path.join(realProject, from), to: path.join(runtimeDir, to) }));
   await Promise.all(sourceFiles.map(async file => {

@@ -39,6 +39,7 @@ export default function Media({ media, priority = false, previewSrc, compact = f
   const hasDescription = media.kind === 'video' && showDescription && Boolean(media.transcript);
   const describedBy = [media.caption || media.provenance ? captionId : '', hasDescription ? descriptionId : ''].filter(Boolean).join(' ') || undefined;
   const sourceContext = provenanceText(media);
+  const analyticsId = /^[a-z0-9][a-z0-9_-]{0,87}$/i.test(media.id) ? `media:${media.id.toLowerCase()}` : undefined;
   const isLongImage = media.kind === 'image' && Boolean(media.width && media.height && media.height > media.width * 2.5);
   const portraitDiagram = media.kind === 'image' && media.category === 'diagram' && Boolean(media.width && media.height && media.height > media.width);
 
@@ -63,7 +64,7 @@ export default function Media({ media, priority = false, previewSrc, compact = f
     <figure className={`${styles.figure}${media.kind === 'video' ? ` ${styles.videoFigure}` : ''}${portraitDiagram ? ` ${styles.portraitDiagram}` : ''}${compact ? ` ${styles.compactMedia}` : ''}`}>
       {media.kind === 'image' ? (
         <>
-          <button ref={trigger} type="button" aria-haspopup="dialog" aria-label={`Enlarge image: ${media.alt}`} aria-expanded={expanded} aria-controls={dialogId} data-analytics={expanded ? undefined : 'media_opened'} data-analytics-target="image" className={styles.imageButton} onClick={() => { setActualSize(false); setExpanded(true); }}>
+          <button ref={trigger} type="button" aria-haspopup="dialog" aria-label={`Enlarge image: ${media.alt}`} aria-expanded={expanded} aria-controls={dialogId} data-analytics={expanded ? undefined : 'media_opened'} data-analytics-target="image" data-analytics-id={analyticsId} className={styles.imageButton} onClick={() => { setActualSize(false); setExpanded(true); }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={previewSrc || media.src} alt={media.alt} width={media.width} height={media.height} loading={priority ? 'eager' : 'lazy'} decoding="async" className={`${styles.image}${isLongImage ? ` ${styles.longImage}` : ''}`} />
             <span className={styles.imageHint} aria-hidden="true">Enlarge <Icon name="arrow-up-right" /></span>
@@ -85,7 +86,7 @@ export default function Media({ media, priority = false, previewSrc, compact = f
         </>
       ) : (
         <>
-          <video className={`${styles.video}${media.frame === 'portrait' ? ` ${styles.portraitVideo}` : ''}`} controls controlsList="nodownload" playsInline preload="none" poster={media.poster} aria-label={media.title} aria-describedby={describedBy}>
+          <video className={`${styles.video}${media.frame === 'portrait' ? ` ${styles.portraitVideo}` : ''}`} controls controlsList="nodownload" playsInline preload="none" poster={media.poster} aria-label={media.title} aria-describedby={describedBy} data-analytics-id={analyticsId}>
             <source src={media.src} type={media.mime || 'video/mp4'} />
             {media.captions?.map((track, index) => <track key={track.src} kind="captions" src={track.src} srcLang={track.language} label={track.label} default={index === 0} />)}
             Your browser cannot play this video.

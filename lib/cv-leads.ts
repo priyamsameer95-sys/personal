@@ -14,6 +14,59 @@ export class CVLeadStorageError extends Error {
 export class CVLeadRateLimitError extends Error {
   constructor(public retryAfter: number) { super('Too many CV requests.'); }
 }
+export class CVLeadConflictError extends Error {
+  constructor() { super('Please reopen the CV form and try again.'); }
+}
+let receiptSchemaReady: Promise<void> | undefined;
+
+/** A request receipt is separate from anonymous analytics: no browser or view ID. */
+export async function recordCVInterestOnce(email: string, sourcePath: string, ip: string, requestId: string): Promise<boolean> {
+  if (!/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(requestId)) throw new CVLeadConflictError();
+  await ensureCVLeadSchema();
+  if (!receiptSchemaReady) receiptSchemaReady = (async () => {
+    await db`CREATE TABLE IF NOT EXISTS cv_request_receipts (
+      request_id UUID PRIMARY KEY, email_hash CHAR(64) NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )`;
+  })().catch(() => { receiptSchemaReady = undefined; throw new CVLeadStorageError(); });
+  await receiptSchemaReady;
+  const secret = process.env.CV_LEAD_RATE_SECRET || process.env.ADMIN_PASSWORD || process.env.POSTGRES_URL!;
+  const emailHash = createHmac('sha256', secret).update(`cv-receipt-v1\0${email}`).digest('hex');
+  const old = await db`SELECT email_hash FROM cv_request_receipts WHERE request_id = ${requestId}`;
+  if (old.rows.length) {
+    if (old.rows[0].email_hash !== emailHash) throw new CVLeadConflictError();
+    return false;
+  }
+  const bucket = Math.floor(Date.now() / RATE_WINDOW_MS), expiresAt = new Date((bucket + 1) * RATE_WINDOW_MS);
+  const fingerprint = createHmac('sha256', secret).update(`${ip}\0${bucket}`).digest('hex');
+  try {
+    await db`DELETE FROM cv_download_rate_limits WHERE expires_at < NOW()`;
+    const allowance = await db`INSERT INTO cv_download_rate_limits (fingerprint, expires_at)
+      VALUES (${fingerprint}, ${expiresAt.toISOString()})
+      ON CONFLICT (fingerprint) DO UPDATE SET request_count = cv_download_rate_limits.request_count + 1
+      WHERE cv_download_rate_limits.request_count < ${RATE_LIMIT} RETURNING request_count`;
+    if (!allowance.rows.length) throw new CVLeadRateLimitError(Math.max(1, Math.ceil((expiresAt.getTime() - Date.now()) / 1000)));
+    const result = await db`WITH claimed AS (
+      INSERT INTO cv_request_receipts (request_id, email_hash) VALUES (${requestId}, ${emailHash})
+      ON CONFLICT (request_id) DO NOTHING RETURNING request_id
+    ), saved_lead AS (
+      INSERT INTO cv_download_leads (email, last_source_path, cv_sha256, notice_version)
+      SELECT ${email}, ${sourcePath}, ${CV_SHA256}, ${CV_INTEREST_NOTICE} FROM claimed
+      ON CONFLICT (email) DO UPDATE SET last_requested_at = NOW(), download_count = cv_download_leads.download_count + 1,
+        last_source_path = EXCLUDED.last_source_path, cv_sha256 = EXCLUDED.cv_sha256, notice_version = EXCLUDED.notice_version
+      RETURNING email
+    ), saved_event AS (
+      INSERT INTO cv_download_events (email, source_path, cv_sha256)
+      SELECT email, ${sourcePath}, ${CV_SHA256} FROM saved_lead RETURNING id
+    ) SELECT COUNT(*)::INTEGER AS saved FROM saved_event`;
+    if (Number(result.rows[0]?.saved) > 0) return true;
+    const receipt = await db`SELECT email_hash FROM cv_request_receipts WHERE request_id = ${requestId}`;
+    if (receipt.rows[0]?.email_hash !== emailHash) throw new CVLeadConflictError();
+    return false;
+  } catch (error) {
+    if (error instanceof CVLeadRateLimitError || error instanceof CVLeadConflictError) throw error;
+    throw new CVLeadStorageError();
+  }
+}
 
 // This schema is independent of the existing content migration, which only
 // initializes a new content database. Failed initialization is safe to retry.

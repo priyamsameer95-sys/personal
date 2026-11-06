@@ -5,6 +5,7 @@ const http = require('node:http');
 const { readFile } = require('node:fs/promises');
 const path = require('node:path');
 const { loadLocalConnection, createLocalDataProvider } = require('./local-analytics-data.cjs');
+const { normalizeOptions } = require('../lib/analytics-explore.cjs');
 
 const UPSTREAM = 'https://www.priyamsameer.com';
 const SESSION_MS = 24 * 60 * 60 * 1000;
@@ -13,6 +14,7 @@ const ASSETS = new Map([
   ['/', ['index.html', 'text/html; charset=utf-8']],
   ['/dashboard.css', ['dashboard.css', 'text/css; charset=utf-8']],
   ['/dashboard.js', ['dashboard.js', 'text/javascript; charset=utf-8']],
+  ['/charts.js', ['charts.js', 'text/javascript; charset=utf-8']],
   ['/icon.svg', ['icon.svg', 'image/svg+xml']],
 ]);
 const COMMON_HEADERS = {
@@ -22,7 +24,7 @@ const COMMON_HEADERS = {
   'Referrer-Policy': 'no-referrer',
   'X-Frame-Options': 'DENY',
   'Cross-Origin-Resource-Policy': 'same-origin',
-  'Content-Security-Policy': "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
+  'Content-Security-Policy': "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data: blob:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
 };
 
 class RequestError extends Error {
@@ -192,7 +194,7 @@ function createLocalAnalytics({ port = 4310, requestUpstream = productionRequest
         const content = await readFile(path.join(__dirname, '..', 'local-analytics', filename));
         return send(response, 200, request.method === 'HEAD' ? '' : content, { 'Content-Type': type });
       }
-      if (!['/api/report', '/api/export'].includes(pathname) || url.search) {
+      if (!['/api/report', '/api/export', '/api/explore', '/api/leads'].includes(pathname) || url.search) {
         return send(response, 404, { error: 'Not found.' });
       }
       if (request.method !== 'POST') return send(response, 405, { error: 'Use a same-origin dashboard request.' }, { Allow: 'POST' });
@@ -201,6 +203,23 @@ function createLocalAnalytics({ port = 4310, requestUpstream = productionRequest
         throw new RequestError(403, 'Open the dashboard directly on this Mac.');
       }
       const body = await readJSON(request);
+      if (pathname === '/api/explore') {
+        try { normalizeOptions(body, now()); } catch (error) { throw new RequestError(400, error.message); }
+        const provider = await resolveDataProvider();
+        if (!provider?.explore) return send(response, 200, { available: false, reason: 'Journey tracking is not connected. Historical counts remain available.' });
+        const report = await provider.explore(body);
+        if ((!body.view || body.view === 'overview') && !body.device && !body.source && !body.path) {
+          const { cvLeads, ...legacy } = await provider.getReport(body);
+          report.legacy = legacy;
+        }
+        return send(response, 200, report);
+      }
+      if (pathname === '/api/leads') {
+        if (Object.keys(body).length) throw new RequestError(400, 'Invalid request.');
+        const provider = await resolveDataProvider();
+        if (!provider?.getLeads) throw notConnected();
+        return send(response, 200, await provider.getLeads());
+      }
       if (pathname === '/api/report') {
         if (Object.keys(body).some(key => key !== 'days') || ![7, 30, 90].includes(body.days)) throw new RequestError(400, 'Choose 7, 30 or 90 days.');
         const provider = await resolveDataProvider();

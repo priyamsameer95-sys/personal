@@ -3,6 +3,7 @@
 const { lstat, readFile } = require('node:fs/promises');
 const path = require('node:path');
 const { BLOCKED_CV_DOMAIN_PATTERN } = require('../lib/cv-email-policy.cjs');
+const { normalizeOptions, explore } = require('../lib/analytics-explore.cjs');
 
 class LocalDataError extends Error {
   constructor() {
@@ -124,9 +125,58 @@ function createLocalDataProvider({ connectionString, now = Date.now, createConne
     }
   }
   return {
+    async explore(options = {}) {
+      const selected = normalizeOptions(options, now());
+      return readSnapshot(async connection => {
+        const ready = await connection.query(`SELECT to_regclass('site_analytics_v2_sessions') IS NOT NULL
+          AND to_regclass('site_analytics_v2_views') IS NOT NULL
+          AND to_regclass('site_analytics_v2_events') IS NOT NULL
+          AND to_regclass('site_analytics_v2_settings') IS NOT NULL AS ready`);
+        if (!ready.rows[0]?.ready) return explore({ available: false }, options, now());
+        const coverage = (await connection.query('SELECT journey_tracking_started_at, engagement_tracking_started_at FROM site_analytics_v2_settings WHERE id = 1')).rows[0];
+        if (!coverage?.journey_tracking_started_at) return explore({ available: false }, options, now());
+        const filters = [selected.startDate, selected.until, selected.device, selected.source, selected.path];
+        const clause = `v.occurred_at < ($2::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')
+          AND (v.occurred_at >= ($1::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')
+            OR (v.last_observed_at >= ($1::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND v.last_observed_at < ($2::TIMESTAMP AT TIME ZONE 'Asia/Kolkata'))
+            OR EXISTS (SELECT 1 FROM site_analytics_v2_events active WHERE active.page_view_id=v.id
+              AND active.occurred_at >= ($1::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND active.occurred_at < ($2::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')))
+          AND ($3 = '' OR s.device = $3) AND ($4 = '' OR s.source = $4)
+          AND ($5 = '' OR EXISTS (SELECT 1 FROM site_analytics_v2_views p WHERE p.session_id = s.id AND p.path = $5
+            AND p.occurred_at < ($2::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND (p.occurred_at >= ($1::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')
+            OR (p.last_observed_at >= ($1::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND p.last_observed_at < ($2::TIMESTAMP AT TIME ZONE 'Asia/Kolkata'))
+            OR EXISTS (SELECT 1 FROM site_analytics_v2_events pe WHERE pe.page_view_id=p.id
+              AND pe.occurred_at >= ($1::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND pe.occurred_at < ($2::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')))))`;
+        const views = (await connection.query(`SELECT v.*, s.browser_hash, s.source, s.device, s.started_at AS session_started_at,
+          s.last_activity_at AS session_last_activity FROM site_analytics_v2_views v
+          JOIN site_analytics_v2_sessions s ON s.id = v.session_id WHERE ${clause}
+          ORDER BY v.occurred_at, v.id LIMIT 100001`, filters)).rows;
+        const events = (await connection.query(`SELECT e.* FROM site_analytics_v2_events e
+          JOIN site_analytics_v2_views v ON v.id = e.page_view_id
+          JOIN site_analytics_v2_sessions s ON s.id = e.session_id WHERE ${clause}
+          AND e.occurred_at >= ($1::TIMESTAMP AT TIME ZONE 'Asia/Kolkata') AND e.occurred_at < ($2::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')
+          ORDER BY e.occurred_at, e.event_id LIMIT 100001`, filters)).rows;
+        return explore({ available: true, views, events, truncated: views.length > 100000 || events.length > 100000,
+          coverage: { startedAt: timestamp(coverage?.journey_tracking_started_at), engagementStartedAt: timestamp(coverage?.engagement_tracking_started_at) } }, options, now());
+      });
+    },
+    async getLeads() {
+      return readSnapshot(async connection => {
+        const rows = (await connection.query(LEADS, [200, BLOCKED_CV_DOMAIN_PATTERN])).rows;
+        const stats = (await connection.query(`SELECT
+          COUNT(DISTINCT LOWER(TRIM(email))) FILTER (WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) !~* $1) AS total,
+          COALESCE(SUM(download_count) FILTER (WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) !~* $1), 0) AS requests,
+          COUNT(DISTINCT LOWER(TRIM(email))) FILTER (WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) ~* $1) AS excluded_contacts,
+          COALESCE(SUM(download_count) FILTER (WHERE SPLIT_PART(LOWER(TRIM(email)), '@', 2) ~* $1), 0) AS excluded_requests
+          FROM cv_download_leads`, [BLOCKED_CV_DOMAIN_PATTERN])).rows[0];
+        return { leads: rows.map(normalizeLead), total: count(stats?.total), requestsAllTime: count(stats?.requests),
+          excludedCVContacts: count(stats?.excluded_contacts), excludedCVRequests: count(stats?.excluded_requests) };
+      });
+    },
     async getReport(range = 30) {
-      const days = [7, 30, 90].includes(range) ? range : 30;
-      const endDate = localDay(now()), startDate = shiftDay(endDate, 1 - days), until = shiftDay(endDate, 1);
+      const custom = typeof range === 'object' && range ? normalizeOptions(range, now()) : null;
+      const days = custom ? Math.round((Date.parse(custom.endDate) - Date.parse(custom.startDate)) / 86400000) + 1 : [7, 30, 90].includes(range) ? range : 30;
+      const endDate = custom?.endDate || localDay(now()), startDate = custom?.startDate || shiftDay(endDate, 1 - days), until = shiftDay(endDate, 1);
       return readSnapshot(async connection => {
         const bounded = async (text, params = []) => (await connection.query(text, [startDate, until, ...params])).rows;
         const raw = async (text, params = []) => (await connection.query(text, params)).rows;

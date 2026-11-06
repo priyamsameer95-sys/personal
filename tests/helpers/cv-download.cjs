@@ -16,5 +16,5 @@ function load(filename, stubs = {}) {
 }
 const constants = load('lib/cv-download.ts', { '../content/cv-download.json': require('../../content/cv-download.json') });
 module.exports = load('components/CvDownload.tsx', {
-  '@/lib/cv-download': constants, '@/components/Icon': require('./icon.cjs'), './cv-download.module.css': css,
+  '@/lib/analytics-client': { getAnalyticsContext: () => null, emitAnalyticsAction: () => {} }, '@/lib/cv-download': constants, '@/components/Icon': require('./icon.cjs'), './cv-download.module.css': css,
 });

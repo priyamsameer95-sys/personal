@@ -1,35 +1,50 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Private analytics · Priyam Sameer</title>
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/dashboard.css">
-  <script src="/dashboard.js" defer></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive"><title>Private analytics · Priyam Sameer</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="/dashboard.css">
+  <script src="/charts.js" defer></script><script src="/dashboard.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to analytics</a>
-  <header class="site-header"><a class="identity" href="/">Priyam Sameer<span>Website analytics</span></a><span class="local-badge"><i aria-hidden="true"></i> Local access only</span></header>
+  <header class="site-header"><a class="identity" href="/">Priyam Sameer<span>Portfolio analytics</span></a><div class="header-actions"><span class="local-badge"><i aria-hidden="true"></i> Private · this Mac</span><button id="hide-data" class="quiet">Hide data</button></div></header>
   <main id="main">
-    <section id="dashboard" aria-labelledby="dashboard-title">
-      <div class="heading-row"><div><p class="eyebrow">Private report · this Mac</p><h1 id="dashboard-title">Website analytics.</h1><p class="intro">Pages, meaningful clicks and CV requests from priyamsameer.com.</p></div><button id="hide-data" class="secondary">Hide data</button></div>
-      <div class="toolbar"><div id="ranges" class="ranges" role="group" aria-label="Reporting period"><button data-days="7" aria-pressed="false">7 days</button><button data-days="30" aria-pressed="true">30 days</button><button data-days="90" aria-pressed="false">90 days</button></div><button id="refresh" class="text-button">Refresh <span aria-hidden="true">↻</span></button></div>
-      <p id="report-status" class="status" role="status" aria-live="polite"></p>
-      <div id="report-error" class="report-error" role="alert" hidden><h2>The report could not be loaded.</h2><p></p><button id="retry" class="secondary">Try again</button></div>
-      <div id="report" hidden>
-        <p id="report-period" class="period"></p>
-        <div id="metrics" class="metrics" aria-label="Activity summary"></div>
-        <p id="visitor-note" class="muted"></p>
-        <section class="contacts" aria-labelledby="contacts-title"><div class="section-heading"><div><p class="eyebrow">All-time CV interests</p><h2 id="contacts-title">Emails shared for your CV.</h2><p id="contact-count"></p></div><button id="export" class="secondary">Export emails as CSV <span aria-hidden="true">↓</span></button></div><p class="muted">Latest 200 contacts, regardless of date filter. Requests count successful form submissions; they do not confirm that a PDF was opened.</p><p id="record-note" class="muted"></p><div id="contacts"></div><p id="export-status" role="status" aria-live="polite"></p></section>
-        <section class="activity" aria-labelledby="activity-title"><div class="section-heading"><div><h2 id="activity-title">Daily activity</h2><p>Recorded events · Indian Standard Time</p></div><div class="legend"><span><i class="blue"></i>Page views</span><span id="click-legend"><i class="orange"></i>Actions</span><span id="cv-legend"><i class="green"></i>CV requests</span></div></div><div id="daily-chart" class="chart"></div><p id="tracking-start" class="muted"></p><details class="daily-details"><summary>Daily counts as a table</summary><div id="daily-table" class="table-scroll" tabindex="0" role="region" aria-label="Daily activity data"></div></details></section>
-        <div class="insights"><section class="panel"><h2>Pages people visit</h2><p>Views, unique browsers and the older daily estimate</p><div id="pages"></div></section><section class="panel"><h2>What people do</h2><p>Meaningful clicks and actions in this period</p><div id="interactions"></div></section><section class="panel"><h2>Actions by page</h2><p>Where visitors take the next step</p><div id="page-interactions"></div></section><section class="panel"><h2>Where views come from</h2><p>Referrer hostnames, when available</p><div id="referrers"></div></section><section class="panel"><h2>Devices</h2><p>Approximate device categories</p><div id="devices"></div></section></div>
-
-        <aside class="measurement"><h2>A few limits worth knowing.</h2><p>Unique visitors count anonymous browsers using a first-party identifier that expires after 90 days. Returning visits from the same browser count once in the selected period. Different devices, private windows or cleared cookies can count separately; this is not an exact count of people. Older visitor-days count the same daily browser estimate again on another day. Browsing is never linked to a CV email.</p><p>Clicks record navigation, project and company links, CV actions, contact choices, media and filters. No entered text, raw IP addresses, full browsing URLs or personal contact destinations are collected. Do Not Track, Global Privacy Control, bots and signed-in website administrators are excluded. Previous traffic cannot be reconstructed.</p></aside>
-      </div>
-    </section>
+    <div class="page-heading"><div><p class="eyebrow">Your website, in view</p><h1>Website analytics.</h1><p class="intro">Visitors, journeys and the actions they take.</p></div><div class="update-block"><p id="report-status" role="status" aria-live="polite"></p><button id="refresh" class="quiet">Refresh ↻</button></div></div>
+    <div class="filters" aria-label="Report filters">
+      <div class="range-filter"><label for="date-range">Period</label><select id="date-range"><option value="today">Today</option><option value="yesterday">Yesterday</option><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option><option value="custom">Custom dates</option></select></div>
+      <div id="custom-dates" class="custom-dates" hidden><label>From<input type="date" id="start-date"></label><label>To<input type="date" id="end-date"></label><button id="apply-dates" class="quiet">Apply</button></div>
+      <div><label for="device-filter">Device</label><select id="device-filter"><option value="">All devices</option><option>Desktop</option><option>Phone</option><option>Tablet</option></select></div>
+      <div><label for="source-filter">Entry source</label><select id="source-filter"><option value="">All sources</option></select></div>
+      <div><label for="page-filter">Visited page</label><select id="page-filter"><option value="">All pages</option></select></div>
+      <button id="reset-filters" class="text-button">Reset filters</button>
+    </div>
+    <nav class="view-nav" aria-label="Analytics views"><button data-view="overview" aria-current="page">Overview</button><button data-view="journeys">Journeys</button><button data-view="funnels">Funnels</button><button data-view="pages">Pages &amp; buttons</button><button data-view="cv">CV requests</button><button data-view="health">Tracking health</button></nav>
+    <div id="report-error" class="notice error" role="alert" hidden><h2>The report could not be loaded.</h2><p></p><button id="retry" class="secondary">Try again</button></div>
+    <div id="report" hidden>
+      <p id="report-period" class="period"></p><div id="metrics" class="metrics" aria-label="Activity summary"></div><p id="visitor-note" class="coverage"></p>
+      <section id="view-overview" class="view" aria-labelledby="overview-title">
+        <div class="section-heading"><div><p class="eyebrow">The paths people take</p><h2 id="overview-title">Traffic flow</h2><p>Source → landing page → next pages. Band widths show recorded tab journeys.</p></div><button data-open-view="journeys" class="quiet">Explore journeys ↗</button></div>
+        <div id="overview-flow" class="chart-card"></div>
+        <div class="section-heading spaced"><div><h2>Interest over time</h2><p>Recorded activity · Indian Standard Time</p></div><select id="trend-metric" aria-label="Trend metric"><option value="views">Page views</option><option value="sessions">Sessions</option><option value="browsers">Unique browsers</option><option value="cvRequests">CV requests</option></select></div><div id="daily-chart" class="chart-card"></div><div id="daily-table" class="table-scroll"></div>
+        <div class="two-column"><section class="panel"><h2 id="sources-title">Where visits start</h2><div id="referrers"></div></section><section class="panel"><h2 id="devices-title">Devices</h2><div id="devices"></div></section></div>
+      </section>
+      <section id="view-journeys" class="view" hidden aria-labelledby="journeys-title">
+        <div class="section-heading"><div><p class="eyebrow">Before, after and in between</p><h2 id="journeys-title">Visitor journeys</h2><p>Explore a project or action without assuming everyone follows the same route.</p></div></div>
+        <div class="chart-controls"><label>Focus<select id="journey-anchor"><option value="">All entry paths</option></select></label><label>Direction<select id="journey-direction"><option value="after">After this point</option><option value="before">Before this point</option></select></label><label>Detail<select id="journey-detail"><option value="pages">Pages</option><option value="actions">Pages &amp; actions</option></select></label><label>Steps<select id="journey-depth"><option value="5">5 steps</option><option value="7">7 steps</option><option value="10">10 steps</option></select></label><label>Branches<select id="journey-limit"><option value="5">Top 5 + others</option><option value="10">Top 10 + others</option></select></label><button id="journey-reset" class="quiet">Reset view</button></div>
+        <div id="journey-summary" class="coverage"></div><div id="journey-chart" class="chart-card"></div><div id="journey-table" class="table-scroll"></div>
+      </section>
+      <section id="view-funnels" class="view" hidden aria-labelledby="funnels-title">
+        <div class="section-heading"><div><p class="eyebrow">From interest to action</p><h2 id="funnels-title">Conversion funnels</h2><p>Ordered steps in the same session. Each session counts once per stage.</p></div><button id="new-funnel" class="quiet">Build a funnel +</button></div>
+        <div class="chart-controls"><label>Funnel<select id="funnel-select"><option value="cv">CV request</option><option value="work">Work to CV</option><option value="project">Project engagement</option><option value="contact">Contact intent</option></select></label><div class="segmented" id="funnel-mode" aria-label="Funnel display"><button data-mode="funnel" aria-pressed="true">Funnel</button><button data-mode="trend" aria-pressed="false">Trend</button><button data-mode="table" aria-pressed="false">Table</button></div></div>
+        <form id="funnel-builder" class="builder" hidden><h3>Build your funnel</h3><p class="muted">Choose two to six ordered stages. The definition is saved on this Mac; no visitor data is saved in the browser.</p><label>Name<input id="funnel-name" maxlength="60" required placeholder="e.g. From SilkRoute to CV"></label><div id="funnel-steps"></div><div class="button-row"><button id="add-step" class="quiet" type="button">Add stage +</button><button type="submit">Save funnel</button><button id="cancel-funnel" type="button" class="quiet">Cancel</button></div><p id="builder-status" role="status"></p></form>
+        <p id="funnel-summary" class="coverage"></p><div id="funnel-chart" class="chart-card"></div><div id="funnel-table" class="table-scroll"></div>
+      </section>
+      <section id="view-pages" class="view" hidden aria-labelledby="pages-title"><div class="section-heading"><div><p class="eyebrow">What holds attention</p><h2 id="pages-title">Pages &amp; buttons</h2><p>Select a page to inspect reading time, scroll depth, controls and media.</p></div><select id="page-sort" aria-label="Sort pages"><option value="views">Most viewed</option><option value="avgActiveMs">Most active time</option><option value="entries">Most entries</option></select></div><div class="two-column"><section class="panel"><h3>Most viewed pages</h3><div id="page-view-ranking"></div></section><section class="panel"><h3>Active time per view</h3><div id="page-time-ranking"></div></section></div><div id="pages" class="table-scroll"></div><div id="page-detail" class="page-detail"></div></section>
+      <section id="view-cv" class="view" hidden aria-labelledby="contacts-title"><div class="section-heading"><div><p class="eyebrow">Voluntarily shared</p><h2 id="contacts-title">CV requests</h2><p id="contact-count"></p></div><button id="export" class="quiet">Export emails ↓</button></div><p class="coverage">Email records are separate from anonymous journeys. Saved requests do not confirm that the PDF was opened. This list covers all time, independently of the traffic filters.</p><p id="record-note" class="muted"></p><div id="contacts"></div><p id="export-status" role="status" aria-live="polite"></p></section>
+      <section id="view-health" class="view" hidden aria-labelledby="health-title"><div class="section-heading"><div><p class="eyebrow">Understand the numbers</p><h2 id="health-title">Tracking health</h2><p>Coverage, exclusions and the limits of recorded activity.</p></div><a class="button quiet" href="https://www.priyamsameer.com/privacy" target="_blank" rel="noopener noreferrer">Exclude this browser ↗</a></div><div id="health-content"></div><div class="measurement"><h3>How to read this dashboard</h3><p>Unique visitors count browser identifiers, not verified people. Different devices, private windows and cleared cookies can count separately. Sessions end after 30 minutes without measured activity. Sankey bands count tab journeys so parallel tabs cannot create false navigation.</p><p>Active time is measured while a page is visible and focused, pausing after 60 seconds idle. Lost final updates can leave timing incomplete. Older visits cannot be reconstructed into journeys or reading time.</p><p>Emails are never joined to browsing histories. No entered text, raw IP addresses, full browsing URLs, screen recordings or personal contact destinations are collected. Do Not Track, Global Privacy Control, known bots and owner exclusions are respected. Raw traffic records are retained for 180 days.</p></div></section>
+    </div>
   </main>
-  <footer>Local dashboard · no password required on this Mac. Live records use a protected server connection.</footer>
+  <footer><span>Private on this Mac · read-only connection to your website</span><span>All times in IST</span></footer>
 </body>
 </html>

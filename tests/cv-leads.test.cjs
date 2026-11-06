@@ -21,7 +21,7 @@ function load(filename, stubs = {}, environment = {}, extras = {}) {
 const download = load('lib/cv-download.ts', { '../content/cv-download.json': source });
 const emailChecks = load('lib/cv-email.ts', {}, {}, { setTimeout, clearTimeout });
 function storeFixture({ configured = true } = {}) {
-  const leads = new Map(), limits = new Map(), calls = [], events = [];
+  const leads = new Map(), limits = new Map(), calls = [], events = [], receipts = new Map();
   let fail = false;
   const db = async (strings, ...values) => {
     const sql = strings.join('?').replace(/\s+/g, ' ').trim();
@@ -33,6 +33,15 @@ function storeFixture({ configured = true } = {}) {
       if (count > 5) return { rows: [] };
       limits.set(values[0], count);
       return { rows: [{ request_count: count }] };
+    }
+    if (sql.startsWith('SELECT email_hash')) return { rows: receipts.has(values[0]) ? [{ email_hash: receipts.get(values[0]) }] : [] };
+    if (sql.startsWith('WITH claimed AS')) {
+      if (receipts.has(values[0])) return { rows: [{ saved: 0 }] };
+      receipts.set(values[0], values[1]);
+      const previous = leads.get(values[2]);
+      leads.set(values[2], { email: values[2], download_count: (previous?.download_count || 0) + 1, last_source_path: values[3], cv_sha256: values[4], notice_version: values[5], first_requested_at: '2026-10-16T01:00:00.000Z', last_requested_at: '2026-10-16T02:00:00.000Z' });
+      events.push({ email: values[2], source_path: values[6], cv_sha256: values[7] });
+      return { rows: [{ saved: 1 }] };
     }
     if (sql.startsWith('WITH saved_lead AS')) {
       const previous = leads.get(values[0]);
@@ -57,7 +66,7 @@ function request(body = { email: 'reader@gmail.com', website: '', sourcePath: '/
   });
 }
 function routeFixture(lib, record = lib.recordCVInterest, checkCVEmailDomain = async () => {}) {
-  return load('app/api/cv-download/route.ts', { '@/lib/cv-leads': { ...lib, recordCVInterest: record }, '@/lib/cv-download': download, '@/lib/cv-email': { ...emailChecks, checkCVEmailDomain }, '@/lib/auth': { getClientIp: req => req.headers.get('x-forwarded-for') } });
+  return load('app/api/cv-download/route.ts', { '@/lib/cv-leads': { ...lib, recordCVInterest: record }, '@/lib/cv-download': download, '@/lib/cv-email': { ...emailChecks, checkCVEmailDomain }, '@/lib/auth': { getClientIp: req => req.headers.get('x-forwarded-for') }, '@/lib/analytics-identity': { ANALYTICS_BROWSER_COOKIE: 'ps_visitor', analyticsBrowserIdentity: () => ({ isNew: true }) }, '@/lib/analytics-v2': { recordAnalyticsConversion: async () => {} } });
 }
 
 test('test addresses and failed email checks cannot create CV leads or return a download', async () => {
@@ -254,4 +263,18 @@ test('admin list and CSV require handler-level authentication and never cache pe
   for (const email of ['+test@example.com', '-test@example.com', '@test@example.com', '\t=test@gmail.com']) assert.ok(f.lib.cvInterestsCSV([{ email }]).includes(`"'${email}"`));
   f.setFailure(true);
   assert.equal((await api.GET(new NextRequest('https://portfolio.example/api/admin/cv-leads'))).status, 503);
+});
+
+
+test('a retried CV request saves exactly once while a new request remains a separate interest', async () => {
+  const f = storeFixture();
+  const id = 'a0000000-0000-4000-8000-000000000001';
+  assert.equal(await f.lib.recordCVInterestOnce('reader@gmail.com', '/cv', '192.0.2.10', id), true);
+  assert.equal(await f.lib.recordCVInterestOnce('reader@gmail.com', '/cv', '192.0.2.10', id), false);
+  assert.equal(f.leads.get('reader@gmail.com').download_count, 1);
+  assert.equal(f.events.length, 1);
+  await assert.rejects(f.lib.recordCVInterestOnce('different@gmail.com', '/cv', '192.0.2.10', id), f.lib.CVLeadConflictError);
+  assert.equal(await f.lib.recordCVInterestOnce('reader@gmail.com', '/cv', '192.0.2.10', 'a0000000-0000-4000-8000-000000000002'), true);
+  assert.equal(f.leads.get('reader@gmail.com').download_count, 2);
+  assert.ok(f.calls.filter(c=>c.sql.includes('cv_request_receipts')).every(c=>!c.values.includes('reader@gmail.com') || c.sql.startsWith('WITH claimed')));
 });

@@ -34,8 +34,8 @@ function fixture(fetcher) {
   const source = readFileSync(path.join(__dirname, '../components/CvDownload.tsx'), 'utf8');
   const { outputText } = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true } });
   const module = { exports: {} };
-  vm.runInNewContext(outputText, { module, exports: module.exports, document, window: { location: { origin: 'https://portfolio.example', pathname: '/cv' } }, URL, FormData: Fields, AbortController, fetch: fetcher,
-    require: id => id === 'react' ? react : id === '@/lib/cv-download' ? { CV_DOWNLOAD_URL, CV_DOWNLOAD_FILENAME: 'Priyam_Sameer_CV.pdf' } : id === '@/components/Icon' ? require('./helpers/icon.cjs') : id.endsWith('.css') ? css : require(id),
+  vm.runInNewContext(outputText, { module, exports: module.exports, document, window: { crypto: require('node:crypto').webcrypto, location: { origin: 'https://portfolio.example', pathname: '/cv' } }, URL, FormData: Fields, AbortController, fetch: fetcher,
+    require: id => id === 'react' ? react : id === '@/lib/analytics-client' ? { getAnalyticsContext: () => null, emitAnalyticsAction: () => {} } : id === '@/lib/cv-download' ? { CV_DOWNLOAD_URL, CV_DOWNLOAD_FILENAME: 'Priyam_Sameer_CV.pdf' } : id === '@/components/Icon' ? require('./helpers/icon.cjs') : id.endsWith('.css') ? css : require(id),
   });
   function render() {
     cursor = 0; effects = []; nodes = [];
@@ -90,7 +90,8 @@ test('download waits for successful capture, focuses the fallback, and refocuses
   const f = fixture((url, options) => { assert.equal(url, '/api/cv-download'); payload = JSON.parse(options.body); return new Promise(resolve => { finish = resolve; }); });
   f.show();
   const submitted = f.submit(); f.render();
-  assert.deepEqual(payload, { email: 'reader@example.com', website: '', sourcePath: '/cv' });
+  assert.match(payload.requestId, /^[a-f0-9-]{36}$/);
+  assert.deepEqual({ ...payload, requestId: undefined }, { email: 'reader@example.com', website: '', sourcePath: '/cv', requestId: undefined });
   assert.equal(f.downloads.length, 0);
   const submit = f.find(node => node.type === 'button' && node.props.type === 'submit');
   assert.equal(submit.props.disabled, true);

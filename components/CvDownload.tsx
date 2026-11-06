@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 import Icon from '@/components/Icon';
 import { CV_DOWNLOAD_FILENAME, CV_DOWNLOAD_URL } from '@/lib/cv-download';
 import styles from './cv-download.module.css';
+import { getAnalyticsContext, emitAnalyticsAction } from '@/lib/analytics-client';
 
 export { CV_DOWNLOAD_URL };
 
@@ -16,6 +17,7 @@ export default function CvDownload({ className = '' }: { className?: string }) {
   const request = useRef<AbortController>();
   const previousOverflow = useRef('');
   const active = useRef(false);
+  const submission = useRef<{ email: string; id: string }>();
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
@@ -42,6 +44,7 @@ export default function CvDownload({ className = '' }: { className?: string }) {
     active.current = false;
     setOpen(false);
     setPending(false);
+    submission.current = undefined;
     document.body.style.overflow = previousOverflow.current;
     trigger.current?.focus();
   }
@@ -61,6 +64,8 @@ export default function CvDownload({ className = '' }: { className?: string }) {
     event.preventDefault();
     if (pending) return;
     const fields = new FormData(event.currentTarget);
+    const address = String(fields.get('email') || '').trim().toLowerCase();
+    if (!submission.current || submission.current.email !== address) submission.current = { email: address, id: window.crypto.randomUUID() };
     const controller = new AbortController();
     request.current = controller;
     setPending(true);
@@ -68,11 +73,16 @@ export default function CvDownload({ className = '' }: { className?: string }) {
     try {
       const response = await fetch('/api/cv-download', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: fields.get('email'), website: fields.get('website'), sourcePath: window.location.pathname }),
+        body: JSON.stringify({ email: fields.get('email'), website: fields.get('website'), sourcePath: window.location.pathname,
+          requestId: submission.current.id, ...getAnalyticsContext() }),
         signal: controller.signal,
       });
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'The CV request could not be saved. Please try again.');
+      if (!response.ok) {
+        const reason = ['blocked_domain', 'domain_unavailable', 'rate_limited', 'storage_error'].includes(result.code) ? result.code : 'invalid';
+        emitAnalyticsAction('cv_request_rejected', reason, 'cv-form-submit');
+        throw new Error(result.error || 'The CV request could not be saved. Please try again.');
+      }
       // Only the approved same-origin CV is accepted, including its source version.
       const approved = new URL(CV_DOWNLOAD_URL, window.location.origin);
       const download = new URL(result.downloadUrl, window.location.origin);
@@ -85,6 +95,7 @@ export default function CvDownload({ className = '' }: { className?: string }) {
       link.download = CV_DOWNLOAD_FILENAME;
       document.body.appendChild(link);
       link.click();
+      emitAnalyticsAction('cv_download_initiated', 'cv', 'cv-automatic-download');
       link.remove();
     } catch (failure) {
       if (controller.signal.aborted) return;
@@ -109,13 +120,13 @@ export default function CvDownload({ className = '' }: { className?: string }) {
         <p id={descriptionId} className={styles.description}>Share your email to download my CV. I’ll receive it as a record of your interest. This does not subscribe you to a newsletter.</p>
         {readyURL ? <div className={styles.success}>
           <p role="status">Your request has been saved. If the download didn’t start, use the link below.</p>
-          <a ref={readyAction} href={readyURL} download={CV_DOWNLOAD_FILENAME} data-analytics="cv_download_clicked" data-analytics-target="cv" className={styles.action}>Download CV <Icon name="download" /></a>
+          <a ref={readyAction} href={readyURL} download={CV_DOWNLOAD_FILENAME} data-analytics="cv_download_initiated" data-analytics-id="cv-fallback-download" data-analytics-target="cv" className={styles.action}>Download CV <Icon name="download" /></a>
         </div> : <form ref={form} onSubmit={submit} aria-busy={pending}>
           <label htmlFor={emailId}>Email address</label>
           <input ref={email} id={emailId} type="email" name="email" autoComplete="email" maxLength={254} required placeholder="you@example.com" aria-describedby={error ? errorId : undefined} readOnly={pending} />
           <div className={styles.honeypot} aria-hidden="true"><label htmlFor={`${id}-website`}>Leave this field empty</label><input id={`${id}-website`} name="website" type="text" autoComplete="off" tabIndex={-1} /></div>
           {error && <p id={errorId} role="alert" className={styles.error}>{error}</p>}
-          <button type="submit" className={styles.action} data-analytics="cv_download_clicked" data-analytics-target="cv" disabled={pending}>{pending ? 'Preparing your CV…' : 'Continue to download'}<Icon name="download" /></button>
+          <button type="submit" className={styles.action} disabled={pending}>{pending ? 'Preparing your CV…' : 'Continue to download'}<Icon name="download" /></button>
         </form>}
       </div>
     </dialog>

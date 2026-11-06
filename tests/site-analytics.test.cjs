@@ -604,52 +604,19 @@ test('historical-only reports leave period unique visitors unavailable rather th
   assert.equal(report.topPages[0].browserVisitors, null);
 });
 
-function trackerFixture({ path = '/product', dnt, gpc, visibility = 'visible', fail = false } = {}) {
-  const effects = [], timers = [], requests = [], listeners = new Map();
-  const document = {
-    visibilityState: visibility,
-    referrer: 'https://www.google.com/search?q=reader@example.com#private',
-    addEventListener: (name, listener) => listeners.set(name, listener),
-    removeEventListener: name => listeners.delete(name),
-  };
+// Detailed runtime/DOM/clock/queue checks live in site-analytics-client.test.cjs.
+// This integration test keeps the React route lifecycle wired to that collector.
+test('the public component delegates each pathname lifecycle to the v2 collector', () => {
+  const effects = [], started = [], stopped = [];
   const tracker = fixture({
-    react: { useEffect: effect => effects.push(effect), useRef: () => ({ current: '' }) },
-    'next/navigation': { usePathname: () => path },
-  }, {}, {
-    navigator: { doNotTrack: dnt, globalPrivacyControl: gpc }, document,
-    window: { crypto: { randomUUID: () => event().eventId }, setTimeout: callback => { timers.push(callback); return 1; }, clearTimeout() {} },
-    fetch: (url, options) => { requests.push({ url, options }); return fail ? Promise.reject(Error('Offline')) : Promise.resolve({ ok: true }); },
+    react: { useEffect: (effect, dependencies) => effects.push({ effect, dependencies }) },
+    'next/navigation': { usePathname: () => '/product' },
+    '@/lib/analytics-client': { startAnalyticsVisit: path => { started.push(path); return () => stopped.push(path); } },
   }).load('components/SiteAnalytics.tsx');
-  return { tracker, effects, timers, requests, document, listeners };
-}
-
-test('browser tracking sends only a visible public pathname and sanitized referrer host once', async () => {
-  const f = trackerFixture({ visibility: 'hidden', fail: true });
-  assert.equal(f.tracker.default(), null);
-  const cleanup = f.effects[0]();
-  f.timers[0]();
-  assert.equal(f.requests.length, 0, 'Background pages do not count until visible');
-  f.document.visibilityState = 'visible';
-  f.listeners.get('visibilitychange')();
-  f.listeners.get('visibilitychange')();
-  await Promise.resolve();
-  assert.equal(f.requests.length, 1, 'Visibility transitions cannot duplicate the page view');
-  const sent = f.requests[0];
-  assert.equal(sent.url, '/api/analytics');
-  assert.equal(sent.options.credentials, 'same-origin');
-  assert.equal(sent.options.keepalive, true);
-  assert.deepEqual(JSON.parse(sent.options.body), { eventId: event().eventId, path: '/product', referrer: 'www.google.com', type: 'page_view' });
-  assert.doesNotMatch(sent.options.body, /reader@example|search\?|#private/);
+  assert.equal(tracker.default(), null);
+  assert.deepEqual(Array.from(effects[0].dependencies), ['/product']);
+  const cleanup = effects[0].effect();
+  assert.deepEqual(started, ['/product']);
   cleanup();
-  assert.equal(f.listeners.size, 0);
-});
-
-test('browser tracking respects privacy controls and excludes private or service pages', () => {
-  for (const options of [{ dnt: '1' }, { gpc: true }, { path: '/minforyam/analytics' }, { path: '/api/cv-download' }]) {
-    const f = trackerFixture(options);
-    f.tracker.default();
-    f.effects[0]();
-    assert.equal(f.timers.length, 0);
-    assert.equal(f.requests.length, 0);
-  }
+  assert.deepEqual(stopped, ['/product']);
 });

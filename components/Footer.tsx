@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Icon from '@/components/Icon';
 import styles from './site-chrome.module.css';
 import EmailContact from './EmailContact';
@@ -18,7 +19,7 @@ export default function Footer({ compact = false }: { compact?: boolean } = {}) 
         <a href="https://wa.me/918238452277" target="_blank" rel="noopener noreferrer">WhatsApp <span aria-hidden="true"><Icon name="arrow-up-right" /></span><span className="sr-only"> (opens in a new tab)</span></a>
       </div>
       <p className={styles.copyright}>© {new Date().getFullYear()} Priyam Sameer</p>
-      <p className={styles.copyright}>Anonymous visitor counts use a first-party cookie. Visits are never linked to CV emails.</p>
+      <p className={styles.copyright}>Anonymous visits, clicks and active time use a first-party cookie. Visits are never linked to CV emails. <Link href="/privacy">Privacy &amp; analytics choices</Link></p>
     </div>
   </footer>;
 }

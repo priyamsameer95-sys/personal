@@ -18,8 +18,9 @@ async function fixture(t) {
   await fs.writeFile(path.join(projectDir, 'scripts', 'local-analytics-data.cjs'), "module.exports = {};\n");
   await fs.mkdir(path.join(projectDir, 'lib'));
   await fs.writeFile(path.join(projectDir, 'lib', 'cv-email-policy.cjs'), "module.exports = {};\n");
+  await fs.writeFile(path.join(projectDir, 'lib', 'analytics-explore.cjs'), 'module.exports = {};\n');
   await fs.mkdir(path.join(projectDir, 'local-analytics'));
-  for (const asset of ['index.html', 'dashboard.css', 'dashboard.js', 'icon.svg']) await fs.writeFile(path.join(projectDir, 'local-analytics', asset), 'test asset');
+  for (const asset of ['index.html', 'dashboard.css', 'dashboard.js', 'charts.js', 'icon.svg']) await fs.writeFile(path.join(projectDir, 'local-analytics', asset), 'test asset');
   for (const [name, dependencies] of [['@vercel/postgres', { 'runtime-dependency': '1.0.0' }], ['runtime-dependency', {}]]) {
     const folder = path.join(projectDir, 'node_modules', name);
     await fs.mkdir(folder, { recursive: true });

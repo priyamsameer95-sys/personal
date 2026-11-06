@@ -3,14 +3,18 @@ import { getClientIp } from '@/lib/auth';
 import { CV_DOWNLOAD_FILENAME, CV_DOWNLOAD_URL } from '@/lib/cv-download';
 import { CVLeadRateLimitError, normalizeCVEmail, normalizeCVSource, recordCVInterest } from '@/lib/cv-leads';
 import { checkCVEmailDomain, CVEmailRejectedError, CVEmailCheckUnavailableError } from '@/lib/cv-email';
+import { randomUUID } from 'node:crypto';
+import { CVLeadConflictError, recordCVInterestOnce } from '@/lib/cv-leads';
+import { analyticsBrowserIdentity, ANALYTICS_BROWSER_COOKIE } from '@/lib/analytics-identity';
+import { recordAnalyticsConversion, recordAnalyticsSubmission } from '@/lib/analytics-v2';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 const MAX_BODY_BYTES = 2048;
 const noStore = { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' };
 
-function failure(error: string, status: number, headers = {}) {
-  return NextResponse.json({ error }, { status, headers: { ...noStore, ...headers } });
+function failure(error: string, status: number, headers = {}, code?: string) {
+  return NextResponse.json({ error, ...(code ? { code } : {}) }, { status, headers: { ...noStore, ...headers } });
 }
 
 function hasSameOrigin(request: NextRequest): boolean {
@@ -56,19 +60,45 @@ export async function POST(request: NextRequest) {
   if (!body || typeof body !== 'object' || Array.isArray(body)) return failure('Please enter a valid email address.', 400);
   const fields = body as Record<string, unknown>;
   const email = normalizeCVEmail(fields.email);
-  if (!email || Object.keys(fields).some(key => !['email', 'website', 'sourcePath'].includes(key)) ||
+  const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
+  if (!email || Object.keys(fields).some(key => !['email', 'website', 'sourcePath', 'requestId', 'pageViewId'].includes(key)) ||
     (fields.website !== undefined && fields.website !== '') ||
-    (fields.sourcePath !== undefined && typeof fields.sourcePath !== 'string')) {
+    (fields.sourcePath !== undefined && typeof fields.sourcePath !== 'string') ||
+    (fields.requestId !== undefined && (typeof fields.requestId !== 'string' || !uuid.test(fields.requestId))) ||
+    (fields.pageViewId !== undefined && (typeof fields.pageViewId !== 'string' || !uuid.test(fields.pageViewId)))) {
     return failure('Please check your email address and try again.', 400);
+  }
+  let measurementBrowser: string | undefined;
+  if (typeof fields.pageViewId === 'string' && request.headers.get('dnt') !== '1' && request.headers.get('sec-gpc') !== '1' && request.cookies.get('ps_analytics_disabled')?.value !== '1') {
+    try {
+      const cookie = request.cookies.get(ANALYTICS_BROWSER_COOKIE)?.value;
+      if (cookie) {
+        const browser = analyticsBrowserIdentity(cookie);
+        if (!browser.isNew) {
+          measurementBrowser = browser.browserHash;
+          await recordAnalyticsSubmission({ pageViewId: fields.pageViewId, eventId: randomUUID() }, measurementBrowser);
+        }
+      }
+    } catch { /* Optional measurement never changes CV validation or saving. */ }
   }
   try {
     await checkCVEmailDomain(email);
-    await recordCVInterest(email, normalizeCVSource(fields.sourcePath), getClientIp(request));
+    const saved = fields.requestId
+      ? await recordCVInterestOnce(email, normalizeCVSource(fields.sourcePath), getClientIp(request), fields.requestId as string)
+      : (await recordCVInterest(email, normalizeCVSource(fields.sourcePath), getClientIp(request)), true);
+    // Contact storage succeeds independently of optional anonymous measurement.
+    // No receipt, lead identifier, email or email hash enters the event stream.
+    if (saved && typeof fields.pageViewId === 'string' && measurementBrowser) {
+      try {
+        await recordAnalyticsConversion({ pageViewId: fields.pageViewId, eventId: randomUUID() }, measurementBrowser);
+      } catch { /* A tracking outage must not prevent receiving the approved CV. */ }
+    }
     return NextResponse.json({ downloadUrl: CV_DOWNLOAD_URL, filename: CV_DOWNLOAD_FILENAME }, { headers: noStore });
   } catch (error) {
-    if (error instanceof CVEmailRejectedError) return failure(error.message, 400);
-    if (error instanceof CVEmailCheckUnavailableError) return failure(error.message, 503, { 'Retry-After': '30' });
-    if (error instanceof CVLeadRateLimitError) return failure('Please wait a few minutes before requesting the CV again.', 429, { 'Retry-After': String(error.retryAfter) });
-    return failure('The CV request could not be saved. Please try again shortly.', 503);
+    if (error instanceof CVLeadConflictError) return failure(error.message, 409);
+    if (error instanceof CVEmailRejectedError) return failure(error.message, 400, {}, 'blocked_domain');
+    if (error instanceof CVEmailCheckUnavailableError) return failure(error.message, 503, { 'Retry-After': '30' }, 'domain_unavailable');
+    if (error instanceof CVLeadRateLimitError) return failure('Please wait a few minutes before requesting the CV again.', 429, { 'Retry-After': String(error.retryAfter) }, 'rate_limited');
+    return failure('The CV request could not be saved. Please try again shortly.', 503, {}, 'storage_error');
   }
 }

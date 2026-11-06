@@ -253,3 +253,135 @@ test('invalid connection strings and malformed numeric records cannot be present
    if(!options.tables)assert.equal(f.calls.some(c=>/COUNT\(DISTINCT browser_hash\)/.test(c.sql)),false);
   }
  });
+
+function exploreFixture({ views = [], events = [], ready = true, coverage = true, fail } = {}) {
+  const calls = [];
+  let opened = 0, closed = 0;
+  const provider = createLocalDataProvider({ connectionString: secret, now: () => now,
+    createConnection: async () => {
+      opened++;
+      return {
+        async query(query, params = []) {
+          const sql = query.replace(/\s+/g, ' ').trim();
+          calls.push({ sql, params });
+          if (fail?.(sql)) throw Error(`Private diagnostics: ${secret}`);
+          if (/^(BEGIN|COMMIT|ROLLBACK)/.test(sql)) return { rows: [] };
+          assert.match(sql, /^SELECT\b/, 'The local dashboard must never migrate or mutate production data');
+          assert.doesNotMatch(sql, /\b(?:cv_download_leads|cv_download_events|email)\b/i,
+            'Journey queries must not join contact identities or email records');
+          if (sql.includes('to_regclass')) return { rows: [{ ready }] };
+          if (sql.includes('FROM site_analytics_v2_settings')) return { rows: coverage ? [{
+            journey_tracking_started_at: '2026-10-21T12:00:00Z',
+            engagement_tracking_started_at: '2026-10-21T12:00:00Z',
+          }] : [] };
+          if (sql.startsWith('SELECT v.*')) return { rows: views };
+          if (sql.startsWith('SELECT e.*')) return { rows: events };
+          assert.fail(`Unexpected journey query: ${sql}`);
+        },
+        async close() { closed++; },
+      };
+    } });
+  return { provider, calls, opened: () => opened, closed: () => closed };
+}
+
+const boundaryView = {
+  id: '10000000-0000-4000-8000-000000000001', session_id: '20000000-0000-4000-8000-000000000001',
+  tab_id: '30000000-0000-4000-8000-000000000001', browser_hash: 'a'.repeat(64), path: '/cv', sequence: 0,
+  occurred_at: '2026-10-21T18:29:00Z', last_observed_at: '2026-10-21T18:32:00Z', active_ms: 90000,
+  source: 'linkedin', device: 'Phone', session_started_at: '2026-10-21T18:29:00Z',
+  session_last_activity: '2026-10-21T18:32:00Z',
+};
+
+test('journey provider uses bounded, parameterized read-only snapshots without contact joins', async () => {
+  const f = exploreFixture();
+  const source = "source' OR 1=1 --";
+  const result = await f.provider.explore({ days: 1, device: 'Phone', source, path: '/cv' });
+  assert.equal(result.available, true);
+  assert.deepEqual(result.range, { startDate: '2026-10-22', endDate: '2026-10-22' });
+  assert.equal(f.calls[0].sql, 'BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY');
+  assert.equal(f.calls.at(-1).sql, 'COMMIT');
+  assert.equal(f.closed(), 1);
+  const records = f.calls.filter(call => /^SELECT [ve]\.\*/.test(call.sql));
+  assert.equal(records.length, 2);
+  for (const call of records) {
+    assert.deepEqual(call.params, ['2026-10-22', '2026-10-23', 'Phone', source, '/cv']);
+    assert.match(call.sql, /LIMIT 100001$/);
+    assert.match(call.sql, /v\.occurred_at < \(\$2::TIMESTAMP AT TIME ZONE 'Asia\/Kolkata'\)/);
+    assert.match(call.sql, /s\.device = \$3/);
+    assert.match(call.sql, /s\.source = \$4/);
+    assert.match(call.sql, /p\.path = \$5/);
+    assert.equal(call.sql.includes(source), false, 'User filters stay in parameters, never SQL text');
+  }
+  assert.doesNotMatch(JSON.stringify(result), /fixture-password|browser_hash|synthetic-only@/);
+});
+
+test('a post-midnight CV save retains its old parent without inventing a new page view or allocating cumulative time', async () => {
+  const events = ['cv_opened', 'cv_submitted', 'cv_request_saved', 'cv_download_initiated'].map((type, i) => ({
+    event_id: `40000000-0000-4000-8000-00000000000${i + 1}`,
+    session_id: boundaryView.session_id, page_view_id: boundaryView.id, tab_id: boundaryView.tab_id,
+    sequence: i + 1, event_type: type, target: 'cv', occurred_at: `2026-10-21T18:3${i}:00Z`,
+  }));
+  const f = exploreFixture({ views: [boundaryView], events });
+  const report = await f.provider.explore({ days: 1 });
+  assert.equal(report.summary.views, 0);
+  assert.equal(report.summary.sessions, 1);
+  assert.equal(report.summary.browsers, 1);
+  assert.equal(report.summary.cvRequests, 1);
+  assert.equal(report.summary.avgActiveMs, null);
+  assert.equal(report.health.boundaryTimingExcluded, 1);
+  assert.deepEqual(report.daily.map(row => [row.date, row.views, row.sessions, row.browsers, row.cvRequests]),
+    [['2026-10-22', 0, 1, 1, 1]]);
+  assert.doesNotMatch(JSON.stringify(report), new RegExp(boundaryView.browser_hash));
+  const viewQuery = f.calls.find(call => call.sql.startsWith('SELECT v.*'));
+  assert.match(viewQuery.sql, /OR \(v\.last_observed_at >= \$|OR \(v\.last_observed_at >= \(/);
+  assert.match(viewQuery.sql, /active\.page_view_id=v\.id/);
+  const eventQuery = f.calls.find(call => call.sql.startsWith('SELECT e.*'));
+  assert.match(eventQuery.sql, /AND e\.occurred_at >= \(\$1::TIMESTAMP AT TIME ZONE 'Asia\/Kolkata'\)/);
+  assert.match(eventQuery.sql, /AND e\.occurred_at < \(\$2::TIMESTAMP AT TIME ZONE 'Asia\/Kolkata'\)/);
+  const funnel = await f.provider.explore({ days: 1, view: 'funnel', funnel: 'cv' });
+  assert.deepEqual(funnel.stages.map(stage => stage.count), [1, 1, 1, 1]);
+});
+
+test('missing journey tables or coverage stays unavailable without migrations or raw record reads', async () => {
+  for (const configuration of [{ ready: false }, { coverage: false }]) {
+    const f = exploreFixture(configuration);
+    const report = await f.provider.explore({ days: 1 });
+    assert.equal(report.available, false);
+    assert.equal('summary' in report, false);
+    assert.equal(f.calls.some(call => /^SELECT [ve]\.\*/.test(call.sql)), false);
+    assert.equal(f.calls.at(-1).sql, 'COMMIT');
+    assert.equal(f.closed(), 1);
+  }
+});
+
+test('invalid journey options cannot open a database connection', async () => {
+  for (const options of [{ startDate: '2020-01-01' }, { path: '/cv?email=person@example.com' },
+    { source: 'person@example.com' }, { unexpected: 'field' }]) {
+    const f = exploreFixture();
+    await assert.rejects(f.provider.explore(options), TypeError);
+    assert.equal(f.opened(), 0);
+    assert.deepEqual(f.calls, []);
+  }
+});
+
+test('journey read failure rolls back, closes the connection and redacts diagnostics', async () => {
+  const f = exploreFixture({ fail: sql => sql.startsWith('SELECT e.*') });
+  await assert.rejects(f.provider.explore({ days: 1 }), error => {
+    assert.ok(error instanceof LocalDataError);
+    assert.doesNotMatch(String(error), /Private diagnostics|fixture-password|postgresql/);
+    return true;
+  });
+  assert.equal(f.calls.at(-1).sql, 'ROLLBACK');
+  assert.equal(f.closed(), 1);
+});
+
+test('oversized journey selections return no sampled totals', async () => {
+  const f = exploreFixture({ views: Array(100001).fill(boundaryView) });
+  const report = await f.provider.explore({ days: 1 });
+  assert.equal(report.available, false);
+  assert.equal(report.truncated, true);
+  assert.equal('summary' in report, false);
+  assert.match(report.reason, /no sampled totals/);
+  assert.equal(f.calls.at(-1).sql, 'COMMIT');
+  assert.equal(f.closed(), 1);
+});
