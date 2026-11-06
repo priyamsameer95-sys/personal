@@ -3,6 +3,7 @@
 (() => {
   const $ = id => document.getElementById(id), C = globalThis.PriyamCharts;
   const number = value => value === null || value === undefined || !Number.isFinite(Number(value)) ? '—' : new Intl.NumberFormat('en-IN').format(Number(value));
+  const countLabel = (value, noun) => `${number(value)} ${noun}${Number(value) === 1 ? '' : 's'}`;
   const duration = value => value === null || value === undefined || !Number.isFinite(Number(value)) ? '—' : (value < 1000 ? '0s' : value < 60000 ? `${Math.round(value / 1000)}s` : `${Math.floor(value / 60000)}m ${Math.round(value % 60000 / 1000)}s`);
   const percent = value => value === null || value === undefined || !Number.isFinite(value) ? '—' : `${(value * 100).toFixed(value === 0 || value === 1 ? 0 : 1)}%`;
   const date = (value, time = false) => {
@@ -12,7 +13,7 @@
   const day = value => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit' }).format(value);
   const ACTIONS = { page_view: 'Page visited', navigation_clicked: 'Navigation', outbound_clicked: 'Website link', cv_opened: 'CV form opened', cv_submitted: 'CV form submitted', cv_request_saved: 'CV request saved', cv_request_rejected: 'CV request rejected', cv_download_initiated: 'Download initiated', cv_download_clicked: 'CV download attempt', contact_opened: 'Contact options opened', contact_clicked: 'Contact chosen', email_copied: 'Email copied', media_opened: 'Image enlarged', video_started: 'Video started', video_progress: 'Video watched', video_completed: 'Video completed', demo_started: 'Demo launched', filter_changed: 'Filter changed', menu_opened: 'Menu opened', cta_viewed: 'Button seen', section_viewed: 'Section seen', scroll_depth_reached: 'Scroll milestone', evidence: 'Evidence interaction', conversion: 'CV or contact action' };
   const TITLES = { '/': 'Home', '/product': 'Selected work', '/cv': 'Experience', '/github': 'GitHub projects', '/art': 'Art', '/blog': 'Writing' };
-  const s = { view: 'overview', hidden: false, version: 0, exportVersion: 0, overview: null, legacy: null, journey: null, funnel: null, pages: null, health: null, leads: null, funnelMode: 'funnel', journeyHistory: [], selectedPage: '', saved: [] };
+  const s = { view: 'overview', hidden: false, version: 0, refreshVersion: 0, overviewLoading: false, exportVersion: 0, overview: null, legacy: null, journey: null, funnel: null, pages: null, health: null, leads: null, funnelMode: 'funnel', journeyHistory: [], selectedPage: '', saved: [] };
   let chartNumber = 0;
   const el = (tag, text, className) => { const n = document.createElement(tag); if (text !== undefined && text !== null) n.textContent = String(text); if (className) n.className = className; return n; };
   const svgEl = (tag, attributes = {}, text) => { const n = document.createElementNS('http://www.w3.org/2000/svg', tag); for (const [key, value] of Object.entries(attributes)) n.setAttribute(key, String(value)); if (text !== undefined) n.textContent = String(text); return n; };
@@ -105,11 +106,11 @@
     if (!C || !data?.available || !(data.nodes || []).length) { card.append(empty(data?.available ? 'No journeys in this selection' : 'Journeys start with the new tracking', data?.available ? 'Try a wider date range or reset the filters. Nothing has been inferred from older totals.' : coverage(data))); return; }
     const layout = C.sankey(data), svg = svgEl('svg', { viewBox: `0 0 ${layout.width} ${layout.height}` });
     chartTitle(svg, 'Traffic and visitor journeys', 'Band widths show recorded tab journeys. Select a route or node for details. The equivalent table contains exact counts.');
-    const bar = el('div', null, 'chart-bar'), stats = el('p', `${number(data.totalJourneys)} tab journeys · ${number(data.browsers)} browsers · ${number(data.sessions)} sessions`);
+    const bar = el('div', null, 'chart-bar'), stats = el('p', `${countLabel(data.totalJourneys, 'tab journey')} · ${countLabel(data.browsers, 'browser')} · ${countLabel(data.sessions, 'session')}`);
     const rows = layout.links.map(link => [link.sourceNode.label, link.targetNode.label, link.count, percent(link.sourceNode.count ? link.count / link.sourceNode.count : null)]);
     const exports = chartTools(card, svg, 'Visitor journeys', ['From', 'To', 'Tab journeys', 'Share of preceding node'], rows);
     exports.tools.prepend(button('Show graph', () => { card.classList.toggle('show-graph'); }, 'quiet mobile-graph-toggle'));
-    if (s.journeyHistory.length && !compact) exports.tools.prepend(button('← Back', () => { const old = s.journeyHistory.pop(); $('journey-anchor').value = old.anchor; $('journey-direction').value = old.direction; void loadView(); }));
+    if (s.journeyHistory.length && !compact) exports.tools.prepend(button('← Back', () => { const old = s.journeyHistory.pop(); $('journey-anchor').value = old.anchor; $('journey-direction').value = old.direction; void reloadView(); }));
     bar.append(stats, exports.tools); card.append(bar);
     const flow = el('div', null, 'flow-layout'), body = el('div', null, 'chart-body'), details = el('aside', null, 'flow-detail'); details.hidden = true; details.setAttribute('aria-label', 'Selected journey details');
     const linksGroup = svgEl('g'), hitsGroup = svgEl('g'), nodesGroup = svgEl('g');
@@ -164,7 +165,7 @@
     const anchorValue = $('journey-anchor').value; setOptions('journey-anchor', f.paths || [], 'All entry paths');
     for (const type of ['cv_request_saved', 'cv_opened', 'contact_clicked', 'email_copied', 'video_started', 'demo_started']) { const option = el('option', ACTIONS[type]); option.value = type; $('journey-anchor').append(option); } if ([...$('journey-anchor').options].some(option => option.value === anchorValue)) $('journey-anchor').value = anchorValue;
     const rows = data.daily || []; const field = $('trend-metric').value; renderTrend('daily-chart', rows, [field], $('trend-metric').selectedOptions[0]?.textContent || 'Daily activity');
-    replace('daily-table', rows.length ? [table(['Date · IST', 'Page views', 'Sessions', 'Unique browsers', 'CV requests'], rows.map(row => [date(row.date), number(row.views), number(row.sessions), number(row.browsers), number(row.cvRequests)]), 'Daily activity · — means unavailable history. The first collection day may be partial. Daily browser counts are not added to produce period visitors.')] : []);
+    replace('daily-table', rows.length ? [table(['Date · IST', 'Page views', 'Sessions', 'Unique browsers', 'CV requests'], rows.map(row => [date(row.date), number(row.views), number(row.sessions), number(row.browsers), number(row.cvRequests)]), `${data.combinedHistory ? 'Page views and CV requests include earlier recorded history. Sessions and daily unique browsers use journey measurement only. ' : ''}Daily activity · — means unavailable history. The first collection day may be partial. Daily browser counts are not added to produce period visitors.`)] : []);
     $('sources-title').textContent = data.legacyAggregates ? 'Sources of page views' : 'Where visits start'; $('devices-title').textContent = data.legacyAggregates ? 'Devices · page views' : 'Devices';
     breakdown('referrers', data.sources || [], 'Session sources appear with the new tracking.'); breakdown('devices', data.devices || [], 'Device breakdown is not available for this selection.');
   }
@@ -202,12 +203,22 @@
   }
   function renderPages(data) {
     const old = s.overview?.legacy || s.legacy;
-    if (!data.available && old && !filters().device && !filters().source && !filters().path) { renderLegacyPages(old); return; }
+    const historical = old && !filters().device && !filters().source && !filters().path;
+    if (!data.available && historical) { renderLegacyPages(old); return; }
     const rows = [...(data.pages || [])].sort((a, b) => (Number(b[$('page-sort').value]) || 0) - (Number(a[$('page-sort').value]) || 0));
-    breakdown('page-view-ranking', [...rows].sort((a, b) => b.views - a.views).slice(0, 6).map(row => ({ label: row.title || title(row.path), count: row.views })), 'No page-view history in this selection.');
+    const allPages = historical && Array.isArray(old.topPages) ? old.topPages : null;
+    breakdown('page-view-ranking', [...(allPages || rows)].sort((a, b) => b.views - a.views).slice(0, 6).map(row => ({ label: row.title || title(row.path), count: row.views })), 'No page-view history in this selection.');
     breakdown('page-time-ranking', rows.filter(row => row.avgActiveMs !== null && row.avgActiveMs !== undefined).sort((a, b) => b.avgActiveMs - a.avgActiveMs).slice(0, 6).map(row => ({ label: row.title || title(row.path), count: row.avgActiveMs })), 'Active-time measurements are not available yet.', duration);
-    if (!rows.length) { replace('pages', [empty(data.available ? 'No page activity in this selection' : 'Page detail starts with the new tracking', data.available ? 'Try a wider date range or reset filters.' : coverage(data))]); replace('page-detail', []); return; }
-    replace('pages', [table(['Page', 'Views', 'Browsers', 'Sessions', 'Avg. active time', 'Entries', 'Last observed'], rows.map(row => [button(row.title || title(row.path), () => renderPageDetail(row), 'table-link'), number(row.views), number(row.browsers), number(row.sessions), duration(row.avgActiveMs), number(row.entries), number(row.lastObserved)]), 'Select a page for controls, reading depth and media engagement.')]);
+    const contents = [];
+    if (allPages) {
+      contents.push(el('h3', 'All recorded page totals'), el('p', 'Selected period, including earlier history. These counts already include the views measured below; do not add the two tables.', 'muted'));
+      if (allPages.length) contents.push(table(['Page', 'Page views', 'Unique browsers'], allPages.map(row => [title(row.path), number(row.views), number(row.browserVisitors)]), 'Up to 100 pages, ranked by all recorded views. Browser counts cover only the available identification history.'));
+      else contents.push(el('p', 'No page totals were recorded for this period.', 'empty'));
+    }
+    contents.push(el('h3', 'Measured engagement'), el('p', coverage(data), 'muted'));
+    if (!rows.length) { contents.push(empty(data.available ? 'No measured page activity in this selection' : 'Page detail starts with the new tracking', data.available ? `${allPages ? 'Earlier page totals remain above. ' : ''}Try a wider date range or reset filters to find detailed measurements.` : coverage(data))); replace('pages', contents); replace('page-detail', []); return; }
+    contents.push(table(['Page', 'New page views', 'Browsers', 'Sessions', 'Timed views', 'Avg. active time', 'Entries', 'Last observed'], rows.map(row => [button(row.title || title(row.path), () => renderPageDetail(row), 'table-link'), number(row.views), number(row.browsers), number(row.sessions), number(row.measuredViews), duration(row.avgActiveMs), number(row.entries), number(row.lastObserved)]), 'Only views recorded since journey collection began. Select a page for controls, reading depth and media engagement.'));
+    replace('pages', contents);
     const selected = rows.find(row => row.path === s.selectedPage); if (selected) renderPageDetail(selected); else replace('page-detail', []);
   }
   function renderPageDetail(row) {
@@ -253,13 +264,20 @@
   function legacyOverview(data) {
     return { available: false, legacyAggregates: true, legacy: data, coverage: {}, range: { startDate: data.startDate, endDate: data.endDate }, summary: {}, daily: (data.daily || []).map(row => ({ date: row.date, views: row.pageViews, cvRequests: row.cvRequests, sessions: null, browsers: null })), sources: (data.referrers || []).map(row => ({ name: row.source, count: row.visits })), devices: (data.devices || []).map(row => ({ name: row.device, count: row.visits })), filters: { paths: (data.topPages || []).map(row => row.path), sources: [] } };
   }
+  function combineHistory(data) {
+    const old = legacyOverview(data.legacy), measured = new Map((data.daily || []).map(row => [row.date, row]));
+    // The existing counters also receive new page views and saved CV requests.
+    // Replace those columns; adding the two streams would double-count them.
+    const days = new Map((data.daily || []).map(row => [row.date, { ...row }]));
+    for (const row of old.daily) days.set(row.date, { ...row, ...measured.get(row.date), views: row.views, cvRequests: row.cvRequests });
+    const result = { ...data, combinedHistory: true, daily: [...days.values()].sort((a, b) => a.date.localeCompare(b.date)) };
+    if (!data.available) Object.assign(result, { legacyAggregates: true, sources: old.sources, devices: old.devices, filters: { sources: data.filters?.sources?.length ? data.filters.sources : old.filters.sources, paths: data.filters?.paths?.length ? data.filters.paths : old.filters.paths } });
+    return result;
+  }
   async function loadOverview() {
     try {
       const data = await explore('overview');
-      if (!data.available && data.legacy && !filters().device && !filters().source && !filters().path) {
-        const old = legacyOverview(data.legacy);
-        return { ...data, legacyAggregates: true, daily: old.daily, sources: old.sources, devices: old.devices, filters: { sources: data.filters?.sources?.length ? data.filters.sources : old.filters.sources, paths: data.filters?.paths?.length ? data.filters.paths : old.filters.paths } };
-      }
+      if (data.legacy && !filters().device && !filters().source && !filters().path) return combineHistory(data);
       return data;
     }
     catch (error) { if (error.status !== 404 && error.status !== 400) throw error; if ($('date-range').value === 'custom' || ['today', 'yesterday'].includes($('date-range').value) || filters().device || filters().source || filters().path) return { available: false, coverage: {}, summary: {}, daily: [], filters: {} }; const old = await api('/api/report', { days: filters().days || 30 }); s.legacy = scrubLegacy(old); return legacyOverview(s.legacy); }
@@ -277,22 +295,35 @@
     } catch (error) { if (version !== s.version || s.hidden) return; unavailable(error); }
   }
   async function refresh() {
-    s.hidden = false; const version = ++s.version; ++s.exportVersion; $('report-error').hidden = true; $('refresh').disabled = true; $('report-status').textContent = 'Refreshing live records…';
-    try { const overview = await loadOverview(); if (version !== s.version || s.hidden) return; s.overview = overview; renderOverview(); $('report').hidden = false; await loadView(version); if (version !== s.version || s.hidden) return; $('report-status').textContent = `Updated ${new Intl.DateTimeFormat('en-IN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' }).format(new Date())} IST`; }
-    catch (error) { if (version !== s.version || s.hidden) return; unavailable(error); $('report-status').textContent = 'Refresh unavailable'; }
-    finally { if (version === s.version) $('refresh').disabled = false; }
+    s.hidden = false; const refreshVersion = ++s.refreshVersion; ++s.version; ++s.exportVersion; s.overviewLoading = true;
+    $('report-error').hidden = true; $('refresh').disabled = true; $('report-status').textContent = 'Refreshing live records…';
+    try {
+      const overview = await loadOverview(); if (refreshVersion !== s.refreshVersion || s.hidden) return;
+      s.overviewLoading = false; s.overview = overview; renderOverview(); $('report').hidden = false;
+      // Navigation can change while the overview is pending. Load the latest
+      // selected view against this snapshot, without cancelling refresh cleanup.
+      await loadView(++s.version); if (refreshVersion !== s.refreshVersion || s.hidden) return;
+      $('report-status').textContent = `Updated ${new Intl.DateTimeFormat('en-IN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' }).format(new Date())} IST`;
+    }
+    catch (error) { if (refreshVersion !== s.refreshVersion || s.hidden) return; unavailable(error); $('report-status').textContent = 'Refresh unavailable'; }
+    finally { if (refreshVersion === s.refreshVersion) { s.overviewLoading = false; $('refresh').disabled = false; } }
+  }
+  async function reloadView() {
+    ++s.version;
+    if (s.hidden || s.overviewLoading) return;
+    if (!s.overview) await refresh(); else await loadView();
   }
   async function switchView(view) {
     if (!['overview', 'journeys', 'funnels', 'pages', 'cv', 'health'].includes(view)) return;
-    s.view = view; ++s.version; ++s.exportVersion; $('report-error').hidden = true;
+    s.view = view; ++s.exportVersion; $('report-error').hidden = true;
     for (const section of document.querySelectorAll('.view')) section.hidden = section.id !== `view-${view}`;
     for (const n of document.querySelectorAll('.view-nav button')) { if (n.dataset.view === view) n.setAttribute('aria-current', 'page'); else n.removeAttribute('aria-current'); }
     // Contact rows are not retained in hidden panels.
     if (view !== 'cv') { replace('contacts', []); $('contact-count').textContent = ''; s.leads = null; }
-    if (s.hidden) return; if (!s.overview) await refresh(); else await loadView();
+    await reloadView();
   }
   function hide() {
-    s.hidden = true; ++s.version; ++s.exportVersion; s.overview = s.legacy = s.journey = s.funnel = s.pages = s.health = s.leads = null;
+    s.hidden = true; ++s.version; ++s.refreshVersion; ++s.exportVersion; s.overviewLoading = false; s.overview = s.legacy = s.journey = s.funnel = s.pages = s.health = s.leads = null;
     $('report').hidden = true; $('report-error').hidden = true; $('refresh').disabled = false;
     for (const id of ['metrics', 'visitor-note', 'report-period', 'overview-flow', 'daily-chart', 'daily-table', 'referrers', 'devices', 'journey-chart', 'journey-table', 'journey-summary', 'funnel-chart', 'funnel-table', 'funnel-summary', 'pages', 'page-view-ranking', 'page-time-ranking', 'page-detail', 'contacts', 'contact-count', 'record-note', 'health-content', 'export-status']) replace(id, []);
     $('report-status').textContent = 'Data hidden. Refresh when you are ready.';
@@ -312,13 +343,13 @@
   $('apply-dates').addEventListener('click', () => { const start = $('start-date').value, end = $('end-date').value; if (!start || !end || start > end || (new Date(end) - new Date(start)) / 86400000 > 179) { $('report-status').textContent = 'Choose a valid range of up to 180 days.'; return; } void refresh(); });
   for (const id of ['device-filter', 'source-filter', 'page-filter']) $(id).addEventListener('change', () => void refresh());
   $('reset-filters').addEventListener('click', () => { for (const id of ['device-filter', 'source-filter', 'page-filter']) $(id).value = ''; $('date-range').value = '30'; $('custom-dates').hidden = true; void refresh(); });
-  for (const id of ['journey-anchor', 'journey-direction', 'journey-detail', 'journey-depth', 'journey-limit', 'funnel-select']) $(id).addEventListener('change', () => { ++s.version; void loadView(); });
-  $('journey-reset').addEventListener('click', () => { $('journey-anchor').value = ''; $('journey-direction').value = 'after'; $('journey-detail').value = 'pages'; $('journey-depth').value = '5'; $('journey-limit').value = '5'; s.journeyHistory = []; ++s.version; void loadView(); });
+  for (const id of ['journey-anchor', 'journey-direction', 'journey-detail', 'journey-depth', 'journey-limit', 'funnel-select']) $(id).addEventListener('change', () => void reloadView());
+  $('journey-reset').addEventListener('click', () => { $('journey-anchor').value = ''; $('journey-direction').value = 'after'; $('journey-detail').value = 'pages'; $('journey-depth').value = '5'; $('journey-limit').value = '5'; s.journeyHistory = []; void reloadView(); });
   $('trend-metric').addEventListener('change', () => { if (s.overview) renderOverview(); }); $('page-sort').addEventListener('change', () => { if (s.pages) renderPages(s.pages); });
   $('funnel-mode').addEventListener('click', event => { const b = event.target.closest('button[data-mode]'); if (!b) return; s.funnelMode = b.dataset.mode; for (const n of $('funnel-mode').querySelectorAll('button')) n.setAttribute('aria-pressed', String(n === b)); if (s.funnel) renderFunnel(s.funnel); });
   $('new-funnel').addEventListener('click', () => { $('funnel-builder').hidden = false; $('funnel-steps').replaceChildren(); addBuilderStep('cv_opened'); addBuilderStep('cv_request_saved'); $('funnel-name').focus(); });
   $('add-step').addEventListener('click', () => addBuilderStep()); $('cancel-funnel').addEventListener('click', () => { $('funnel-builder').hidden = true; });
-  $('funnel-builder').addEventListener('submit', event => { event.preventDefault(); const name = $('funnel-name').value.trim(), steps = [...$('funnel-steps').querySelectorAll('select')].map(n => JSON.parse(n.value)); if (!name || steps.length < 2 || steps.length > 6) return; const saved = { id: `saved-${Date.now().toString(36)}`, name: name.slice(0, 60), steps }; s.saved = [...s.saved.slice(-19), saved]; try { localStorage.setItem('priyam-analytics-funnels-v1', JSON.stringify(s.saved)); } catch { $('builder-status').textContent = 'Browser storage is unavailable. The funnel is available for this visit only.'; } const option = el('option', saved.name); option.value = saved.id; $('funnel-select').append(option); $('funnel-select').value = saved.id; $('funnel-builder').hidden = true; ++s.version; void loadView(); });
+  $('funnel-builder').addEventListener('submit', event => { event.preventDefault(); const name = $('funnel-name').value.trim(), steps = [...$('funnel-steps').querySelectorAll('select')].map(n => JSON.parse(n.value)); if (!name || steps.length < 2 || steps.length > 6) return; const saved = { id: `saved-${Date.now().toString(36)}`, name: name.slice(0, 60), steps }; s.saved = [...s.saved.slice(-19), saved]; try { localStorage.setItem('priyam-analytics-funnels-v1', JSON.stringify(s.saved)); } catch { $('builder-status').textContent = 'Browser storage is unavailable. The funnel is available for this visit only.'; } const option = el('option', saved.name); option.value = saved.id; $('funnel-select').append(option); $('funnel-select').value = saved.id; $('funnel-builder').hidden = true; void reloadView(); });
   $('export').addEventListener('click', async () => { const version = s.exportVersion; $('export').disabled = true; $('export-status').textContent = 'Preparing your private CSV…'; try { const blob = await api('/api/export'); if (version !== s.exportVersion || s.hidden || s.view !== 'cv') return; download(blob, 'priyam-cv-requests.csv'); $('export-status').textContent = 'Your CSV is ready.'; } catch (error) { if (version === s.exportVersion && !s.hidden) $('export-status').textContent = errorMessage(error); } finally { $('export').disabled = false; } });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && !s.hidden) void refresh(); });
   setInterval(() => { if (document.visibilityState === 'visible' && !s.hidden && !$('refresh').disabled) void refresh(); }, 60000);

@@ -385,3 +385,66 @@ test('oversized journey selections return no sampled totals', async () => {
   assert.equal(f.calls.at(-1).sql, 'COMMIT');
   assert.equal(f.closed(), 1);
 });
+
+test('installed driver connection timeout stays catchable when WebSocket errors have a read-only message', async () => {
+  const { execFile } = require('node:child_process');
+  const { promisify } = require('node:util');
+  const readerPath = require.resolve('../scripts/local-analytics-data.cjs');
+  const script = `
+    const assert=require('node:assert/strict'), Module=require('node:module');
+    const {createRequire}=Module, req=createRequire(${JSON.stringify(readerPath)});
+    const actual=req('@vercel/postgres'), {neonConfig}=req('@neondatabase/serverless');
+    const sockets=[];
+    class OfflineSocket {
+      constructor(){this.handlers={};this.readyState=0;sockets.push(this);}
+      addEventListener(type,fn){(this.handlers[type]??=[]).push(fn);}
+      send(){}
+      close(){
+        const event=Object.create(null);
+        Object.defineProperty(event,'message',{get:()=> 'synthetic private driver diagnostics'});
+        queueMicrotask(()=>{for(const fn of this.handlers.error||[])fn(event);for(const fn of this.handlers.close||[])fn({});});
+      }
+    }
+    neonConfig.webSocketConstructor=OfflineSocket;
+    let ended=0;
+    class BoundedClient extends actual.VercelClient {
+      constructor(config){assert.equal(config.connectionTimeoutMillis,15000);assert.equal(config.query_timeout,20000);super({...config,connectionTimeoutMillis:15});}
+      end(){ended++;return super.end();}
+    }
+    const load=Module._load;
+    Module._load=function(id,parent,...rest){return id==='@vercel/postgres'?{VercelClient:BoundedClient}:load.call(this,id,parent,...rest);};
+    const {openConnection,LocalDataError}=require(${JSON.stringify(readerPath)});
+    (async()=>{
+      await assert.rejects(openConnection('postgresql://synthetic:fake@fixture-pooler.neon.tech/test?sslmode=require'),error=>error instanceof LocalDataError&&!error.message.includes('diagnostics'));
+      assert.equal(sockets.length,1);assert.equal(ended,1);
+      console.log('caught and cleaned up');
+    })().catch(()=>{process.exitCode=1;});
+  `;
+  const result = await promisify(execFile)(process.execPath, ['-e', script], { timeout: 5000 });
+  assert.match(result.stdout, /caught and cleaned up/);
+  assert.equal(result.stderr, '');
+});
+
+test('connection errors between snapshot queries are contained and the next query fails without diagnostics', async () => {
+  const vm = require('node:vm');
+  const fs = require('node:fs');
+  const { EventEmitter } = require('node:events');
+  let client, queryCalls=0, closed=0;
+  class Client extends EventEmitter {
+    constructor(config){super();client=this;assert.equal(config.connectionString,secret);}
+    async connect(){}
+    async query(){queryCalls++;return {rows:[]};}
+    async end(){closed++;}
+  }
+  const module={exports:{}};
+  vm.runInNewContext(fs.readFileSync(require.resolve('../scripts/local-analytics-data.cjs'),'utf8'), {
+    module,exports:module.exports,__dirname:path.dirname(require.resolve('../scripts/local-analytics-data.cjs')),process,URL,Date,
+    require(id){return id==='@vercel/postgres'?{VercelClient:Client}:id==='../lib/cv-email-policy.cjs'?require('../lib/cv-email-policy.cjs'):id==='../lib/analytics-explore.cjs'?require('../lib/analytics-explore.cjs'):require(id);},
+  });
+  const connection=await module.exports.openConnection(secret);
+  await connection.query('SELECT 1');
+  assert.doesNotThrow(()=>client.emit('error',Error('synthetic private connection diagnostics')));
+  await assert.rejects(connection.query('SELECT 2'),error=>error.code==='DATA_UNAVAILABLE'&&!error.message.includes('private connection diagnostics'));
+  assert.equal(queryCalls,1);
+  await connection.close();assert.equal(closed,1);
+});

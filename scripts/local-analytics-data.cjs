@@ -78,18 +78,23 @@ function cvCSV(leads) {
 // One connection and one read-only snapshot per report. No application schema,
 // password, rate-limit or event data is modified by this local reader.
 async function openConnection(connectionString) {
-  const { createClient, createPool } = require('@vercel/postgres');
-  const config = { connectionString, connectionTimeoutMillis: 15000, query_timeout: 20000 };
-  if (new URL(connectionString).hostname.includes('-pooler.')) {
-    const pool = createPool(config);
-    try {
-      const client = await pool.connect();
-      return { query: (...args) => client.query(...args), async close() { client.release(); await pool.end(); } };
-    } catch (error) { await pool.end().catch(() => {}); throw error; }
-  }
-  const client = createClient(config);
-  try { await client.connect(); } catch (error) { await client.end().catch(() => {}); throw error; }
-  return { query: (...args) => client.query(...args), close: () => client.end() };
+  const { VercelClient } = require('@vercel/postgres');
+  // Each report owns exactly one connection, including when its endpoint is a
+  // database pooler. A throwaway driver Pool adds no reuse and its timeout path
+  // in the installed driver mutates read-only WebSocket ErrorEvent.message.
+  const client = new VercelClient({ connectionString, connectionTimeoutMillis: 15000, query_timeout: 20000 });
+  let failed = false;
+  const ended = new Promise(resolve => client.once('end', resolve));
+  // A failed connection may have ended before end() attaches its callback.
+  const close = () => Promise.race([client.end(), ended]);
+  // The driver also emits connection errors between queries. Keep them local;
+  // the pending/next query fails and readSnapshot returns its redacted error.
+  client.on('error', () => { failed = true; });
+  try { await client.connect(); } catch { await close().catch(() => {}); throw new LocalDataError(); }
+  return {
+    async query(...args) { if (failed) throw new LocalDataError(); return client.query(...args); },
+    close,
+  };
 }
 
 const START = "($1::TIMESTAMP AT TIME ZONE 'Asia/Kolkata')";
@@ -263,4 +268,4 @@ function createLocalDataProvider({ connectionString, now = Date.now, createConne
   };
 }
 
-module.exports = { createLocalDataProvider, loadLocalConnection, LocalDataError, cvCSV, localDay };
+module.exports = { createLocalDataProvider, loadLocalConnection, LocalDataError, cvCSV, localDay, openConnection };
