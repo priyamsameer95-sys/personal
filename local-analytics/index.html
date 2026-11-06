@@ -22,7 +22,9 @@
     <nav class="view-nav" aria-label="Analytics views"><button data-view="overview" aria-current="page">Overview</button><button data-view="journeys">Journeys</button><button data-view="funnels">Funnels</button><button data-view="pages">Pages &amp; buttons</button><button data-view="cv">CV requests</button><button data-view="health">Tracking health</button></nav>
     <div id="report-error" class="notice error" role="alert" hidden><h2>The report could not be loaded.</h2><p></p><button id="retry" class="secondary">Try again</button></div>
     <div id="report" hidden>
-      <p id="report-period" class="period"></p><div id="metrics" class="metrics" aria-label="Activity summary"></div><p id="visitor-note" class="coverage"></p>
+      <p id="report-period" class="period"></p>
+      <section id="totals-summary" class="summary-block" aria-labelledby="totals-title" hidden><div class="summary-heading"><h2 id="totals-title">Recorded totals</h2><p>Traffic for the selected period, plus the separately labelled all-time CV total.</p></div><div id="metrics" class="metrics metrics-totals" aria-label="Recorded traffic and CV totals"></div><p id="visitor-note" class="coverage"></p></section>
+      <section id="detailed-summary" class="summary-block" aria-labelledby="detailed-title"><div class="summary-heading"><h2 id="detailed-title">Detailed tracking</h2><p id="detailed-period"></p></div><div id="detailed-metrics" class="metrics" aria-label="Detailed tracking summary"></div><p id="detailed-note" class="coverage"></p></section>
       <section id="view-overview" class="view" aria-labelledby="overview-title">
         <div class="section-heading"><div><p class="eyebrow">The paths people take</p><h2 id="overview-title">Traffic flow</h2><p>Source → landing page → next pages. Band widths show recorded tab journeys.</p></div><button data-open-view="journeys" class="quiet">Explore journeys ↗</button></div>
         <div id="overview-flow" class="chart-card"></div>

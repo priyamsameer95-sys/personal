@@ -28,3 +28,33 @@ test('server outcomes and video observations never inflate button clicks',()=>{c
 test('a cross-midnight CV journey retains actions without inventing another page arrival or allocating ambiguous time',()=>{const d=data();d.views=d.views.slice(2);d.views[0].occurred_at='2026-11-05T18:29:00Z';d.views[0].session_started_at='2026-11-05T18:29:00Z';const r=explore(d,{view:'overview',days:1},NOW);assert.equal(r.summary.views,0);assert.equal(r.summary.sessions,1);assert.equal(r.summary.browsers,1);assert.equal(r.summary.cvRequests,1);assert.equal(r.summary.avgActiveMs,null);assert.equal(r.health.boundaryTimingExcluded,1);assert.deepEqual(explore(d,{view:'funnel',days:1},NOW).stages.map(s=>s.count),[1,1,1,1]);assert.equal(explore(d,{view:'pages',days:1},NOW).pages[0].entries,0);});
 test('large row sets avoid spread argument limits without exposing anonymous identifiers',()=>{const d=data();d.views=Array.from({length:100000},(_,i)=>view('v'+i,'/',0,'a','s'+i));d.events=Array.from({length:100000},(_,i)=>({...event('e'+i,'cv_opened','v'+i,1),session_id:'s'+i}));const r=explore(d,{view:'overview',days:1},NOW);assert.equal(r.summary.views,100000);assert.equal(r.summary.sessions,100000);assert.ok(r.health.lastEventAt);});
 test('days before journey collection are unavailable rather than zero traffic',()=>{const d=data(),r=explore(d,{view:'overview',days:7},NOW);assert.equal(r.daily[0].views,null);assert.equal(r.daily[0].sessions,null);assert.equal(r.daily.at(-1).views,3);assert.equal(r.daily.at(-1).partial,true);});
+
+
+test('CV download starts count recorded initiations independently of saved requests',()=>{
+ const d=data();d.events.push(event('fallback-download','cv_download_initiated','v3',7));
+ const r=explore(d,{view:'overview',days:1},NOW);
+ assert.equal(r.summary.cvRequests,1);
+ assert.equal(r.summary.cvDownloadStarts,2);
+ d.events=d.events.filter(e=>e.event_type!=='cv_download_initiated');
+ const noStarts=explore(d,{view:'overview',days:1},NOW);
+ assert.equal(noStarts.summary.cvRequests,1);
+ assert.equal(noStarts.summary.cvDownloadStarts,0);
+});
+test('CV download starts exclude records outside the selected period',()=>{
+ const d=data();
+ d.events.push({...event('before-period','cv_download_initiated','v3',7),occurred_at:'2026-11-05T18:29:59Z'},
+  {...event('after-period','cv_download_initiated','v3',8),occurred_at:'2026-11-06T18:30:00Z'});
+ assert.equal(explore(d,{view:'overview',days:1},NOW).summary.cvDownloadStarts,1);
+});
+test('CV download starts stay inside the reader-selected device, source and page cohort',()=>{
+ // The read-only SQL reader selects cohort views first; an event whose parent
+ // is outside that cohort must never enter any summary count.
+ const d=data();d.views=[{...view('phone','/cv',0,'phone-tab','phone-session','phone-browser'),device:'Phone',source:'google.com'}];
+ d.events.push({...event('phone-download','cv_download_initiated','phone',1),session_id:'phone-session',tab_id:'phone-tab'});
+ const selected={view:'overview',days:1,device:'Phone',source:'google.com',path:'/cv'};
+ const r=explore(d,selected,NOW);
+ assert.equal(r.summary.cvDownloadStarts,1);
+ assert.equal(r.summary.cvRequests,0);
+ d.events=d.events.filter(e=>e.event_id!=='phone-download');
+ assert.equal(explore(d,selected,NOW).summary.cvDownloadStarts,0);
+});

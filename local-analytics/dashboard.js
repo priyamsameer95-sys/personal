@@ -3,7 +3,7 @@
 (() => {
   const $ = id => document.getElementById(id), C = globalThis.PriyamCharts;
   const number = value => value === null || value === undefined || !Number.isFinite(Number(value)) ? '—' : new Intl.NumberFormat('en-IN').format(Number(value));
-  const countLabel = (value, noun) => `${number(value)} ${noun}${Number(value) === 1 ? '' : 's'}`;
+  const countLabel = (value, noun, plural = `${noun}s`) => `${number(value)} ${Number(value) === 1 ? noun : plural}`;
   const duration = value => value === null || value === undefined || !Number.isFinite(Number(value)) ? '—' : (value < 1000 ? '0s' : value < 60000 ? `${Math.round(value / 1000)}s` : `${Math.floor(value / 60000)}m ${Math.round(value % 60000 / 1000)}s`);
   const percent = value => value === null || value === undefined || !Number.isFinite(value) ? '—' : `${(value * 100).toFixed(value === 0 || value === 1 ? 0 : 1)}%`;
   const date = (value, time = false) => {
@@ -50,20 +50,32 @@
     if (selected && ![...select.options].some(option => option.value === selected)) { const retained = el('option', selectedLabel); retained.value = selected; select.append(retained); }
     select.value = selected;
   }
+  function metricCards(rows) {
+    return rows.map(([label, value, note]) => { const n = el('div', null, 'metric'); n.append(el('p', label), el('strong', typeof value === 'string' ? value : number(value)), el('span', note)); return n; });
+  }
   function renderMetrics(data) {
     const summary = data.summary || {}, old = data.legacy || s.legacy;
-    const historical = old && !filters().device && !filters().source && !filters().path;
-    const rows = [
-      ['Unique visitors', historical ? old.uniqueVisitors : (data.available ? summary.browsers : null), historical && old.uniqueTrackingStartedAt ? `Since ${date(old.uniqueTrackingStartedAt)}` : 'Distinct browsers · measured period'],
-      ['Sessions', data.available ? summary.sessions : null, '30-minute inactivity boundary'],
-      ['Page views', historical ? old.pageViews : (data.available ? summary.views : null), historical ? 'Includes earlier page-view records' : 'Recorded page arrivals'],
+    const historical = Boolean(old && !filters().device && !filters().source && !filters().path);
+    const range = data.range || old || {};
+    $('report-period').textContent = range.startDate ? `${date(range.startDate)} – ${date(range.endDate)} · IST` : 'Selected period · IST';
+    $('totals-summary').hidden = !historical;
+    replace('metrics', historical ? metricCards([
+      ['Unique visitors', old.uniqueVisitors, old.uniqueTrackingStartedAt ? `Selected period · browser records since ${date(old.uniqueTrackingStartedAt)}` : 'Selected period · recorded browsers'],
+      ['Page views', old.pageViews, 'Selected period · includes earlier page-view records'],
+      ['CV requests saved · all time', old.cvRequestsAllTime, `${countLabel(old.cvContacts, 'email address', 'email addresses')} · ${countLabel(old.excludedCVRequests, 'test request')} excluded`],
+    ]) : []);
+    $('visitor-note').textContent = historical ? `Visitors estimate browsers, not verified people. ${old.uniqueTrackedPageViews !== undefined && old.uniqueTrackedPageViews !== null ? `${number(old.uniqueTrackedPageViews)} of ${number(old.pageViews)} page views have browser identification. ` : ''}Saved CV requests record access granted after email submission; completed PDF transfers were not measured.` : '';
+    const started = data.coverage?.startedAt;
+    $('detailed-period').textContent = started ? `Measured since ${date(started, true)} IST · within the selected period.` : 'Awaiting the first recorded session with detailed tracking.';
+    replace('detailed-metrics', metricCards([
+      ['Tracked visitors', data.available ? summary.browsers : null, 'Distinct browsers in this detailed coverage'],
+      ['Tracked sessions', data.available ? summary.sessions : null, 'A new session starts after 30 minutes of inactivity'],
+      ['Tracked page views', data.available ? summary.views : null, 'Page arrivals in this detailed coverage'],
       ['Avg. active time', data.available ? duration(summary.avgActiveMs) : '—', data.available && summary.avgSessionActiveMs !== null && summary.avgSessionActiveMs !== undefined ? `Per measured view · ${duration(summary.avgSessionActiveMs)} per session` : 'Per measured page view'],
-      ['CV requests', historical ? old.cvRequests : (data.available ? summary.cvRequests : null), 'Successfully saved · selected period'],
-      ['Contact actions', data.available ? summary.contactActions : null, 'Channel clicks & successful copies'],
-    ];
-    replace('metrics', rows.map(([label, value, note]) => { const n = el('div', null, 'metric'); n.append(el('p', label), el('strong', typeof value === 'string' ? value : number(value)), el('span', note)); return n; }));
-    $('visitor-note').textContent = `${historical && old.uniqueTrackingStartedAt ? `Unique-browser history starts ${date(old.uniqueTrackingStartedAt)}; ${number(old.uniqueTrackedPageViews)} of ${number(old.pageViews)} page views have that measurement. ` : ''}${coverage(data)} Unique visitors estimate browsers, not verified people. ${summary.measuredViews !== undefined && summary.views ? `${number(summary.measuredViews)} of ${number(summary.views)} new page views have timing measurements.` : ''}${historical && old.availability?.cvRequestHistory === false ? ' Dated CV request history is unavailable; all-time contact records remain in CV requests.' : ''}`;
-    const range = data.range || old || {}; $('report-period').textContent = range.startDate ? `${date(range.startDate)} – ${date(range.endDate)} · IST` : 'Selected period · IST';
+      ['CV download starts', data.available ? summary.cvDownloadStarts : null, 'Recorded browser download actions · this detailed coverage'],
+      ['Contact actions', data.available ? summary.contactActions : null, 'Channel clicks & successful copies · this detailed coverage'],
+    ]));
+    $('detailed-note').textContent = `${historical ? 'These detailed counts cover the same browsers and time window; they are a subset of the recorded traffic above. ' : ''}${summary.measuredViews !== undefined && summary.views ? `${number(summary.measuredViews)} of ${number(summary.views)} tracked page views have timing measurements. ` : ''}${started ? 'Earlier sessions and paths cannot be reconstructed.' : 'Historical totals remain available; earlier sessions and paths cannot be reconstructed.'}`;
   }
   function breakdown(id, rows, noData, metric = number) {
     if (!rows.length) return replace(id, [el('p', noData, 'empty')]);
@@ -325,7 +337,7 @@
   function hide() {
     s.hidden = true; ++s.version; ++s.refreshVersion; ++s.exportVersion; s.overviewLoading = false; s.overview = s.legacy = s.journey = s.funnel = s.pages = s.health = s.leads = null;
     $('report').hidden = true; $('report-error').hidden = true; $('refresh').disabled = false;
-    for (const id of ['metrics', 'visitor-note', 'report-period', 'overview-flow', 'daily-chart', 'daily-table', 'referrers', 'devices', 'journey-chart', 'journey-table', 'journey-summary', 'funnel-chart', 'funnel-table', 'funnel-summary', 'pages', 'page-view-ranking', 'page-time-ranking', 'page-detail', 'contacts', 'contact-count', 'record-note', 'health-content', 'export-status']) replace(id, []);
+    for (const id of ['metrics', 'visitor-note', 'detailed-metrics', 'detailed-period', 'detailed-note', 'report-period', 'overview-flow', 'daily-chart', 'daily-table', 'referrers', 'devices', 'journey-chart', 'journey-table', 'journey-summary', 'funnel-chart', 'funnel-table', 'funnel-summary', 'pages', 'page-view-ranking', 'page-time-ranking', 'page-detail', 'contacts', 'contact-count', 'record-note', 'health-content', 'export-status']) replace(id, []);
     $('report-status').textContent = 'Data hidden. Refresh when you are ready.';
   }
   function loadSaved() { try { const value = JSON.parse(localStorage.getItem('priyam-analytics-funnels-v1') || '[]'); s.saved = Array.isArray(value) ? value.filter(item => item && typeof item.id === 'string' && /^saved-[a-z0-9-]+$/.test(item.id) && typeof item.name === 'string' && item.name.length <= 60 && Array.isArray(item.steps) && item.steps.length >= 2 && item.steps.length <= 6 && item.steps.every(step => step && typeof step.type === 'string' && Object.hasOwn(ACTIONS, step.type))).slice(0, 20) : []; } catch { s.saved = []; } for (const saved of s.saved) { const option = el('option', saved.name); option.value = saved.id; $('funnel-select').append(option); } }

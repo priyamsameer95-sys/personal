@@ -7,7 +7,7 @@ const vm = require('node:vm');
 const charts = require('../local-analytics/charts.js');
 const overview = {
   available: true, coverage: { startedAt: '2026-11-06T01:00:00Z' }, range: { startDate: '2026-10-08', endDate: '2026-11-06' },
-  summary: { browsers: 2, sessions: 3, views: 7, activeMs: 42000, measuredViews: 5, avgActiveMs: 8400, medianActiveMs: 6000, cvRequests: 1, contactActions: 2 },
+  summary: { browsers: 2, sessions: 3, views: 7, activeMs: 42000, measuredViews: 5, avgActiveMs: 8400, medianActiveMs: 6000, cvRequests: 1, cvDownloadStarts: 0, contactActions: 2 },
   daily: [{ date: '2026-11-06', views: 7, sessions: 3, browsers: 2, cvRequests: 1 }], sources: [{ name: 'linkedin.com', count: 2 }], devices: [{ name: 'Desktop', count: 3 }], filters: { sources: ['linkedin.com'], paths: ['/', '/product', '/cv'] },
 };
 const journey = { available: true, totalJourneys: 3, browsers: 2, sessions: 3, nodes: [{ id: 'home:0', label: 'Home', path: '/', count: 3, stage: 0 }, { id: 'work:1', label: 'Selected work', path: '/product', count: 2, stage: 1 }, { id: 'end:1', label: 'No further recorded activity', kind: 'ended', count: 1, stage: 1 }], links: [{ source: 'home:0', target: 'work:1', count: 2 }, { source: 'home:0', target: 'end:1', count: 1 }] };
@@ -67,7 +67,7 @@ test('dashboard loads overview and flow without a password, external service or 
   assert.doesNotMatch(html, /type="password"|Website admin password|Sign out/);
   assert.deepEqual(calls.map(call => call.body.view), ['overview', 'journey']);
   assert.equal(calls[0].body.days, 30); assert.equal(calls[0].options.headers['X-Local-Analytics'], '1');
-  assert.equal(nodes.contacts.textContent, ''); assert.match(nodes.metrics.textContent, /Unique visitors2/);
+  assert.equal(nodes.contacts.textContent, ''); assert.equal(nodes['totals-summary'].hidden, true); assert.match(nodes['detailed-metrics'].textContent, /Tracked visitors2/);
   assert.match(nodes['overview-flow'].textContent, /3 tab journeys/);
 });
 
@@ -111,8 +111,8 @@ test('empty measured journeys and unavailable tracking have different honest sta
 
 test('legacy-only overview keeps recorded browser totals but never invents sessions or time', async () => {
   const app = client({ getOverview: async () => ({ available: false, coverage: {}, summary: {}, legacy: { uniqueVisitors: 41, pageViews: 137, cvRequests: null }, daily: [], filters: {} }), getJourney: async () => ({ available: false }) }); await flush();
-  assert.match(app.nodes.metrics.textContent, /Unique visitors41/); assert.match(app.nodes.metrics.textContent, /Sessions—/); assert.match(app.nodes.metrics.textContent, /Avg\. active time—/); assert.match(app.nodes.metrics.textContent, /CV requests—/);
-  assert.match(app.nodes['visitor-note'].textContent, /Historical totals remain available/);
+  assert.match(app.nodes.metrics.textContent, /Unique visitors41/); assert.match(app.nodes['detailed-metrics'].textContent, /Tracked sessions—/); assert.match(app.nodes['detailed-metrics'].textContent, /Avg\. active time—/); assert.match(app.nodes.metrics.textContent, /CV requests saved · all time—/);
+  assert.match(app.nodes['detailed-note'].textContent, /Historical totals remain available/);
 });
 
 test('chart selection has a keyboard route and meaningful labels, not hover-only content', async () => {
@@ -151,7 +151,7 @@ test('unavailable v2 hydrates old daily/device/referrer data and labels it as pa
   assert.equal(app.nodes['sources-title'].textContent, 'Sources of page views');
   assert.equal(app.nodes['devices-title'].textContent, 'Devices · page views');
   assert.match(app.nodes['report-period'].textContent, /1 Nov 2026/);
-  assert.match(app.nodes.metrics.textContent, /Sessions—/);
+  assert.match(app.nodes['detailed-metrics'].textContent, /Tracked sessions—/);
 });
 
 test('source and page filters retain their selection when a narrower result has no options', async () => {
@@ -222,7 +222,7 @@ test('cohort filters never merge unfiltered historical totals into trends or pag
     const app = client({ getOverview: async () => mixedOverview, getPages: async () => measuredPages }); await flush();
     app.nodes[id].value = value; await app.nodes[id].emit('change'); await flush(); await app.nav('pages'); await flush();
     assert.deepEqual(app.nodes['daily-table'].querySelectorAll('tbody tr').map(cellValues), [['6 Nov 2026', '7', '3', '2', '1']]);
-    assert.match(app.nodes.metrics.textContent, /Page views7/);
+    assert.equal(app.nodes['totals-summary'].hidden, true); assert.match(app.nodes['detailed-metrics'].textContent, /Tracked page views7/);
     assert.doesNotMatch(app.nodes.pages.textContent, /All recorded page totals|Art/);
     assert.equal(app.nodes.pages.querySelectorAll('table').length, 1);
     assert.equal(app.nodes['page-view-ranking'].textContent, 'Home7');
@@ -260,7 +260,7 @@ test('navigation and journey options wait for a pending filtered overview and us
   finishFiltered({ ...overview, summary: { ...overview.summary, views: 1 } }); await flush();
   const latest = app.calls.at(-1).body;
   assert.equal(latest.view, 'journey'); assert.equal(latest.device, 'Phone'); assert.equal(latest.depth, 7);
-  assert.match(app.nodes.metrics.textContent, /Page views1/);
+  assert.match(app.nodes['detailed-metrics'].textContent, /Tracked page views1/);
   assert.equal(app.nodes.refresh.disabled, false);
   assert.equal(app.nodes['view-journeys'].hidden, false);
 });
@@ -272,6 +272,45 @@ test('an older refresh cannot clear loading or replace the data of a newer refre
   pending[0]({ ...overview, summary: { ...overview.summary, views: 99 } }); await flush();
   assert.equal(app.nodes.refresh.disabled, true); assert.equal(app.nodes.metrics.textContent, '');
   pending[1]({ ...overview, summary: { ...overview.summary, views: 4 } }); await flush();
-  assert.equal(app.nodes.refresh.disabled, false); assert.match(app.nodes.metrics.textContent, /Page views4/);
-  assert.doesNotMatch(app.nodes.metrics.textContent, /99/);
+  assert.equal(app.nodes.refresh.disabled, false); assert.match(app.nodes['detailed-metrics'].textContent, /Tracked page views4/);
+  assert.doesNotMatch(app.nodes['detailed-metrics'].textContent, /99/);
+});
+
+
+test('historical visitors and known zero CV total remain separate from matching detailed-session coverage', async () => {
+  const data = {
+    ...overview,
+    summary: { ...overview.summary, browsers: 1, sessions: 1, views: 4, measuredViews: 4, cvRequests: 0, cvDownloadStarts: 0 },
+    coverage: { startedAt: '2026-11-06T10:53:16.478Z' },
+    legacy: { ...mixedOverview.legacy, uniqueVisitors: 41, uniqueTrackingStartedAt: '2026-11-03T16:35:12.989Z', pageViews: 144, uniqueTrackedPageViews: 71, cvContacts: 0, cvRequestsAllTime: 0, excludedCVRequests: 3, availability: { cvRequestHistory: false } },
+  };
+  const app = client({ getOverview: async () => data }); await flush();
+  assert.equal(app.nodes['totals-summary'].hidden, false);
+  const totals = app.nodes.metrics.children.map(card => card.children.map(n => n.textContent));
+  assert.deepEqual(totals.map(row => row.slice(0, 2)), [['Unique visitors', '41'], ['Page views', '144'], ['CV requests saved · all time', '0']]);
+  assert.match(totals[0][2], /since 3 Nov 2026/);
+  assert.equal(totals[2][2], '0 email addresses · 3 test requests excluded');
+  assert.doesNotMatch(app.nodes.metrics.textContent, /sessions|Avg\. active time/);
+  assert.match(app.nodes['detailed-period'].textContent, /6 Nov 2026, 04:23 pm IST/);
+  assert.match(app.nodes['detailed-metrics'].textContent, /Tracked visitors1/);
+  assert.match(app.nodes['detailed-metrics'].textContent, /Tracked sessions1/);
+  assert.match(app.nodes['detailed-metrics'].textContent, /Tracked page views4/);
+  assert.match(app.nodes['detailed-metrics'].textContent, /CV download starts0/);
+  assert.doesNotMatch(app.nodes['detailed-metrics'].textContent, /41|144/);
+  assert.match(app.nodes['visitor-note'].textContent, /completed PDF transfers were not measured/);
+  await app.nodes['hide-data'].emit('click');
+  for (const id of ['metrics', 'visitor-note', 'detailed-metrics', 'detailed-period', 'detailed-note']) assert.equal(app.nodes[id].textContent, '', id);
+});
+
+test('all-time saved CV requests never masquerade as date-filtered or cohort download starts', async () => {
+  const data = { ...overview, summary: { ...overview.summary, cvDownloadStarts: 2 }, legacy: { ...mixedOverview.legacy, cvRequests: 1, cvRequestsAllTime: 8, cvContacts: 3, excludedCVRequests: 0 } };
+  const app = client({ getOverview: async () => data }); await flush();
+  assert.match(app.nodes.metrics.textContent, /CV requests saved · all time8/);
+  assert.match(app.nodes['detailed-metrics'].textContent, /CV download starts2/);
+  app.nodes['device-filter'].value = 'Phone'; await app.nodes['device-filter'].emit('change'); await flush();
+  assert.equal(app.nodes['totals-summary'].hidden, true);
+  assert.equal(app.nodes.metrics.textContent, '');
+  assert.equal(app.nodes['visitor-note'].textContent, '');
+  assert.match(app.nodes['detailed-metrics'].textContent, /CV download starts2/);
+  assert.doesNotMatch(app.nodes['detailed-metrics'].textContent, /all time8|email addresses/);
 });
